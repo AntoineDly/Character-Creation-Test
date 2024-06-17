@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Base\Controllers;
+namespace App\Providers;
 
 use App\Base\Controllers\ApiController\ApiController;
 use App\Base\Controllers\ApiController\ApiControllerInterface;
@@ -15,7 +15,7 @@ final class ControllersServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(ApiControllerInterface::class, ApiController::class);
+        $this->app->bind(abstract: ApiControllerInterface::class, concrete: ApiController::class);
     }
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Base\Controllers\ApiController;
 
-use App\Base\Helpers\ArrayHelper;
+use App\Helpers\ArrayHelper;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\ResponseFactory;
 

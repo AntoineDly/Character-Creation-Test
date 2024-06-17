@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Base\Helpers;
+namespace App\Helpers;
 
 final class ArrayHelper
 {

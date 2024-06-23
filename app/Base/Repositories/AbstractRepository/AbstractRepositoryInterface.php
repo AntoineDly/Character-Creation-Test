@@ -14,7 +14,7 @@ interface AbstractRepositoryInterface
      */
     public function index(): Collection;
 
-    public function findById(int $id): ?Model;
+    public function findById(string $id): ?Model;
 
     public function findByAttribute(string $column, mixed $value): ?Model;
 

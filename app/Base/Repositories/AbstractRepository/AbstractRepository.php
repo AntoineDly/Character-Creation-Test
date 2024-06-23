@@ -21,7 +21,7 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
         return $this->model->all();
     }
 
-    public function findById(int $id): ?Model
+    public function findById(string $id): ?Model
     {
         return $this->findByAttribute(column: 'id', value: $id);
     }

@@ -8,6 +8,7 @@ final readonly class CharacterDto
 {
     public function __construct(
         public string $id,
+        public string $name,
     ) {
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Base\Exceptions;
 
-final class ClassIsNotCommandHandlerException extends \Exception
+use Exception;
+
+final class NotAValidUuidException extends Exception
 {
 }

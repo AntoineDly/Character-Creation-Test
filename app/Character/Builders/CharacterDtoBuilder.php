@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Character\Builders;
 
+use App\Base\Exceptions\NotAValidUuidException;
 use App\Base\Exceptions\StringIsEmptyException;
 use App\Character\Dtos\CharacterDto;
+use App\Helpers\UuidHelper;
 
 final class CharacterDtoBuilder
 {
@@ -29,8 +31,8 @@ final class CharacterDtoBuilder
 
     public function build(): CharacterDto
     {
-        if ($this->id === '') {
-            throw new StringIsEmptyException('id field is empty');
+        if (! UuidHelper::isValidUuid($this->id)) {
+            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.');
         }
 
         if ($this->name === '') {

@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Character\Controllers;
 
 use App\Base\Controllers\ApiController\ApiControllerInterface;
-use App\Character\Exceptions\CharacterNotFoundException;
+use App\Character\Builders\CharacterDtoBuilder;
 use App\Character\Queries\GetCharacterQuery;
 use App\Character\Queries\GetCharactersQuery;
 use App\Character\Repositories\CharacterRepository\CharacterRepository;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
@@ -16,6 +17,7 @@ final class GetCharacterController extends Controller
 {
     public function __construct(
         private CharacterRepository $characterRepository,
+        private CharacterDtoBuilder $characterDtoBuilder,
         private ApiControllerInterface $apiController,
     ) {
     }
@@ -23,9 +25,12 @@ final class GetCharacterController extends Controller
     public function getCharacters(): JsonResponse
     {
         try {
-            $query = new GetCharactersQuery(characterRepository: $this->characterRepository);
+            $query = new GetCharactersQuery(
+                characterRepository: $this->characterRepository,
+                characterDtoBuilder: $this->characterDtoBuilder,
+            );
             $result = $query->get();
-        } catch (CharacterNotFoundException $e) {
+        } catch (Exception $e) {
             return $this->apiController->sendError(error: $e->getMessage());
         }
 
@@ -35,9 +40,13 @@ final class GetCharacterController extends Controller
     public function getCharacter(string $characterId): JsonResponse
     {
         try {
-            $query = new GetCharacterQuery(characterRepository: $this->characterRepository, characterId: $characterId);
+            $query = new GetCharacterQuery(
+                characterRepository: $this->characterRepository,
+                characterDtoBuilder: $this->characterDtoBuilder,
+                characterId: $characterId
+            );
             $result = $query->get();
-        } catch (CharacterNotFoundException $e) {
+        } catch (Exception $e) {
             return $this->apiController->sendError(error: $e->getMessage());
         }
 

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 final class Character extends Model
 {
+    public $incrementing = false;
+    protected $keyType = 'string';
 }

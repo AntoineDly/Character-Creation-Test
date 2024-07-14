@@ -7,9 +7,9 @@ namespace App\Character\Controllers;
 use App\Base\CommandBus\CommandBus;
 use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\Character\Commands\CreateCharacterCommand;
+use App\Character\Requests\CreateCharacterRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Mockery\Exception;
+use Illuminate\Validation\ValidationException;
 
 final class CreateCharacterController
 {
@@ -19,24 +19,21 @@ final class CreateCharacterController
     ) {
     }
 
-    /** @todo handle better request validation */
-    public function createCharacter(Request $request): JsonResponse
+    public function createCharacter(CreateCharacterRequest $request): JsonResponse
     {
-        $name = $request->get('name');
-
-        if (! is_string($name)) {
-            return $this->apiController->sendError(error: 'name was supposed to be string', errorContent: [$name, gettype($name)]);
-        }
         try {
+            /** @var array{'name': string} $validated */
+            $validated = $request->validated();
+
             $command = new CreateCharacterCommand(
-                name: $name,
+                name: $validated['name'],
             );
 
             $this->commandBus->handle($command);
-        } catch (Exception $e) {
-            return $this->apiController->sendError(error: $e->getMessage());
+        } catch (ValidationException $e) {
+            return $this->apiController->sendError(error: 'Character was not successfully created', errorContent: $e->errors());
         }
 
-        return $this->apiController->sendSuccess(message: 'Character were successfully created');
+        return $this->apiController->sendSuccess(message: 'Character was successfully created');
     }
 }

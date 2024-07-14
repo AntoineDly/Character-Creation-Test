@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Character\Controllers;
 
 use App\Base\Controllers\ApiController\ApiControllerInterface;
-use App\Character\Builders\CharacterDtoBuilder;
 use App\Character\Queries\GetCharacterQuery;
 use App\Character\Queries\GetCharactersQuery;
 use App\Character\Repositories\CharacterRepository\CharacterRepository;
+use App\Character\Services\CharacterQueriesService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -17,7 +17,7 @@ final class GetCharacterController extends Controller
 {
     public function __construct(
         private CharacterRepository $characterRepository,
-        private CharacterDtoBuilder $characterDtoBuilder,
+        private CharacterQueriesService $characterQueriesService,
         private ApiControllerInterface $apiController,
     ) {
     }
@@ -27,11 +27,11 @@ final class GetCharacterController extends Controller
         try {
             $query = new GetCharactersQuery(
                 characterRepository: $this->characterRepository,
-                characterDtoBuilder: $this->characterDtoBuilder,
+                characterQueriesService: $this->characterQueriesService,
             );
             $result = $query->get();
         } catch (Exception $e) {
-            return $this->apiController->sendError(error: $e->getMessage());
+            return $this->apiController->sendException(exception: $e);
         }
 
         return $this->apiController->sendSuccess(message: 'Characters were successfully retrieved', content: [$result]);
@@ -42,12 +42,12 @@ final class GetCharacterController extends Controller
         try {
             $query = new GetCharacterQuery(
                 characterRepository: $this->characterRepository,
-                characterDtoBuilder: $this->characterDtoBuilder,
+                characterQueriesService: $this->characterQueriesService,
                 characterId: $characterId
             );
             $result = $query->get();
         } catch (Exception $e) {
-            return $this->apiController->sendError(error: $e->getMessage());
+            return $this->apiController->sendException(exception: $e);
         }
 
         return $this->apiController->sendSuccess(message: 'Character was successfully retrieved', content: [$result]);

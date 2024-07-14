@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Base\CommandBus;
 
 use App\Base\Commands\CommandInterface;
-use App\Base\Exceptions\ClassIsNotCommandHandlerException;
+use App\Base\Exceptions\InvalidClassException;
 use App\Base\Exceptions\IsNotObjectException;
 use App\Base\Handlers\CommandHandlerInterface;
 use Psr\Container\ContainerInterface;
@@ -25,13 +25,13 @@ final readonly class CommandBus
 
         if (! is_object($handler)) {
             throw new IsNotObjectException(
-                'Handler was expected to be an object : '.gettype($handler).'given.'
+                'Handler was expected to be an object : '.gettype($handler).' given.'
             );
         }
 
         if (! $handler instanceof CommandHandlerInterface) {
-            throw new ClassIsNotCommandHandlerException(
-                'Handler was expected to implement command handler interface, '.get_class($handler).'given.'
+            throw new InvalidClassException(
+                'Class was expected to implement CommandHandlerInterface, '.get_class($handler).' given.'
             );
         }
 

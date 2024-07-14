@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace App\Character\Queries;
 
 use App\Base\Queries\QueryInterface;
-use App\Character\Builders\CharacterDtoBuilder;
 use App\Character\Dtos\CharacterDto;
-use App\Character\Exceptions\CharacterNotFoundException;
-use App\Character\Models\Character;
 use App\Character\Repositories\CharacterRepository\CharacterRepository;
+use App\Character\Services\CharacterQueriesService;
 
 final readonly class GetCharacterQuery implements QueryInterface
 {
     public function __construct(
         private CharacterRepository $characterRepository,
-        private CharacterDtoBuilder $characterDtoBuilder,
+        private CharacterQueriesService $characterQueriesService,
         private string $characterId,
     ) {
     }
@@ -24,16 +22,6 @@ final readonly class GetCharacterQuery implements QueryInterface
     {
         $character = $this->characterRepository->findById($this->characterId);
 
-        if (! $character instanceof Character) {
-            throw new CharacterNotFoundException(message: "Character not found with this id : {$this->characterId}", code: 404);
-        }
-
-        /** @var array{'id': string, 'name': string} $characterData */
-        $characterData = $character->toArray();
-
-        return $this->characterDtoBuilder
-            ->setId(id: $characterData['id'])
-            ->setName(name: $characterData['name'])
-            ->build();
+        return $this->characterQueriesService->getCharacterDtoFromModel(character: $character);
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Character\Repositories\CharacterRepository;
+namespace App\Character\Repositories;
 
 use App\Base\Repositories\AbstractRepository\AbstractRepositoryInterface;
 

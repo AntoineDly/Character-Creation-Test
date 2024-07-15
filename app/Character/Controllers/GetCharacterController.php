@@ -7,7 +7,9 @@ namespace App\Character\Controllers;
 use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\Character\Queries\GetCharacterQuery;
 use App\Character\Queries\GetCharactersQuery;
-use App\Character\Repositories\CharacterRepository\CharacterRepository;
+use App\Character\Queries\GetCharactersWithGameQuery;
+use App\Character\Queries\GetCharacterWithGameQuery;
+use App\Character\Repositories\CharacterRepositoryInterface;
 use App\Character\Services\CharacterQueriesService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -16,7 +18,7 @@ use Illuminate\Routing\Controller;
 final class GetCharacterController extends Controller
 {
     public function __construct(
-        private CharacterRepository $characterRepository,
+        private CharacterRepositoryInterface $characterRepository,
         private CharacterQueriesService $characterQueriesService,
         private ApiControllerInterface $apiController,
     ) {
@@ -44,6 +46,37 @@ final class GetCharacterController extends Controller
                 characterRepository: $this->characterRepository,
                 characterQueriesService: $this->characterQueriesService,
                 characterId: $characterId
+            );
+            $result = $query->get();
+        } catch (Exception $e) {
+            return $this->apiController->sendException(exception: $e);
+        }
+
+        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved', content: [$result]);
+    }
+
+    public function getCharacterWithGame(string $characterId): JsonResponse
+    {
+        try {
+            $query = new GetCharacterWithGameQuery(
+                characterRepository: $this->characterRepository,
+                characterQueriesService: $this->characterQueriesService,
+                characterId: $characterId
+            );
+            $result = $query->get();
+        } catch (Exception $e) {
+            return $this->apiController->sendException(exception: $e);
+        }
+
+        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved', content: [$result]);
+    }
+
+    public function getCharactersWithGame(): JsonResponse
+    {
+        try {
+            $query = new GetCharactersWithGameQuery(
+                characterRepository: $this->characterRepository,
+                characterQueriesService: $this->characterQueriesService,
             );
             $result = $query->get();
         } catch (Exception $e) {

@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('characters', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->foreignUuid('game_id')->references('id')->on('games');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('characters');
+        Schema::dropIfExists('games');
     }
 };

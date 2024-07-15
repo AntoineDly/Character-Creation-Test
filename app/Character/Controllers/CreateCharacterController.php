@@ -22,11 +22,12 @@ final class CreateCharacterController
     public function createCharacter(CreateCharacterRequest $request): JsonResponse
     {
         try {
-            /** @var array{'name': string} $validated */
+            /** @var array{'name': string, 'gameId': string} $validated */
             $validated = $request->validated();
 
             $command = new CreateCharacterCommand(
                 name: $validated['name'],
+                gameId: $validated['gameId'],
             );
 
             $this->commandBus->handle($command);

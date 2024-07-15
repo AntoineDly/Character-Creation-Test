@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Character\Queries;
 
 use App\Base\Queries\QueryInterface;
-use App\Character\Dtos\CharacterDto;
+use App\Character\Dtos\CharacterWithGameDto;
 use App\Character\Repositories\CharacterRepositoryInterface;
 use App\Character\Services\CharacterQueriesService;
 
-final readonly class GetCharacterQuery implements QueryInterface
+final readonly class GetCharacterWithGameQuery implements QueryInterface
 {
     public function __construct(
         private CharacterRepositoryInterface $characterRepository,
@@ -18,10 +18,10 @@ final readonly class GetCharacterQuery implements QueryInterface
     ) {
     }
 
-    public function get(): CharacterDto
+    public function get(): CharacterWithGameDto
     {
         $character = $this->characterRepository->findById($this->characterId);
 
-        return $this->characterQueriesService->getCharacterDtoFromModel(character: $character);
+        return $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character);
     }
 }

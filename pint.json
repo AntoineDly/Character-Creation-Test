@@ -1,6 +1,9 @@
 {
     "preset": "laravel",
     "rules": {
+        "ordered_imports": {
+            "sort_algorithm": "alpha"
+        },
         "declare_strict_types": true,
         "explicit_string_variable": true,
         "final_class": true,
@@ -10,6 +13,7 @@
         "array_indentation": true,
         "array_syntax": true,
         "blank_line_after_namespace": true,
-        "blank_line_after_opening_tag": true
+        "blank_line_after_opening_tag": true,
+        "no_unused_imports": true
     }
 }

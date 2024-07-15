@@ -6,14 +6,18 @@ namespace App\Character\Builders;
 
 use App\Base\Exceptions\NotAValidUuidException;
 use App\Base\Exceptions\StringIsEmptyException;
-use App\Character\Dtos\CharacterDto;
+use App\Character\Dtos\CharacterWithGameDto;
+use App\Game\Dtos\GameDto;
+use App\Game\Exceptions\GameNotFoundException;
 use App\Helpers\UuidHelper;
 
-final class CharacterDtoBuilder
+final class CharacterWithGameDtoBuilder
 {
-    public string $id = '';
+    public string $id;
 
-    public string $name = '';
+    public string $name;
+
+    public ?GameDto $gameDto = null;
 
     public function setId(string $id): self
     {
@@ -29,7 +33,14 @@ final class CharacterDtoBuilder
         return $this;
     }
 
-    public function build(): CharacterDto
+    public function setGameDto(GameDto $gameDto): self
+    {
+        $this->gameDto = $gameDto;
+
+        return $this;
+    }
+
+    public function build(): CharacterWithGameDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
             throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.');
@@ -39,12 +50,18 @@ final class CharacterDtoBuilder
             throw new StringIsEmptyException('name field is empty');
         }
 
-        $characterDto = new CharacterDto(
+        if (! $this->gameDto instanceof GameDto) {
+            throw new GameNotFoundException('Game was not found to create the CharacterWithGameDto');
+        }
+
+        $characterDto = new CharacterWithGameDto(
             id: $this->id,
-            name: $this->name
+            name: $this->name,
+            gameDto: $this->gameDto
         );
 
         $this->id = $this->name = '';
+        $this->gameDto = null;
 
         return $characterDto;
     }

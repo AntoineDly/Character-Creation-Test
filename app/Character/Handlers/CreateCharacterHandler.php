@@ -6,14 +6,13 @@ namespace App\Character\Handlers;
 
 use App\Base\Commands\CommandInterface;
 use App\Base\Exceptions\IncorrectCommandException;
-use App\Base\Exceptions\StringIsEmptyException;
 use App\Base\Handlers\CommandHandlerInterface;
 use App\Character\Commands\CreateCharacterCommand;
-use App\Character\Repositories\CharacterRepository\CharacterRepository;
+use App\Character\Repositories\CharacterRepositoryInterface;
 
 final readonly class CreateCharacterHandler implements CommandHandlerInterface
 {
-    public function __construct(private CharacterRepository $characterRepository)
+    public function __construct(private CharacterRepositoryInterface $characterRepository)
     {
     }
 
@@ -23,10 +22,6 @@ final readonly class CreateCharacterHandler implements CommandHandlerInterface
             throw new IncorrectCommandException('Command must be an instance of CreateCharacterCommand');
         }
 
-        if ($command->name === '') {
-            throw new StringIsEmptyException('name field is empty');
-        }
-
-        $this->characterRepository->create(['name' => $command->name]);
+        $this->characterRepository->create(attributes: ['name' => $command->name, 'game_id' => $command->gameId]);
     }
 }

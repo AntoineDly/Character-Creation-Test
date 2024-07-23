@@ -6,7 +6,9 @@ namespace App\Game\Models;
 
 use App\Base\Traits\Uuid;
 use App\Character\Models\Character;
+use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Game extends Model
@@ -15,6 +17,8 @@ final class Game extends Model
 
     protected $fillable = [
         'name',
+        'visible_for_all',
+        'user_id',
     ];
 
     /**
@@ -25,5 +29,15 @@ final class Game extends Model
     public function characters(): HasMany
     {
         return $this->hasMany(Character::class);
+    }
+
+    /**
+     * Get the game of the character.
+     *
+     * @return BelongsTo<User, Game>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

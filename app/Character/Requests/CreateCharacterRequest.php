@@ -18,6 +18,7 @@ final class CreateCharacterRequest extends BaseFormRequest
         return [
             'name' => 'required|string|min:3|max:20',
             'gameId' => 'required|exists:games,id',
+            'userId' => 'required|exists:users,id',
         ];
     }
 

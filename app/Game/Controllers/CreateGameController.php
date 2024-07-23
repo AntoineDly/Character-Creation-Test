@@ -22,11 +22,13 @@ final class CreateGameController
     public function createGame(CreateGameRequest $request): JsonResponse
     {
         try {
-            /** @var array{'name': string} $validated */
+            /** @var array{'name': string, 'visibleForAll': bool, 'userId': string} $validated */
             $validated = $request->validated();
 
             $command = new CreateGameCommand(
                 name: $validated['name'],
+                visibleForAll: $validated['visibleForAll'],
+                userId: $validated['userId'],
             );
 
             $this->commandBus->handle($command);

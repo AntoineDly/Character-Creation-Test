@@ -11,6 +11,7 @@ final readonly class CreateCharacterCommand implements CommandInterface
     public function __construct(
         public string $name,
         public string $gameId,
+        public string $userId,
     ) {
     }
 }

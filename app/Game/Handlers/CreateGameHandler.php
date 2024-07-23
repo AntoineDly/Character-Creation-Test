@@ -22,6 +22,6 @@ final readonly class CreateGameHandler implements CommandHandlerInterface
             throw new IncorrectCommandException('Command must be an instance of CreateGameCommand');
         }
 
-        $this->gameRepository->create(['name' => $command->name]);
+        $this->gameRepository->create(['name' => $command->name, 'visible_for_all' => $command->visibleForAll, 'user_id' => $command->userId]);
     }
 }

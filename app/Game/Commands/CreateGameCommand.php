@@ -10,6 +10,8 @@ final readonly class CreateGameCommand implements CommandInterface
 {
     public function __construct(
         public string $name,
+        public bool $visibleForAll,
+        public string $userId,
     ) {
     }
 }

@@ -17,6 +17,8 @@ final class CreateGameRequest extends BaseFormRequest
     {
         return [
             'name' => 'required|string|min:3|max:20',
+            'visibleForAll' => 'required|boolean',
+            'userId' => 'required|exists:users,id',
         ];
     }
 

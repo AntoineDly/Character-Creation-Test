@@ -37,7 +37,6 @@ final class GetUserQuery implements QueryInterface
             throw new WrongPasswordException(message: 'The password is wrong', code: 400);
         }
 
-        //"personal access" and "password grant"
         try {
             $token = $user->createToken('Laravel Personal Access Client')->accessToken;
         } catch (Exception $e) {

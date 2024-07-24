@@ -8,6 +8,7 @@ use App\Base\CommandBus\CommandBus;
 use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\User\Builders\UserDtoBuilder;
 use App\User\Commands\CreateUserCommand;
+use App\User\Exceptions\TokenNotFoundException;
 use App\User\Exceptions\UserNotFoundException;
 use App\User\Models\User;
 use App\User\Queries\GetUserQuery;
@@ -18,6 +19,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Laravel\Passport\Token;
 
 final readonly class AuthenticationController
 {
@@ -77,6 +79,9 @@ final readonly class AuthenticationController
             throw new UserNotFoundException(message: 'User not found', code: 404);
         }
         $token = $user->token();
+        if (! $token instanceof Token) {
+            throw new TokenNotFoundException(message: 'Token not found', code: 404);
+        }
         $token->revoke();
 
         return $this->apiController->sendSuccess(message: 'You have been successfully logged out!');

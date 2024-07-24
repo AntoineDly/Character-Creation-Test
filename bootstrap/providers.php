@@ -2,7 +2,14 @@
 
 declare(strict_types=1);
 
+use App\Providers\ControllersServiceProvider;
+use App\Providers\PassportServiceProvider;
+use App\Providers\RepositoriesServiceProvider;
+use App\Providers\RoutesServiceProvider;
+
 return [
-    App\Providers\ControllersServiceProvider::class,
-    App\Providers\RepositoriesServiceProvider::class,
+    ControllersServiceProvider::class,
+    RepositoriesServiceProvider::class,
+    PassportServiceProvider::class,
+    RoutesServiceProvider::class,
 ];

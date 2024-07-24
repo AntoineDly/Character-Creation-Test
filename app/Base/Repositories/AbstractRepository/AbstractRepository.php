@@ -28,7 +28,7 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
 
     public function findByAttribute(string $column, mixed $value): ?Model
     {
-        return $this->model->query()->firstWhere(column: 'id', operator: '=', value: $value);
+        return $this->model->query()->firstWhere(column: $column, operator: '=', value: $value);
     }
 
     /**

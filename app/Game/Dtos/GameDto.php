@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Game\Dtos;
 
-final readonly class GameDto
+use App\Base\Dtos\DtoInterface;
+
+final readonly class GameDto implements DtoInterface
 {
     public function __construct(
         public string $id,

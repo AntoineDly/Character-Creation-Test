@@ -18,7 +18,6 @@ final class CreateCharacterRequest extends BaseFormRequest
         return [
             'name' => 'required|string|min:3|max:20',
             'gameId' => 'required|exists:games,id',
-            'userId' => 'required|exists:users,id',
         ];
     }
 
@@ -29,7 +28,7 @@ final class CreateCharacterRequest extends BaseFormRequest
             'name.required' => 'The name field is required.',
             'name.string' => 'The name field must be a string.',
             'name.min' => 'The name feld must be at least 3 characters.',
-            'name.max' => 'The name may not be greater than 20 characters.',
+            'name.max' => 'The name must not be greater than 20 characters.',
         ];
     }
 }

@@ -37,13 +37,13 @@ final class GetGameController extends Controller
         return $this->apiController->sendSuccess(message: 'Games were successfully retrieved', content: [$result]);
     }
 
-    public function getGame(string $GameId): JsonResponse
+    public function getGame(string $gameId): JsonResponse
     {
         try {
             $query = new GetGameQuery(
                 gameRepository: $this->gameRepository,
                 gameQueriesService: $this->gameQueriesService,
-                gameId: $GameId
+                gameId: $gameId
             );
             $result = $query->get();
         } catch (Exception $e) {

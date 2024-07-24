@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->boolean('visible_for_all');
+            $table->boolean('visible_for_all')->default(false);
             $table->foreignUuid('user_id')->references('id')->on('users');
             $table->timestamps();
         });

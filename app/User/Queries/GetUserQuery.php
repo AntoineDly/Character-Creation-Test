@@ -7,6 +7,7 @@ namespace App\User\Queries;
 use App\Base\Queries\QueryInterface;
 use App\User\Builders\UserDtoBuilder;
 use App\User\Dtos\UserDto;
+use App\User\Exceptions\CantCreateTokenException;
 use App\User\Exceptions\UserNotFoundException;
 use App\User\Exceptions\WrongPasswordException;
 use App\User\Models\User;
@@ -40,7 +41,7 @@ final class GetUserQuery implements QueryInterface
         try {
             $token = $user->createToken('Laravel Personal Access Client')->accessToken;
         } catch (Exception $e) {
-            dd($e);
+            throw new CantCreateTokenException(message: 'The token could not be created', code: 500);
         }
 
         /** @var array{'id': string, 'name': string, 'email': string} $userData */

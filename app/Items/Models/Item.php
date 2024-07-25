@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Game\Models;
+namespace App\Items\Models;
 
 use App\Base\Traits\Uuid;
 use App\Categories\Models\Category;
@@ -11,32 +11,31 @@ use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class Game extends Model
+final class Item extends Model
 {
     use Uuid;
 
     protected $fillable = [
         'name',
-        'visible_for_all',
+        'categorie_id',
         'user_id',
     ];
 
     /**
-     * Get the characters of the game.
+     * Get the category of the item.
      *
-     * @return HasMany<Character>
+     * @return BelongsTo<Category, Item>
      */
-    public function characters(): HasMany
+    public function category(): BelongsTo
     {
-        return $this->hasMany(Character::class);
+        return $this->belongsTo(Category::class);
     }
 
     /**
-     * Get the game of the character.
+     * Get the user that created the item.
      *
-     * @return BelongsTo<User, Game>
+     * @return BelongsTo<User, Item>
      */
     public function user(): BelongsTo
     {
@@ -44,12 +43,12 @@ final class Game extends Model
     }
 
     /**
-     * Get the categories of the game.
+     * Get the parameters of the category.
      *
-     * @return BelongsToMany<Category>
+     * @return BelongsToMany<Character>
      */
-    public function categories(): BelongsToMany
+    public function characters(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class, 'categories_games');
+        return $this->belongsToMany(Character::class, 'items_characters');
     }
 }

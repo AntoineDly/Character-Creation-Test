@@ -6,8 +6,10 @@ namespace App\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Base\Traits\Uuid;
+use App\Categories\Models\Category;
 use App\Character\Models\Character;
 use App\Game\Models\Game;
+use App\Parameters\Models\Parameter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -63,12 +65,32 @@ final class User extends Authenticatable
     }
 
     /**
-     * Get the games of the user.
+     * Get the games created by the user.
      *
      * @return HasMany<Game>
      */
     public function games(): HasMany
     {
         return $this->hasMany(Game::class);
+    }
+
+    /**
+     * Get the categories created by the user.
+     *
+     * @return HasMany<Category>
+     */
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    /**
+     * Get the parameters created by the user.
+     *
+     * @return HasMany<Parameter>
+     */
+    public function parameters(): HasMany
+    {
+        return $this->hasMany(Parameter::class);
     }
 }

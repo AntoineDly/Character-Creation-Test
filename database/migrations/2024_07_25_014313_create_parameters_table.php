@@ -17,9 +17,6 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('type');
-            $table->boolean('is_modifiable_by_player')->default(true);
-            $table->boolean('is_nullable')->default(false);
-            $table->boolean('is_mandatory')->default(true);
             $table->foreignUuid('user_id')->references('id')->on('users');
             $table->timestamps();
         });

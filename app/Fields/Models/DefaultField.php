@@ -5,27 +5,25 @@ declare(strict_types=1);
 namespace App\Fields\Models;
 
 use App\Base\Traits\Uuid;
-use App\Character\Models\Character;
 use App\Items\Models\Item;
 use App\Parameters\Models\Parameter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-final class Field extends Model
+final class DefaultField extends Model
 {
     use Uuid;
 
     protected $fillable = [
         'value',
         'item_id',
-        'character_id',
         'parameter_id',
     ];
 
     /**
      * Get the item of the field.
      *
-     * @return BelongsTo<Item, Field>
+     * @return BelongsTo<Item, DefaultField>
      */
     public function item(): BelongsTo
     {
@@ -33,19 +31,9 @@ final class Field extends Model
     }
 
     /**
-     * Get the character of the field.
-     *
-     * @return BelongsTo<Character, Field>
-     */
-    public function character(): BelongsTo
-    {
-        return $this->belongsTo(Character::class);
-    }
-
-    /**
      * Get the parameter of the field.
      *
-     * @return BelongsTo<Parameter, Field>
+     * @return BelongsTo<Parameter, DefaultField>
      */
     public function parameter(): BelongsTo
     {

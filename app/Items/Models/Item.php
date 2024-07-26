@@ -6,11 +6,11 @@ namespace App\Items\Models;
 
 use App\Base\Traits\Uuid;
 use App\Categories\Models\Category;
-use App\Character\Models\Character;
+use App\Fields\Models\Field;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Item extends Model
 {
@@ -43,12 +43,12 @@ final class Item extends Model
     }
 
     /**
-     * Get the parameters of the category.
+     * Get the fields of the item.
      *
-     * @return BelongsToMany<Character>
+     * @return HasMany<Field>
      */
-    public function characters(): BelongsToMany
+    public function fields(): HasMany
     {
-        return $this->belongsToMany(Character::class, 'items_characters');
+        return $this->hasMany(Field::class);
     }
 }

@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('fields', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('value')->nullable();
-            $table->foreignUuid('items_character_id')->references('id')->on('items_character');
+            $table->foreignUuid('item_id')->references('id')->on('items');
+            $table->foreignUuid('character_id')->references('id')->on('characters');
             $table->foreignUuid('parameter_id')->references('id')->on('parameters');
             $table->timestamps();
         });

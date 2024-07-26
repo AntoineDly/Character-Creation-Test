@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Character\Models;
 
 use App\Base\Traits\Uuid;
+use App\Fields\Models\Field;
 use App\Game\Models\Game;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Character extends Model
 {
@@ -38,5 +40,15 @@ final class Character extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the fields of the character.
+     *
+     * @return HasMany<Field>
+     */
+    public function fields(): HasMany
+    {
+        return $this->hasMany(Field::class);
     }
 }

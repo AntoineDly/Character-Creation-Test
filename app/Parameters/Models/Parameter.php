@@ -6,11 +6,13 @@ namespace App\Parameters\Models;
 
 use App\Base\Traits\Uuid;
 use App\Categories\Models\Category;
+use App\Fields\Models\Field;
 use App\Parameters\Enums\TypeEnum;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Parameter extends Model
 {
@@ -44,5 +46,15 @@ final class Parameter extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'categories_parameters');
+    }
+
+    /**
+     * Get the fields of the parameter.
+     *
+     * @return HasMany<Field>
+     */
+    public function fields(): HasMany
+    {
+        return $this->hasMany(Field::class);
     }
 }

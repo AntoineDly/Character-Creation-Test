@@ -14,9 +14,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories_games', function (Blueprint $table) {
-            $table->uuid('id')->primary();
             $table->foreignUuid('game_id')->references('id')->on('games');
             $table->foreignUuid('categorie_id')->references('id')->on('categories');
+            $table->primary(['game_id', 'categorie_id']);
             $table->timestamps();
         });
     }

@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('items_characters', function (Blueprint $table) {
-            $table->foreignUuid('item_id')->references('id')->on('items');
-            $table->foreignUuid('character_id')->references('id')->on('characters');
-            $table->primary(['item_id', 'character_id']);
+        Schema::create('category_parameter', function (Blueprint $table) {
+            $table->foreignUuid('parameter_id')->references('id')->on('parameters');
+            $table->foreignUuid('category_id')->references('id')->on('categories');
+            $table->primary(['parameter_id', 'category_id']);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items_characters');
+        Schema::dropIfExists('categories_parameters');
     }
 };

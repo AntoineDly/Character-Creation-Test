@@ -46,7 +46,7 @@ final class Parameter extends Model
      */
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class, 'categories_parameters');
+        return $this->belongsToMany(Category::class)->withTimestamps();
     }
 
     /**

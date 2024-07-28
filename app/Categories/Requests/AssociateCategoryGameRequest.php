@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Character\Requests;
+namespace App\Categories\Requests;
 
 use App\Base\Requests\BaseFormRequest;
 
-final class CreateCharacterRequest extends BaseFormRequest
+final class AssociateCategoryGameRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,7 +16,7 @@ final class CreateCharacterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:20',
+            'categoryId' => 'required|exists:categories,id',
             'gameId' => 'required|exists:games,id',
         ];
     }
@@ -25,10 +25,8 @@ final class CreateCharacterRequest extends BaseFormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'The name field is required.',
-            'name.string' => 'The name field must be a string.',
-            'name.min' => 'The name feld must be at least 3 characters.',
-            'name.max' => 'The name must not be greater than 20 characters.',
+            'categoryId.required' => 'The categoryId field is required.',
+            'categoryId.exists' => 'No categories found for this categoryId.',
             'gameId.required' => 'The gameId field is required.',
             'gameId.exists' => 'No games found for this gameId.',
         ];

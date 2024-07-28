@@ -61,6 +61,6 @@ final class Character extends Model
      */
     public function characters(): BelongsToMany
     {
-        return $this->belongsToMany(Item::class);
+        return $this->belongsToMany(Item::class)->withTimestamps();
     }
 }

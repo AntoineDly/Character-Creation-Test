@@ -8,8 +8,7 @@ use App\Base\CommandBus\CommandBus;
 use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\Game\Commands\CreateGameCommand;
 use App\Game\Requests\CreateGameRequest;
-use App\User\Exceptions\UserNotFoundException;
-use App\User\Models\User;
+use App\Helpers\RequestHelper;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
@@ -26,18 +25,11 @@ final class CreateGameController
         try {
             /** @var array{'name': string, 'visibleForAll': bool} $validated */
             $validated = $request->validated();
-            /** @var ?User $user */
-            $user = $request->user();
-            if (! $user instanceof User) {
-                throw new UserNotFoundException(message: 'User not found', code: 404);
-            }
-            /** @var array{'id': string} $userData */
-            $userData = $user->toArray();
 
             $command = new CreateGameCommand(
                 name: $validated['name'],
                 visibleForAll: $validated['visibleForAll'],
-                userId: $userData['id'],
+                userId: RequestHelper::getUserId($request),
             );
 
             $this->commandBus->handle($command);

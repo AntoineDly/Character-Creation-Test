@@ -6,6 +6,7 @@ namespace App\Categories\Models;
 
 use App\Base\Traits\Uuid;
 use App\Game\Models\Game;
+use App\Items\Models\Item;
 use App\Parameters\Models\Parameter;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +25,7 @@ final class Category extends Model
     ];
 
     /**
-     * Get the user that created the categorie.
+     * Get the user that created the category.
      *
      * @return BelongsTo<User, Category>
      */
@@ -40,7 +41,7 @@ final class Category extends Model
      */
     public function games(): BelongsToMany
     {
-        return $this->belongsToMany(Game::class, 'categories_games');
+        return $this->belongsToMany(Game::class)->withTimestamps();
     }
 
     /**
@@ -50,6 +51,16 @@ final class Category extends Model
      */
     public function parameters(): BelongsToMany
     {
-        return $this->belongsToMany(Parameter::class, 'categories_parameters');
+        return $this->belongsToMany(Parameter::class)->withTimestamps();
+    }
+
+    /**
+     * Get the items of the category.
+     *
+     * @return BelongsToMany<Item>
+     */
+    public function items(): BelongsToMany
+    {
+        return $this->belongsToMany(Item::class)->withTimestamps();
     }
 }

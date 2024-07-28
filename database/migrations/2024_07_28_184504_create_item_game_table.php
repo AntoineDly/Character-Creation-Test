@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories_games', function (Blueprint $table) {
+        Schema::create('item_game', function (Blueprint $table) {
+            $table->foreignUuid('item_id')->references('id')->on('items');
             $table->foreignUuid('game_id')->references('id')->on('games');
-            $table->foreignUuid('categorie_id')->references('id')->on('categories');
-            $table->primary(['game_id', 'categorie_id']);
+            $table->primary(['item_id', 'game_id']);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories_games');
+        Schema::dropIfExists('items_games');
     }
 };

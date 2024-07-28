@@ -20,7 +20,7 @@ final readonly class GetCharacterWithGameQuery implements QueryInterface
 
     public function get(): CharacterWithGameDto
     {
-        $character = $this->characterRepository->findById($this->characterId);
+        $character = $this->characterRepository->findById(id: $this->characterId);
 
         return $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character);
     }

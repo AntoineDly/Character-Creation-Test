@@ -20,7 +20,7 @@ final readonly class GetGameQuery implements QueryInterface
 
     public function get(): GameDto
     {
-        $game = $this->gameRepository->findById($this->gameId);
+        $game = $this->gameRepository->findById(id: $this->gameId);
 
         return $this->gameQueriesService->getGameDtoFromModel(game: $game);
     }

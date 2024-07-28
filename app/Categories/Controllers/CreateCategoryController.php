@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Character\Controllers;
+namespace App\Categories\Controllers;
 
 use App\Base\CommandBus\CommandBus;
 use App\Base\Controllers\ApiController\ApiControllerInterface;
-use App\Character\Commands\CreateCharacterCommand;
-use App\Character\Requests\CreateCharacterRequest;
+use App\Categories\Commands\CreateCategoryCommand;
+use App\Categories\Requests\CreateCategoryRequest;
 use App\Helpers\RequestHelper;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-final class CreateCharacterController
+final class CreateCategoryController
 {
     public function __construct(
         private ApiControllerInterface $apiController,
@@ -20,23 +20,22 @@ final class CreateCharacterController
     ) {
     }
 
-    public function createCharacter(CreateCharacterRequest $request): JsonResponse
+    public function createCategory(CreateCategoryRequest $request): JsonResponse
     {
         try {
-            /** @var array{'name': string, 'gameId': string} $validated */
+            /** @var array{'name': string} $validated */
             $validated = $request->validated();
 
-            $command = new CreateCharacterCommand(
+            $command = new CreateCategoryCommand(
                 name: $validated['name'],
-                gameId: $validated['gameId'],
                 userId: RequestHelper::getUserId($request),
             );
 
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
-            return $this->apiController->sendError(error: 'Character was not successfully created', errorContent: $e->errors());
+            return $this->apiController->sendError(error: 'Category was not successfully created', errorContent: $e->errors());
         }
 
-        return $this->apiController->sendSuccess(message: 'Character was successfully created');
+        return $this->apiController->sendSuccess(message: 'Category was successfully created');
     }
 }

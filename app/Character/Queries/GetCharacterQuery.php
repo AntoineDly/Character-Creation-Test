@@ -20,7 +20,7 @@ final readonly class GetCharacterQuery implements QueryInterface
 
     public function get(): CharacterDto
     {
-        $character = $this->characterRepository->findById($this->characterId);
+        $character = $this->characterRepository->findById(id: $this->characterId);
 
         return $this->characterQueriesService->getCharacterDtoFromModel(character: $character);
     }

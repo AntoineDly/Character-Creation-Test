@@ -9,6 +9,7 @@ use App\Categories\Models\Category;
 use App\Character\Models\Character;
 use App\Fields\Models\DefaultField;
 use App\Fields\Models\Field;
+use App\Game\Models\Game;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,19 +22,8 @@ final class Item extends Model
 
     protected $fillable = [
         'name',
-        'categorie_id',
         'user_id',
     ];
-
-    /**
-     * Get the category of the item.
-     *
-     * @return BelongsTo<Category, Item>
-     */
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(Category::class);
-    }
 
     /**
      * Get the user that created the item.
@@ -72,6 +62,26 @@ final class Item extends Model
      */
     public function characters(): BelongsToMany
     {
-        return $this->belongsToMany(Character::class);
+        return $this->belongsToMany(Character::class)->withTimestamps();
+    }
+
+    /**
+     * Get the games of the item.
+     *
+     * @return BelongsToMany<Game>
+     */
+    public function games(): BelongsToMany
+    {
+        return $this->belongsToMany(Game::class)->withTimestamps();
+    }
+
+    /**
+     * Get the categories of the item.
+     *
+     * @return BelongsToMany<Category>
+     */
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class)->withTimestamps();
     }
 }

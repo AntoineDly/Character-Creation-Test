@@ -11,9 +11,8 @@ use App\Categories\Repositories\CategoryRepositoryInterface;
 use App\Categories\Services\CategoryQueriesService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 
-final class GetCategoryController extends Controller
+final readonly class GetCategoryController
 {
     public function __construct(
         private CategoryRepositoryInterface $categoryRepository,

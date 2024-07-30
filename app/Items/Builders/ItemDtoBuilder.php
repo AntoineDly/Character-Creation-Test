@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Categories\Builders;
+namespace App\Items\Builders;
 
 use App\Base\Builders\BuilderInterface;
 use App\Base\Exceptions\NotAValidUuidException;
 use App\Base\Exceptions\StringIsEmptyException;
-use App\Categories\Dtos\CategoryDto;
 use App\Helpers\UuidHelper;
+use App\Items\Dtos\ItemDto;
 
-final class CategoryDtoBuilder implements BuilderInterface
+final class ItemDtoBuilder implements BuilderInterface
 {
     public string $id = '';
 
@@ -30,7 +30,7 @@ final class CategoryDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    public function build(): CategoryDto
+    public function build(): ItemDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
             throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.', code: 400);
@@ -40,13 +40,13 @@ final class CategoryDtoBuilder implements BuilderInterface
             throw new StringIsEmptyException('name field is empty', code: 400);
         }
 
-        $categoryDto = new CategoryDto(
+        $itemDto = new ItemDto(
             id: $this->id,
             name: $this->name
         );
 
         $this->id = $this->name = '';
 
-        return $categoryDto;
+        return $itemDto;
     }
 }

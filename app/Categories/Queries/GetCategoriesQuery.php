@@ -18,17 +18,17 @@ final readonly class GetCategoriesQuery implements QueryInterface
     }
 
     /** @return CategoryDto[] */
-    public function get(): mixed
+    public function get(): array
     {
         $categories = $this->categoryRepository->index();
 
-        /** @var CategoryDto[] $categoriesData */
-        $categoriesData = [];
+        /** @var CategoryDto[] $categoriesDtos */
+        $categoriesDtos = [];
 
         foreach ($categories as $category) {
-            $categoriesData[] = $this->categoryQueriesService->getCategoryDtoFromModel(category: $category);
+            $categoriesDtos[] = $this->categoryQueriesService->getCategoryDtoFromModel(category: $category);
         }
 
-        return $categoriesData;
+        return $categoriesDtos;
     }
 }

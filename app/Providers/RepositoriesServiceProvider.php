@@ -12,6 +12,8 @@ use App\Character\Repositories\CharacterRepository;
 use App\Character\Repositories\CharacterRepositoryInterface;
 use App\Game\Repositories\GameRepository;
 use App\Game\Repositories\GameRepositoryInterface;
+use App\Items\Repositories\ItemRepository;
+use App\Items\Repositories\ItemRepositoryInterface;
 use App\User\Repositories\UserRepository;
 use App\User\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +30,7 @@ final class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(abstract: GameRepositoryInterface::class, concrete: GameRepository::class);
         $this->app->bind(abstract: UserRepositoryInterface::class, concrete: UserRepository::class);
         $this->app->bind(abstract: CategoryRepositoryInterface::class, concrete: CategoryRepository::class);
+        $this->app->bind(abstract: ItemRepositoryInterface::class, concrete: ItemRepository::class);
     }
 
     /**

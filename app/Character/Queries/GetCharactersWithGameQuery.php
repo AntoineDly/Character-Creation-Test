@@ -22,13 +22,13 @@ final readonly class GetCharactersWithGameQuery implements QueryInterface
     {
         $characters = $this->characterRepository->index();
 
-        /** @var CharacterWithGameDto[] $charactersData */
-        $charactersData = [];
+        /** @var CharacterWithGameDto[] $charactersDtos */
+        $charactersDtos = [];
 
         foreach ($characters as $character) {
-            $charactersData[] = $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character);
+            $charactersDtos[] = $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character);
         }
 
-        return $charactersData;
+        return $charactersDtos;
     }
 }

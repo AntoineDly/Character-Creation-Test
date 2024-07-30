@@ -12,7 +12,7 @@ use App\Helpers\RequestHelper;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-final class CreateCharacterController
+final readonly class CreateCharacterController
 {
     public function __construct(
         private ApiControllerInterface $apiController,

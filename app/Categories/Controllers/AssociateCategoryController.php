@@ -11,7 +11,7 @@ use App\Categories\Requests\AssociateCategoryGameRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-final class AssociateCategoryController
+final readonly class AssociateCategoryController
 {
     public function __construct(
         private ApiControllerInterface $apiController,
@@ -35,6 +35,6 @@ final class AssociateCategoryController
             return $this->apiController->sendError(error: 'Game was not successfully associated to the category', errorContent: $e->errors());
         }
 
-        return $this->apiController->sendSuccess(message: 'Game was successfully created to the category');
+        return $this->apiController->sendSuccess(message: 'Game was successfully associated to the category');
     }
 }

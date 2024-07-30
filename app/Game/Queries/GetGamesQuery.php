@@ -22,13 +22,13 @@ final readonly class GetGamesQuery implements QueryInterface
     {
         $games = $this->gameRepository->index();
 
-        /** @var GameDto[] $gamesData */
-        $gamesData = [];
+        /** @var GameDto[] $gamesDtos */
+        $gamesDtos = [];
 
         foreach ($games as $game) {
-            $gamesData[] = $this->gameQueriesService->getGameDtoFromModel(game: $game);
+            $gamesDtos[] = $this->gameQueriesService->getGameDtoFromModel(game: $game);
         }
 
-        return $gamesData;
+        return $gamesDtos;
     }
 }

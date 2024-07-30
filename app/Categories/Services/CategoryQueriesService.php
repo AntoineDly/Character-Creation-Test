@@ -26,7 +26,7 @@ final readonly class CategoryQueriesService
 
         if (! $category instanceof Category) {
             throw new InvalidClassException(
-                'Class was expected to be Character, '.get_class($category).' given.'
+                'Class was expected to be Category, '.get_class($category).' given.'
             );
         }
 

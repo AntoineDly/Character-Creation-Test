@@ -22,13 +22,13 @@ final readonly class GetCharactersQuery implements QueryInterface
     {
         $characters = $this->characterRepository->index();
 
-        /** @var CharacterDto[] $charactersData */
-        $charactersData = [];
+        /** @var CharacterDto[] $charactersDtos */
+        $charactersDtos = [];
 
         foreach ($characters as $character) {
-            $charactersData[] = $this->characterQueriesService->getCharacterDtoFromModel(character: $character);
+            $charactersDtos[] = $this->characterQueriesService->getCharacterDtoFromModel(character: $character);
         }
 
-        return $charactersData;
+        return $charactersDtos;
     }
 }

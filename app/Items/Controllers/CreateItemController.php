@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Game\Controllers;
+namespace App\Items\Controllers;
 
 use App\Base\CommandBus\CommandBus;
 use App\Base\Controllers\ApiController\ApiControllerInterface;
-use App\Game\Commands\CreateGameCommand;
-use App\Game\Requests\CreateGameRequest;
 use App\Helpers\RequestHelper;
+use App\Items\Commands\CreateItemCommand;
+use App\Items\Requests\CreateItemRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-final readonly class CreateGameController
+final readonly class CreateItemController
 {
     public function __construct(
         private ApiControllerInterface $apiController,
@@ -20,23 +20,22 @@ final readonly class CreateGameController
     ) {
     }
 
-    public function createGame(CreateGameRequest $request): JsonResponse
+    public function createItem(CreateItemRequest $request): JsonResponse
     {
         try {
-            /** @var array{'name': string, 'visibleForAll': bool} $validated */
+            /** @var array{'name': string} $validated */
             $validated = $request->validated();
 
-            $command = new CreateGameCommand(
+            $command = new CreateItemCommand(
                 name: $validated['name'],
-                visibleForAll: $validated['visibleForAll'],
                 userId: RequestHelper::getUserId($request),
             );
 
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
-            return $this->apiController->sendError(error: 'Game was not successfully created', errorContent: $e->errors());
+            return $this->apiController->sendError(error: 'Item was not successfully created', errorContent: $e->errors());
         }
 
-        return $this->apiController->sendSuccess(message: 'Game was successfully created');
+        return $this->apiController->sendSuccess(message: 'Item was successfully created');
     }
 }

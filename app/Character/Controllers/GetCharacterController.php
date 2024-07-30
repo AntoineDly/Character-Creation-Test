@@ -13,9 +13,8 @@ use App\Character\Repositories\CharacterRepositoryInterface;
 use App\Character\Services\CharacterQueriesService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 
-final class GetCharacterController extends Controller
+final readonly class GetCharacterController
 {
     public function __construct(
         private CharacterRepositoryInterface $characterRepository,

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_character', function (Blueprint $table) {
+        Schema::create('character_item', function (Blueprint $table) {
             $table->foreignUuid('item_id')->references('id')->on('items');
             $table->foreignUuid('character_id')->references('id')->on('characters');
             $table->primary(['item_id', 'character_id']);

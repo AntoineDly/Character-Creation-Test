@@ -11,9 +11,8 @@ use App\Game\Repositories\GameRepositoryInterface;
 use App\Game\Services\GameQueriesService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 
-final class GetGameController extends Controller
+final readonly class GetGameController
 {
     public function __construct(
         private GameRepositoryInterface $gameRepository,

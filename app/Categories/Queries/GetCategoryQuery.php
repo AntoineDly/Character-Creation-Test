@@ -18,8 +18,7 @@ final readonly class GetCategoryQuery implements QueryInterface
     ) {
     }
 
-    /** @return CategoryDto */
-    public function get(): mixed
+    public function get(): CategoryDto
     {
         $category = $this->categoryRepository->findById(id: $this->categoryId);
 

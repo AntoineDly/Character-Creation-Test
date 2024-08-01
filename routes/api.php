@@ -12,6 +12,7 @@ use App\Game\Controllers\GetGameController;
 use App\Items\Controllers\AssociateItemController;
 use App\Items\Controllers\CreateItemController;
 use App\Items\Controllers\GetItemController;
+use App\Parameters\Controllers\CreateParameterController;
 use App\User\Controllers\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -46,5 +47,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/items', [CreateItemController::class, 'createItem']);
     Route::post('/items/associate_game', [AssociateItemController::class, 'associateGame']);
     Route::post('/items/associate_category', [AssociateItemController::class, 'associateCategory']);
+    Route::post('/items/associate_character', [AssociateItemController::class, 'associateCharacter']);
 
+    Route::post('/parameters', [CreateParameterController::class, 'createParameter']);
 });

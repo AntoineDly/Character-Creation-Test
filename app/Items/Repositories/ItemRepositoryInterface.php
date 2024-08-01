@@ -11,4 +11,6 @@ interface ItemRepositoryInterface extends AbstractRepositoryInterface
     public function associateGame(string $itemId, string $gameId): void;
 
     public function associateCategory(string $itemId, string $categoryId): void;
+
+    public function associateCharacter(string $itemId, string $characterId): void;
 }

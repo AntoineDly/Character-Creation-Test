@@ -49,4 +49,21 @@ final class ItemRepository extends AbstractRepository implements ItemRepositoryI
 
         $item->categories()->attach($categoryId);
     }
+
+    public function associateCharacter(string $itemId, string $characterId): void
+    {
+        $item = $this->findById(id: $itemId);
+
+        if (is_null($item)) {
+            throw new ItemNotFoundException(message: 'Item not found', code: 404);
+        }
+
+        if (! $item instanceof Item) {
+            throw new InvalidClassException(
+                'Class was expected to be Item, '.get_class($item).' given.'
+            );
+        }
+
+        $item->characters()->attach($characterId);
+    }
 }

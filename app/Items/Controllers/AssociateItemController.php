@@ -7,8 +7,10 @@ namespace App\Items\Controllers;
 use App\Base\CommandBus\CommandBus;
 use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\Items\Commands\AssociateItemCategoryCommand;
+use App\Items\Commands\AssociateItemCharacterCommand;
 use App\Items\Commands\AssociateItemGameCommand;
 use App\Items\Requests\AssociateItemCategoryRequest;
+use App\Items\Requests\AssociateItemCharacterRequest;
 use App\Items\Requests\AssociateItemGameRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
@@ -57,5 +59,24 @@ final readonly class AssociateItemController
         }
 
         return $this->apiController->sendSuccess(message: 'Category was successfully associated to the item');
+    }
+
+    public function associateCharacter(AssociateItemCharacterRequest $request): JsonResponse
+    {
+        try {
+            /** @var array{'itemId': string, 'characterId': string} $validated */
+            $validated = $request->validated();
+
+            $command = new AssociateItemCharacterCommand(
+                itemId: $validated['itemId'],
+                characterId: $validated['characterId'],
+            );
+
+            $this->commandBus->handle($command);
+        } catch (ValidationException $e) {
+            return $this->apiController->sendError(error: 'Character was not successfully associated to the item', errorContent: $e->errors());
+        }
+
+        return $this->apiController->sendSuccess(message: 'Character was successfully associated to the item');
     }
 }

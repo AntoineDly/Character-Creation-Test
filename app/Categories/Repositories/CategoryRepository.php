@@ -9,7 +9,7 @@ use App\Base\Repositories\AbstractRepository\AbstractRepository;
 use App\Categories\Exceptions\CategoryNotFoundException;
 use App\Categories\Models\Category;
 
-final class CategoryRepository extends AbstractRepository implements CategoryRepositoryInterface
+final readonly class CategoryRepository extends AbstractRepository implements CategoryRepositoryInterface
 {
     public function __construct(Category $model)
     {

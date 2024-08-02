@@ -7,7 +7,7 @@ namespace App\Parameters\Repositories;
 use App\Base\Repositories\AbstractRepository\AbstractRepository;
 use App\Parameters\Models\Parameter;
 
-final class ParameterRepository extends AbstractRepository implements ParameterRepositoryInterface
+final readonly class ParameterRepository extends AbstractRepository implements ParameterRepositoryInterface
 {
     public function __construct(Parameter $model)
     {

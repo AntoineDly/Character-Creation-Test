@@ -8,4 +8,5 @@ enum TypeEnum: string
 {
     case STRING = 'string';
     case INT = 'int';
+    case BOOLEAN = 'boolean';
 }

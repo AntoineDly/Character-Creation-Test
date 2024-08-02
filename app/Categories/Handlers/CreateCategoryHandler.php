@@ -12,7 +12,7 @@ use App\Categories\Repositories\CategoryRepositoryInterface;
 
 final readonly class CreateCategoryHandler implements CommandHandlerInterface
 {
-    public function __construct(private CategoryRepositoryInterface $characterRepository)
+    public function __construct(private CategoryRepositoryInterface $categoryRepository)
     {
     }
 
@@ -22,6 +22,6 @@ final readonly class CreateCategoryHandler implements CommandHandlerInterface
             throw new IncorrectCommandException('Command must be an instance of CreateCategoryCommand');
         }
 
-        $this->characterRepository->create(attributes: ['name' => $command->name, 'user_id' => $command->userId]);
+        $this->categoryRepository->create(attributes: ['name' => $command->name, 'user_id' => $command->userId]);
     }
 }

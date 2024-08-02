@@ -10,6 +10,8 @@ use App\Categories\Repositories\CategoryRepository;
 use App\Categories\Repositories\CategoryRepositoryInterface;
 use App\Character\Repositories\CharacterRepository;
 use App\Character\Repositories\CharacterRepositoryInterface;
+use App\DefaultFields\Repositories\DefaultFieldRepository;
+use App\DefaultFields\Repositories\DefaultFieldRepositoryInterface;
 use App\Game\Repositories\GameRepository;
 use App\Game\Repositories\GameRepositoryInterface;
 use App\Items\Repositories\ItemRepository;
@@ -34,6 +36,7 @@ final class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(abstract: CategoryRepositoryInterface::class, concrete: CategoryRepository::class);
         $this->app->bind(abstract: ItemRepositoryInterface::class, concrete: ItemRepository::class);
         $this->app->bind(abstract: ParameterRepositoryInterface::class, concrete: ParameterRepository::class);
+        $this->app->bind(abstract: DefaultFieldRepositoryInterface::class, concrete: DefaultFieldRepository::class);
     }
 
     /**

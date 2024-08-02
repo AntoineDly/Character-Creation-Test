@@ -7,6 +7,7 @@ use App\Categories\Controllers\CreateCategoryController;
 use App\Categories\Controllers\GetCategoryController;
 use App\Character\Controllers\CreateCharacterController;
 use App\Character\Controllers\GetCharacterController;
+use App\DefaultFields\Controllers\CreateDefaultFieldController;
 use App\Game\Controllers\CreateGameController;
 use App\Game\Controllers\GetGameController;
 use App\Items\Controllers\AssociateItemController;
@@ -50,4 +51,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/items/associate_character', [AssociateItemController::class, 'associateCharacter']);
 
     Route::post('/parameters', [CreateParameterController::class, 'createParameter']);
+
+    Route::post('/default_fields', [CreateDefaultFieldController::class, 'createDefaultField']);
 });

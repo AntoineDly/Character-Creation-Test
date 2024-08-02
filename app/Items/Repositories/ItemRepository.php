@@ -9,7 +9,7 @@ use App\Base\Repositories\AbstractRepository\AbstractRepository;
 use App\Items\Exceptions\ItemNotFoundException;
 use App\Items\Models\Item;
 
-final class ItemRepository extends AbstractRepository implements ItemRepositoryInterface
+final readonly class ItemRepository extends AbstractRepository implements ItemRepositoryInterface
 {
     public function __construct(Item $model)
     {

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignUuid('item_id')->references('id')->on('items');
             $table->foreignUuid('character_id')->references('id')->on('characters');
             $table->foreignUuid('parameter_id')->references('id')->on('parameters');
+            $table->foreignUuid('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

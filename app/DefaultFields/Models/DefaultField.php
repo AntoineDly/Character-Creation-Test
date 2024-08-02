@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Fields\Models;
+namespace App\DefaultFields\Models;
 
 use App\Base\Traits\Uuid;
 use App\Items\Models\Item;
 use App\Parameters\Models\Parameter;
+use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -18,7 +19,18 @@ final class DefaultField extends Model
         'value',
         'item_id',
         'parameter_id',
+        'user_id',
     ];
+
+    /**
+     * Get the user that created the item.
+     *
+     * @return BelongsTo<User, DefaultField>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Get the item of the field.

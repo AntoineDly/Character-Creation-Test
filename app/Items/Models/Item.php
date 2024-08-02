@@ -7,7 +7,7 @@ namespace App\Items\Models;
 use App\Base\Traits\Uuid;
 use App\Categories\Models\Category;
 use App\Character\Models\Character;
-use App\Fields\Models\DefaultField;
+use App\DefaultFields\Models\DefaultField;
 use App\Fields\Models\Field;
 use App\Game\Models\Game;
 use App\User\Models\User;

@@ -7,7 +7,7 @@ namespace App\Character\Repositories;
 use App\Base\Repositories\AbstractRepository\AbstractRepository;
 use App\Character\Models\Character;
 
-final class CharacterRepository extends AbstractRepository implements CharacterRepositoryInterface
+final readonly class CharacterRepository extends AbstractRepository implements CharacterRepositoryInterface
 {
     public function __construct(Character $model)
     {

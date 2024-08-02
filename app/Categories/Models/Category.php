@@ -7,7 +7,6 @@ namespace App\Categories\Models;
 use App\Base\Traits\Uuid;
 use App\Game\Models\Game;
 use App\Items\Models\Item;
-use App\Parameters\Models\Parameter;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -42,16 +41,6 @@ final class Category extends Model
     public function games(): BelongsToMany
     {
         return $this->belongsToMany(Game::class)->withTimestamps();
-    }
-
-    /**
-     * Get the parameters of the category.
-     *
-     * @return BelongsToMany<Parameter>
-     */
-    public function parameters(): BelongsToMany
-    {
-        return $this->belongsToMany(Parameter::class)->withTimestamps();
     }
 
     /**

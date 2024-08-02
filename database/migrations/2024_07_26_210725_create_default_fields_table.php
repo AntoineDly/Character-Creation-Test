@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('value')->nullable();
             $table->foreignUuid('item_id')->references('id')->on('items');
             $table->foreignUuid('parameter_id')->references('id')->on('parameters');
+            $table->foreignUuid('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use App\Base\Traits\Uuid;
 use App\Character\Models\Character;
 use App\Items\Models\Item;
 use App\Parameters\Models\Parameter;
+use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -20,7 +21,18 @@ final class Field extends Model
         'item_id',
         'character_id',
         'parameter_id',
+        'user_id',
     ];
+
+    /**
+     * Get the user that created the item.
+     *
+     * @return BelongsTo<User, Field>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Get the item of the field.

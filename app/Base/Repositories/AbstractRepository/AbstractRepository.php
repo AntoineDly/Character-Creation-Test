@@ -7,7 +7,7 @@ namespace App\Base\Repositories\AbstractRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class AbstractRepository implements AbstractRepositoryInterface
+abstract readonly class AbstractRepository implements AbstractRepositoryInterface
 {
     public function __construct(protected Model $model)
     {
@@ -42,8 +42,8 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
     /**
      * @param  array<string, mixed>  $attributes
      */
-    public function update(array $attributes): void
+    public function update(string $key, mixed $value, array $attributes): void
     {
-        $this->model->query()->update($attributes);
+        $this->model->query()->firstWhere($key, $value)?->update($attributes);
     }
 }

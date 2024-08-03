@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Game\Services;
 
-use App\Base\Exceptions\InvalidClassException;
 use App\Game\Builders\GameDtoBuilder;
 use App\Game\Dtos\GameDto;
 use App\Game\Exceptions\GameNotFoundException;
 use App\Game\Models\Game;
+use App\Shared\Exceptions\InvalidClassException;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class GameQueriesService

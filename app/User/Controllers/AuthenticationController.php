@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\User\Controllers;
 
-use App\Base\CommandBus\CommandBus;
-use App\Base\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\CommandBus\CommandBus;
+use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\User\Builders\UserDtoBuilder;
 use App\User\Commands\CreateUserCommand;
 use App\User\Exceptions\TokenNotFoundException;

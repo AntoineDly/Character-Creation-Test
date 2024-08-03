@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Items\Requests;
 
-use App\Base\Requests\BaseFormRequest;
+use App\Shared\Requests\BaseFormRequest;
 
 final class AssociateItemCategoryRequest extends BaseFormRequest
 {

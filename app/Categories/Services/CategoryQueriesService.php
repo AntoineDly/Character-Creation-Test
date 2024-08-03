@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Categories\Services;
 
-use App\Base\Exceptions\InvalidClassException;
 use App\Categories\Builders\CategoryDtoBuilder;
 use App\Categories\Dtos\CategoryDto;
 use App\Categories\Exceptions\CategoryNotFoundException;
 use App\Categories\Models\Category;
+use App\Shared\Exceptions\InvalidClassException;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class CategoryQueriesService

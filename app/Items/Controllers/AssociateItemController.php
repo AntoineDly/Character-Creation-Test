@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Items\Controllers;
 
-use App\Base\CommandBus\CommandBus;
-use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\Items\Commands\AssociateItemCategoryCommand;
 use App\Items\Commands\AssociateItemCharacterCommand;
 use App\Items\Commands\AssociateItemGameCommand;
 use App\Items\Requests\AssociateItemCategoryRequest;
 use App\Items\Requests\AssociateItemCharacterRequest;
 use App\Items\Requests\AssociateItemGameRequest;
+use App\Shared\CommandBus\CommandBus;
+use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
@@ -37,6 +38,8 @@ final readonly class AssociateItemController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendError(error: 'Game was not successfully associated to the item', errorContent: $e->errors());
+        } catch (Exception $e) {
+            return $this->apiController->sendException(exception: $e);
         }
 
         return $this->apiController->sendSuccess(message: 'Game was successfully associated to the item');

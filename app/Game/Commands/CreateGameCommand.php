@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Game\Commands;
 
-use App\Base\Commands\CommandInterface;
+use App\Shared\Commands\CommandInterface;
 
 final readonly class CreateGameCommand implements CommandInterface
 {

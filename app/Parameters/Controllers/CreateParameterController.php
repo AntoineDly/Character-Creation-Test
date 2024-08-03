@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Parameters\Controllers;
 
-use App\Base\CommandBus\CommandBus;
-use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\Helpers\RequestHelper;
 use App\Parameters\Commands\CreateParameterCommand;
 use App\Parameters\Requests\CreateParameterRequest;
+use App\Shared\CommandBus\CommandBus;
+use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
@@ -35,6 +36,8 @@ final readonly class CreateParameterController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendError(error: 'Parameter was not successfully created', errorContent: $e->errors());
+        } catch (Exception $e) {
+            return $this->apiController->sendException(exception: $e);
         }
 
         return $this->apiController->sendSuccess(message: 'Parameter was successfully created');

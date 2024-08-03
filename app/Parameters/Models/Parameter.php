@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Parameters\Models;
 
-use App\Base\Traits\Uuid;
 use App\DefaultFields\Models\DefaultField;
 use App\Fields\Models\Field;
 use App\Parameters\Enums\TypeEnum;
+use App\Shared\Traits\Uuid;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\User\Builders;
 
-use App\Base\Builders\BuilderInterface;
-use App\Base\Exceptions\NotAValidUuidException;
-use App\Base\Exceptions\StringIsEmptyException;
 use App\Helpers\UuidHelper;
+use App\Shared\Builders\BuilderInterface;
+use App\Shared\Exceptions\NotAValidUuidException;
+use App\Shared\Exceptions\StringIsEmptyException;
 use App\User\Dtos\UserDto;
 
 final class UserDtoBuilder implements BuilderInterface

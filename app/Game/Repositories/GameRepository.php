@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Game\Repositories;
 
-use App\Base\Repositories\AbstractRepository\AbstractRepository;
 use App\Game\Models\Game;
+use App\Shared\Repositories\AbstractRepository\AbstractRepository;
 
 final readonly class GameRepository extends AbstractRepository implements GameRepositoryInterface
 {

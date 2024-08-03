@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Character\Services;
 
-use App\Base\Exceptions\InvalidClassException;
 use App\Character\Builders\CharacterDtoBuilder;
 use App\Character\Builders\CharacterWithGameDtoBuilder;
 use App\Character\Dtos\CharacterDto;
@@ -13,6 +12,7 @@ use App\Character\Exceptions\CharacterNotFoundException;
 use App\Character\Models\Character;
 use App\Game\Repositories\GameRepositoryInterface;
 use App\Game\Services\GameQueriesService;
+use App\Shared\Exceptions\InvalidClassException;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class CharacterQueriesService

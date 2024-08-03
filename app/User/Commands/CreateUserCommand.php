@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\User\Commands;
 
-use App\Base\Commands\CommandInterface;
+use App\Shared\Commands\CommandInterface;
 
 final readonly class CreateUserCommand implements CommandInterface
 {

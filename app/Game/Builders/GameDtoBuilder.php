@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Game\Builders;
 
-use App\Base\Builders\BuilderInterface;
-use App\Base\Exceptions\NotAValidUuidException;
-use App\Base\Exceptions\StringIsEmptyException;
 use App\Game\Dtos\GameDto;
 use App\Helpers\UuidHelper;
+use App\Shared\Builders\BuilderInterface;
+use App\Shared\Exceptions\NotAValidUuidException;
+use App\Shared\Exceptions\StringIsEmptyException;
 
 final class GameDtoBuilder implements BuilderInterface
 {

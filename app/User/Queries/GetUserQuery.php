@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\User\Queries;
 
-use App\Base\Queries\QueryInterface;
+use App\Shared\Queries\QueryInterface;
 use App\User\Builders\UserDtoBuilder;
 use App\User\Dtos\UserDto;
 use App\User\Exceptions\CantCreateTokenException;

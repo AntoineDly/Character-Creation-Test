@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Categories\Models;
 
-use App\Base\Traits\Uuid;
 use App\Game\Models\Game;
 use App\Items\Models\Item;
+use App\Shared\Traits\Uuid;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Game\Models;
 
-use App\Base\Traits\Uuid;
 use App\Categories\Models\Category;
 use App\Character\Models\Character;
 use App\Items\Models\Item;
+use App\Shared\Traits\Uuid;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Character\Controllers;
 
-use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\Character\Queries\GetCharacterQuery;
 use App\Character\Queries\GetCharactersQuery;
 use App\Character\Queries\GetCharactersWithGameQuery;
 use App\Character\Queries\GetCharacterWithGameQuery;
 use App\Character\Repositories\CharacterRepositoryInterface;
 use App\Character\Services\CharacterQueriesService;
+use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Items\Repositories;
 
-use App\Base\Exceptions\InvalidClassException;
-use App\Base\Repositories\AbstractRepository\AbstractRepository;
 use App\Items\Exceptions\ItemNotFoundException;
 use App\Items\Models\Item;
+use App\Shared\Exceptions\InvalidClassException;
+use App\Shared\Repositories\AbstractRepository\AbstractRepository;
 
 final readonly class ItemRepository extends AbstractRepository implements ItemRepositoryInterface
 {

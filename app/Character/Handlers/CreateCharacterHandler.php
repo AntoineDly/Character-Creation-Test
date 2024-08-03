@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Character\Handlers;
 
-use App\Base\Commands\CommandInterface;
-use App\Base\Exceptions\IncorrectCommandException;
-use App\Base\Handlers\CommandHandlerInterface;
 use App\Character\Commands\CreateCharacterCommand;
 use App\Character\Repositories\CharacterRepositoryInterface;
+use App\Shared\Commands\CommandInterface;
+use App\Shared\Exceptions\IncorrectCommandException;
+use App\Shared\Handlers\CommandHandlerInterface;
 
 final readonly class CreateCharacterHandler implements CommandHandlerInterface
 {

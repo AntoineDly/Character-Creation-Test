@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Parameters\Requests;
 
-use App\Base\Requests\BaseFormRequest;
 use App\Parameters\Enums\TypeEnum;
+use App\Shared\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
 
 final class CreateParameterRequest extends BaseFormRequest

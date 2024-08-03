@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Base\Traits\Uuid;
 use App\Categories\Models\Category;
 use App\Character\Models\Character;
 use App\Game\Models\Game;
 use App\Parameters\Models\Parameter;
+use App\Shared\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;

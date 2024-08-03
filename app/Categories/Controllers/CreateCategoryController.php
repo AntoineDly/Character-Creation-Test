@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Categories\Controllers;
 
-use App\Base\CommandBus\CommandBus;
-use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\Categories\Commands\CreateCategoryCommand;
 use App\Categories\Requests\CreateCategoryRequest;
 use App\Helpers\RequestHelper;
+use App\Shared\CommandBus\CommandBus;
+use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
@@ -34,6 +35,8 @@ final readonly class CreateCategoryController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendError(error: 'Category was not successfully created', errorContent: $e->errors());
+        } catch (Exception $e) {
+            return $this->apiController->sendException(exception: $e);
         }
 
         return $this->apiController->sendSuccess(message: 'Category was successfully created');

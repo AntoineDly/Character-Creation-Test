@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Parameters\Repositories;
 
-use App\Base\Repositories\AbstractRepository\AbstractRepository;
 use App\Parameters\Models\Parameter;
+use App\Shared\Repositories\AbstractRepository\AbstractRepository;
 
 final readonly class ParameterRepository extends AbstractRepository implements ParameterRepositoryInterface
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DefaultFields\Repositories;
 
-use App\Base\Repositories\AbstractRepository\AbstractRepository;
 use App\DefaultFields\Models\DefaultField;
+use App\Shared\Repositories\AbstractRepository\AbstractRepository;
 
 final readonly class DefaultFieldRepository extends AbstractRepository implements DefaultFieldRepositoryInterface
 {

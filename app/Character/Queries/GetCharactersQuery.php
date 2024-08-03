@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Character\Queries;
 
-use App\Base\Queries\QueryInterface;
 use App\Character\Dtos\CharacterDto;
 use App\Character\Repositories\CharacterRepositoryInterface;
 use App\Character\Services\CharacterQueriesService;
+use App\Shared\Queries\QueryInterface;
 
 final readonly class GetCharactersQuery implements QueryInterface
 {

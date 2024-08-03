@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Game\Queries;
 
-use App\Base\Queries\QueryInterface;
 use App\Game\Dtos\GameDto;
 use App\Game\Repositories\GameRepositoryInterface;
 use App\Game\Services\GameQueriesService;
+use App\Shared\Queries\QueryInterface;
 
 final readonly class GetGamesQuery implements QueryInterface
 {

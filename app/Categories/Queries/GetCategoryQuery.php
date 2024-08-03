@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Categories\Queries;
 
-use App\Base\Queries\QueryInterface;
 use App\Categories\Dtos\CategoryDto;
 use App\Categories\Repositories\CategoryRepositoryInterface;
 use App\Categories\Services\CategoryQueriesService;
+use App\Shared\Queries\QueryInterface;
 
 final readonly class GetCategoryQuery implements QueryInterface
 {

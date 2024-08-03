@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Items\Services;
 
-use App\Base\Exceptions\InvalidClassException;
 use App\Items\Builders\ItemDtoBuilder;
 use App\Items\Dtos\ItemDto;
 use App\Items\Exceptions\ItemNotFoundException;
 use App\Items\Models\Item;
+use App\Shared\Exceptions\InvalidClassException;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class ItemQueriesService

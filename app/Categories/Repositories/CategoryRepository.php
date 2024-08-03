@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Categories\Repositories;
 
-use App\Base\Exceptions\InvalidClassException;
-use App\Base\Repositories\AbstractRepository\AbstractRepository;
 use App\Categories\Exceptions\CategoryNotFoundException;
 use App\Categories\Models\Category;
+use App\Shared\Exceptions\InvalidClassException;
+use App\Shared\Repositories\AbstractRepository\AbstractRepository;
 
 final readonly class CategoryRepository extends AbstractRepository implements CategoryRepositoryInterface
 {

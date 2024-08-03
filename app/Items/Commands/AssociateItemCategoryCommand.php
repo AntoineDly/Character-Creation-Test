@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Items\Commands;
 
-use App\Base\Commands\CommandInterface;
+use App\Shared\Commands\CommandInterface;
 
 final readonly class AssociateItemCategoryCommand implements CommandInterface
 {

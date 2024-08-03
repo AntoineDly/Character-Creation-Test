@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DefaultFields\Requests;
 
-use App\Base\Requests\BaseFormRequest;
+use App\Shared\Requests\BaseFormRequest;
 
 final class CreateDefaultFieldRequest extends BaseFormRequest
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Character\Dtos;
 
-use App\Base\Dtos\DtoInterface;
 use App\Game\Dtos\GameDto;
+use App\Shared\Dtos\DtoInterface;
 
 final readonly class CharacterWithGameDto implements DtoInterface
 {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Items\Handlers;
 
-use App\Base\Commands\CommandInterface;
-use App\Base\Exceptions\IncorrectCommandException;
-use App\Base\Handlers\CommandHandlerInterface;
 use App\Items\Commands\AssociateItemGameCommand;
 use App\Items\Repositories\ItemRepositoryInterface;
+use App\Shared\Commands\CommandInterface;
+use App\Shared\Exceptions\IncorrectCommandException;
+use App\Shared\Handlers\CommandHandlerInterface;
 
 final readonly class AssociateItemGameHandler implements CommandHandlerInterface
 {

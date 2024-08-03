@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Base\Controllers\ApiController\ApiController;
-use App\Base\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Controllers\ApiController\ApiController;
+use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use Illuminate\Support\ServiceProvider;
 
 final class ControllersServiceProvider extends ServiceProvider

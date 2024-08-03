@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\DefaultFields\Controllers;
 
-use App\Base\CommandBus\CommandBus;
-use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\DefaultFields\Commands\CreateDefaultFieldCommand;
 use App\DefaultFields\Requests\CreateDefaultFieldRequest;
 use App\Helpers\RequestHelper;
+use App\Shared\CommandBus\CommandBus;
+use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
@@ -36,6 +37,8 @@ final readonly class CreateDefaultFieldController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendError(error: 'Default Field was not successfully created', errorContent: $e->errors());
+        } catch (Exception $e) {
+            return $this->apiController->sendException(exception: $e);
         }
 
         return $this->apiController->sendSuccess(message: 'Default Field was successfully created');

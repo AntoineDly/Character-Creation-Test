@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Categories\Controllers;
 
-use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\Categories\Queries\GetCategoriesQuery;
 use App\Categories\Queries\GetCategoryQuery;
 use App\Categories\Repositories\CategoryRepositoryInterface;
 use App\Categories\Services\CategoryQueriesService;
+use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 

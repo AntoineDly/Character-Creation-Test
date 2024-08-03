@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Game\Controllers;
 
-use App\Base\Controllers\ApiController\ApiControllerInterface;
 use App\Game\Queries\GetGameQuery;
 use App\Game\Queries\GetGamesQuery;
 use App\Game\Repositories\GameRepositoryInterface;
 use App\Game\Services\GameQueriesService;
+use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 

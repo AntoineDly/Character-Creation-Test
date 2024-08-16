@@ -25,9 +25,11 @@ final readonly class ApiController implements ApiControllerInterface
 
     public function sendException(Exception $exception): JsonResponse
     {
+        $exceptionCode = $exception->getCode();
+
         return $this->sendError(
             error: $exception->getMessage(),
-            statusCode: is_int($exception->getCode()) ? $exception->getCode() : 400
+            statusCode: is_int($exceptionCode) && $exceptionCode !== 0 ? $exceptionCode : 400
         );
     }
 

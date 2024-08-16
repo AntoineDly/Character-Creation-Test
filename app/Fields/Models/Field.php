@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Fields\Models;
 
-use App\Character\Models\Character;
-use App\Components\Models\Component;
+use App\Characters\Models\Character;
+use App\LinkedItems\Models\LinkedItem;
 use App\Parameters\Models\Parameter;
 use App\Shared\Traits\Uuid;
-use App\User\Models\User;
+use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -18,8 +18,7 @@ final class Field extends Model
 
     protected $fillable = [
         'value',
-        'component_id',
-        'character_id',
+        'linked_item_id',
         'parameter_id',
         'user_id',
     ];
@@ -35,13 +34,13 @@ final class Field extends Model
     }
 
     /**
-     * Get the component of the field.
+     * Get the linked item of the field.
      *
-     * @return BelongsTo<Component, Field>
+     * @return BelongsTo<LinkedItem, Field>
      */
-    public function component(): BelongsTo
+    public function linkedItem(): BelongsTo
     {
-        return $this->belongsTo(Component::class);
+        return $this->belongsTo(LinkedItem::class);
     }
 
     /**

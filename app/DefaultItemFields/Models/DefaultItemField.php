@@ -7,7 +7,7 @@ namespace App\DefaultItemFields\Models;
 use App\Items\Models\Item;
 use App\Parameters\Models\Parameter;
 use App\Shared\Traits\Uuid;
-use App\User\Models\User;
+use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

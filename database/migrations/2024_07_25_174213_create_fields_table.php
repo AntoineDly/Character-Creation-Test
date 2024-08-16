@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('linked_items', function (Blueprint $table) {
+        Schema::create('fields', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('value')->nullable();
             $table->foreignUuid('linked_item_id')->references('id')->on('linked_items');

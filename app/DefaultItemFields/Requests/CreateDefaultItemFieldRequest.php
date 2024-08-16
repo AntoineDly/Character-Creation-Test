@@ -31,9 +31,9 @@ final class CreateDefaultItemFieldRequest extends BaseFormRequest
             'value.string' => 'The name field must be a string.',
             'value.min' => 'The name feld must be at least 1 characters.',
             'itemId.required' => 'The itemId field is required.',
-            'itemId.exists' => 'No items found for this itemId.',
+            'itemId.exists' => 'No item found for this itemId.',
             'parameterId.required' => 'The itemId field is required.',
-            'parameterId.exists' => 'No parameters found for this parameterId.',
+            'parameterId.exists' => 'No parameter found for this parameterId.',
         ];
     }
 }

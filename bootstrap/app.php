@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Middleware\Cors;
-use App\Middleware\ForceJsonResponse;
+use App\Middlewares\Cors;
+use App\Middlewares\ForceJsonResponse;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;

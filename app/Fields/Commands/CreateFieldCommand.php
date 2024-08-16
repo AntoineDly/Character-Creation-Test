@@ -10,8 +10,7 @@ final readonly class CreateFieldCommand implements CommandInterface
 {
     public function __construct(
         public string $value,
-        public string $characterId,
-        public string $componentId,
+        public string $linkedItemId,
         public string $parameterId,
         public string $userId,
     ) {

@@ -5,16 +5,19 @@ declare(strict_types=1);
 use App\Categories\Controllers\AssociateCategoryController;
 use App\Categories\Controllers\CreateCategoryController;
 use App\Categories\Controllers\GetCategoryController;
-use App\Character\Controllers\CreateCharacterController;
-use App\Character\Controllers\GetCharacterController;
+use App\Characters\Controllers\CreateCharacterController;
+use App\Characters\Controllers\GetCharacterController;
 use App\Components\Controllers\CreateComponentController;
 use App\Components\Controllers\GetComponentController;
+use App\DefaultComponentFields\Controllers\CreateDefaultComponentFieldController;
 use App\DefaultItemFields\Controllers\CreateDefaultItemFieldController;
 use App\Fields\Controllers\CreateFieldController;
-use App\Game\Controllers\CreateGameController;
-use App\Game\Controllers\GetGameController;
+use App\Games\Controllers\CreateGameController;
+use App\Games\Controllers\GetGameController;
+use App\Items\Controllers\CreateItemController;
+use App\LinkedItems\Controllers\CreateLinkedItemController;
 use App\Parameters\Controllers\CreateParameterController;
-use App\User\Controllers\AuthenticationController;
+use App\Users\Controllers\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,5 +54,11 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/default_item_fields', [CreateDefaultItemFieldController::class, 'createDefaultItemField']);
 
+    Route::post('/default_component_fields', [CreateDefaultComponentFieldController::class, 'createDefaultComponentField']);
+
     Route::post('/fields', [CreateFieldController::class, 'createField']);
+
+    Route::post('/items', [CreateItemController::class, 'createItem']);
+
+    Route::post('/linked_items', [CreateLinkedItemController::class, 'createLinkedItem']);
 });

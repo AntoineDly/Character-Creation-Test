@@ -8,7 +8,7 @@ use App\DefaultItemFields\Models\DefaultItemField;
 use App\Fields\Models\Field;
 use App\Parameters\Enums\TypeEnum;
 use App\Shared\Traits\Uuid;
-use App\User\Models\User;
+use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

@@ -14,10 +14,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->foreignUuid('component_id')->references('id')->on('components');
             $table->foreignUuid('category_id')->references('id')->on('categories');
-            $table->primary(['component_id', 'category_id']);
+            $table->foreignUuid('user_id')->references('id')->on('users');
+            $table->unique(['component_id', 'category_id']);
             $table->timestamps();
         });
     }

@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Categories\Requests;
 
 use App\Shared\Requests\BaseFormRequest;
+use Illuminate\Contracts\Validation\ValidationRule;
 
 final class AssociateCategoryGameRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -26,9 +27,9 @@ final class AssociateCategoryGameRequest extends BaseFormRequest
     {
         return [
             'categoryId.required' => 'The categoryId field is required.',
-            'categoryId.exists' => 'No categories found for this categoryId.',
+            'categoryId.exists' => 'No category found for this categoryId.',
             'gameId.required' => 'The gameId field is required.',
-            'gameId.exists' => 'No games found for this gameId.',
+            'gameId.exists' => 'No game found for this gameId.',
         ];
     }
 }

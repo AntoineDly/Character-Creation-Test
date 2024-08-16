@@ -36,11 +36,11 @@ final readonly class CreateDefaultItemFieldController
 
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
-            return $this->apiController->sendError(error: 'Default Field was not successfully created', errorContent: $e->errors());
+            return $this->apiController->sendError(error: 'Default Item Field was not successfully created', errorContent: $e->errors());
         } catch (Exception $e) {
             return $this->apiController->sendException(exception: $e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Default Field was successfully created');
+        return $this->apiController->sendSuccess(message: 'Default Item Field was successfully created');
     }
 }

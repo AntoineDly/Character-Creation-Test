@@ -6,22 +6,28 @@ namespace App\Providers;
 
 use App\Categories\Repositories\CategoryRepository;
 use App\Categories\Repositories\CategoryRepositoryInterface;
-use App\Character\Repositories\CharacterRepository;
-use App\Character\Repositories\CharacterRepositoryInterface;
+use App\Characters\Repositories\CharacterRepository;
+use App\Characters\Repositories\CharacterRepositoryInterface;
 use App\Components\Repositories\ComponentRepository;
 use App\Components\Repositories\ComponentRepositoryInterface;
+use App\DefaultComponentFields\Repositories\DefaultComponentFieldRepository;
+use App\DefaultComponentFields\Repositories\DefaultComponentFieldRepositoryInterface;
 use App\DefaultItemFields\Repositories\DefaultItemFieldRepository;
 use App\DefaultItemFields\Repositories\DefaultItemFieldRepositoryInterface;
 use App\Fields\Repositories\FieldRepository;
 use App\Fields\Repositories\FieldRepositoryInterface;
-use App\Game\Repositories\GameRepository;
-use App\Game\Repositories\GameRepositoryInterface;
+use App\Games\Repositories\GameRepository;
+use App\Games\Repositories\GameRepositoryInterface;
+use App\Items\Repositories\ItemRepository;
+use App\Items\Repositories\ItemRepositoryInterface;
+use App\LinkedItems\Repositories\LinkedItemRepository;
+use App\LinkedItems\Repositories\LinkedItemRepositoryInterface;
 use App\Parameters\Repositories\ParameterRepository;
 use App\Parameters\Repositories\ParameterRepositoryInterface;
 use App\Shared\Repositories\AbstractRepository\AbstractRepository;
 use App\Shared\Repositories\AbstractRepository\AbstractRepositoryInterface;
-use App\User\Repositories\UserRepository;
-use App\User\Repositories\UserRepositoryInterface;
+use App\Users\Repositories\UserRepository;
+use App\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 final class RepositoriesServiceProvider extends ServiceProvider
@@ -38,8 +44,11 @@ final class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(abstract: CategoryRepositoryInterface::class, concrete: CategoryRepository::class);
         $this->app->bind(abstract: ComponentRepositoryInterface::class, concrete: ComponentRepository::class);
         $this->app->bind(abstract: ParameterRepositoryInterface::class, concrete: ParameterRepository::class);
+        $this->app->bind(abstract: DefaultComponentFieldRepositoryInterface::class, concrete: DefaultComponentFieldRepository::class);
         $this->app->bind(abstract: DefaultItemFieldRepositoryInterface::class, concrete: DefaultItemFieldRepository::class);
         $this->app->bind(abstract: FieldRepositoryInterface::class, concrete: FieldRepository::class);
+        $this->app->bind(abstract: ItemRepositoryInterface::class, concrete: ItemRepository::class);
+        $this->app->bind(abstract: LinkedItemRepositoryInterface::class, concrete: LinkedItemRepository::class);
     }
 
     /**

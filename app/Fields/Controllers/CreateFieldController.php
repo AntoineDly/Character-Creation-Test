@@ -24,13 +24,12 @@ final readonly class CreateFieldController
     public function createField(CreateFieldRequest $request): JsonResponse
     {
         try {
-            /** @var array{'value': string, 'characterId': string, 'componentId': string, 'parameterId': string} $validated */
+            /** @var array{'value': string, 'linkedItemId': string, 'parameterId': string} $validated */
             $validated = $request->validated();
 
             $command = new CreateFieldCommand(
                 value: $validated['value'],
-                characterId: $validated['characterId'],
-                componentId: $validated['componentId'],
+                linkedItemId: $validated['linkedItemId'],
                 parameterId: $validated['parameterId'],
                 userId: RequestHelper::getUserId($request),
             );

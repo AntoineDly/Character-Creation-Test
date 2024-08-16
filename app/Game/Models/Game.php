@@ -6,7 +6,7 @@ namespace App\Game\Models;
 
 use App\Categories\Models\Category;
 use App\Character\Models\Character;
-use App\Items\Models\Item;
+use App\Components\Models\Component;
 use App\Shared\Traits\Uuid;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -55,12 +55,12 @@ final class Game extends Model
     }
 
     /**
-     * Get the items of the game.
+     * Get the components of the game.
      *
-     * @return BelongsToMany<Item>
+     * @return BelongsToMany<Component>
      */
-    public function items(): BelongsToMany
+    public function components(): BelongsToMany
     {
-        return $this->belongsToMany(Item::class)->withTimestamps();
+        return $this->belongsToMany(Component::class)->withTimestamps();
     }
 }

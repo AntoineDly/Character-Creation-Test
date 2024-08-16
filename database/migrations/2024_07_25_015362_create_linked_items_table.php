@@ -15,10 +15,8 @@ return new class extends Migration
     {
         Schema::create('linked_items', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('value')->nullable();
-            $table->foreignUuid('linked_item_id')->references('id')->on('linked_items');
-            $table->foreignUuid('parameter_id')->references('id')->on('parameters');
-            $table->foreignUuid('user_id')->references('id')->on('users');
+            $table->foreignUuid('item_id')->references('id')->on('items');
+            $table->foreignUuid('character_id')->references('id')->on('characters');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fields');
+        Schema::dropIfExists('items');
     }
 };

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Parameters\Models;
 
-use App\DefaultFields\Models\DefaultField;
+use App\DefaultItemFields\Models\DefaultItemField;
 use App\Fields\Models\Field;
 use App\Parameters\Enums\TypeEnum;
 use App\Shared\Traits\Uuid;
@@ -50,10 +50,10 @@ final class Parameter extends Model
     /**
      * Get the default fields of the parameter.
      *
-     * @return HasMany<DefaultField>
+     * @return HasMany<DefaultItemField>
      */
-    public function defaultFields(): HasMany
+    public function defaultItemFields(): HasMany
     {
-        return $this->hasMany(DefaultField::class);
+        return $this->hasMany(DefaultItemField::class);
     }
 }

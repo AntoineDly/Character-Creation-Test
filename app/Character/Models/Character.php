@@ -6,12 +6,10 @@ namespace App\Character\Models;
 
 use App\Fields\Models\Field;
 use App\Game\Models\Game;
-use App\Items\Models\Item;
 use App\Shared\Traits\Uuid;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Character extends Model
@@ -52,15 +50,5 @@ final class Character extends Model
     public function fields(): HasMany
     {
         return $this->hasMany(Field::class);
-    }
-
-    /**
-     * Get the items of the character.
-     *
-     * @return BelongsToMany<Item>
-     */
-    public function characters(): BelongsToMany
-    {
-        return $this->belongsToMany(Item::class)->withTimestamps();
     }
 }

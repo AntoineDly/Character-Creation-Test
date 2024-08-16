@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Fields\Models;
 
 use App\Character\Models\Character;
-use App\Items\Models\Item;
+use App\Components\Models\Component;
 use App\Parameters\Models\Parameter;
 use App\Shared\Traits\Uuid;
 use App\User\Models\User;
@@ -18,14 +18,14 @@ final class Field extends Model
 
     protected $fillable = [
         'value',
-        'item_id',
+        'component_id',
         'character_id',
         'parameter_id',
         'user_id',
     ];
 
     /**
-     * Get the user that created the item.
+     * Get the user that created the component.
      *
      * @return BelongsTo<User, Field>
      */
@@ -35,13 +35,13 @@ final class Field extends Model
     }
 
     /**
-     * Get the item of the field.
+     * Get the component of the field.
      *
-     * @return BelongsTo<Item, Field>
+     * @return BelongsTo<Component, Field>
      */
-    public function item(): BelongsTo
+    public function component(): BelongsTo
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Component::class);
     }
 
     /**

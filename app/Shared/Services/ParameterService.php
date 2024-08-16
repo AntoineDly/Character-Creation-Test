@@ -53,7 +53,7 @@ final readonly class ParameterService
         $parameter = $this->parameterRepository->findById(id: $parameterId);
 
         if (is_null($parameter)) {
-            throw new ParameterNotFoundException(message: 'Item not found', code: 404);
+            throw new ParameterNotFoundException(message: 'Component not found', code: 404);
         }
 
         if (! $parameter instanceof Parameter) {

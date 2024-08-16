@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('linked_items', function (Blueprint $table) {
+        Schema::create('default_item_fields', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('value')->nullable();
-            $table->foreignUuid('linked_item_id')->references('id')->on('linked_items');
+            $table->foreignUuid('item_id')->references('id')->on('items');
             $table->foreignUuid('parameter_id')->references('id')->on('parameters');
             $table->foreignUuid('user_id')->references('id')->on('users');
             $table->timestamps();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fields');
+        Schema::dropIfExists('default_item_fields');
     }
 };

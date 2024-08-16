@@ -27,6 +27,6 @@ final readonly class CreateFieldHandler implements CommandHandlerInterface
 
         $value = $this->parameterService->validateValueType(parameterId: $command->parameterId, value: $command->value);
 
-        $this->fieldRepository->create(attributes: ['value' => $value, 'character_id' => $command->characterId, 'item_id' => $command->itemId, 'parameter_id' => $command->parameterId, 'user_id' => $command->userId]);
+        $this->fieldRepository->create(attributes: ['value' => $value, 'character_id' => $command->characterId, 'component_id' => $command->componentId, 'parameter_id' => $command->parameterId, 'user_id' => $command->userId]);
     }
 }

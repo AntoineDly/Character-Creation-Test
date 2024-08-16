@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Categories\Models;
 
+use App\Components\Models\Component;
 use App\Game\Models\Game;
-use App\Items\Models\Item;
 use App\Shared\Traits\Uuid;
 use App\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -44,12 +44,12 @@ final class Category extends Model
     }
 
     /**
-     * Get the items of the category.
+     * Get the components of the category.
      *
-     * @return BelongsToMany<Item>
+     * @return BelongsToMany<Component>
      */
-    public function items(): BelongsToMany
+    public function components(): BelongsToMany
     {
-        return $this->belongsToMany(Item::class)->withTimestamps();
+        return $this->belongsToMany(Component::class)->withTimestamps();
     }
 }

@@ -7,13 +7,12 @@ use App\Categories\Controllers\CreateCategoryController;
 use App\Categories\Controllers\GetCategoryController;
 use App\Character\Controllers\CreateCharacterController;
 use App\Character\Controllers\GetCharacterController;
-use App\DefaultFields\Controllers\CreateDefaultFieldController;
+use App\Components\Controllers\CreateComponentController;
+use App\Components\Controllers\GetComponentController;
+use App\DefaultItemFields\Controllers\CreateDefaultItemFieldController;
 use App\Fields\Controllers\CreateFieldController;
 use App\Game\Controllers\CreateGameController;
 use App\Game\Controllers\GetGameController;
-use App\Items\Controllers\AssociateItemController;
-use App\Items\Controllers\CreateItemController;
-use App\Items\Controllers\GetItemController;
 use App\Parameters\Controllers\CreateParameterController;
 use App\User\Controllers\AuthenticationController;
 use Illuminate\Http\Request;
@@ -44,16 +43,13 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/categories', [CreateCategoryController::class, 'createCategory']);
     Route::post('/categories/associate_game', [AssociateCategoryController::class, 'associateGame']);
 
-    Route::get('/items', [GetItemController::class, 'getItems']);
-    Route::get('/items/{id}', [GetItemController::class, 'getItem']);
-    Route::post('/items', [CreateItemController::class, 'createItem']);
-    Route::post('/items/associate_game', [AssociateItemController::class, 'associateGame']);
-    Route::post('/items/associate_category', [AssociateItemController::class, 'associateCategory']);
-    Route::post('/items/associate_character', [AssociateItemController::class, 'associateCharacter']);
+    Route::get('/components', [GetComponentController::class, 'getComponents']);
+    Route::get('/components/{id}', [GetComponentController::class, 'getComponent']);
+    Route::post('/components', [CreateComponentController::class, 'createComponent']);
 
     Route::post('/parameters', [CreateParameterController::class, 'createParameter']);
 
-    Route::post('/default_fields', [CreateDefaultFieldController::class, 'createDefaultField']);
+    Route::post('/default_item_fields', [CreateDefaultItemFieldController::class, 'createDefaultItemField']);
 
     Route::post('/fields', [CreateFieldController::class, 'createField']);
 });

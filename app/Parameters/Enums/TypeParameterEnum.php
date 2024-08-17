@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Parameters\Enums;
 
-enum TypeEnum: string
+enum TypeParameterEnum: string
 {
     case STRING = 'string';
     case INT = 'int';

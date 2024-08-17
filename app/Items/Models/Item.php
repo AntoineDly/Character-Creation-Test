@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Items\Models;
 
+use App\Categories\Models\Category;
+use App\Components\Models\Component;
 use App\DefaultItemFields\Models\DefaultItemField;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
@@ -29,6 +31,26 @@ final class Item extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the component of the item.
+     *
+     * @return BelongsTo<Component, Item>
+     */
+    public function component(): BelongsTo
+    {
+        return $this->belongsTo(Component::class);
+    }
+
+    /**
+     * Get the category of the item.
+     *
+     * @return BelongsTo<Category, Item>
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 
     /**

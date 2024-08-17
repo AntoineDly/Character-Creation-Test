@@ -35,6 +35,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/characters/with_game', [GetCharacterController::class, 'getCharactersWithGame']);
     Route::get('/characters/{id}', [GetCharacterController::class, 'getCharacter']);
     Route::get('/characters/{id}/with_game', [GetCharacterController::class, 'getCharacterWithGame']);
+    Route::get('/characters/{id}/with_linked_items', [GetCharacterController::class, 'getCharacterWithLinkedItems']);
     Route::post('/characters', [CreateCharacterController::class, 'createCharacter']);
 
     Route::get('/games', [GetGameController::class, 'getGames']);

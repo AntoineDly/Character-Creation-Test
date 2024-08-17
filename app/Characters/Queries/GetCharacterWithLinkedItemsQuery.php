@@ -1,15 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Characters\Queries;
 
-use App\Characters\Dtos\CharacterWithGameDto;
+use App\Characters\Dtos\CharacterWithLinkedItemsDto;
 use App\Characters\Repositories\CharacterRepositoryInterface;
 use App\Characters\Services\CharacterQueriesService;
 use App\Shared\Queries\QueryInterface;
 
-final readonly class GetCharacterWithGameQuery implements QueryInterface
+final readonly class GetCharacterWithLinkedItemsQuery implements QueryInterface
 {
     public function __construct(
         private CharacterRepositoryInterface $characterRepository,
@@ -18,10 +16,10 @@ final readonly class GetCharacterWithGameQuery implements QueryInterface
     ) {
     }
 
-    public function get(): CharacterWithGameDto
+    public function get(): CharacterWithLinkedItemsDto
     {
-        $character = $this->characterRepository->getCharacterWithGameById(id: $this->characterId);
+        $character = $this->characterRepository->getCharacterWithLinkedItemsById(id: $this->characterId);
 
-        return $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character);
+        return $this->characterQueriesService->getCharacterWithLinkedItemsDtoFromModel(character: $character);
     }
 }

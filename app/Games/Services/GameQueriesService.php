@@ -32,9 +32,17 @@ final readonly class GameQueriesService
         /** @var array{'id': string, 'name': string} $gameData */
         $gameData = $game->toArray();
 
+        return $this->getGameDtoFromArray(game: $gameData);
+    }
+
+    /**
+     * @param array{'id': string, 'name': string} $game
+     */
+    public function getGameDtoFromArray(array $game)
+    {
         return $this->gameDtoBuilder
-            ->setId(id: $gameData['id'])
-            ->setName(name: $gameData['name'])
+            ->setId(id: $game['id'])
+            ->setName(name: $game['name'])
             ->build();
     }
 }

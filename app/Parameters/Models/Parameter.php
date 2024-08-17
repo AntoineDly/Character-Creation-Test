@@ -6,7 +6,7 @@ namespace App\Parameters\Models;
 
 use App\DefaultItemFields\Models\DefaultItemField;
 use App\Fields\Models\Field;
-use App\Parameters\Enums\TypeEnum;
+use App\Parameters\Enums\TypeParameterEnum;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +24,7 @@ final class Parameter extends Model
     ];
 
     protected $casts = [
-        'type' => TypeEnum::class,
+        'type' => TypeParameterEnum::class,
     ];
 
     /**

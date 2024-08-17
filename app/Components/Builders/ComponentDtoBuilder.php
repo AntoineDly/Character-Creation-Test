@@ -12,9 +12,9 @@ use App\Shared\Exceptions\StringIsEmptyException;
 
 final class ComponentDtoBuilder implements BuilderInterface
 {
-    public string $id = '';
+    private string $id = '';
 
-    public string $name = '';
+    private string $name = '';
 
     public function setId(string $id): self
     {

@@ -14,11 +14,11 @@ use App\Shared\Exceptions\StringIsEmptyException;
 
 final class CharacterWithGameDtoBuilder implements BuilderInterface
 {
-    public string $id;
+    private string $id;
 
-    public string $name;
+    private string $name;
 
-    public ?GameDto $gameDto = null;
+    private ?GameDto $gameDto = null;
 
     public function setId(string $id): self
     {

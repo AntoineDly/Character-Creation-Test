@@ -44,16 +44,6 @@ final class Character extends Model
     }
 
     /**
-     * Get the fields of the character.
-     *
-     * @return HasMany<Field>
-     */
-    public function fields(): HasMany
-    {
-        return $this->hasMany(Field::class);
-    }
-
-    /**
      * Get the linked items of the character.
      *
      * @return HasMany<LinkedItem>

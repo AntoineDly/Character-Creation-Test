@@ -13,4 +13,27 @@ final readonly class CharacterRepository extends AbstractRepository implements C
     {
         parent::__construct($model);
     }
+
+    public function getCharacterWithLinkedItemsById(string $id): Character
+    {
+        $character = $this->model->query()->where('id', $id)
+            ->with(
+                [
+                    'game.categories',
+                    'linkedItems.fields.parameter',
+                    'linkedItems.item.defaultItemFields.parameter',
+                    'linkedItems.item.component.defaultComponentFields.parameter',
+                    'linkedItems.item.category',
+                ]
+            )->first();
+
+        return $character;
+    }
+
+    public function getCharacterWithGameById(string $id): Character
+    {
+        $character = $this->model->query()->where('id', $id)->with('game')->first();
+
+        return $character;
+    }
 }

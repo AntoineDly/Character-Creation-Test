@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\LinkedItems\Models;
 
 use App\Fields\Models\Field;
+use App\Items\Models\Item;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -29,6 +30,16 @@ final class LinkedItem extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the item of the linked item.
+     *
+     * @return BelongsTo<Item, LinkedItem>
+     */
+    public function item(): BelongsTo
+    {
+        return $this->belongsTo(Item::class);
     }
 
     /**

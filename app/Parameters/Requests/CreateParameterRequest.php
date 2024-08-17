@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Parameters\Requests;
 
-use App\Parameters\Enums\TypeEnum;
+use App\Parameters\Enums\TypeParameterEnum;
 use App\Shared\Requests\BaseFormRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Rule;
@@ -20,7 +20,7 @@ final class CreateParameterRequest extends BaseFormRequest
     {
         return [
             'name' => 'required|string|min:3|max:20',
-            'type' => ['required', Rule::enum(TypeEnum::class)],
+            'type' => ['required', Rule::enum(TypeParameterEnum::class)],
         ];
     }
 

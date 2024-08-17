@@ -8,6 +8,7 @@ use App\Characters\Queries\GetCharacterQuery;
 use App\Characters\Queries\GetCharactersQuery;
 use App\Characters\Queries\GetCharactersWithGameQuery;
 use App\Characters\Queries\GetCharacterWithGameQuery;
+use App\Characters\Queries\GetCharacterWithLinkedItemsQuery;
 use App\Characters\Repositories\CharacterRepositoryInterface;
 use App\Characters\Services\CharacterQueriesService;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
@@ -76,6 +77,22 @@ final readonly class GetCharacterController
             $query = new GetCharactersWithGameQuery(
                 characterRepository: $this->characterRepository,
                 characterQueriesService: $this->characterQueriesService,
+            );
+            $result = $query->get();
+        } catch (Exception $e) {
+            return $this->apiController->sendException(exception: $e);
+        }
+
+        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved', content: [$result]);
+    }
+
+    public function getCharacterWithLinkedItems(string $characterId): JsonResponse
+    {
+        try {
+            $query = new GetCharacterWithLinkedItemsQuery(
+                characterRepository: $this->characterRepository,
+                characterQueriesService: $this->characterQueriesService,
+                characterId: $characterId
             );
             $result = $query->get();
         } catch (Exception $e) {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Services;
 
-use App\Parameters\Enums\TypeEnum;
+use App\Parameters\Enums\TypeParameterEnum;
 use App\Parameters\Exceptions\ParameterNotFoundException;
 use App\Parameters\Models\Parameter;
 use App\Parameters\Repositories\ParameterRepositoryInterface;
@@ -28,15 +28,15 @@ final readonly class ParameterService
     {
         $parameter = $this->getParameterById(parameterId: $parameterId);
 
-        /** @var array{'type': TypeEnum} $parameterData */
+        /** @var array{'type': TypeParameterEnum} $parameterData */
         $parameterData = $parameter->toArray();
         $type = $parameterData['type'];
 
-        if ($type === TypeEnum::INT && ! is_numeric($value)) {
+        if ($type === TypeParameterEnum::INT && ! is_numeric($value)) {
             throw new InvalidValueForParameterTypeException('Value '.$value.' should be castable to int.');
         }
 
-        if ($type === TypeEnum::BOOLEAN) {
+        if ($type === TypeParameterEnum::BOOLEAN) {
             if (! in_array($value, self::BOOLEAN_VALUES)) {
                 throw new InvalidValueForParameterTypeException('Value '.$value.' should be castable to boolean.');
             }

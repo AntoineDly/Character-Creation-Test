@@ -11,14 +11,13 @@ use App\Characters\Builders\CharacterWithLinkedItemsDtoBuilder;
 use App\Characters\Dtos\CharacterDto;
 use App\Characters\Dtos\CharacterWithGameDto;
 use App\Characters\Dtos\CharacterWithLinkedItemsDto;
-use App\Characters\Exceptions\CharacterNotFoundException;
-use App\Characters\Models\Character;
 use App\Games\Services\GameQueriesService;
+use App\Helpers\ArrayHelper;
+use App\Helpers\AssertHelper;
 use App\LinkedItems\Builders\LinkedItemsForCharacterDtoBuilder;
 use App\LinkedItems\Dtos\LinkedItemsForCharacterDto;
 use App\Shared\Builders\SharedFieldDtoBuilder\SharedFieldDtoBuilder;
 use App\Shared\Enums\TypeFieldEnum;
-use App\Shared\Exceptions\InvalidClassException;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class CharacterQueriesService
@@ -36,126 +35,106 @@ final readonly class CharacterQueriesService
 
     public function getCharacterDtoFromModel(?Model $character): CharacterDto
     {
-        if (is_null($character)) {
-            throw new CharacterNotFoundException(message: 'Character not found', code: 404);
-        }
-
-        if (! $character instanceof Character) {
-            throw new InvalidClassException(
-                'Class was expected to be Character, '.get_class($character).' given.'
-            );
-        }
-
-        /** @var array{'id': string, 'name': string} $characterData */
-        $characterData = $character->toArray();
+        $character = AssertHelper::isCharacter($character);
 
         return $this->characterDtoBuilder
-            ->setId(id: $characterData['id'])
-            ->setName(name: $characterData['name'])
+            ->setId(id: $character->id)
+            ->setName(name: $character->name)
             ->build();
     }
 
     public function getCharacterWithGameDtoFromModel(?Model $character): CharacterWithGameDto
     {
-        if (is_null($character)) {
-            throw new CharacterNotFoundException(message: 'Character not found', code: 404);
-        }
+        $character = AssertHelper::isCharacter($character);
 
-        if (! $character instanceof Character) {
-            throw new InvalidClassException(
-                'Class was expected to be Character, '.get_class($character).' given.'
-            );
-        }
-
-        /** @var array{'id': string, 'name': string, 'game': array{'id': string, 'name': string}} $characterData */
-        $characterData = $character->toArray();
-
-        $gameDto = $this->gameQueriesService->getGameDtoFromArray($characterData['game']);
+        $gameDto = $this->gameQueriesService->getGameDtoFromModel($character->game);
 
         return $this->characterWithGameDtoBuilder
-            ->setId(id: $characterData['id'])
-            ->setName(name: $characterData['name'])
+            ->setId(id: $character->id)
+            ->setName(name: $character->name)
             ->setGameDto(gameDto: $gameDto)
             ->build();
     }
 
-    public function getCharacterWithLinkedItemsDtoFromModel(Character $character): CharacterWithLinkedItemsDto
+    public function getCharacterWithLinkedItemsDtoFromModel(?Model $character): CharacterWithLinkedItemsDto
     {
-        if (is_null($character)) {
-            throw new CharacterNotFoundException(message: 'Character not found', code: 404);
-        }
-
-        if (! $character instanceof Character) {
-            throw new InvalidClassException(
-                'Class was expected to be Character, '.get_class($character).' given.'
-            );
-        }
-
-        /** @var array{'id': string, 'name': string, 'game': array{'id': string, 'name': string}} $characterData */
-        $characterData = $character->toArray();
+        $character = AssertHelper::isCharacter($character);
+        $game = AssertHelper::isGame($character->game);
 
         $this->characterWithLinkedItemsDtoBuilder
-            ->setId($characterData['id'])
-            ->setName($characterData['name']);
+            ->setId($character->id)
+            ->setName($character->name);
 
-        /**
-         * @var array{string, array{'id': string, 'name': string, 'linkedItemForCharacterDtos': LinkedItemsForCharacterDto[]} $categories
-         */
+        /** @var array{'id': string, 'name': string, 'linkedItemForCharacterDtos': LinkedItemsForCharacterDto[]} $categories */
         $categories = [];
 
-        foreach($characterData['game']['categories'] as $category) {
-            $categories[$category['id']] = ['name' => $category['name'], 'linkedItemForCharacterDtos' => []];
+        foreach ($game->categories as $category) {
+            $category = AssertHelper::isCategory($category);
+            $categories[$category->id] = ['name' => $category->name, 'linkedItemForCharacterDtos' => []];
         }
 
-        foreach($characterData['linked_items'] as $linkedItem) {
-            $item = $linkedItem['item'];
-            $component = $item['component'];
+        if (ArrayHelper::isEmpty($categories)) {
+            return $this->characterWithLinkedItemsDtoBuilder->build();
+        }
+
+        foreach ($character->linkedItems as $linkedItem) {
+            $linkedItem = AssertHelper::isLinkedItem($linkedItem);
+            $item = AssertHelper::isItem($linkedItem->item);
+            $component = AssertHelper::isComponent($item->component);
+            $category = AssertHelper::isCategory($item->category);
+            $categoryId = $category->id;
 
             $this->linkedItemsForCharacterDtoBuilder
-                ->setId($linkedItem['id'])
-                ->setName($component['name']);
+                ->setId($linkedItem->id)
+                ->setName($component->name);
 
-            foreach ($linkedItem['fields'] as $field) {
-                $parameter = $field['parameter'];
+            //@todo refacto all of them with a FieldInterface having getId, getName, getValue and getParameter methods
+            foreach ($linkedItem->fields as $field) {
+                $field = AssertHelper::isField($field);
+                $parameter = AssertHelper::isParameter($field->parameter);
                 $sharedFieldDto = $this->sharedFieldDtoBuilder
-                    ->setSharedFieldId($field['id'])
-                    ->setParameterId($parameter['id'])
-                    ->setName($parameter['name'])
-                    ->setValue($field['value'])
-                    ->setTypeParameterEnum($parameter['type'])
+                    ->setId($field->id)
+                    ->setParameterId($parameter->id)
+                    ->setName($parameter->name)
+                    ->setValue($field->value)
+                    ->setTypeParameterEnum($parameter->type)
                     ->setTypeFieldEnum(TypeFieldEnum::FIELD)
                     ->build();
                 $this->linkedItemsForCharacterDtoBuilder
                     ->addSharedFieldDto($sharedFieldDto);
             }
-            foreach($item['default_item_fields'] as $defaultItemField) {
-                $parameter = $defaultItemField['parameter'];
+            foreach ($item->defaultItemFields as $defaultItemField) {
+                $defaultItemField = AssertHelper::isDefaultItemField($defaultItemField);
+                $parameter = AssertHelper::isParameter($defaultItemField->parameter);
                 $sharedFieldDto = $this->sharedFieldDtoBuilder
-                    ->setSharedFieldId($defaultItemField['id'])
-                    ->setParameterId($parameter['id'])
-                    ->setName($parameter['name'])
-                    ->setValue($defaultItemField['value'])
-                    ->setTypeParameterEnum($parameter['type'])
+                    ->setId($defaultItemField->id)
+                    ->setParameterId($parameter->id)
+                    ->setName($parameter->name)
+                    ->setValue($defaultItemField->value)
+                    ->setTypeParameterEnum($parameter->type)
                     ->setTypeFieldEnum(TypeFieldEnum::DEFAULT_ITEM_FIELD)
                     ->build();
                 $this->linkedItemsForCharacterDtoBuilder
                     ->addSharedFieldDto($sharedFieldDto);
             }
-            foreach($component['default_component_fields'] as $defaultComponentField) {
-                $parameter = $defaultComponentField['parameter'];
+            foreach ($component->defaultComponentFields as $defaultComponentField) {
+                $defaultComponentField = AssertHelper::isDefaultComponentField($defaultComponentField);
+                $parameter = AssertHelper::isParameter($defaultComponentField->parameter);
                 $sharedFieldDto = $this->sharedFieldDtoBuilder
-                    ->setSharedFieldId($defaultComponentField['id'])
-                    ->setParameterId($parameter['id'])
-                    ->setName($parameter['name'])
-                    ->setValue($defaultComponentField['value'])
-                    ->setTypeParameterEnum($parameter['type'])
+                    ->setId($defaultComponentField->id)
+                    ->setParameterId($parameter->id)
+                    ->setName($parameter->name)
+                    ->setValue($defaultComponentField->value)
+                    ->setTypeParameterEnum($parameter->type)
                     ->setTypeFieldEnum(TypeFieldEnum::DEFAULT_COMPONENT_FIELD)
                     ->build();
                 $this->linkedItemsForCharacterDtoBuilder
                     ->addSharedFieldDto($sharedFieldDto);
             }
             $linkedItemForCharacterDto = $this->linkedItemsForCharacterDtoBuilder->build();
-            $categories[$item['category']['id']]['linkedItemForCharacterDtos'][] = $linkedItemForCharacterDto;
+            if (array_key_exists($categoryId, $categories)) {
+                array_push($categories[$categoryId]['linkedItemForCharacterDtos'], $linkedItemForCharacterDto);
+            }
         }
 
         foreach ($categories as $categoryId => $categoryData) {
@@ -166,6 +145,7 @@ final readonly class CharacterQueriesService
                 ->build();
             $this->characterWithLinkedItemsDtoBuilder->addCategoryForCharacterDto($categoryForCharacterDto);
         }
+
         return $this->characterWithLinkedItemsDtoBuilder->build();
     }
 }

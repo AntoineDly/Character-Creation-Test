@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Shared\Builders\SharedFieldDtoBuilder;
 
 use App\Helpers\UuidHelper;
@@ -8,87 +10,103 @@ use App\Shared\Builders\BuilderInterface;
 use App\Shared\Dtos\SharedFieldDto\SharedFieldDto;
 use App\Shared\Enums\TypeFieldEnum;
 use App\Shared\Exceptions\InvalidClassException;
+use App\Shared\Exceptions\NotAValidUuidException;
 use App\Shared\Exceptions\StringIsEmptyException;
 
 final class SharedFieldDtoBuilder implements BuilderInterface
 {
-    private string $sharedFieldId = '';
+    private string $id = '';
+
     private string $parameterId = '';
+
     private string $name = '';
-    private string $value = '';
+
+    private ?string $value = null;
+
     private TypeParameterEnum|string $typeParameterEnum = '';
+
     private TypeFieldEnum|string $typeFieldEnum = '';
 
-    public function setSharedFieldId(string $sharedFieldId): self
+    public function setId(string $id): self
     {
-        $this->sharedFieldId = $sharedFieldId;
+        $this->id = $id;
+
         return $this;
     }
 
     public function setParameterId(string $parameterId): self
     {
         $this->parameterId = $parameterId;
+
         return $this;
     }
 
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
-    public function setValue(string $value): self
+    public function setValue(?string $value): self
     {
         $this->value = $value;
+
         return $this;
     }
 
     public function setTypeParameterEnum(TypeParameterEnum|string $typeParameterEnum): self
     {
-        $this->typeParameterEnum =
-            is_string($typeParameterEnum) ? TypeParameterEnum::tryFrom($typeParameterEnum) : $typeParameterEnum;
+        if (is_string($typeParameterEnum)) {
+            $this->typeParameterEnum = TypeParameterEnum::tryFrom($typeParameterEnum) ?? '';
+
+            return $this;
+        }
+        $this->typeParameterEnum = $typeParameterEnum;
+
         return $this;
     }
 
     public function setTypeFieldEnum(TypeFieldEnum|string $typeFieldEnum): self
     {
-        $this->typeFieldEnum =
-            is_string($typeFieldEnum) ? TypeFieldEnum::tryFrom($typeFieldEnum) : $typeFieldEnum;
+        if (is_string($typeFieldEnum)) {
+            $this->typeFieldEnum = TypeFieldEnum::tryFrom($typeFieldEnum) ?? '';
+
+            return $this;
+        }
+        $this->typeFieldEnum = $typeFieldEnum;
+
         return $this;
     }
 
     public function build(): SharedFieldDto
     {
-        if (! UuidHelper::isValidUuid($this->sharedFieldId)) {
-            throw new StringIsEmptyException('sharedFieldId field is empty', code: 400);
+        if (! UuidHelper::isValidUuid($this->id)) {
+            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.', code: 400);
         }
 
         if (! UuidHelper::isValidUuid($this->parameterId)) {
-            throw new StringIsEmptyException('parameterId field is empty', code: 400);
+            throw new NotAValidUuidException('parameterId field is not a valid uuid, '.$this->id.' given.', code: 400);
         }
 
         if ($this->name === '') {
             throw new StringIsEmptyException('name field is empty', code: 400);
         }
 
-        if ($this->value === '') {
-            throw new StringIsEmptyException('value field is empty', code: 400);
-        }
-
-        if (!$this->typeParameterEnum instanceof TypeParameterEnum) {
+        if (! $this->typeParameterEnum instanceof TypeParameterEnum) {
             throw new InvalidClassException(
-                'Enum was expected to be TypeParameterEnum, '.get_class($this->typeParameterEnum).' given.'
+                'Enum was expected to be TypeParameterEnum, '.$this->typeParameterEnum.' given.'
             );
         }
 
-        if (!$this->typeFieldEnum instanceof TypeFieldEnum) {
+        if (! $this->typeFieldEnum instanceof TypeFieldEnum) {
             throw new InvalidClassException(
-                'Enum was expected to be TypeFieldEnum, '.get_class($this->typeFieldEnum).' given.'
+                'Enum was expected to be TypeFieldEnum, '.$this->typeFieldEnum.' given.'
             );
         }
 
         $sharedFieldDto = new SharedFieldDto(
-            sharedFieldId: $this->sharedFieldId,
+            id: $this->id,
             parameterId: $this->parameterId,
             name: $this->name,
             value: $this->value,

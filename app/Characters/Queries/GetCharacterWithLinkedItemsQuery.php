@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Characters\Queries;
 
 use App\Characters\Dtos\CharacterWithLinkedItemsDto;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\LinkedItems\Builders;
 
-use App\Games\Dtos\GameDto;
 use App\Helpers\UuidHelper;
 use App\LinkedItems\Dtos\LinkedItemsForCharacterDto;
 use App\Shared\Builders\BuilderInterface;
@@ -15,9 +14,10 @@ use App\Shared\Exceptions\StringIsEmptyException;
 final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
 {
     private string $id = '';
+
     private string $name = '';
 
-    /** @var SharedFieldDto[] $sharedFieldDtos */
+    /** @var SharedFieldDto[] */
     private array $sharedFieldDtos = [];
 
     public function setId(string $id): self

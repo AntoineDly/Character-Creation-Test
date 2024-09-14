@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shared\Services;
 
+use App\Helpers\AssertHelper;
 use App\Parameters\Enums\TypeParameterEnum;
-use App\Parameters\Exceptions\ParameterNotFoundException;
 use App\Parameters\Models\Parameter;
 use App\Parameters\Repositories\ParameterRepositoryInterface;
-use App\Shared\Exceptions\InvalidClassException;
 use App\Shared\Exceptions\InvalidValueForParameterTypeException;
 
 final readonly class ParameterService
@@ -27,10 +26,7 @@ final readonly class ParameterService
     public function validateValueType(string $parameterId, string $value): string
     {
         $parameter = $this->getParameterById(parameterId: $parameterId);
-
-        /** @var array{'type': TypeParameterEnum} $parameterData */
-        $parameterData = $parameter->toArray();
-        $type = $parameterData['type'];
+        $type = $parameter->type;
 
         if ($type === TypeParameterEnum::INT && ! is_numeric($value)) {
             throw new InvalidValueForParameterTypeException('Value '.$value.' should be castable to int.');
@@ -52,16 +48,6 @@ final readonly class ParameterService
     {
         $parameter = $this->parameterRepository->findById(id: $parameterId);
 
-        if (is_null($parameter)) {
-            throw new ParameterNotFoundException(message: 'Component not found', code: 404);
-        }
-
-        if (! $parameter instanceof Parameter) {
-            throw new InvalidClassException(
-                'Class was expected to be Parameter, '.get_class($parameter).' given.'
-            );
-        }
-
-        return $parameter;
+        return AssertHelper::isParameter($parameter);
     }
 }

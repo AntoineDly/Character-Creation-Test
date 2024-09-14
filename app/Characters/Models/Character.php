@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Characters\Models;
 
-use App\Fields\Models\Field;
 use App\Games\Models\Game;
 use App\LinkedItems\Models\LinkedItem;
 use App\Shared\Traits\Uuid;

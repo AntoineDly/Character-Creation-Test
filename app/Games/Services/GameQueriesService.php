@@ -6,9 +6,7 @@ namespace App\Games\Services;
 
 use App\Games\Builders\GameDtoBuilder;
 use App\Games\Dtos\GameDto;
-use App\Games\Exceptions\GameNotFoundException;
-use App\Games\Models\Game;
-use App\Shared\Exceptions\InvalidClassException;
+use App\Helpers\AssertHelper;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class GameQueriesService
@@ -19,30 +17,11 @@ final readonly class GameQueriesService
 
     public function getGameDtoFromModel(?Model $game): GameDto
     {
-        if (is_null($game)) {
-            throw new GameNotFoundException(message: 'Game not found', code: 404);
-        }
+        $game = AssertHelper::isGame($game);
 
-        if (! $game instanceof Game) {
-            throw new InvalidClassException(
-                'Class was expected to be Game, '.get_class($game).' given.'
-            );
-        }
-
-        /** @var array{'id': string, 'name': string} $gameData */
-        $gameData = $game->toArray();
-
-        return $this->getGameDtoFromArray(game: $gameData);
-    }
-
-    /**
-     * @param array{'id': string, 'name': string} $game
-     */
-    public function getGameDtoFromArray(array $game)
-    {
         return $this->gameDtoBuilder
-            ->setId(id: $game['id'])
-            ->setName(name: $game['name'])
+            ->setId(id: $game->id)
+            ->setName(name: $game->name)
             ->build();
     }
 }

@@ -65,7 +65,7 @@ final readonly class CharacterQueriesService
             ->setId($character->id)
             ->setName($character->name);
 
-        /** @var array{'id': string, 'name': string, 'linkedItemForCharacterDtos': LinkedItemsForCharacterDto[]} $categories */
+        /** @var array<string, array{'name': string, 'linkedItemForCharacterDtos': LinkedItemsForCharacterDto[]}> $categories */
         $categories = [];
 
         foreach ($game->categories as $category) {
@@ -133,7 +133,7 @@ final readonly class CharacterQueriesService
             }
             $linkedItemForCharacterDto = $this->linkedItemsForCharacterDtoBuilder->build();
             if (array_key_exists($categoryId, $categories)) {
-                array_push($categories[$categoryId]['linkedItemForCharacterDtos'], $linkedItemForCharacterDto);
+                $categories[$categoryId]['linkedItemForCharacterDtos'][] = $linkedItemForCharacterDto;
             }
         }
 

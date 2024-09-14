@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Categories\Builders;
 
-use App\Categories\Dtos\CategoryDto;
 use App\Categories\Dtos\CategoryForCharacterDto;
 use App\Helpers\UuidHelper;
 use App\LinkedItems\Dtos\LinkedItemsForCharacterDto;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Dtos\SharedFieldDto\SharedFieldDto;
 use App\Shared\Exceptions\NotAValidUuidException;
 use App\Shared\Exceptions\StringIsEmptyException;
 
@@ -19,7 +17,7 @@ final class CategoryForCharacterDtoBuilder implements BuilderInterface
 
     private string $name = '';
 
-    /** @var LinkedItemsForCharacterDto[] $linkedItemsForCharacterDto */
+    /** @var LinkedItemsForCharacterDto[] */
     private array $linkedItemsForCharacterDtos = [];
 
     public function setId(string $id): self

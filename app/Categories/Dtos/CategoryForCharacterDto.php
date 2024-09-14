@@ -9,7 +9,7 @@ use App\Shared\Dtos\DtoInterface;
 
 final readonly class CategoryForCharacterDto implements DtoInterface
 {
-    /** @param LinkedItemsForCharacterDto[] $linkedItemsForCharacterDto */
+    /** @param LinkedItemsForCharacterDto[] $linkedItemsForCharacterDtos */
     public function __construct(
         public string $id,
         public string $name,

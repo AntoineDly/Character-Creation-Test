@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Categories\Repositories;
 
-use App\Categories\Exceptions\CategoryNotFoundException;
 use App\Categories\Models\Category;
-use App\Shared\Exceptions\InvalidClassException;
+use App\Helpers\AssertHelper;
 use App\Shared\Repositories\AbstractRepository\AbstractRepository;
 
 final readonly class CategoryRepository extends AbstractRepository implements CategoryRepositoryInterface
@@ -20,15 +19,7 @@ final readonly class CategoryRepository extends AbstractRepository implements Ca
     {
         $category = $this->findById(id: $categoryId);
 
-        if (is_null($category)) {
-            throw new CategoryNotFoundException(message: 'Category not found', code: 404);
-        }
-
-        if (! $category instanceof Category) {
-            throw new InvalidClassException(
-                'Class was expected to be Category, '.get_class($category).' given.'
-            );
-        }
+        $category = AssertHelper::isCategory($category);
 
         $category->games()->attach($gameId);
     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Characters\Builders;
 
 use App\Categories\Dtos\CategoryForCharacterDto;
-use App\Characters\Dtos\CharacterDto;
 use App\Characters\Dtos\CharacterWithLinkedItemsDto;
 use App\Helpers\UuidHelper;
 use App\Shared\Builders\BuilderInterface;
@@ -18,7 +17,7 @@ final class CharacterWithLinkedItemsDtoBuilder implements BuilderInterface
 
     private string $name = '';
 
-    /** @var CategoryForCharacterDto[] $categoryForCharacterDtos */
+    /** @var CategoryForCharacterDto[] */
     private array $categoryForCharacterDtos = [];
 
     public function setId(string $id): self

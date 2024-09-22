@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DefaultItemFields\Models;
 
+use App\Fields\Models\FieldInterface;
 use App\Items\Models\Item;
 use App\Parameters\Models\Parameter;
 use App\Shared\Traits\Uuid;
@@ -11,7 +12,7 @@ use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-final class DefaultItemField extends Model
+final class DefaultItemField extends Model implements FieldInterface
 {
     use Uuid;
 
@@ -50,5 +51,20 @@ final class DefaultItemField extends Model
     public function parameter(): BelongsTo
     {
         return $this->belongsTo(Parameter::class);
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function getParameter(): ?Parameter
+    {
+        return $this->parameter;
     }
 }

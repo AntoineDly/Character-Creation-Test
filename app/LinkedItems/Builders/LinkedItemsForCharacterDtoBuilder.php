@@ -8,6 +8,7 @@ use App\Helpers\UuidHelper;
 use App\LinkedItems\Dtos\LinkedItemsForCharacterDto;
 use App\Shared\Builders\BuilderInterface;
 use App\Shared\Dtos\SharedFieldDto\SharedFieldDto;
+use App\Shared\Enums\TypeFieldEnum;
 use App\Shared\Exceptions\NotAValidUuidException;
 use App\Shared\Exceptions\StringIsEmptyException;
 
@@ -47,6 +48,25 @@ final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
         $this->sharedFieldDtos = $sharedFieldDtos;
 
         return $this;
+    }
+
+    public function containsSharedFieldDtoWithSameNameAndBiggerWeightOrRemoveIfLower(string $name, TypeFieldEnum $type): bool
+    {
+        foreach ($this->sharedFieldDtos as $key => $sharedFieldDto) {
+            if ($sharedFieldDto->name !== $name) {
+                continue;
+            }
+
+            if ($sharedFieldDto->typeFieldEnum->weight() > $type->weight()) {
+                return true;
+            }
+
+            unset($this->sharedFieldDtos[$key]);
+
+            return false;
+        }
+
+        return false;
     }
 
     public function build(): LinkedItemsForCharacterDto

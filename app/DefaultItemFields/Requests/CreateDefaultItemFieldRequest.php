@@ -27,12 +27,12 @@ final class CreateDefaultItemFieldRequest extends BaseFormRequest
     public function messages(): array
     {
         return [
-            'value.required' => 'The name field is required.',
-            'value.string' => 'The name field must be a string.',
-            'value.min' => 'The name feld must be at least 1 characters.',
+            'value.required' => 'The value field is required.',
+            'value.string' => 'The value field must be a string.',
+            'value.min' => 'The value feld must be at least 1 characters.',
             'itemId.required' => 'The itemId field is required.',
             'itemId.exists' => 'No item found for this itemId.',
-            'parameterId.required' => 'The itemId field is required.',
+            'parameterId.required' => 'The parameter field is required.',
             'parameterId.exists' => 'No parameter found for this parameterId.',
         ];
     }

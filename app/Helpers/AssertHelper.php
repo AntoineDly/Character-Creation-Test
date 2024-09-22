@@ -15,7 +15,7 @@ use App\DefaultComponentFields\Models\DefaultComponentField;
 use App\DefaultItemFields\Exceptions\DefaultItemFieldNotFoundException;
 use App\DefaultItemFields\Models\DefaultItemField;
 use App\Fields\Exceptions\FieldNotFoundException;
-use App\Fields\Models\Field;
+use App\Fields\Models\FieldInterface;
 use App\Games\Exceptions\GameNotFoundException;
 use App\Games\Models\Game;
 use App\Items\Exceptions\ItemNotFoundException;
@@ -119,13 +119,13 @@ final readonly class AssertHelper
         return $component;
     }
 
-    public static function isField(?Model $field): Field
+    public static function isField(?Model $field): FieldInterface
     {
         if (is_null($field)) {
             throw new FieldNotFoundException(message: 'Field not found', code: 404);
         }
 
-        if (! $field instanceof Field) {
+        if (! $field instanceof FieldInterface) {
             throw new InvalidClassException(
                 'Class was expected to be Field, '.get_class($field).' given.'
             );

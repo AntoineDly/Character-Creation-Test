@@ -12,7 +12,7 @@ use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-final class Field extends Model
+final class Field extends Model implements FieldInterface
 {
     use Uuid;
 
@@ -61,5 +61,20 @@ final class Field extends Model
     public function parameter(): BelongsTo
     {
         return $this->belongsTo(Parameter::class);
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function getParameter(): ?Parameter
+    {
+        return $this->parameter;
     }
 }

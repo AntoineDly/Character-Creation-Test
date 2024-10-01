@@ -27,8 +27,8 @@ final class CreateComponentRequest extends BaseFormRequest
         return [
             'name.required' => 'The name field is required.',
             'name.string' => 'The name field must be a string.',
-            'name.min' => 'The name feld must be at least 3 characters.',
-            'name.max' => 'The name must not be greater than 20 characters.',
+            'name.min' => 'The name field must be at least 3 characters.',
+            'name.max' => 'The name field must not be greater than 20 characters.',
         ];
     }
 }

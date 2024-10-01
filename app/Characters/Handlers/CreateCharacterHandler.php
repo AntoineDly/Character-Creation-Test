@@ -22,6 +22,6 @@ final readonly class CreateCharacterHandler implements CommandHandlerInterface
             throw new IncorrectCommandException('Command must be an instance of CreateCharacterCommand');
         }
 
-        $this->characterRepository->create(attributes: ['name' => $command->name, 'game_id' => $command->gameId, 'user_id' => $command->userId]);
+        $this->characterRepository->create(attributes: ['game_id' => $command->gameId, 'user_id' => $command->userId]);
     }
 }

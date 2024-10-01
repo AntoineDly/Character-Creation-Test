@@ -17,7 +17,6 @@ final class Character extends Model
     use Uuid;
 
     protected $fillable = [
-        'name',
         'game_id',
         'user_id',
     ];

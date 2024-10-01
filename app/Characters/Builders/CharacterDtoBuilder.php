@@ -8,13 +8,10 @@ use App\Characters\Dtos\CharacterDto;
 use App\Helpers\UuidHelper;
 use App\Shared\Builders\BuilderInterface;
 use App\Shared\Exceptions\NotAValidUuidException;
-use App\Shared\Exceptions\StringIsEmptyException;
 
 final class CharacterDtoBuilder implements BuilderInterface
 {
     private string $id = '';
-
-    private string $name = '';
 
     public function setId(string $id): self
     {
@@ -23,29 +20,20 @@ final class CharacterDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
+    /**
+     * @throws NotAValidUuidException
+     */
     public function build(): CharacterDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
             throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.', code: 400);
         }
 
-        if ($this->name === '') {
-            throw new StringIsEmptyException('name field is empty', code: 400);
-        }
-
         $characterDto = new CharacterDto(
-            id: $this->id,
-            name: $this->name
+            id: $this->id
         );
 
-        $this->id = $this->name = '';
+        $this->id = '';
 
         return $characterDto;
     }

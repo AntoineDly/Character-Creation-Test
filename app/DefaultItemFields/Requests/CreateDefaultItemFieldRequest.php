@@ -29,7 +29,7 @@ final class CreateDefaultItemFieldRequest extends BaseFormRequest
         return [
             'value.required' => 'The value field is required.',
             'value.string' => 'The value field must be a string.',
-            'value.min' => 'The value feld must be at least 1 characters.',
+            'value.min' => 'The value field must be at least 1 characters.',
             'itemId.required' => 'The itemId field is required.',
             'itemId.exists' => 'No item found for this itemId.',
             'parameterId.required' => 'The parameter field is required.',

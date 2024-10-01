@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Parameters\Requests;
+namespace App\Games\Requests;
 
-use App\Parameters\Enums\TypeParameterEnum;
 use App\Shared\Requests\BaseFormRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Validation\Rule;
 
-final class CreateParameterRequest extends BaseFormRequest
+final class UpdateGameRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -19,8 +17,9 @@ final class CreateParameterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
+            'id' => 'required|string|exists:games,id',
             'name' => 'required|string|min:3|max:20',
-            'type' => ['required', Rule::enum(TypeParameterEnum::class)],
+            'visibleForAll' => 'required|boolean',
         ];
     }
 
@@ -28,12 +27,15 @@ final class CreateParameterRequest extends BaseFormRequest
     public function messages(): array
     {
         return [
+            'id.required' => 'The id field is required.',
+            'id.string' => 'The id field must be a string.',
+            'id.exists' => 'No game found for this id.',
             'name.required' => 'The name field is required.',
             'name.string' => 'The name field must be a string.',
             'name.min' => 'The name field must be at least 3 characters.',
             'name.max' => 'The name field must not be greater than 20 characters.',
-            'type.required' => 'The type field is required.',
-            'type.enum' => 'The type field must be of compatible types.',
+            'visibleForAll.required' => 'The visibleForAll field is required.',
+            'visibleForAll.boolean' => 'The visibleForAll field must be a boolean.',
         ];
     }
 }

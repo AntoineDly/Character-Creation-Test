@@ -17,8 +17,7 @@ final class CreateCharacterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:20',
-            'gameId' => 'required|exists:games,id',
+            'gameId' => 'required|string|exists:games,id',
         ];
     }
 
@@ -26,11 +25,8 @@ final class CreateCharacterRequest extends BaseFormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'The name field is required.',
-            'name.string' => 'The name field must be a string.',
-            'name.min' => 'The name feld must be at least 3 characters.',
-            'name.max' => 'The name must not be greater than 20 characters.',
             'gameId.required' => 'The gameId field is required.',
+            'gameId.string' => 'The gameId field must be a string.',
             'gameId.exists' => 'No game found for this gameId.',
         ];
     }

@@ -10,7 +10,6 @@ final readonly class CharacterDto implements DtoInterface
 {
     public function __construct(
         public string $id,
-        public string $name,
     ) {
     }
 }

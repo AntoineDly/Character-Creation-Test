@@ -29,10 +29,10 @@ final class LoginRequest extends BaseFormRequest
             'email.required' => 'The email field is required.',
             'email.string' => 'The email field must be a string.',
             'email.email' => 'The email field must be an email.',
-            'email.max' => 'The email must not be greater than 50 characters.',
+            'email.max' => 'The email field must not be greater than 50 characters.',
             'password.required' => 'The password field is required.',
             'password.string' => 'The password field must be a string.',
-            'password.min' => 'The password feld must be at least 6 characters.',
+            'password.min' => 'The password field must be at least 6 characters.',
         ];
     }
 }

@@ -14,6 +14,7 @@ use App\DefaultItemFields\Controllers\CreateDefaultItemFieldController;
 use App\Fields\Controllers\CreateFieldController;
 use App\Games\Controllers\CreateGameController;
 use App\Games\Controllers\GetGameController;
+use App\Games\Controllers\UpdateGameController;
 use App\Items\Controllers\CreateItemController;
 use App\LinkedItems\Controllers\CreateLinkedItemController;
 use App\Parameters\Controllers\CreateParameterController;
@@ -41,6 +42,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/games', [GetGameController::class, 'getGames']);
     Route::get('/games/{id}', [GetGameController::class, 'getGame']);
     Route::post('/games', [CreateGameController::class, 'createGame']);
+    Route::put('/games', [UpdateGameController::class, 'updateGame']);
 
     Route::get('/categories', [GetCategoryController::class, 'getCategories']);
     Route::get('/categories/{id}', [GetCategoryController::class, 'getCategory']);

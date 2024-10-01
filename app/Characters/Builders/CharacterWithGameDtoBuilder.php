@@ -10,26 +10,16 @@ use App\Games\Exceptions\GameNotFoundException;
 use App\Helpers\UuidHelper;
 use App\Shared\Builders\BuilderInterface;
 use App\Shared\Exceptions\NotAValidUuidException;
-use App\Shared\Exceptions\StringIsEmptyException;
 
 final class CharacterWithGameDtoBuilder implements BuilderInterface
 {
     private string $id;
-
-    private string $name;
 
     private ?GameDto $gameDto = null;
 
     public function setId(string $id): self
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }
@@ -41,14 +31,14 @@ final class CharacterWithGameDtoBuilder implements BuilderInterface
         return $this;
     }
 
+    /**
+     * @throws GameNotFoundException
+     * @throws NotAValidUuidException
+     */
     public function build(): CharacterWithGameDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
             throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.', code: 400);
-        }
-
-        if ($this->name === '') {
-            throw new StringIsEmptyException('name field is empty', code: 400);
         }
 
         if (! $this->gameDto instanceof GameDto) {
@@ -57,11 +47,10 @@ final class CharacterWithGameDtoBuilder implements BuilderInterface
 
         $characterDto = new CharacterWithGameDto(
             id: $this->id,
-            name: $this->name,
             gameDto: $this->gameDto
         );
 
-        $this->id = $this->name = '';
+        $this->id = '';
         $this->gameDto = null;
 
         return $characterDto;

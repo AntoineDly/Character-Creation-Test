@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Characters\Controllers;
+namespace App\Games\Controllers;
 
-use App\Characters\Commands\CreateCharacterCommand;
-use App\Characters\Requests\CreateCharacterRequest;
+use App\Games\Commands\UpdateGameCommand;
+use App\Games\Requests\UpdateGameRequest;
 use App\Helpers\RequestHelper;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
@@ -13,7 +13,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-final readonly class CreateCharacterController
+final readonly class UpdateGameController
 {
     public function __construct(
         private ApiControllerInterface $apiController,
@@ -21,24 +21,26 @@ final readonly class CreateCharacterController
     ) {
     }
 
-    public function createCharacter(CreateCharacterRequest $request): JsonResponse
+    public function updateGame(UpdateGameRequest $request): JsonResponse
     {
         try {
-            /** @var array{'gameId': string} $validated */
+            /** @var array{'id': string, 'name': string, 'visibleForAll': bool} $validated */
             $validated = $request->validated();
 
-            $command = new CreateCharacterCommand(
-                gameId: $validated['gameId'],
+            $command = new UpdateGameCommand(
+                id: $validated['id'],
+                name: $validated['name'],
+                visibleForAll: $validated['visibleForAll'],
                 userId: RequestHelper::getUserId($request),
             );
 
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
-            return $this->apiController->sendError(error: 'Character was not successfully created', errorContent: $e->errors());
+            return $this->apiController->sendError(error: 'Game was not successfully updated', errorContent: $e->errors());
         } catch (Exception $e) {
             return $this->apiController->sendException(exception: $e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character was successfully created');
+        return $this->apiController->sendSuccess(message: 'Game was successfully updated');
     }
 }

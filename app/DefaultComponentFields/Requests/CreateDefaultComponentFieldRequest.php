@@ -29,7 +29,7 @@ final class CreateDefaultComponentFieldRequest extends BaseFormRequest
         return [
             'value.required' => 'The value field is required.',
             'value.string' => 'The value field must be a string.',
-            'value.min' => 'The value feld must be at least 1 characters.',
+            'value.min' => 'The value field must be at least 1 characters.',
             'componentId.required' => 'The componentId field is required.',
             'componentId.exists' => 'No component found for this componentId.',
             'parameterId.required' => 'The componentId field is required.',

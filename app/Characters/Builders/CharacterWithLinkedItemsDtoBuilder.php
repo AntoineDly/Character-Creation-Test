@@ -6,16 +6,17 @@ namespace App\Characters\Builders;
 
 use App\Categories\Dtos\CategoryForCharacterDto;
 use App\Characters\Dtos\CharacterWithLinkedItemsDto;
+use App\Games\Dtos\GameDto;
+use App\Games\Exceptions\GameNotFoundException;
 use App\Helpers\UuidHelper;
 use App\Shared\Builders\BuilderInterface;
 use App\Shared\Exceptions\NotAValidUuidException;
-use App\Shared\Exceptions\StringIsEmptyException;
 
 final class CharacterWithLinkedItemsDtoBuilder implements BuilderInterface
 {
     private string $id = '';
 
-    private string $name = '';
+    private ?GameDto $gameDto = null;
 
     /** @var CategoryForCharacterDto[] */
     private array $categoryForCharacterDtos = [];
@@ -27,9 +28,9 @@ final class CharacterWithLinkedItemsDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    public function setName(string $name): self
+    public function setGameDto(GameDto $gameDto): self
     {
-        $this->name = $name;
+        $this->gameDto = $gameDto;
 
         return $this;
     }
@@ -49,23 +50,26 @@ final class CharacterWithLinkedItemsDtoBuilder implements BuilderInterface
         return $this;
     }
 
+    /**
+     * @throws NotAValidUuidException
+     */
     public function build(): CharacterWithLinkedItemsDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
             throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.', code: 400);
         }
 
-        if ($this->name === '') {
-            throw new StringIsEmptyException('name field is empty', code: 400);
+        if (! $this->gameDto instanceof GameDto) {
+            throw new GameNotFoundException('Game was not found to create the CharacterWithGameDto', code: 400);
         }
 
         $characterWithLinkedItemDto = new CharacterWithLinkedItemsDto(
             id: $this->id,
-            name: $this->name,
-            categoryForCharacterDtos: $this->categoryForCharacterDtos
+            categoryForCharacterDtos: $this->categoryForCharacterDtos,
+            gameDto: $this->gameDto
         );
 
-        $this->id = $this->name = '';
+        $this->id = '';
         $this->categoryForCharacterDtos = [];
 
         return $characterWithLinkedItemDto;

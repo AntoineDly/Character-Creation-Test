@@ -29,7 +29,7 @@ final class CreateFieldRequest extends BaseFormRequest
         return [
             'value.required' => 'The name field is required.',
             'value.string' => 'The name field must be a string.',
-            'value.min' => 'The name feld must be at least 1 characters.',
+            'value.min' => 'The value field must be at least 1 characters.',
             'linkedItemId.required' => 'The linkedItemId field is required.',
             'linkedItemId.exists' => 'No linked item found for this linkedItemId.',
             'parameterId.required' => 'The componentId field is required.',

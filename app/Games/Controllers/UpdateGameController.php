@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Games\Controllers;
 
 use App\Games\Commands\UpdateGameCommand;
+use App\Games\Commands\UpdatePartiallyGameCommand;
 use App\Games\Requests\UpdateGameRequest;
-use App\Helpers\RequestHelper;
+use App\Games\Requests\UpdatePartiallyGameRequest;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use Exception;
@@ -21,17 +22,16 @@ final readonly class UpdateGameController
     ) {
     }
 
-    public function updateGame(UpdateGameRequest $request): JsonResponse
+    public function updateGame(UpdateGameRequest $request, string $id): JsonResponse
     {
         try {
-            /** @var array{'id': string, 'name': string, 'visibleForAll': bool} $validated */
+            /** @var array{'name': string, 'visibleForAll': bool} $validated */
             $validated = $request->validated();
 
             $command = new UpdateGameCommand(
-                id: $validated['id'],
+                id: $id,
                 name: $validated['name'],
                 visibleForAll: $validated['visibleForAll'],
-                userId: RequestHelper::getUserId($request),
             );
 
             $this->commandBus->handle($command);
@@ -42,5 +42,27 @@ final readonly class UpdateGameController
         }
 
         return $this->apiController->sendSuccess(message: 'Game was successfully updated');
+    }
+
+    public function updatePartiallyGame(UpdatePartiallyGameRequest $request, string $id): JsonResponse
+    {
+        try {
+            /** @var array{'name': ?string, 'visibleForAll': ?bool} $validated */
+            $validated = $request->validated();
+
+            $command = new UpdatePartiallyGameCommand(
+                id: $id,
+                name: $validated['name'] ?? null,
+                visibleForAll: $validated['visibleForAll'] ?? null,
+            );
+
+            $this->commandBus->handle($command);
+        } catch (ValidationException $e) {
+            return $this->apiController->sendError(error: 'Game was not successfully updated partially', errorContent: $e->errors());
+        } catch (Exception $e) {
+            return $this->apiController->sendException(exception: $e);
+        }
+
+        return $this->apiController->sendSuccess(message: 'Game was successfully updated partially');
     }
 }

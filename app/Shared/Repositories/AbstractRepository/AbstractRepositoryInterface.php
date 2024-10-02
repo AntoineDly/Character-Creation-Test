@@ -26,5 +26,5 @@ interface AbstractRepositoryInterface
     /**
      * @param  array<string, mixed>  $attributes
      */
-    public function update(string $key, mixed $value, array $attributes): void;
+    public function update(string $key, mixed $value, array $attributes): ?bool;
 }

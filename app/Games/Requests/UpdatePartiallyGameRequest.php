@@ -7,7 +7,7 @@ namespace App\Games\Requests;
 use App\Shared\Requests\BaseFormRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-final class UpdateGameRequest extends BaseFormRequest
+final class UpdatePartiallyGameRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,8 +17,8 @@ final class UpdateGameRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:20',
-            'visibleForAll' => 'required|boolean',
+            'name' => 'nullable|string|min:3|max:20',
+            'visibleForAll' => 'nullable|boolean',
         ];
     }
 
@@ -26,11 +26,9 @@ final class UpdateGameRequest extends BaseFormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'The name field is required.',
             'name.string' => 'The name field must be a string.',
             'name.min' => 'The name field must be at least 3 characters.',
             'name.max' => 'The name field must not be greater than 20 characters.',
-            'visibleForAll.required' => 'The visibleForAll field is required.',
             'visibleForAll.boolean' => 'The visibleForAll field must be a boolean.',
         ];
     }

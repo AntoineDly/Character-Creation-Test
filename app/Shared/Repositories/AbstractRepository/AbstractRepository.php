@@ -42,8 +42,8 @@ abstract readonly class AbstractRepository implements AbstractRepositoryInterfac
     /**
      * @param  array<string, mixed>  $attributes
      */
-    public function update(string $key, mixed $value, array $attributes): void
+    public function update(string $key, mixed $value, array $attributes): ?bool
     {
-        $this->model->query()->firstWhere($key, $value)?->update($attributes);
+        return $this->model->query()->firstWhere($key, $value)?->update($attributes);
     }
 }

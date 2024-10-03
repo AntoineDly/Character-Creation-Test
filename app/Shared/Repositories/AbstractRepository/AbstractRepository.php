@@ -28,7 +28,7 @@ abstract readonly class AbstractRepository implements AbstractRepositoryInterfac
 
     public function findByAttribute(string $column, mixed $value): ?Model
     {
-        return $this->model->query()->firstWhere(column: $column, operator: '=', value: $value);
+        return $this->model->query()->where(column: $column, operator: '=', value: $value)->sole();
     }
 
     /**
@@ -44,6 +44,14 @@ abstract readonly class AbstractRepository implements AbstractRepositoryInterfac
      */
     public function update(string $key, mixed $value, array $attributes): ?bool
     {
-        return $this->model->query()->firstWhere($key, $value)?->update($attributes);
+        return $this->model->query()->where($key, $value)->sole()->update($attributes);
+    }
+
+    /**
+     * @param  array<string, mixed>  $attributes
+     */
+    public function updateById(string $id, array $attributes): ?bool
+    {
+        return $this->model->query()->where('id', $id)->sole()->update($attributes);
     }
 }

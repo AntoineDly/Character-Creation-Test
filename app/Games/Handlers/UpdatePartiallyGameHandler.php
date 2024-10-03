@@ -23,6 +23,7 @@ final readonly class UpdatePartiallyGameHandler implements CommandHandlerInterfa
             throw new IncorrectCommandException('Command must be an instance of UpdatePartiallyGameCommand');
         }
 
+        /** @var array{'name': ?string, 'visibleForAll': ?bool} $attributes */
         $attributes = [];
 
         if (! is_null($command->name)) {
@@ -33,7 +34,7 @@ final readonly class UpdatePartiallyGameHandler implements CommandHandlerInterfa
             $attributes['visible_for_all'] = $command->visibleForAll;
         }
 
-        $isUpdated = $this->gameRepository->update(key: 'id', value: $command->id, attributes: $attributes);
+        $isUpdated = $this->gameRepository->updateById(id: $command->id, attributes: $attributes);
         if (! $isUpdated) {
             throw new GameNotFoundException(message: 'Game not found with id : '.$command->id, code: 404);
         }

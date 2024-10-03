@@ -23,9 +23,8 @@ final readonly class UpdateGameHandler implements CommandHandlerInterface
             throw new IncorrectCommandException('Command must be an instance of UpdateGameCommand');
         }
 
-        $isUpdated = $this->gameRepository->update(
-            key: 'id',
-            value: $command->id,
+        $isUpdated = $this->gameRepository->updateById(
+            id: $command->id,
             attributes: ['name' => $command->name, 'visible_for_all' => $command->visibleForAll]
         );
         if (! $isUpdated) {

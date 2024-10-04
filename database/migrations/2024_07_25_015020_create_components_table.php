@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('components', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
             $table->foreignUuid('user_id')->references('id')->on('users');
             $table->timestamps();
         });

@@ -16,7 +16,6 @@ final class Component extends Model
     use Uuid;
 
     protected $fillable = [
-        'name',
         'user_id',
     ];
 

@@ -12,6 +12,7 @@ use App\Components\Controllers\GetComponentController;
 use App\DefaultComponentFields\Controllers\CreateDefaultComponentFieldController;
 use App\DefaultComponentFields\Controllers\UpdateDefaultComponentFieldController;
 use App\DefaultItemFields\Controllers\CreateDefaultItemFieldController;
+use App\DefaultItemFields\Controllers\UpdateDefaultItemFieldController;
 use App\Fields\Controllers\CreateFieldController;
 use App\Fields\Controllers\UpdateFieldController;
 use App\Games\Controllers\CreateGameController;
@@ -59,6 +60,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/parameters', [CreateParameterController::class, 'createParameter']);
 
     Route::post('/default_item_fields', [CreateDefaultItemFieldController::class, 'createDefaultItemField']);
+    Route::put('/default_item_fields/{id}', [UpdateDefaultItemFieldController::class, 'updateDefaultItemField']);
+    Route::patch('/default_item_fields/{id}', [UpdateDefaultItemFieldController::class, 'updatePartiallyDefaultItemField']);
 
     Route::post('/default_component_fields', [CreateDefaultComponentFieldController::class, 'createDefaultComponentField']);
     Route::put('/default_component_fields/{id}', [UpdateDefaultComponentFieldController::class, 'updateDefaultComponentField']);

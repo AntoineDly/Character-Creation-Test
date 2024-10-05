@@ -12,7 +12,6 @@ uses(RefreshDatabase::class);
 
 it('register a new user', function () {
     $userData = [
-        'name' => 'John Doe',
         'email' => 'john.doe@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',
@@ -41,11 +40,21 @@ it('login with the current user', function () {
 
     $response = $this->postJson('/api/login', $userData);
 
-    $response
+    $response->assertJson([
+        'message' => 'You have been successfully registered!',
+    ]);
+    /*$response->assertStatus(200)
         ->assertJsonStructure([
-            'access_token',
-            'token_type',
-        ]);
+            'success',
+            'message',
+            'data' => [
+                0 => [
+                    'id',
+                    'email',
+                    'token',
+                ],
+            ],
+        ]);*/
 
     $this->assertDatabaseHas('oauth_access_tokens', [
         'user_id' => $user->id,

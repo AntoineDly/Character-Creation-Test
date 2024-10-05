@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Components\Controllers;
 
 use App\Components\Commands\CreateComponentCommand;
-use App\Components\Requests\CreateComponentRequest;
 use App\Helpers\RequestHelper;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 final readonly class CreateComponentController
@@ -21,14 +21,10 @@ final readonly class CreateComponentController
     ) {
     }
 
-    public function createComponent(CreateComponentRequest $request): JsonResponse
+    public function createComponent(Request $request): JsonResponse
     {
         try {
-            /** @var array{'name': string} $validated */
-            $validated = $request->validated();
-
             $command = new CreateComponentCommand(
-                name: $validated['name'],
                 userId: RequestHelper::getUserId($request),
             );
 

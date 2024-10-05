@@ -22,6 +22,6 @@ final readonly class CreateComponentHandler implements CommandHandlerInterface
             throw new IncorrectCommandException('Command must be an instance of CreateComponentCommand');
         }
 
-        $this->componentRepository->create(['name' => $command->name, 'user_id' => $command->userId]);
+        $this->componentRepository->create(['user_id' => $command->userId]);
     }
 }

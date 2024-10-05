@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Shared\Controllers\ApiController\ApiController;
-use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 

@@ -46,7 +46,6 @@ final class GetUserQuery implements QueryInterface
 
         return $this->userDtoBuilder
             ->setId(id: $user->id)
-            ->setName(name: $user->name)
             ->setEmail(email: $user->email)
             ->setToken(token: $token)
             ->build();

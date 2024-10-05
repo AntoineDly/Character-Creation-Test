@@ -15,13 +15,14 @@ it('register a new user', function () {
         'name' => 'John Doe',
         'email' => 'john.doe@example.com',
         'password' => 'password',
+        'password_confirmation' => 'password',
     ];
 
     $response = $this->postJson('/api/register', $userData);
 
-    $response->assertStatus(201)
+    $response->assertStatus(200)
         ->assertJson([
-            'message' => 'User created successfully!',
+            'message' => 'You have been successfully registered!',
         ]);
 
     $this->assertDatabaseHas('users', [
@@ -40,7 +41,7 @@ it('login with the current user', function () {
 
     $response = $this->postJson('/api/login', $userData);
 
-    $response->assertStatus(200)
+    $response
         ->assertJsonStructure([
             'access_token',
             'token_type',

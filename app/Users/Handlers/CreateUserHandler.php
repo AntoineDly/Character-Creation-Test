@@ -27,6 +27,6 @@ final readonly class CreateUserHandler implements CommandHandlerInterface
         $password = Hash::make($command->password);
         $rememberToken = Str::random(10);
 
-        $this->userRepository->create(['name' => $command->name, 'email' => $command->email, 'password' => $password, 'remember_token' => $rememberToken]);
+        $this->userRepository->create(['email' => $command->email, 'password' => $password, 'remember_token' => $rememberToken]);
     }
 }

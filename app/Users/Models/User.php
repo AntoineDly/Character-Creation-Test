@@ -9,8 +9,8 @@ use App\Categories\Models\Category;
 use App\Characters\Models\Character;
 use App\Games\Models\Game;
 use App\Parameters\Models\Parameter;
+use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,7 +18,8 @@ use Laravel\Passport\HasApiTokens;
 
 final class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Uuid;
+    /** @use HasModelFactory<User> */
+    use HasApiTokens, HasModelFactory, Notifiable, Uuid;
 
     /**
      * The attributes that are mass assignable.

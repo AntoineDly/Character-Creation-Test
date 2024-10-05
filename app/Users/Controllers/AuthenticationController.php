@@ -34,11 +34,10 @@ final readonly class AuthenticationController
     public function register(RegisterRequest $request): JsonResponse
     {
         try {
-            /** @var array{'name': string, 'email': string, 'password': string} $validated */
+            /** @var array{'email': string, 'password': string} $validated */
             $validated = $request->validated();
 
             $command = new CreateUserCommand(
-                name: $validated['name'],
                 email: $validated['email'],
                 password: $validated['password'],
             );

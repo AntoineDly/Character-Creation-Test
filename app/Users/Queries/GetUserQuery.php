@@ -41,16 +41,13 @@ final class GetUserQuery implements QueryInterface
         try {
             $token = $user->createToken('Laravel Personal Access Client')->accessToken;
         } catch (Exception $e) {
-            throw new CantCreateTokenException(message: 'The token could not be created', code: 500);
+            throw new CantCreateTokenException(message: 'The token could not be created => '.$e->getMessage(), code: 500);
         }
 
-        /** @var array{'id': string, 'name': string, 'email': string} $userData */
-        $userData = $user->toArray();
-
         return $this->userDtoBuilder
-            ->setId(id: $userData['id'])
-            ->setName(name: $userData['name'])
-            ->setEmail(email: $userData['email'])
+            ->setId(id: $user->id)
+            ->setName(name: $user->name)
+            ->setEmail(email: $user->email)
             ->setToken(token: $token)
             ->build();
     }

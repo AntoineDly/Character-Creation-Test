@@ -17,7 +17,6 @@ final class RegisterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:20',
             'email' => 'required|string|email|max:50|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required|string|min:6',
@@ -28,10 +27,6 @@ final class RegisterRequest extends BaseFormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'The name field is required.',
-            'name.string' => 'The name field must be a string.',
-            'name.min' => 'The name field must be at least 3 characters.',
-            'name.max' => 'The name field must not be greater than 20 characters.',
             'email.required' => 'The email field is required.',
             'email.string' => 'The email field must be a string.',
             'email.email' => 'The email field must be an email.',

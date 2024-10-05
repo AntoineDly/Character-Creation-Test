@@ -116,8 +116,7 @@ final readonly class CharacterQueriesService
             $categoryId = $category->id;
 
             $this->linkedItemsForCharacterDtoBuilder
-                ->setId($linkedItem->id)
-                ->setName($component->name);
+                ->setId($linkedItem->id);
 
             foreach ($linkedItem->fields as $field) {
                 $this->fieldQueriesService->getSharedFieldDtoFromFieldInterface(

@@ -22,7 +22,6 @@ final readonly class ComponentQueriesService
 
         return $this->componentDtoBuilder
             ->setId(id: $component->id)
-            ->setName(name: $component->name)
             ->build();
     }
 }

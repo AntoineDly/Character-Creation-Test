@@ -12,7 +12,6 @@ final readonly class LinkedItemsForCharacterDto implements DtoInterface
     /** @param SharedFieldDto[] $sharedFieldDtos */
     public function __construct(
         public string $id,
-        public string $name,
         public array $sharedFieldDtos,
     ) {
     }

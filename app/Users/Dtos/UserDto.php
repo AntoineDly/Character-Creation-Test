@@ -10,7 +10,6 @@ final readonly class UserDto implements DtoInterface
 {
     public function __construct(
         public string $id,
-        public string $name,
         public string $email,
         public string $token,
     ) {

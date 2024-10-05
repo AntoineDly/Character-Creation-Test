@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -54,7 +56,7 @@ return [
     |
     */
 
-    'client_uuids' => true,
+    'client_uuids' => false,
 
     /*
     |--------------------------------------------------------------------------

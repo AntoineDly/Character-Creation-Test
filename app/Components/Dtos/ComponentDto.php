@@ -10,7 +10,6 @@ final readonly class ComponentDto implements DtoInterface
 {
     public function __construct(
         public string $id,
-        public string $name,
     ) {
     }
 }

@@ -40,10 +40,7 @@ it('login with the current user', function () {
 
     $response = $this->postJson('/api/login', $userData);
 
-    $response->assertJson([
-        'message' => 'You have been successfully registered!',
-    ]);
-    /*$response->assertStatus(200)
+    $response->assertStatus(200)
         ->assertJsonStructure([
             'success',
             'message',
@@ -54,7 +51,10 @@ it('login with the current user', function () {
                     'token',
                 ],
             ],
-        ]);*/
+        ])
+        ->assertJson([
+            'message' => 'You have been successfully logged in!',
+        ]);
 
     $this->assertDatabaseHas('oauth_access_tokens', [
         'user_id' => $user->id,

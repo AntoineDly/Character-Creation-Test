@@ -13,10 +13,18 @@ declare(strict_types=1);
 |
 */
 
+use Tests\TestCases\ApiTestCase;
+use Tests\TestCases\WebTestCase;
+
 uses(
-    Tests\TestCase::class,
+    ApiTestCase::class,
     // Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->in('Feature');
+)->in('Feature/Api');
+
+uses(
+    WebTestCase::class,
+    // Illuminate\Foundation\Testing\RefreshDatabase::class,
+)->in('Feature/Web');
 
 /*
 |--------------------------------------------------------------------------

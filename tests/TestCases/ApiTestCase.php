@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\TestCases;
 
 use DateTime;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Laravel\Passport\ClientRepository;
 
-abstract class TestCase extends BaseTestCase
+abstract class ApiTestCase extends BaseTestCase
 {
     protected function setUp(): void
     {
@@ -18,7 +17,7 @@ abstract class TestCase extends BaseTestCase
         $this->createClient();
     }
 
-    private function createClient() : void
+    private function createClient(): void
     {
         $clientId = Str::uuid();
         DB::table('oauth_clients')->insert([
@@ -36,7 +35,7 @@ abstract class TestCase extends BaseTestCase
         ]);
 
         DB::table('oauth_personal_access_clients')->insert([
-            'client_id'  => $clientId,
+            'client_id' => $clientId,
             'created_at' => new DateTime,
             'updated_at' => new DateTime,
         ]);

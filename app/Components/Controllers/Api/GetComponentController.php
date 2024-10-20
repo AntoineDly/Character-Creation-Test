@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Components\Controllers;
+namespace App\Components\Controllers\Api;
 
 use App\Components\Queries\GetComponentQuery;
 use App\Components\Queries\GetComponentsQuery;

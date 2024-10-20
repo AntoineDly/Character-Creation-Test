@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Fields\Controllers;
+namespace App\Fields\Controllers\Api;
 
 use App\Fields\Commands\UpdateFieldCommand;
 use App\Fields\Commands\UpdatePartiallyFieldCommand;

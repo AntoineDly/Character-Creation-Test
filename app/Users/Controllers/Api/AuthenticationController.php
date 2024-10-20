@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Users\Controllers;
+namespace App\Users\Controllers\Api;
 
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;

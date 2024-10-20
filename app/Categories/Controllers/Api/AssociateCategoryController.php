@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Items\Controllers;
+namespace App\Categories\Controllers\Api;
 
-use App\Helpers\RequestHelper;
-use App\Items\Commands\CreateItemCommand;
-use App\Items\Requests\CreateItemRequest;
+use App\Categories\Commands\AssociateCategoryGameCommand;
+use App\Categories\Requests\AssociateCategoryGameRequest;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-final readonly class CreateItemController
+final readonly class AssociateCategoryController
 {
     public function __construct(
         private ApiControllerInterface $apiController,
@@ -21,25 +20,24 @@ final readonly class CreateItemController
     ) {
     }
 
-    public function createItem(CreateItemRequest $request): JsonResponse
+    public function associateGame(AssociateCategoryGameRequest $request): JsonResponse
     {
         try {
-            /** @var array{'categoryId': string, 'componentId': string} $validated */
+            /** @var array{'categoryId': string, 'gameId': string} $validated */
             $validated = $request->validated();
 
-            $command = new CreateItemCommand(
-                componentId: $validated['componentId'],
+            $command = new AssociateCategoryGameCommand(
                 categoryId: $validated['categoryId'],
-                userId: RequestHelper::getUserId($request),
+                gameId: $validated['gameId'],
             );
 
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
-            return $this->apiController->sendError(error: 'Item was not successfully created', errorContent: $e->errors());
+            return $this->apiController->sendError(error: 'Game was not successfully associated to the category', errorContent: $e->errors());
         } catch (Exception $e) {
             return $this->apiController->sendException(exception: $e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Item was successfully created');
+        return $this->apiController->sendSuccess(message: 'Game was successfully associated to the category');
     }
 }

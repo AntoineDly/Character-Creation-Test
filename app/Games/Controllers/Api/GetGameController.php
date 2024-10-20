@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Games\Controllers;
+namespace App\Games\Controllers\Api;
 
 use App\Games\Queries\GetGameQuery;
 use App\Games\Queries\GetGamesQuery;

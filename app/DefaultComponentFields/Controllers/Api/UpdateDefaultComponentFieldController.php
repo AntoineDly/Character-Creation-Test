@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DefaultComponentFields\Controllers;
+namespace App\DefaultComponentFields\Controllers\Api;
 
 use App\DefaultComponentFields\Commands\UpdateDefaultComponentFieldCommand;
 use App\DefaultComponentFields\Commands\UpdatePartiallyDefaultComponentFieldCommand;

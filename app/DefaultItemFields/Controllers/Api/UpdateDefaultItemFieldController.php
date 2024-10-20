@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DefaultItemFields\Controllers;
+namespace App\DefaultItemFields\Controllers\Api;
 
 use App\DefaultItemFields\Commands\UpdateDefaultItemFieldCommand;
 use App\DefaultItemFields\Commands\UpdatePartiallyDefaultItemFieldCommand;

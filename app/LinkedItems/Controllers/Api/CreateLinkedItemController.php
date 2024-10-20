@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Characters\Controllers;
+namespace App\LinkedItems\Controllers\Api;
 
-use App\Characters\Commands\CreateCharacterCommand;
-use App\Characters\Requests\CreateCharacterRequest;
 use App\Helpers\RequestHelper;
+use App\LinkedItems\Commands\CreateLinkedItemCommand;
+use App\LinkedItems\Requests\CreateLinkedItemRequest;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-final readonly class CreateCharacterController
+final readonly class CreateLinkedItemController
 {
     public function __construct(
         private ApiControllerInterface $apiController,
@@ -21,24 +21,25 @@ final readonly class CreateCharacterController
     ) {
     }
 
-    public function createCharacter(CreateCharacterRequest $request): JsonResponse
+    public function createLinkedItem(CreateLinkedItemRequest $request): JsonResponse
     {
         try {
-            /** @var array{'gameId': string} $validated */
+            /** @var array{'itemId': string, 'characterId': string} $validated */
             $validated = $request->validated();
 
-            $command = new CreateCharacterCommand(
-                gameId: $validated['gameId'],
+            $command = new CreateLinkedItemCommand(
+                itemId: $validated['itemId'],
+                characterId: $validated['characterId'],
                 userId: RequestHelper::getUserId($request),
             );
 
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
-            return $this->apiController->sendError(error: 'Character was not successfully created', errorContent: $e->errors());
+            return $this->apiController->sendError(error: 'Linked Item was not successfully created', errorContent: $e->errors());
         } catch (Exception $e) {
             return $this->apiController->sendException(exception: $e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character was successfully created');
+        return $this->apiController->sendSuccess(message: 'Linked Item was successfully created');
     }
 }

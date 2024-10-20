@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Parameters\Controllers;
+namespace App\Parameters\Controllers\Api;
 
 use App\Helpers\RequestHelper;
 use App\Parameters\Commands\CreateParameterCommand;

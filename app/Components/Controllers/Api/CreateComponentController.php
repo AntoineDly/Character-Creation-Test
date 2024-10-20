@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Categories\Controllers;
+namespace App\Components\Controllers\Api;
 
-use App\Categories\Commands\CreateCategoryCommand;
-use App\Categories\Requests\CreateCategoryRequest;
+use App\Components\Commands\CreateComponentCommand;
 use App\Helpers\RequestHelper;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-final readonly class CreateCategoryController
+final readonly class CreateComponentController
 {
     public function __construct(
         private ApiControllerInterface $apiController,
@@ -21,24 +21,20 @@ final readonly class CreateCategoryController
     ) {
     }
 
-    public function createCategory(CreateCategoryRequest $request): JsonResponse
+    public function createComponent(Request $request): JsonResponse
     {
         try {
-            /** @var array{'name': string} $validated */
-            $validated = $request->validated();
-
-            $command = new CreateCategoryCommand(
-                name: $validated['name'],
+            $command = new CreateComponentCommand(
                 userId: RequestHelper::getUserId($request),
             );
 
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
-            return $this->apiController->sendError(error: 'Category was not successfully created', errorContent: $e->errors());
+            return $this->apiController->sendError(error: 'Component was not successfully created', errorContent: $e->errors());
         } catch (Exception $e) {
             return $this->apiController->sendException(exception: $e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Category was successfully created');
+        return $this->apiController->sendSuccess(message: 'Component was successfully created');
     }
 }

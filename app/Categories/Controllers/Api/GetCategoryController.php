@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Categories\Controllers;
+namespace App\Categories\Controllers\Api;
 
 use App\Categories\Queries\GetCategoriesQuery;
 use App\Categories\Queries\GetCategoryQuery;

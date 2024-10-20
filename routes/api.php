@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-use App\Categories\Controllers\AssociateCategoryController;
-use App\Categories\Controllers\CreateCategoryController;
-use App\Categories\Controllers\GetCategoryController;
-use App\Characters\Controllers\CreateCharacterController;
-use App\Characters\Controllers\GetCharacterController;
-use App\Components\Controllers\CreateComponentController;
-use App\Components\Controllers\GetComponentController;
-use App\DefaultComponentFields\Controllers\CreateDefaultComponentFieldController;
-use App\DefaultComponentFields\Controllers\UpdateDefaultComponentFieldController;
-use App\DefaultItemFields\Controllers\CreateDefaultItemFieldController;
-use App\DefaultItemFields\Controllers\UpdateDefaultItemFieldController;
-use App\Fields\Controllers\CreateFieldController;
-use App\Fields\Controllers\UpdateFieldController;
-use App\Games\Controllers\CreateGameController;
-use App\Games\Controllers\GetGameController;
-use App\Games\Controllers\UpdateGameController;
-use App\Items\Controllers\CreateItemController;
-use App\LinkedItems\Controllers\CreateLinkedItemController;
-use App\Parameters\Controllers\CreateParameterController;
-use App\Users\Controllers\AuthenticationController;
+use App\Categories\Controllers\Api\AssociateCategoryController;
+use App\Categories\Controllers\Api\CreateCategoryController;
+use App\Categories\Controllers\Api\GetCategoryController;
+use App\Characters\Controllers\Api\CreateCharacterController;
+use App\Characters\Controllers\Api\GetCharacterController;
+use App\Components\Controllers\Api\CreateComponentController;
+use App\Components\Controllers\Api\GetComponentController;
+use App\DefaultComponentFields\Controllers\Api\CreateDefaultComponentFieldController;
+use App\DefaultComponentFields\Controllers\Api\UpdateDefaultComponentFieldController;
+use App\DefaultItemFields\Controllers\Api\CreateDefaultItemFieldController;
+use App\DefaultItemFields\Controllers\Api\UpdateDefaultItemFieldController;
+use App\Fields\Controllers\Api\CreateFieldController;
+use App\Fields\Controllers\Api\UpdateFieldController;
+use App\Games\Controllers\Api\CreateGameController;
+use App\Games\Controllers\Api\GetGameController;
+use App\Games\Controllers\Api\UpdateGameController;
+use App\Items\Controllers\Api\CreateItemController;
+use App\LinkedItems\Controllers\Api\CreateLinkedItemController;
+use App\Parameters\Controllers\Api\CreateParameterController;
+use App\Users\Controllers\Api\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

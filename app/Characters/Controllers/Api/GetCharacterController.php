@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Characters\Controllers;
+namespace App\Characters\Controllers\Api;
 
 use App\Characters\Queries\GetCharacterQuery;
 use App\Characters\Queries\GetCharactersQuery;

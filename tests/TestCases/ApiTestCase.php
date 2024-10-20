@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\TestCases;
 
+use App\Users\Models\User;
 use DateTime;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 abstract class ApiTestCase extends BaseTestCase
 {
+    private User $user;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -39,5 +43,26 @@ abstract class ApiTestCase extends BaseTestCase
             'created_at' => new DateTime,
             'updated_at' => new DateTime,
         ]);
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function getBearerToken(string $password = 'test123'): string
+    {
+        $this->user = User::factory()->create(['password' => Hash::make($password)]);
+
+        $userData = [
+            'email' => $this->user->email,
+            'password' => $password,
+        ];
+
+        $response = $this->postJson('/api/login', $userData);
+        /** @var array{'id': string, 'email': string, 'token': string} $data */
+        $data = $response->json('data');
+
+        return $data[0]['token'];
     }
 }

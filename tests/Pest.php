@@ -13,17 +13,23 @@ declare(strict_types=1);
 |
 */
 
+use Tests\TestCases\ApiLoggedInTestCase;
 use Tests\TestCases\ApiTestCase;
 use Tests\TestCases\WebTestCase;
 
 uses(
     ApiTestCase::class,
-    // Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->in('Feature/Api');
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
+)->in('Feature/Api/Auth');
+
+uses(
+    ApiLoggedInTestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
+)->in('Feature/Api/CharacterCreation');
 
 uses(
     WebTestCase::class,
-    // Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 )->in('Feature/Web');
 
 /*

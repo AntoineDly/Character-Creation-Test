@@ -45,6 +45,8 @@ final readonly class AuthenticationController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendError(error: 'You haven\'t been registered.', errorContent: $e->errors());
+        } catch (Exception $e) {
+            return $this->apiController->sendException(exception: $e);
         }
 
         return $this->apiController->sendSuccess(message: 'You have been successfully registered!');
@@ -63,6 +65,8 @@ final readonly class AuthenticationController
                 password: $validated['password'],
             );
             $result = $query->get();
+        } catch (ValidationException $e) {
+            return $this->apiController->sendError(error: 'You haven\'t been logged in.', errorContent: $e->errors());
         } catch (Exception $e) {
             return $this->apiController->sendException(exception: $e);
         }

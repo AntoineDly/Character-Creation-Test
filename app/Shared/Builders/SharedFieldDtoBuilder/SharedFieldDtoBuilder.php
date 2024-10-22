@@ -9,9 +9,9 @@ use App\Parameters\Enums\TypeParameterEnum;
 use App\Shared\Builders\BuilderInterface;
 use App\Shared\Dtos\SharedFieldDto\SharedFieldDto;
 use App\Shared\Enums\TypeFieldEnum;
-use App\Shared\Exceptions\InvalidClassException;
-use App\Shared\Exceptions\NotAValidUuidException;
-use App\Shared\Exceptions\StringIsEmptyException;
+use App\Shared\Exceptions\Http\InvalidClassException;
+use App\Shared\Exceptions\Http\NotAValidUuidException;
+use App\Shared\Exceptions\Http\StringIsEmptyException;
 
 final class SharedFieldDtoBuilder implements BuilderInterface
 {
@@ -82,15 +82,15 @@ final class SharedFieldDtoBuilder implements BuilderInterface
     public function build(): SharedFieldDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
-            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.', code: 400);
+            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.');
         }
 
         if (! UuidHelper::isValidUuid($this->parameterId)) {
-            throw new NotAValidUuidException('parameterId field is not a valid uuid, '.$this->id.' given.', code: 400);
+            throw new NotAValidUuidException('parameterId field is not a valid uuid, '.$this->id.' given.');
         }
 
         if ($this->name === '') {
-            throw new StringIsEmptyException('name field is empty', code: 400);
+            throw new StringIsEmptyException('name field is empty');
         }
 
         if (! $this->typeParameterEnum instanceof TypeParameterEnum) {

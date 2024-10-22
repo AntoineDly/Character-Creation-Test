@@ -24,7 +24,7 @@ use App\LinkedItems\Exceptions\LinkedItemNotFoundException;
 use App\LinkedItems\Models\LinkedItem;
 use App\Parameters\Exceptions\ParameterNotFoundException;
 use App\Parameters\Models\Parameter;
-use App\Shared\Exceptions\InvalidClassException;
+use App\Shared\Exceptions\Http\InvalidClassException;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class AssertHelper
@@ -32,7 +32,7 @@ final readonly class AssertHelper
     public static function isCharacter(?Model $character): Character
     {
         if (is_null($character)) {
-            throw new CharacterNotFoundException(message: 'Character not found', code: 404);
+            throw new CharacterNotFoundException(message: 'Character not found');
         }
 
         if (! $character instanceof Character) {
@@ -47,7 +47,7 @@ final readonly class AssertHelper
     public static function isGame(?Model $game): Game
     {
         if (is_null($game)) {
-            throw new GameNotFoundException(message: 'Game not found', code: 404);
+            throw new GameNotFoundException(message: 'Game not found');
         }
 
         if (! $game instanceof Game) {
@@ -62,7 +62,7 @@ final readonly class AssertHelper
     public static function isCategory(?Model $category): Category
     {
         if (is_null($category)) {
-            throw new CategoryNotFoundException(message: 'Category not found', code: 404);
+            throw new CategoryNotFoundException(message: 'Category not found');
         }
 
         if (! $category instanceof Category) {
@@ -77,7 +77,7 @@ final readonly class AssertHelper
     public static function isLinkedItem(?Model $linkedItem): LinkedItem
     {
         if (is_null($linkedItem)) {
-            throw new LinkedItemNotFoundException(message: 'LinkedItem not found', code: 404);
+            throw new LinkedItemNotFoundException(message: 'LinkedItem not found');
         }
 
         if (! $linkedItem instanceof LinkedItem) {
@@ -92,7 +92,7 @@ final readonly class AssertHelper
     public static function isItem(?Model $item): Item
     {
         if (is_null($item)) {
-            throw new ItemNotFoundException(message: 'Item not found', code: 404);
+            throw new ItemNotFoundException(message: 'Item not found');
         }
 
         if (! $item instanceof Item) {
@@ -107,7 +107,7 @@ final readonly class AssertHelper
     public static function isComponent(?Model $component): Component
     {
         if (is_null($component)) {
-            throw new ComponentNotFoundException(message: 'Component not found', code: 404);
+            throw new ComponentNotFoundException(message: 'Component not found');
         }
 
         if (! $component instanceof Component) {
@@ -122,7 +122,7 @@ final readonly class AssertHelper
     public static function isField(?Model $field): FieldInterface
     {
         if (is_null($field)) {
-            throw new FieldNotFoundException(message: 'Field not found', code: 404);
+            throw new FieldNotFoundException(message: 'Field not found');
         }
 
         if (! $field instanceof FieldInterface) {
@@ -137,7 +137,7 @@ final readonly class AssertHelper
     public static function isDefaultItemField(?Model $defaultItemField): DefaultItemField
     {
         if (is_null($defaultItemField)) {
-            throw new DefaultItemFieldNotFoundException(message: 'DefaultItemField not found', code: 404);
+            throw new DefaultItemFieldNotFoundException(message: 'DefaultItemField not found');
         }
 
         if (! $defaultItemField instanceof DefaultItemField) {
@@ -152,7 +152,7 @@ final readonly class AssertHelper
     public static function isDefaultComponentField(?Model $defaultComponentField): DefaultComponentField
     {
         if (is_null($defaultComponentField)) {
-            throw new DefaultComponentFieldNotFoundException(message: 'DefaultComponentField not found', code: 404);
+            throw new DefaultComponentFieldNotFoundException(message: 'DefaultComponentField not found');
         }
 
         if (! $defaultComponentField instanceof DefaultComponentField) {
@@ -167,7 +167,7 @@ final readonly class AssertHelper
     public static function isParameter(?Model $parameter): Parameter
     {
         if (is_null($parameter)) {
-            throw new ParameterNotFoundException(message: 'Parameter not found', code: 404);
+            throw new ParameterNotFoundException(message: 'Parameter not found');
         }
 
         if (! $parameter instanceof Parameter) {

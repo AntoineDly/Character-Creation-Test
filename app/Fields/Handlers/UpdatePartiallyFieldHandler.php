@@ -8,8 +8,8 @@ use App\Fields\Commands\UpdatePartiallyFieldCommand;
 use App\Fields\Exceptions\FieldNotFoundException;
 use App\Fields\Repositories\FieldRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\IncorrectCommandException;
-use App\Shared\Exceptions\InvalidValueForParameterTypeException;
+use App\Shared\Exceptions\Http\IncorrectCommandException;
+use App\Shared\Exceptions\Http\InvalidValueForParameterTypeException;
 use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Services\ParameterService;
 
@@ -51,7 +51,7 @@ final readonly class UpdatePartiallyFieldHandler implements CommandHandlerInterf
 
         $isUpdated = $this->fieldRepository->updateById(id: $command->id, attributes: $attributes);
         if (! $isUpdated) {
-            throw new FieldNotFoundException(message: 'Field not found with id : '.$command->id, code: 404);
+            throw new FieldNotFoundException(message: 'Field not found with id : '.$command->id);
         }
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Fields\Exceptions;
 
-use Exception;
+use App\Shared\Exceptions\Http\Abstract\HttpNotFoundException;
 
-final class FieldNotFoundException extends Exception
+final class FieldNotFoundException extends HttpNotFoundException
 {
 }

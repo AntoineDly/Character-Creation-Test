@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Items\Exceptions;
 
-use Exception;
+use App\Shared\Exceptions\Http\Abstract\HttpNotFoundException;
 
-final class ItemNotFoundException extends Exception
+final class ItemNotFoundException extends HttpNotFoundException
 {
 }

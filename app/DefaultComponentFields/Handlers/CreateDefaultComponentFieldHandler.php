@@ -7,7 +7,7 @@ namespace App\DefaultComponentFields\Handlers;
 use App\DefaultComponentFields\Commands\CreateDefaultComponentFieldCommand;
 use App\DefaultComponentFields\Repositories\DefaultComponentFieldRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\IncorrectCommandException;
+use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Services\ParameterService;
 

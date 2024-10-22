@@ -25,13 +25,13 @@ it('register a new user should return a 200 with a new user registered', functio
     ]);
 });
 
-it('register a new user should return a 400 with fields required', function () {
+it('register a new user should return a 422 with fields required', function () {
     $userData = [
     ];
 
     $response = $this->postJson('/api/register', $userData);
 
-    $response->assertStatus(400)
+    $response->assertStatus(422)
         ->assertJsonStructure([
             'success',
             'message',

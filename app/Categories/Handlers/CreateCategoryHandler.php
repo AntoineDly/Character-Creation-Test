@@ -7,7 +7,7 @@ namespace App\Categories\Handlers;
 use App\Categories\Commands\CreateCategoryCommand;
 use App\Categories\Repositories\CategoryRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\IncorrectCommandException;
+use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
 
 final readonly class CreateCategoryHandler implements CommandHandlerInterface

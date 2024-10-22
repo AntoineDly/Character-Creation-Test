@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Characters\Exceptions;
 
-use Exception;
+use App\Shared\Exceptions\Http\Abstract\HttpNotFoundException;
 
-final class CharacterNotFoundException extends Exception
+final class CharacterNotFoundException extends HttpNotFoundException
 {
 }

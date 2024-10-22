@@ -8,7 +8,7 @@ use App\Games\Commands\UpdatePartiallyGameCommand;
 use App\Games\Exceptions\GameNotFoundException;
 use App\Games\Repositories\GameRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\IncorrectCommandException;
+use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
 
 final readonly class UpdatePartiallyGameHandler implements CommandHandlerInterface
@@ -36,7 +36,7 @@ final readonly class UpdatePartiallyGameHandler implements CommandHandlerInterfa
 
         $isUpdated = $this->gameRepository->updateById(id: $command->id, attributes: $attributes);
         if (! $isUpdated) {
-            throw new GameNotFoundException(message: 'Game not found with id : '.$command->id, code: 404);
+            throw new GameNotFoundException(message: 'Game not found with id : '.$command->id);
         }
     }
 }

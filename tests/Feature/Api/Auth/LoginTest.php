@@ -39,13 +39,13 @@ it('login with the current user should return a 200 with the user being logged i
     ]);
 });
 
-it('login with the current user should return a 400 with fields required', function () {
+it('login with the current user should return a 422 with fields required', function () {
     $userData = [
     ];
 
     $response = $this->postJson('/api/login', $userData);
 
-    $response->assertStatus(400)
+    $response->assertStatus(422)
         ->assertJsonStructure([
             'success',
             'message',
@@ -80,6 +80,6 @@ it('login with the current user should return a 404 with the user not existing',
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'User not found',
+            'message' => 'User not found.',
         ]);
 });

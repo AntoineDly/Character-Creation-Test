@@ -24,9 +24,9 @@ use App\LinkedItems\Builders\LinkedItemsForCharacterDtoBuilder;
 use App\LinkedItems\Dtos\LinkedItemsForCharacterDto;
 use App\LinkedItems\Exceptions\LinkedItemNotFoundException;
 use App\Shared\Enums\TypeFieldEnum;
-use App\Shared\Exceptions\InvalidClassException;
-use App\Shared\Exceptions\NotAValidUuidException;
-use App\Shared\Exceptions\StringIsEmptyException;
+use App\Shared\Exceptions\Http\InvalidClassException;
+use App\Shared\Exceptions\Http\NotAValidUuidException;
+use App\Shared\Exceptions\Http\StringIsEmptyException;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class CharacterQueriesService

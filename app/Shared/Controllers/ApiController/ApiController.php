@@ -5,9 +5,14 @@ declare(strict_types=1);
 namespace App\Shared\Controllers\ApiController;
 
 use App\Helpers\ArrayHelper;
+use App\Shared\Enums\HttpStatusEnum;
+use App\Shared\Exceptions\Http\HttpExceptionInterface;
+use App\Shared\Exceptions\Http\InvalidBodyParamsException;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\ResponseFactory;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 final readonly class ApiController implements ApiControllerInterface
 {
@@ -16,27 +21,34 @@ final readonly class ApiController implements ApiControllerInterface
     }
 
     /**
-     * @param  array<mixed, mixed>  $errorContent
+     * @param  array<mixed, mixed>  $data
      */
-    public function sendError(string $error, mixed $errorContent = [], int $statusCode = 400): JsonResponse
+    public function sendError(string $error, mixed $data = [], HttpStatusEnum $status = HttpStatusEnum::BAD_REQUEST): JsonResponse
     {
-        return $this->sendResponse(success: false, message: $error, data: $errorContent, status: $statusCode);
+        if ($status->isInternalError()) {
+            Log::error($error, $data);
+
+            return $this->sendResponse(success: false, message: 'Internal Error.', data: [], status: HttpStatusEnum::INTERNAL_SERVER_ERROR);
+        }
+
+        return $this->sendResponse(success: false, message: $error, data: $data, status: $status);
     }
 
-    public function sendException(Exception $exception): JsonResponse
+    public function sendException(HttpExceptionInterface $exception): JsonResponse
     {
-        $exceptionCode = $exception->getCode();
+        $exceptionStatus = $exception->getStatus();
 
         return $this->sendError(
             error: $exception->getMessage(),
-            statusCode: is_int($exceptionCode) && $exceptionCode !== 0 ? $exceptionCode : 400
+            data: $exception->getData(),
+            status: $exceptionStatus,
         );
     }
 
     /**
      * @param  array<mixed, mixed>  $data
      */
-    public function sendResponse(bool $success, string $message, mixed $data, int $status): JsonResponse
+    public function sendResponse(bool $success, string $message, mixed $data, HttpStatusEnum $status): JsonResponse
     {
         $response = [
             'success' => $success,
@@ -47,14 +59,33 @@ final readonly class ApiController implements ApiControllerInterface
             $response['data'] = $data;
         }
 
-        return $this->responseFactory->json(data: $response, status: $status);
+        return $this->responseFactory->json(data: $response, status: $status->getCode());
     }
 
     /**
      * @param  array<mixed, mixed>  $content
      */
-    public function sendSuccess(string $message, array $content = [], int $statusCode = 200): JsonResponse
+    public function sendSuccess(string $message, array $content = [], HttpStatusEnum $status = HttpStatusEnum::OK): JsonResponse
     {
-        return $this->sendResponse(success: true, message: $message, data: $content, status: $statusCode);
+        return $this->sendResponse(success: true, message: $message, data: $content, status: $status);
+    }
+
+    public function sendExceptionFromLaravelValidationException(string $message, ValidationException $e): JsonResponse
+    {
+        $httpException = InvalidBodyParamsException::fromLaravelValidationException($message, $e);
+
+        return $this->sendException($httpException);
+    }
+
+    public function sendExceptionNotCatch(Exception $e): JsonResponse
+    {
+        return $this->sendError(
+            error: 'Exception : '.$e::class.'not catch.',
+            data: [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+            ],
+            status: HttpStatusEnum::INTERNAL_SERVER_ERROR
+        );
     }
 }

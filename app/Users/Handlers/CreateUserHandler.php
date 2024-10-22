@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Users\Handlers;
 
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\IncorrectCommandException;
+use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
 use App\Users\Commands\CreateUserCommand;
 use App\Users\Repositories\UserRepositoryInterface;

@@ -8,8 +8,8 @@ use App\Categories\Dtos\CategoryForCharacterDto;
 use App\Helpers\UuidHelper;
 use App\LinkedItems\Dtos\LinkedItemsForCharacterDto;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\NotAValidUuidException;
-use App\Shared\Exceptions\StringIsEmptyException;
+use App\Shared\Exceptions\Http\NotAValidUuidException;
+use App\Shared\Exceptions\Http\StringIsEmptyException;
 
 final class CategoryForCharacterDtoBuilder implements BuilderInterface
 {
@@ -52,11 +52,11 @@ final class CategoryForCharacterDtoBuilder implements BuilderInterface
     public function build(): CategoryForCharacterDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
-            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.', code: 400);
+            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.');
         }
 
         if ($this->name === '') {
-            throw new StringIsEmptyException('name field is empty', code: 400);
+            throw new StringIsEmptyException('name field is empty');
         }
 
         $categoryForCharacterDto = new CategoryForCharacterDto(

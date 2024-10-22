@@ -8,7 +8,7 @@ use App\DefaultComponentFields\Commands\UpdatePartiallyDefaultComponentFieldComm
 use App\DefaultComponentFields\Exceptions\DefaultComponentFieldNotFoundException;
 use App\DefaultComponentFields\Repositories\DefaultComponentFieldRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\IncorrectCommandException;
+use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Services\ParameterService;
 
@@ -41,7 +41,7 @@ final readonly class UpdatePartiallyDefaultComponentFieldHandler implements Comm
 
         $isUpdated = $this->defaultComponentFieldRepository->updateById(id: $command->id, attributes: $attributes);
         if (! $isUpdated) {
-            throw new DefaultComponentFieldNotFoundException(message: 'Default Component Field not found with id : '.$command->id, code: 404);
+            throw new DefaultComponentFieldNotFoundException(message: 'Default Component Field not found with id : '.$command->id);
         }
     }
 }

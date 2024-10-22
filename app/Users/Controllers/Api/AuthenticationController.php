@@ -6,6 +6,7 @@ namespace App\Users\Controllers\Api;
 
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Exceptions\Http\HttpExceptionInterface;
 use App\Users\Builders\UserDtoBuilder;
 use App\Users\Commands\CreateUserCommand;
 use App\Users\Exceptions\TokenNotFoundException;
@@ -44,9 +45,14 @@ final readonly class AuthenticationController
 
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
-            return $this->apiController->sendError(error: 'You haven\'t been registered.', errorContent: $e->errors());
-        } catch (Exception $e) {
+            return $this->apiController->sendExceptionFromLaravelValidationException(
+                message: 'You haven\'t been registered.',
+                e: $e
+            );
+        } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException(exception: $e);
+        } catch (Exception $e) {
+            return $this->apiController->sendExceptionNotCatch($e);
         }
 
         return $this->apiController->sendSuccess(message: 'You have been successfully registered!');
@@ -66,9 +72,14 @@ final readonly class AuthenticationController
             );
             $result = $query->get();
         } catch (ValidationException $e) {
-            return $this->apiController->sendError(error: 'You haven\'t been logged in.', errorContent: $e->errors());
-        } catch (Exception $e) {
+            return $this->apiController->sendExceptionFromLaravelValidationException(
+                message: 'You haven\'t been logged in.',
+                e: $e
+            );
+        } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException(exception: $e);
+        } catch (Exception $e) {
+            return $this->apiController->sendExceptionNotCatch($e);
         }
 
         return $this->apiController->sendSuccess(message: 'You have been successfully logged in!', content: [$result]);
@@ -79,11 +90,11 @@ final readonly class AuthenticationController
         /** @var ?User $user */
         $user = $request->user();
         if (! $user instanceof User) {
-            throw new UserNotFoundException(message: 'User not found', code: 404);
+            throw new UserNotFoundException(message: 'User not found.');
         }
         $token = $user->token();
         if (! $token instanceof Token) {
-            throw new TokenNotFoundException(message: 'Token not found', code: 404);
+            throw new TokenNotFoundException(message: 'Token not found.');
         }
         $token->revoke();
 

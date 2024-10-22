@@ -8,7 +8,7 @@ use App\DefaultItemFields\Commands\UpdateDefaultItemFieldCommand;
 use App\DefaultItemFields\Exceptions\DefaultItemFieldNotFoundException;
 use App\DefaultItemFields\Repositories\DefaultItemFieldRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\IncorrectCommandException;
+use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Services\ParameterService;
 
@@ -30,7 +30,7 @@ final readonly class UpdateDefaultItemFieldHandler implements CommandHandlerInte
 
         $isUpdated = $this->defaultItemFieldRepository->updateById(id: $command->id, attributes: ['value' => $value, 'item_id' => $command->itemId, 'parameter_id' => $command->parameterId]);
         if (! $isUpdated) {
-            throw new DefaultItemFieldNotFoundException(message: 'Default Item Field not found with id : '.$command->id, code: 404);
+            throw new DefaultItemFieldNotFoundException(message: 'Default Item Field not found with id : '.$command->id);
         }
     }
 }

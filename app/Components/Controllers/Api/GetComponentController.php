@@ -9,6 +9,7 @@ use App\Components\Queries\GetComponentsQuery;
 use App\Components\Repositories\ComponentRepositoryInterface;
 use App\Components\Services\ComponentQueriesService;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Exceptions\Http\HttpExceptionInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
@@ -29,11 +30,13 @@ final readonly class GetComponentController
                 componentQueriesService: $this->componentQueriesService
             );
             $result = $query->get();
-        } catch (Exception $e) {
+        } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException(exception: $e);
+        } catch (Exception $e) {
+            return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Components were successfully retrieved', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Components weresuccessfully retrieved.', content: [$result]);
     }
 
     public function getComponent(string $componentId): JsonResponse
@@ -45,10 +48,12 @@ final readonly class GetComponentController
                 componentId: $componentId
             );
             $result = $query->get();
-        } catch (Exception $e) {
+        } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException(exception: $e);
+        } catch (Exception $e) {
+            return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Component was successfully retrieved', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Component wassuccessfully retrieved.', content: [$result]);
     }
 }

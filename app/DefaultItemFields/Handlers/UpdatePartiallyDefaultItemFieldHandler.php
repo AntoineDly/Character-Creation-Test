@@ -8,7 +8,7 @@ use App\DefaultItemFields\Commands\UpdatePartiallyDefaultItemFieldCommand;
 use App\DefaultItemFields\Exceptions\DefaultItemFieldNotFoundException;
 use App\DefaultItemFields\Repositories\DefaultItemFieldRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\IncorrectCommandException;
+use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Services\ParameterService;
 
@@ -41,7 +41,7 @@ final readonly class UpdatePartiallyDefaultItemFieldHandler implements CommandHa
 
         $isUpdated = $this->defaultItemFieldRepository->updateById(id: $command->id, attributes: $attributes);
         if (! $isUpdated) {
-            throw new DefaultItemFieldNotFoundException(message: 'Default Item Field not found with id : '.$command->id, code: 404);
+            throw new DefaultItemFieldNotFoundException(message: 'Default Item Field not found with id : '.$command->id);
         }
     }
 }

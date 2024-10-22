@@ -10,7 +10,7 @@ use App\Games\Dtos\GameDto;
 use App\Games\Exceptions\GameNotFoundException;
 use App\Helpers\UuidHelper;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\NotAValidUuidException;
+use App\Shared\Exceptions\Http\NotAValidUuidException;
 
 final class CharacterWithLinkedItemsDtoBuilder implements BuilderInterface
 {
@@ -56,11 +56,11 @@ final class CharacterWithLinkedItemsDtoBuilder implements BuilderInterface
     public function build(): CharacterWithLinkedItemsDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
-            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.', code: 400);
+            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.');
         }
 
         if (! $this->gameDto instanceof GameDto) {
-            throw new GameNotFoundException('Game was not found to create the CharacterWithGameDto', code: 400);
+            throw new GameNotFoundException('Game was not found to create the CharacterWithGameDto');
         }
 
         $characterWithLinkedItemDto = new CharacterWithLinkedItemsDto(

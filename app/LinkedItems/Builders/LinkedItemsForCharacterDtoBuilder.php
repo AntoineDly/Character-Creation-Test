@@ -9,7 +9,7 @@ use App\LinkedItems\Dtos\LinkedItemsForCharacterDto;
 use App\Shared\Builders\BuilderInterface;
 use App\Shared\Dtos\SharedFieldDto\SharedFieldDto;
 use App\Shared\Enums\TypeFieldEnum;
-use App\Shared\Exceptions\NotAValidUuidException;
+use App\Shared\Exceptions\Http\NotAValidUuidException;
 
 final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
 {
@@ -62,7 +62,7 @@ final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
     public function build(): LinkedItemsForCharacterDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
-            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.', code: 400);
+            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.');
         }
 
         $linkedItemsForCharacterDto = new LinkedItemsForCharacterDto(

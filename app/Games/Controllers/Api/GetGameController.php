@@ -9,6 +9,7 @@ use App\Games\Queries\GetGamesQuery;
 use App\Games\Repositories\GameRepositoryInterface;
 use App\Games\Services\GameQueriesService;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Exceptions\Http\HttpExceptionInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
@@ -29,11 +30,13 @@ final readonly class GetGameController
                 gameQueriesService: $this->gameQueriesService,
             );
             $result = $query->get();
-        } catch (Exception $e) {
+        } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException(exception: $e);
+        } catch (Exception $e) {
+            return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Games were successfully retrieved', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Games weresuccessfully retrieved.', content: [$result]);
     }
 
     public function getGame(string $gameId): JsonResponse
@@ -45,10 +48,12 @@ final readonly class GetGameController
                 gameId: $gameId
             );
             $result = $query->get();
-        } catch (Exception $e) {
+        } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException(exception: $e);
+        } catch (Exception $e) {
+            return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Game was successfully retrieved', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Game wassuccessfully retrieved.', content: [$result]);
     }
 }

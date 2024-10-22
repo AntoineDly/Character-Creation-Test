@@ -7,7 +7,7 @@ namespace App\Characters\Repositories;
 use App\Characters\Exceptions\CharacterNotFoundException;
 use App\Characters\Models\Character;
 use App\Helpers\AssertHelper;
-use App\Shared\Exceptions\InvalidClassException;
+use App\Shared\Exceptions\Http\InvalidClassException;
 use App\Shared\Repositories\AbstractRepository\AbstractRepository;
 
 final readonly class CharacterRepository extends AbstractRepository implements CharacterRepositoryInterface

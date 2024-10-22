@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Shared\CommandBus;
 
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\InvalidClassException;
-use App\Shared\Exceptions\IsNotObjectException;
+use App\Shared\Exceptions\Http\InvalidClassException;
+use App\Shared\Exceptions\Http\IsNotObjectException;
 use App\Shared\Handlers\CommandHandlerInterface;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;

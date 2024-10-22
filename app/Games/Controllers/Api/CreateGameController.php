@@ -9,6 +9,7 @@ use App\Games\Requests\CreateGameRequest;
 use App\Helpers\RequestHelper;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Exceptions\Http\HttpExceptionInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
@@ -35,11 +36,16 @@ final readonly class CreateGameController
 
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
-            return $this->apiController->sendError(error: 'Game was not successfully created', errorContent: $e->errors());
-        } catch (Exception $e) {
+            return $this->apiController->sendExceptionFromLaravelValidationException(
+                message: 'Game was not successfully created.',
+                e: $e
+            );
+        } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException(exception: $e);
+        } catch (Exception $e) {
+            return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Game was successfully created');
+        return $this->apiController->sendSuccess(message: 'Game was successfully created.');
     }
 }

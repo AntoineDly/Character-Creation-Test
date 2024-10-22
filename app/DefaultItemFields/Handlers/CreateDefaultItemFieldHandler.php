@@ -7,7 +7,7 @@ namespace App\DefaultItemFields\Handlers;
 use App\DefaultItemFields\Commands\CreateDefaultItemFieldCommand;
 use App\DefaultItemFields\Repositories\DefaultItemFieldRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\IncorrectCommandException;
+use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Services\ParameterService;
 

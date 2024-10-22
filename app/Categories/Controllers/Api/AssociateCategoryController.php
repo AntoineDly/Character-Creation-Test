@@ -8,6 +8,8 @@ use App\Categories\Commands\AssociateCategoryGameCommand;
 use App\Categories\Requests\AssociateCategoryGameRequest;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Enums\HttpStatusEnum;
+use App\Shared\Exceptions\Http\HttpExceptionInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
@@ -33,11 +35,16 @@ final readonly class AssociateCategoryController
 
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
-            return $this->apiController->sendError(error: 'Game was not successfully associated to the category', errorContent: $e->errors());
-        } catch (Exception $e) {
+            return $this->apiController->sendExceptionFromLaravelValidationException(
+                message: 'Game was not successfully associated to the category',
+                e: $e
+            );
+        } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException(exception: $e);
+        } catch (Exception $e) {
+            return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Game was successfully associated to the category');
+        return $this->apiController->sendSuccess(message: 'Game was successfully associated to the category', status: HttpStatusEnum::CREATED);
     }
 }

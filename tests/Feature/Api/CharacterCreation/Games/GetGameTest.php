@@ -13,7 +13,7 @@ it('get games should return 200 without any games', function () {
         ->assertJsonStructure(['success', 'message', 'data'])
         ->assertJson([
             'success' => true,
-            'message' => 'Games were successfully retrieved',
+            'message' => 'Games weresuccessfully retrieved.',
             'data' => [
                 [],
             ],
@@ -28,7 +28,7 @@ it('get games should return 200 with games', function () {
         ->assertJsonStructure(['success', 'message', 'data'])
         ->assertJson([
             'success' => true,
-            'message' => 'Games were successfully retrieved',
+            'message' => 'Games weresuccessfully retrieved.',
             'data' => [
                 [
                     [
@@ -48,7 +48,7 @@ it('get game with valid game uuid should return 200 with the game', function () 
         ->assertJsonStructure(['success', 'message', 'data'])
         ->assertJson([
             'success' => true,
-            'message' => 'Game was successfully retrieved',
+            'message' => 'Game wassuccessfully retrieved.',
             'data' => [
                 [
                     'id' => $game->id,

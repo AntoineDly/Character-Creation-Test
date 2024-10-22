@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\LinkedItems\Exceptions;
 
-use Exception;
+use App\Shared\Exceptions\Http\Abstract\HttpNotFoundException;
 
-final class LinkedItemNotFoundException extends Exception
+final class LinkedItemNotFoundException extends HttpNotFoundException
 {
 }

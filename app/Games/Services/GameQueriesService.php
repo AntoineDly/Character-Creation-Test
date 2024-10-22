@@ -8,9 +8,9 @@ use App\Games\Builders\GameDtoBuilder;
 use App\Games\Dtos\GameDto;
 use App\Games\Exceptions\GameNotFoundException;
 use App\Helpers\AssertHelper;
-use App\Shared\Exceptions\InvalidClassException;
-use App\Shared\Exceptions\NotAValidUuidException;
-use App\Shared\Exceptions\StringIsEmptyException;
+use App\Shared\Exceptions\Http\InvalidClassException;
+use App\Shared\Exceptions\Http\NotAValidUuidException;
+use App\Shared\Exceptions\Http\StringIsEmptyException;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class GameQueriesService

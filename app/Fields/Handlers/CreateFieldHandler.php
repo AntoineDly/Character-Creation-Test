@@ -7,7 +7,7 @@ namespace App\Fields\Handlers;
 use App\Fields\Commands\CreateFieldCommand;
 use App\Fields\Repositories\FieldRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\IncorrectCommandException;
+use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Services\ParameterService;
 

@@ -45,9 +45,9 @@ abstract class ApiTestCase extends BaseTestCase
         ]);
     }
 
-    public function getUser(): User
+    public function getUserId(): string
     {
-        return $this->user;
+        return $this->user->id;
     }
 
     public function getBearerToken(string $password = 'test123'): string

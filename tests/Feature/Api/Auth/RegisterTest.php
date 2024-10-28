@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-it('register a new user should return a 200 with a new user registered', function () {
+it('register a new user should return a 201 with a new user registered', function () {
     $userData = [
         'email' => 'john.doe@example.com',
         'password' => 'password',
@@ -13,7 +13,7 @@ it('register a new user should return a 200 with a new user registered', functio
 
     $response = $this->postJson('/api/register', $userData);
 
-    $response->assertStatus(200)
+    $response->assertStatus(201)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => true,

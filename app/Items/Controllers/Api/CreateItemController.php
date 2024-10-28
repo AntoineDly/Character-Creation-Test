@@ -46,6 +46,6 @@ final readonly class CreateItemController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Item was successfully created.');
+        return $this->apiController->sendCreated(message: 'Item was successfully created.');
     }
 }

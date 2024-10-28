@@ -9,7 +9,6 @@ use App\Categories\Requests\CreateCategoryRequest;
 use App\Helpers\RequestHelper;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
-use App\Shared\Enums\HttpStatusEnum;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -46,6 +45,6 @@ final readonly class CreateCategoryController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Category was successfully created.', status: HttpStatusEnum::CREATED);
+        return $this->apiController->sendCreated(message: 'Category was successfully created.');
     }
 }

@@ -36,7 +36,7 @@ final readonly class GetComponentController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Components weresuccessfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Components were successfully retrieved.', content: [$result]);
     }
 
     public function getComponent(string $componentId): JsonResponse
@@ -54,6 +54,6 @@ final readonly class GetComponentController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Component wassuccessfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Component was successfully retrieved.', content: [$result]);
     }
 }

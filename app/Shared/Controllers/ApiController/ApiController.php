@@ -62,9 +62,7 @@ final readonly class ApiController implements ApiControllerInterface
         return $this->responseFactory->json(data: $response, status: $status->getCode());
     }
 
-    /**
-     * @param  array<mixed, mixed>  $content
-     */
+    /** @param  array<mixed, mixed>  $content */
     public function sendSuccess(string $message, array $content = [], HttpStatusEnum $status = HttpStatusEnum::OK): JsonResponse
     {
         return $this->sendResponse(success: true, message: $message, data: $content, status: $status);
@@ -87,5 +85,11 @@ final readonly class ApiController implements ApiControllerInterface
             ],
             status: HttpStatusEnum::INTERNAL_SERVER_ERROR
         );
+    }
+
+    /** @param  array<mixed, mixed>  $content */
+    public function sendCreated(string $message, array $content = []): JsonResponse
+    {
+        return $this->sendSuccess(message: $message, content: $content, status: HttpStatusEnum::CREATED);
     }
 }

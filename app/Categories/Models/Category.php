@@ -6,6 +6,7 @@ namespace App\Categories\Models;
 
 use App\Components\Models\Component;
 use App\Games\Models\Game;
+use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 final class Category extends Model
 {
-    use Uuid;
+    /** @use HasModelFactory<Category> */
+    use HasModelFactory, Uuid;
 
     protected $table = 'categories';
 

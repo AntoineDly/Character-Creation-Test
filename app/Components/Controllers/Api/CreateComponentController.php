@@ -41,6 +41,6 @@ final readonly class CreateComponentController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Component was successfully created.');
+        return $this->apiController->sendCreated(message: 'Component was successfully created.');
     }
 }

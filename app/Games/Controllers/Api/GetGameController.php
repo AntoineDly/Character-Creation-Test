@@ -36,7 +36,7 @@ final readonly class GetGameController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Games weresuccessfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Games were successfully retrieved.', content: [$result]);
     }
 
     public function getGame(string $gameId): JsonResponse
@@ -54,6 +54,6 @@ final readonly class GetGameController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Game wassuccessfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Game was successfully retrieved.', content: [$result]);
     }
 }

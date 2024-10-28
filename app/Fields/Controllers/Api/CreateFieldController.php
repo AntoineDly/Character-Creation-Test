@@ -47,6 +47,6 @@ final readonly class CreateFieldController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Field was successfully created.');
+        return $this->apiController->sendCreated(message: 'Field was successfully created.');
     }
 }

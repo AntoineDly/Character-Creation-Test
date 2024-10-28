@@ -46,6 +46,6 @@ final readonly class CreateGameController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Game was successfully created.');
+        return $this->apiController->sendCreated(message: 'Game was successfully created.');
     }
 }

@@ -24,10 +24,11 @@ interface ApiControllerInterface
      */
     public function sendResponse(bool $success, string $message, mixed $data, HttpStatusEnum $status): JsonResponse;
 
-    /**
-     * @param  array<mixed, mixed>  $content
-     */
+    /** @param  array<mixed, mixed>  $content */
     public function sendSuccess(string $message, array $content = [], HttpStatusEnum $status = HttpStatusEnum::OK): JsonResponse;
+
+    /** @param  array<mixed, mixed>  $content */
+    public function sendCreated(string $message, array $content = []): JsonResponse;
 
     public function sendExceptionFromLaravelValidationException(string $message, ValidationException $e): JsonResponse;
 

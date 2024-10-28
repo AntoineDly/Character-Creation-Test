@@ -47,6 +47,6 @@ final readonly class CreateDefaultItemFieldController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Default Item Field was successfully created.');
+        return $this->apiController->sendCreated(message: 'Default Item Field was successfully created.');
     }
 }

@@ -46,6 +46,6 @@ final readonly class CreateParameterController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Parameter was successfully created.');
+        return $this->apiController->sendCreated(message: 'Parameter was successfully created.');
     }
 }

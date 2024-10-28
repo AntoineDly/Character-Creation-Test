@@ -47,6 +47,6 @@ final readonly class CreateDefaultComponentFieldController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Default Component Field was successfully created.');
+        return $this->apiController->sendCreated(message: 'Default Component Field was successfully created.');
     }
 }

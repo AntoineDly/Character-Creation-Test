@@ -36,7 +36,7 @@ final readonly class GetCategoryController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Categories weresuccessfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Categories were successfully retrieved.', content: [$result]);
     }
 
     public function getCategory(string $categoryId): JsonResponse
@@ -54,6 +54,6 @@ final readonly class GetCategoryController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Category wassuccessfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Category was successfully retrieved.', content: [$result]);
     }
 }

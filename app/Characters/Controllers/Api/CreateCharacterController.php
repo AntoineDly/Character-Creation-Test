@@ -45,6 +45,6 @@ final readonly class CreateCharacterController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character was successfully created.');
+        return $this->apiController->sendCreated(message: 'Character was successfully created.');
     }
 }

@@ -46,6 +46,6 @@ final readonly class CreateLinkedItemController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Linked Item was successfully created.');
+        return $this->apiController->sendCreated(message: 'Linked Item was successfully created.');
     }
 }

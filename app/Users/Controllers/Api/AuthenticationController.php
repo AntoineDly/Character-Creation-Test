@@ -55,7 +55,7 @@ final readonly class AuthenticationController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'You have been successfully registered!');
+        return $this->apiController->sendCreated(message: 'You have been successfully registered!');
     }
 
     public function login(LoginRequest $request): JsonResponse

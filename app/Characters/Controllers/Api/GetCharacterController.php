@@ -39,7 +39,7 @@ final readonly class GetCharacterController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Characters weresuccessfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Characters were successfully retrieved.', content: [$result]);
     }
 
     public function getCharacter(string $characterId): JsonResponse
@@ -57,7 +57,7 @@ final readonly class GetCharacterController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character wassuccessfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: [$result]);
     }
 
     public function getCharacterWithGame(string $characterId): JsonResponse
@@ -75,7 +75,7 @@ final readonly class GetCharacterController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character wassuccessfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: [$result]);
     }
 
     public function getCharactersWithGame(): JsonResponse
@@ -92,7 +92,7 @@ final readonly class GetCharacterController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character wassuccessfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: [$result]);
     }
 
     public function getCharacterWithLinkedItems(string $characterId): JsonResponse
@@ -110,6 +110,6 @@ final readonly class GetCharacterController
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character wassuccessfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: [$result]);
     }
 }

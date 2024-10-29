@@ -14,7 +14,7 @@ final readonly class SharedFieldDto implements DtoInterface
         public string $id,
         public string $parameterId,
         public string $name,
-        public ?string $value,
+        public string $value,
         public TypeParameterEnum $typeParameterEnum,
         public TypeFieldEnum $typeFieldEnum,
     ) {

@@ -6,8 +6,10 @@ namespace Tests\Feature\Users;
 
 it('create game should return 201 with a new game created', function () {
     $categoryData = ['name' => 'test'];
-    $response = $this->postJson('/api/categories', $categoryData);
+    $categoryExpectedResult = [...$categoryData, 'userId' => 'userId'];
+    $this->assertDatabaseMissing('categories', $categoryExpectedResult);
 
+    $response = $this->postJson('/api/categories', $categoryData);
     $response->assertStatus(201)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
@@ -15,13 +17,15 @@ it('create game should return 201 with a new game created', function () {
             'message' => 'Category was successfully created.',
         ]);
 
-    $this->assertDatabaseHas('categories', $categoryData);
+    $this->assertDatabaseHas('categories', $categoryExpectedResult);
 });
 
 it('create game should return 422 with name parameter not being a string and visibleForAll being required', function () {
     $categoryData = ['name' => 123];
-    $response = $this->postJson('/api/categories', $categoryData);
+    $categoryExpectedResult = [...$categoryData, 'userId' => 'userId'];
+    $this->assertDatabaseMissing('categories', $categoryExpectedResult);
 
+    $response = $this->postJson('/api/categories', $categoryData);
     $response->assertStatus(422)
         ->assertJsonStructure([
             'success',
@@ -40,7 +44,5 @@ it('create game should return 422 with name parameter not being a string and vis
             ],
         ]);
 
-    $this->assertDatabaseMissing('categories', [
-        'name' => 123,
-    ]);
+    $this->assertDatabaseMissing('categories', $categoryExpectedResult);
 });

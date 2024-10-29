@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Components\Models;
 
 use App\DefaultComponentFields\Models\DefaultComponentField;
+use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Component extends Model
 {
-    use Uuid;
+    /** @use HasModelFactory<Component> */
+    use HasModelFactory, Uuid;
 
     protected $fillable = [
         'user_id',

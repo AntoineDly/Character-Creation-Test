@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('default_item_fields', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('value')->nullable();
+            $table->string('value');
             $table->foreignUuid('item_id')->references('id')->on('items');
             $table->foreignUuid('parameter_id')->references('id')->on('parameters');
             $table->foreignUuid('user_id')->references('id')->on('users');

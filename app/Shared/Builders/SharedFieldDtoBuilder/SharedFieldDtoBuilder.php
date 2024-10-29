@@ -21,7 +21,7 @@ final class SharedFieldDtoBuilder implements BuilderInterface
 
     private string $name = '';
 
-    private ?string $value = null;
+    private string $value = '';
 
     private TypeParameterEnum|string $typeParameterEnum = '';
 
@@ -48,7 +48,7 @@ final class SharedFieldDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    public function setValue(?string $value): self
+    public function setValue(string $value): self
     {
         $this->value = $value;
 
@@ -87,6 +87,10 @@ final class SharedFieldDtoBuilder implements BuilderInterface
 
         if (! UuidHelper::isValidUuid($this->parameterId)) {
             throw new NotAValidUuidException('parameterId field is not a valid uuid, '.$this->id.' given.');
+        }
+
+        if ($this->name === '') {
+            throw new StringIsEmptyException('name field is empty');
         }
 
         if ($this->name === '') {

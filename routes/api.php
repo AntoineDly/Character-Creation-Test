@@ -21,6 +21,7 @@ use App\Games\Controllers\Api\UpdateGameController;
 use App\Items\Controllers\Api\CreateItemController;
 use App\LinkedItems\Controllers\Api\CreateLinkedItemController;
 use App\Parameters\Controllers\Api\CreateParameterController;
+use App\Parameters\Controllers\Api\GetParameterController;
 use App\Users\Controllers\Api\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/components/{id}', [GetComponentController::class, 'getComponent']);
     Route::post('/components', [CreateComponentController::class, 'createComponent']);
 
+    Route::get('/parameters', [GetParameterController::class, 'getParameters']);
+    Route::get('/parameters/{id}', [GetParameterController::class, 'getParameter']);
     Route::post('/parameters', [CreateParameterController::class, 'createParameter']);
 
     Route::post('/default_item_fields', [CreateDefaultItemFieldController::class, 'createDefaultItemField']);

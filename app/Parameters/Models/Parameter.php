@@ -7,6 +7,7 @@ namespace App\Parameters\Models;
 use App\DefaultItemFields\Models\DefaultItemField;
 use App\Fields\Models\Field;
 use App\Parameters\Enums\TypeParameterEnum;
+use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Parameter extends Model
 {
-    use Uuid;
+    /** @use HasModelFactory<Parameter> */
+    use HasModelFactory, Uuid;
 
     protected $fillable = [
         'name',

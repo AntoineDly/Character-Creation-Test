@@ -10,7 +10,7 @@ interface FieldInterface
 {
     public function getId(): string;
 
-    public function getValue(): ?string;
+    public function getValue(): string;
 
-    public function getParameter(): ?Parameter;
+    public function getParameter(): Parameter;
 }

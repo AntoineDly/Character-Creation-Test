@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('default_component_fields', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('value')->nullable();
+            $table->string('value');
             $table->foreignUuid('component_id')->references('id')->on('components');
             $table->foreignUuid('parameter_id')->references('id')->on('parameters');
             $table->foreignUuid('user_id')->references('id')->on('users');

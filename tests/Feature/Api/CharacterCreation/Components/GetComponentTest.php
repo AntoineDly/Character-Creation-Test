@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\Categories\Models\Category;
+use App\Components\Models\Component;
 
-it('get categories should return 200 without any games', function () {
-    $response = $this->getJson('/api/categories');
+it('get components should return 200 without any games', function () {
+    $response = $this->getJson('/api/components');
     $response->assertStatus(200)
         ->assertJsonStructure(['success', 'message', 'data'])
         ->assertJson([
             'success' => true,
-            'message' => 'Categories were successfully retrieved.',
+            'message' => 'Components were successfully retrieved.',
             'data' => [
                 [],
             ],
         ]);
 });
 
-it('get categories should return 200 with games', function () {
-    $category = Category::factory()->create(['user_id' => $this->getUserId()]);
+it('get components should return 200 with games', function () {
+    $component = Component::factory()->create(['user_id' => $this->getUserId()]);
 
-    $response = $this->getJson('/api/categories');
+    $response = $this->getJson('/api/components');
     $response->assertStatus(200)
         ->assertJsonStructure([
             'success',
@@ -31,29 +31,27 @@ it('get categories should return 200 with games', function () {
                 [
                     [
                         'id',
-                        'name',
                     ],
                 ],
             ],
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Categories were successfully retrieved.',
+            'message' => 'Components were successfully retrieved.',
             'data' => [
                 [
                     [
-                        'id' => $category->id,
-                        'name' => $category->name,
+                        'id' => $component->id,
                     ],
                 ],
             ],
         ]);
 });
 
-it('get category with valid game uuid should return 200 with the game', function () {
-    $category = Category::factory()->create(['user_id' => $this->getUserId()]);
+it('get component with valid game uuid should return 200 with the game', function () {
+    $component = Component::factory()->create(['user_id' => $this->getUserId()]);
 
-    $response = $this->getJson('/api/categories/'.$category->id);
+    $response = $this->getJson('/api/components/'.$component->id);
     $response->assertStatus(200)
         ->assertJsonStructure([
             'success',
@@ -61,29 +59,26 @@ it('get category with valid game uuid should return 200 with the game', function
             'data' => [
                 [
                     'id',
-                    'name',
                 ],
             ],
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Category was successfully retrieved.',
+            'message' => 'Component was successfully retrieved.',
             'data' => [
                 [
-                    'id' => $category->id,
-                    'name' => $category->name,
+                    'id' => $component->id,
                 ],
             ],
         ]);
 });
 
-it('get category with invalid game uuid should return 404 with the game not found', function () {
-    $response = $this->getJson('/api/categories/invalid-uuid');
-
+it('get component with invalid game uuid should return 404 with the game not found', function () {
+    $response = $this->getJson('/api/components/invalid-uuid');
     $response->assertStatus(404)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'Category not found',
+            'message' => 'Component not found',
         ]);
 });

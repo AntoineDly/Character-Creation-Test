@@ -11,8 +11,10 @@ it('associate category with game should return 201 with a new association create
     $category = Category::factory()->create(['user_id' => $this->getUserId()]);
     $game = Game::factory()->create(['user_id' => $this->getUserId()]);
     $categoryData = ['gameId' => $game->id, 'categoryId' => $category->id];
-    $response = $this->postJson('/api/categories/associate_game', $categoryData);
+    $categoryExpectedResult = [...$categoryData, 'userId' => 'userId'];
+    $this->assertDatabaseMissing('category_game', $categoryExpectedResult);
 
+    $response = $this->postJson('/api/categories/associate_game', $categoryData);
     $response->assertStatus(201)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
@@ -20,15 +22,15 @@ it('associate category with game should return 201 with a new association create
             'message' => 'Game was successfully associated to the category.',
         ]);
 
-    $this->assertDatabaseHas('category_game', [
-        'gameId' => 'gameId', 'categoryId' => 'categoryId',
-    ]);
+    $this->assertDatabaseHas('categories', $categoryExpectedResult);
 });
 
 it('associate category with game should return 422 with gameId parameter not being an existing game id and categoryId being required', function () {
     $categoryData = ['gameId' => 'test'];
-    $response = $this->postJson('/api/categories/associate_game', $categoryData);
+    $categoryExpectedResult = [...$categoryData, 'userId' => 'userId'];
+    $this->assertDatabaseMissing('category_game', $categoryExpectedResult);
 
+    $response = $this->postJson('/api/categories/associate_game', $categoryData);
     $response->assertStatus(422)
         ->assertJsonStructure([
             'success',
@@ -51,7 +53,5 @@ it('associate category with game should return 422 with gameId parameter not bei
             ],
         ]);
 
-    $this->assertDatabaseMissing('categories', [
-        'name' => 123,
-    ]);
+    $this->assertDatabaseMissing('category_game', $categoryExpectedResult);
 });

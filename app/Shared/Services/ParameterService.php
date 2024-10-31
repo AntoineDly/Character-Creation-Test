@@ -23,11 +23,8 @@ final readonly class ParameterService
     ) {
     }
 
-    public function validateValueType(string $parameterId, string $value): string
+    public function validateValueTypeByType(TypeParameterEnum $type, string $value): string
     {
-        $parameter = $this->getParameterById(parameterId: $parameterId);
-        $type = $parameter->type;
-
         if ($type === TypeParameterEnum::INT && ! is_numeric($value)) {
             throw new InvalidValueForParameterTypeException('Value '.$value.' should be castable to int.');
         }
@@ -42,6 +39,14 @@ final readonly class ParameterService
         }
 
         return $value;
+    }
+
+    public function validateValueTypeByParameter(string $parameterId, string $value): string
+    {
+        $parameter = $this->getParameterById(parameterId: $parameterId);
+        $type = $parameter->type;
+
+        return $this->validateValueTypeByType($type, $value);
     }
 
     private function getParameterById(string $parameterId): Parameter

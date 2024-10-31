@@ -7,6 +7,8 @@ namespace App\DefaultComponentFields\Controllers\Api;
 use App\DefaultComponentFields\Commands\UpdateDefaultComponentFieldCommand;
 use App\DefaultComponentFields\Commands\UpdatePartiallyDefaultComponentFieldCommand;
 use App\DefaultComponentFields\Requests\UpdateDefaultComponentFieldRequest;
+use App\DefaultComponentFields\Requests\UpdatePartiallyDefaultComponentFieldRequest;
+use App\Helpers\ArrayHelper;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
@@ -50,7 +52,7 @@ final readonly class UpdateDefaultComponentFieldController
         return $this->apiController->sendSuccess(message: 'Default Component Field was successfully updated.');
     }
 
-    public function updatePartiallyDefaultComponentField(UpdateDefaultComponentFieldRequest $request, string $id): JsonResponse
+    public function updatePartiallyDefaultComponentField(UpdatePartiallyDefaultComponentFieldRequest $request, string $id): JsonResponse
     {
         try {
             /** @var array{'value': ?string, 'componentId': ?string, 'parameterId': ?string} $validated */
@@ -58,9 +60,9 @@ final readonly class UpdateDefaultComponentFieldController
 
             $command = new UpdatePartiallyDefaultComponentFieldCommand(
                 id: $id,
-                value: $validated['value'],
-                componentId: $validated['componentId'],
-                parameterId: $validated['parameterId'],
+                value: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'value'),
+                componentId: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'componentId'),
+                parameterId: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'parameterId'),
             );
 
             $this->commandBus->handle($command);

@@ -12,5 +12,5 @@ interface FieldInterface
 
     public function getValue(): string;
 
-    public function getParameter(): Parameter;
+    public function getParameter(): ?Parameter;
 }

@@ -7,6 +7,7 @@ namespace App\DefaultComponentFields\Models;
 use App\Components\Models\Component;
 use App\Fields\Models\FieldInterface;
 use App\Parameters\Models\Parameter;
+use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class DefaultComponentField extends Model implements FieldInterface
 {
-    use Uuid;
+    /** @use HasModelFactory<DefaultComponentField> */
+    use HasModelFactory, Uuid;
 
     protected $fillable = [
         'value',
@@ -58,7 +60,7 @@ final class DefaultComponentField extends Model implements FieldInterface
         return $this->id;
     }
 
-    public function getValue(): ?string
+    public function getValue(): string
     {
         return $this->value;
     }

@@ -68,7 +68,7 @@ final class Field extends Model implements FieldInterface
         return $this->id;
     }
 
-    public function getValue(): ?string
+    public function getValue(): string
     {
         return $this->value;
     }

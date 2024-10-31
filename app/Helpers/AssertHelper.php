@@ -152,7 +152,7 @@ final readonly class AssertHelper
     public static function isDefaultComponentField(?Model $defaultComponentField): DefaultComponentField
     {
         if (is_null($defaultComponentField)) {
-            throw new DefaultComponentFieldNotFoundException(message: 'DefaultComponentField not found');
+            throw new DefaultComponentFieldNotFoundException(message: 'Default Component Field not found');
         }
 
         if (! $defaultComponentField instanceof DefaultComponentField) {

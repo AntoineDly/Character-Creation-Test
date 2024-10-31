@@ -30,7 +30,7 @@ final readonly class UpdatePartiallyDefaultItemFieldHandler implements CommandHa
         $attributes = [];
 
         if (! is_null($command->value) && ! is_null($command->parameterId)) {
-            $value = $this->parameterService->validateValueType(parameterId: $command->parameterId, value: $command->value);
+            $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);
 
             $attributes['value'] = $value;
         }

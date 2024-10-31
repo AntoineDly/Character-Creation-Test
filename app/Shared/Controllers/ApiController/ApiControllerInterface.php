@@ -13,9 +13,9 @@ use Illuminate\Validation\ValidationException;
 interface ApiControllerInterface
 {
     /**
-     * @param  array<mixed, mixed>  $errorContent
+     * @param  array<mixed, mixed>  $data
      */
-    public function sendError(string $error, mixed $errorContent = [], HttpStatusEnum $status = HttpStatusEnum::BAD_REQUEST): JsonResponse;
+    public function sendError(string $error, mixed $data = [], HttpStatusEnum $status = HttpStatusEnum::BAD_REQUEST): JsonResponse;
 
     public function sendException(HttpExceptionInterface $exception): JsonResponse;
 

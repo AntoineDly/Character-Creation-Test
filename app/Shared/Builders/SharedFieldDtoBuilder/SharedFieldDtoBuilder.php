@@ -93,8 +93,8 @@ final class SharedFieldDtoBuilder implements BuilderInterface
             throw new StringIsEmptyException('name field is empty');
         }
 
-        if ($this->name === '') {
-            throw new StringIsEmptyException('name field is empty');
+        if ($this->value === '') {
+            throw new StringIsEmptyException('value field is empty');
         }
 
         if (! $this->typeParameterEnum instanceof TypeParameterEnum) {

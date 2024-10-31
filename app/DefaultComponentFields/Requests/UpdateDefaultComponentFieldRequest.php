@@ -32,7 +32,7 @@ final class UpdateDefaultComponentFieldRequest extends BaseFormRequest
             'value.min' => 'The value field must be at least 1 characters.',
             'componentId.required' => 'The componentId field is required.',
             'componentId.exists' => 'No component found for this componentId.',
-            'parameterId.required' => 'The componentId field is required.',
+            'parameterId.required' => 'The parameterId field is required.',
             'parameterId.exists' => 'No parameter found for this parameterId.',
         ];
     }

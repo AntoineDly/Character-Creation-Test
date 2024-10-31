@@ -10,6 +10,7 @@ use App\Characters\Controllers\Api\GetCharacterController;
 use App\Components\Controllers\Api\CreateComponentController;
 use App\Components\Controllers\Api\GetComponentController;
 use App\DefaultComponentFields\Controllers\Api\CreateDefaultComponentFieldController;
+use App\DefaultComponentFields\Controllers\Api\GetDefaultComponentFieldsController;
 use App\DefaultComponentFields\Controllers\Api\UpdateDefaultComponentFieldController;
 use App\DefaultItemFields\Controllers\Api\CreateDefaultItemFieldController;
 use App\DefaultItemFields\Controllers\Api\UpdateDefaultItemFieldController;
@@ -66,6 +67,8 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/default_item_fields/{id}', [UpdateDefaultItemFieldController::class, 'updateDefaultItemField']);
     Route::patch('/default_item_fields/{id}', [UpdateDefaultItemFieldController::class, 'updatePartiallyDefaultItemField']);
 
+    Route::get('/default_component_fields', [GetDefaultComponentFieldsController::class, 'getDefaultComponentFields']);
+    Route::get('/default_component_fields/{id}', [GetDefaultComponentFieldsController::class, 'getDefaultComponentField']);
     Route::post('/default_component_fields', [CreateDefaultComponentFieldController::class, 'createDefaultComponentField']);
     Route::put('/default_component_fields/{id}', [UpdateDefaultComponentFieldController::class, 'updateDefaultComponentField']);
     Route::patch('/default_component_fields/{id}', [UpdateDefaultComponentFieldController::class, 'updatePartiallyDefaultComponentField']);

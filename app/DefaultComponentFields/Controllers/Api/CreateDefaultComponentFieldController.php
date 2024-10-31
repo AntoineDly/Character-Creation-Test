@@ -38,7 +38,7 @@ final readonly class CreateDefaultComponentFieldController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Default Component was not successfully created.',
+                message: 'Default Component Field was not successfully created.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {

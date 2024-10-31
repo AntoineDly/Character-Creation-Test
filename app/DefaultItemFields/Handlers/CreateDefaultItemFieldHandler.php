@@ -25,7 +25,7 @@ final readonly class CreateDefaultItemFieldHandler implements CommandHandlerInte
             throw new IncorrectCommandException('Command must be an instance of CreateDefaultItemFieldCommand');
         }
 
-        $value = $this->parameterService->validateValueType(parameterId: $command->parameterId, value: $command->value);
+        $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);
 
         $this->defaultItemFieldRepository->create(attributes: ['value' => $value, 'item_id' => $command->itemId, 'parameter_id' => $command->parameterId, 'user_id' => $command->userId]);
     }

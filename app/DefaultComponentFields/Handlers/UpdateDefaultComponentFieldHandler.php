@@ -26,7 +26,7 @@ final readonly class UpdateDefaultComponentFieldHandler implements CommandHandle
             throw new IncorrectCommandException('Command must be an instance of UpdateDefaultComponentFieldCommand');
         }
 
-        $value = $this->parameterService->validateValueType(parameterId: $command->parameterId, value: $command->value);
+        $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);
 
         $isUpdated = $this->defaultComponentFieldRepository->updateById(id: $command->id, attributes: ['value' => $value, 'component_id' => $command->componentId, 'parameter_id' => $command->parameterId]);
         if (! $isUpdated) {

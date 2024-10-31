@@ -26,7 +26,7 @@ final readonly class UpdateFieldHandler implements CommandHandlerInterface
             throw new IncorrectCommandException('Command must be an instance of UpdateFieldCommand');
         }
 
-        $value = $this->parameterService->validateValueType(parameterId: $command->parameterId, value: $command->value);
+        $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);
 
         $isUpdated = $this->fieldRepository->updateById(id: $command->id, attributes: ['value' => $value, 'linked_item_id' => $command->linkedItemId, 'parameter_id' => $command->parameterId]);
         if (! $isUpdated) {

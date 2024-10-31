@@ -8,6 +8,7 @@ use App\Fields\Commands\UpdateFieldCommand;
 use App\Fields\Commands\UpdatePartiallyFieldCommand;
 use App\Fields\Requests\UpdateFieldRequest;
 use App\Fields\Requests\UpdatePartiallyFieldRequest;
+use App\Helpers\ArrayHelper;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
@@ -59,9 +60,9 @@ final readonly class UpdateFieldController
 
             $command = new UpdatePartiallyFieldCommand(
                 id: $id,
-                value: $validated['value'],
-                linkedItemId: $validated['linkedItemId'],
-                parameterId: $validated['parameterId']
+                value: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'value'),
+                linkedItemId: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'linkedItemId'),
+                parameterId: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'parameterId')
             );
 
             $this->commandBus->handle($command);

@@ -29,7 +29,14 @@ it('create parameter should return 422 with name not being a string and type wit
 
     $response = $this->postJson('/api/parameters', $parameterData);
     $response->assertStatus(422)
-        ->assertJsonStructure(['success', 'message', 'data'])
+        ->assertJsonStructure([
+            'success',
+            'message',
+            'data' => [
+                'name',
+                'type',
+            ],
+        ])
         ->assertJson([
             'success' => false,
             'message' => 'Parameter was not successfully created.',

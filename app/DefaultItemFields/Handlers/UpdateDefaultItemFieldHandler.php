@@ -26,7 +26,7 @@ final readonly class UpdateDefaultItemFieldHandler implements CommandHandlerInte
             throw new IncorrectCommandException('Command must be an instance of UpdateDefaultItemFieldCommand');
         }
 
-        $value = $this->parameterService->validateValueType(parameterId: $command->parameterId, value: $command->value);
+        $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);
 
         $isUpdated = $this->defaultItemFieldRepository->updateById(id: $command->id, attributes: ['value' => $value, 'item_id' => $command->itemId, 'parameter_id' => $command->parameterId]);
         if (! $isUpdated) {

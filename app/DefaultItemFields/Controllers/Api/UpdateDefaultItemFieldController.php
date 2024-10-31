@@ -8,6 +8,7 @@ use App\DefaultItemFields\Commands\UpdateDefaultItemFieldCommand;
 use App\DefaultItemFields\Commands\UpdatePartiallyDefaultItemFieldCommand;
 use App\DefaultItemFields\Requests\UpdateDefaultItemFieldRequest;
 use App\DefaultItemFields\Requests\UpdatePartiallyDefaultItemFieldRequest;
+use App\Helpers\ArrayHelper;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
@@ -59,9 +60,9 @@ final readonly class UpdateDefaultItemFieldController
 
             $command = new UpdatePartiallyDefaultItemFieldCommand(
                 id: $id,
-                value: $validated['value'],
-                itemId: $validated['itemId'],
-                parameterId: $validated['parameterId'],
+                value: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'value'),
+                itemId: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'itemId'),
+                parameterId: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'parameterId'),
             );
 
             $this->commandBus->handle($command);

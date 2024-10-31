@@ -25,7 +25,7 @@ final readonly class CreateFieldHandler implements CommandHandlerInterface
             throw new IncorrectCommandException('Command must be an instance of CreateFieldCommand');
         }
 
-        $value = $this->parameterService->validateValueType(parameterId: $command->parameterId, value: $command->value);
+        $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);
 
         $this->fieldRepository->create(attributes: ['value' => $value, 'linked_item_id' => $command->linkedItemId, 'parameter_id' => $command->parameterId, 'user_id' => $command->userId]);
     }

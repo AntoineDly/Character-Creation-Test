@@ -25,7 +25,7 @@ final readonly class CreateDefaultComponentFieldHandler implements CommandHandle
             throw new IncorrectCommandException('Command must be an instance of CreateDefaultComponentFieldCommand');
         }
 
-        $value = $this->parameterService->validateValueType(parameterId: $command->parameterId, value: $command->value);
+        $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);
 
         $this->defaultComponentFieldRepository->create(attributes: ['value' => $value, 'component_id' => $command->componentId, 'parameter_id' => $command->parameterId, 'user_id' => $command->userId]);
     }

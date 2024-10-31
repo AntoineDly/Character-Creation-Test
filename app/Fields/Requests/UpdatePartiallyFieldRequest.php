@@ -27,7 +27,7 @@ final class UpdatePartiallyFieldRequest extends BaseFormRequest
     public function messages(): array
     {
         return [
-            'value.string' => 'The name field must be a string.',
+            'value.string' => 'The value field must be a string.',
             'value.min' => 'The value field must be at least 1 characters.',
             'linkedItemId.exists' => 'No linked item found for this linkedItemId.',
             'parameterId.exists' => 'No parameter found for this parameterId.',

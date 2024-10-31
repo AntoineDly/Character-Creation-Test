@@ -27,8 +27,8 @@ final class CreateFieldRequest extends BaseFormRequest
     public function messages(): array
     {
         return [
-            'value.required' => 'The name field is required.',
-            'value.string' => 'The name field must be a string.',
+            'value.required' => 'The value field is required.',
+            'value.string' => 'The value field must be a string.',
             'value.min' => 'The value field must be at least 1 characters.',
             'linkedItemId.required' => 'The linkedItemId field is required.',
             'linkedItemId.exists' => 'No linked item found for this linkedItemId.',

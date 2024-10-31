@@ -14,7 +14,9 @@ use App\DefaultComponentFields\Exceptions\DefaultComponentFieldNotFoundException
 use App\DefaultComponentFields\Models\DefaultComponentField;
 use App\DefaultItemFields\Exceptions\DefaultItemFieldNotFoundException;
 use App\DefaultItemFields\Models\DefaultItemField;
+use App\Fields\Exceptions\FieldInterfaceNotFoundException;
 use App\Fields\Exceptions\FieldNotFoundException;
+use App\Fields\Models\Field;
 use App\Fields\Models\FieldInterface;
 use App\Games\Exceptions\GameNotFoundException;
 use App\Games\Models\Game;
@@ -119,19 +121,19 @@ final readonly class AssertHelper
         return $component;
     }
 
-    public static function isField(?Model $field): FieldInterface
+    public static function isFieldInterface(?Model $fieldInterface): FieldInterface
     {
-        if (is_null($field)) {
-            throw new FieldNotFoundException(message: 'Field not found');
+        if (is_null($fieldInterface)) {
+            throw new FieldInterfaceNotFoundException(message: 'Object implementing FieldInterface not found');
         }
 
-        if (! $field instanceof FieldInterface) {
+        if (! $fieldInterface instanceof FieldInterface) {
             throw new InvalidClassException(
-                'Class was expected to be Field, '.get_class($field).' given.'
+                'Class was expected to implement FieldInterface, '.get_class($fieldInterface).' given.'
             );
         }
 
-        return $field;
+        return $fieldInterface;
     }
 
     public static function isDefaultItemField(?Model $defaultItemField): DefaultItemField
@@ -162,6 +164,21 @@ final readonly class AssertHelper
         }
 
         return $defaultComponentField;
+    }
+
+    public static function isField(?Model $field): Field
+    {
+        if (is_null($field)) {
+            throw new FieldNotFoundException(message: 'Field not found');
+        }
+
+        if (! $field instanceof Field) {
+            throw new InvalidClassException(
+                'Class was expected to be Field, '.get_class($field).' given.'
+            );
+        }
+
+        return $field;
     }
 
     public static function isParameter(?Model $parameter): Parameter

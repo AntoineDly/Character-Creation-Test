@@ -38,7 +38,7 @@ it('create defaultItemField should return 201 with a new defaultItemField create
 it('create defaultItemFields should return 422 with value not being a string and parameter and item not being parameter or item', function () {
     $defaultItemFieldData = ['value' => 123, 'parameterId' => 'invalid-parameter-id', 'itemId' => 'invalid-item-id'];
     $defaultItemFieldExpectedResult = [...$defaultItemFieldData, 'userId' => 'userId'];
-    $this->assertDatabaseMissing('parameters', $defaultItemFieldExpectedResult);
+    $this->assertDatabaseMissing('default_item_fields', $defaultItemFieldExpectedResult);
 
     $response = $this->postJson('/api/default_item_fields', $defaultItemFieldData);
     $response->assertStatus(422)
@@ -67,5 +67,5 @@ it('create defaultItemFields should return 422 with value not being a string and
             ],
         ]);
 
-    $this->assertDatabaseMissing('parameters', $defaultItemFieldExpectedResult);
+    $this->assertDatabaseMissing('default_item_fields', $defaultItemFieldExpectedResult);
 });

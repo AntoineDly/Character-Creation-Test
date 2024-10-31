@@ -7,6 +7,7 @@ namespace App\Items\Models;
 use App\Categories\Models\Category;
 use App\Components\Models\Component;
 use App\DefaultItemFields\Models\DefaultItemField;
+use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Item extends Model
 {
-    use Uuid;
+    /** @use HasModelFactory<Item> */
+    use HasModelFactory, Uuid;
 
     protected $fillable = [
         'component_id',

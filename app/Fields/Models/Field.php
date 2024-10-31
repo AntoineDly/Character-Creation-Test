@@ -7,6 +7,7 @@ namespace App\Fields\Models;
 use App\Characters\Models\Character;
 use App\LinkedItems\Models\LinkedItem;
 use App\Parameters\Models\Parameter;
+use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class Field extends Model implements FieldInterface
 {
-    use Uuid;
+    /** @use HasModelFactory<Field> */
+    use HasModelFactory, Uuid;
 
     protected $fillable = [
         'value',

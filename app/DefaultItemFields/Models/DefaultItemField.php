@@ -7,6 +7,7 @@ namespace App\DefaultItemFields\Models;
 use App\Fields\Models\FieldInterface;
 use App\Items\Models\Item;
 use App\Parameters\Models\Parameter;
+use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class DefaultItemField extends Model implements FieldInterface
 {
-    use Uuid;
+    /** @use HasModelFactory<DefaultItemField> */
+    use HasModelFactory, Uuid;
 
     protected $fillable = [
         'value',

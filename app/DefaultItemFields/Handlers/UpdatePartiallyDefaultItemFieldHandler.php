@@ -7,6 +7,7 @@ namespace App\DefaultItemFields\Handlers;
 use App\DefaultItemFields\Commands\UpdatePartiallyDefaultItemFieldCommand;
 use App\DefaultItemFields\Exceptions\DefaultItemFieldNotFoundException;
 use App\DefaultItemFields\Repositories\DefaultItemFieldRepositoryInterface;
+use App\Helpers\AssertHelper;
 use App\Shared\Commands\CommandInterface;
 use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
@@ -28,15 +29,35 @@ final readonly class UpdatePartiallyDefaultItemFieldHandler implements CommandHa
 
         /** @var array{'value': ?string, 'linkedItemId': ?string, 'parameterId': ?string} $attributes */
         $attributes = [];
+        $value = $command->value;
+        $parameterId = $command->parameterId;
+        $itemId = $command->itemId;
 
-        if (! is_null($command->value) && ! is_null($command->parameterId)) {
-            $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);
+        if (! is_null($value) && ! is_null($parameterId)) {
+            $attributes['value'] = $this->parameterService->validateValueTypeByParameter(
+                parameterId: $parameterId,
+                value: $value
+            );
+            $attributes['parameter_id'] = $parameterId;
+        } else {
+            if (! is_null($value)) {
+                $defaultItemField = AssertHelper::isDefaultItemField(
+                    $this->defaultItemFieldRepository->findById(id: $command->id)
+                );
+                $parameter = AssertHelper::isParameter($defaultItemField->getParameter());
+                $attributes['value'] = $this->parameterService->validateValueTypeByType(
+                    type: $parameter->type,
+                    value: $value
+                );
+            }
 
-            $attributes['value'] = $value;
+            if (! is_null($parameterId)) {
+                $attributes['parameter_id'] = $parameterId;
+            }
         }
 
-        if (! is_null($command->parameterId)) {
-            $attributes['parameter_id'] = $command->parameterId;
+        if (! is_null($itemId)) {
+            $attributes['item_id'] = $itemId;
         }
 
         $isUpdated = $this->defaultItemFieldRepository->updateById(id: $command->id, attributes: $attributes);

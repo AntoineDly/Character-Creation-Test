@@ -7,6 +7,7 @@ namespace App\Fields\Handlers;
 use App\Fields\Commands\UpdatePartiallyFieldCommand;
 use App\Fields\Exceptions\FieldNotFoundException;
 use App\Fields\Repositories\FieldRepositoryInterface;
+use App\Helpers\AssertHelper;
 use App\Shared\Commands\CommandInterface;
 use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Exceptions\Http\InvalidValueForParameterTypeException;
@@ -35,18 +36,35 @@ final readonly class UpdatePartiallyFieldHandler implements CommandHandlerInterf
         /** @var array{'value': ?string, 'linkedItemId': ?string, 'parameterId': ?string} $attributes */
         $attributes = [];
 
-        if (! is_null($command->value) && ! is_null($command->parameterId)) {
-            $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);
+        $value = $command->value;
+        $parameterId = $command->parameterId;
+        $linkedItemId = $command->linkedItemId;
 
-            $attributes['value'] = $value;
+        if (! is_null($value) && ! is_null($parameterId)) {
+            $attributes['value'] = $this->parameterService->validateValueTypeByParameter(
+                parameterId: $parameterId,
+                value: $value
+            );
+            $attributes['parameter_id'] = $parameterId;
+        } else {
+            if (! is_null($value)) {
+                $field = AssertHelper::isField(
+                    $this->fieldRepository->findById(id: $command->id)
+                );
+                $parameter = AssertHelper::isParameter($field->getParameter());
+                $attributes['value'] = $this->parameterService->validateValueTypeByType(
+                    type: $parameter->type,
+                    value: $value
+                );
+            }
+
+            if (! is_null($parameterId)) {
+                $attributes['parameter_id'] = $parameterId;
+            }
         }
 
-        if (! is_null($command->linkedItemId)) {
-            $attributes['linked_item_id'] = $command->linkedItemId;
-        }
-
-        if (! is_null($command->parameterId)) {
-            $attributes['parameter_id'] = $command->parameterId;
+        if (! is_null($linkedItemId)) {
+            $attributes['linked_item_id'] = $linkedItemId;
         }
 
         $isUpdated = $this->fieldRepository->updateById(id: $command->id, attributes: $attributes);

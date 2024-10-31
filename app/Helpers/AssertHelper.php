@@ -137,7 +137,7 @@ final readonly class AssertHelper
     public static function isDefaultItemField(?Model $defaultItemField): DefaultItemField
     {
         if (is_null($defaultItemField)) {
-            throw new DefaultItemFieldNotFoundException(message: 'DefaultItemField not found');
+            throw new DefaultItemFieldNotFoundException(message: 'Default Item Field not found');
         }
 
         if (! $defaultItemField instanceof DefaultItemField) {

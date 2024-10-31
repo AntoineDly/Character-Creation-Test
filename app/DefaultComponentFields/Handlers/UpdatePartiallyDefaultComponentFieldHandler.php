@@ -39,6 +39,7 @@ final readonly class UpdatePartiallyDefaultComponentFieldHandler implements Comm
                 parameterId: $parameterId,
                 value: $value
             );
+            $attributes['parameter_id'] = $parameterId;
         } else {
             if (! is_null($value)) {
                 $defaultComponentField = AssertHelper::isDefaultComponentField(

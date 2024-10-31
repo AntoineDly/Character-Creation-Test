@@ -13,7 +13,7 @@ it('create defaultComponentFields should return 201 with a new component created
     $parameter = Parameter::factory()->create(['type' => TypeParameterEnum::STRING, 'user_id' => $this->getUserId()]);
 
     $defaultComponentFieldData = ['value' => 'string', 'parameterId' => $parameter->id, 'componentId' => $component->id];
-    $defaultComponentFieldExpectedResult = [...$defaultComponentFieldData, 'userId' => 'userId'];
+    $defaultComponentFieldExpectedResult = ['value' => 'string', 'parameterId' => 'parameterId', 'componentId' => 'componentId', 'userId' => 'userId'];
     $this->assertDatabaseMissing('default_component_fields', $defaultComponentFieldExpectedResult);
 
     $response = $this->postJson('/api/default_component_fields', $defaultComponentFieldData);

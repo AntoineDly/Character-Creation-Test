@@ -16,6 +16,7 @@ use App\DefaultItemFields\Controllers\Api\CreateDefaultItemFieldController;
 use App\DefaultItemFields\Controllers\Api\GetDefaultItemFieldsController;
 use App\DefaultItemFields\Controllers\Api\UpdateDefaultItemFieldController;
 use App\Fields\Controllers\Api\CreateFieldController;
+use App\Fields\Controllers\Api\GetFieldsController;
 use App\Fields\Controllers\Api\UpdateFieldController;
 use App\Games\Controllers\Api\CreateGameController;
 use App\Games\Controllers\Api\GetGameController;
@@ -76,6 +77,8 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/default_component_fields/{id}', [UpdateDefaultComponentFieldController::class, 'updateDefaultComponentField']);
     Route::patch('/default_component_fields/{id}', [UpdateDefaultComponentFieldController::class, 'updatePartiallyDefaultComponentField']);
 
+    Route::get('/fields', [GetFieldsController::class, 'getFields']);
+    Route::get('/fields/{id}', [GetFieldsController::class, 'getField']);
     Route::post('/fields', [CreateFieldController::class, 'createField']);
     Route::put('/fields/{id}', [UpdateFieldController::class, 'updateField']);
     Route::patch('/fields/{id}', [UpdateFieldController::class, 'updatePartiallyField']);

@@ -25,7 +25,7 @@ it('update partially defaultComponentFields should return 201 with defaultCompon
     $defaultComponentField = DefaultComponentField::factory()->create($defaultComponentFieldData);
 
     $this->assertDatabaseHas('default_component_fields', $defaultComponentFieldData);
-    $defaultComponentExpectedResult = [...$defaultComponentFieldNewData, 'user_id' => $this->getUserId()];
+    $defaultComponentFieldExpectedResult = [...$defaultComponentFieldNewData, 'user_id' => $this->getUserId()];
 
     $response = $this->patchJson(
         '/api/default_component_fields/'.$defaultComponentField->id,
@@ -41,7 +41,7 @@ it('update partially defaultComponentFields should return 201 with defaultCompon
             'message' => 'Default Component Field was successfully updated partially.',
         ]);
 
-    $this->assertDatabaseHas('default_component_fields', $defaultComponentExpectedResult);
+    $this->assertDatabaseHas('default_component_fields', $defaultComponentFieldExpectedResult);
 });
 
 it('update defaultComponentFields should return 201 with defaultComponentFields updated', function () {
@@ -62,7 +62,7 @@ it('update defaultComponentFields should return 201 with defaultComponentFields 
     $defaultComponentField = DefaultComponentField::factory()->create($defaultComponentFieldData);
 
     $this->assertDatabaseHas('default_component_fields', $defaultComponentFieldData);
-    $defaultComponentExpectedResult = [
+    $defaultComponentFieldExpectedResult = [
         'value' => 'newTest',
         'parameter_id' => $parameter->id,
         'component_id' => $component->id,
@@ -82,5 +82,5 @@ it('update defaultComponentFields should return 201 with defaultComponentFields 
             'message' => 'Default Component Field was successfully updated.',
         ]);
 
-    $this->assertDatabaseHas('default_component_fields', $defaultComponentExpectedResult);
+    $this->assertDatabaseHas('default_component_fields', $defaultComponentFieldExpectedResult);
 });

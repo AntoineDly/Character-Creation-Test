@@ -30,7 +30,7 @@ it('create defaultComponentFields should return 201 with a new component created
 it('create defaultComponentFields should return 422 with value not being a string and parameter and component not being parameter or component', function () {
     $defaultComponentFieldData = ['value' => 123, 'parameterId' => 'invalid-parameter-id', 'componentId' => 'invalid-component-id'];
     $defaultComponentFieldExpectedResult = [...$defaultComponentFieldData, 'userId' => 'userId'];
-    $this->assertDatabaseMissing('parameters', $defaultComponentFieldExpectedResult);
+    $this->assertDatabaseMissing('default_item_fields', $defaultComponentFieldExpectedResult);
 
     $response = $this->postJson('/api/default_component_fields', $defaultComponentFieldData);
     $response->assertStatus(422)
@@ -59,5 +59,5 @@ it('create defaultComponentFields should return 422 with value not being a strin
             ],
         ]);
 
-    $this->assertDatabaseMissing('parameters', $defaultComponentFieldExpectedResult);
+    $this->assertDatabaseMissing('default_item_fields', $defaultComponentFieldExpectedResult);
 });

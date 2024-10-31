@@ -6,6 +6,7 @@ namespace App\LinkedItems\Models;
 
 use App\Fields\Models\Field;
 use App\Items\Models\Item;
+use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class LinkedItem extends Model
 {
-    use Uuid;
+    /** @use HasModelFactory<LinkedItem> */
+    use HasModelFactory, Uuid;
 
     protected $fillable = [
         'item_id',

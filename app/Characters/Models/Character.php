@@ -6,6 +6,7 @@ namespace App\Characters\Models;
 
 use App\Games\Models\Game;
 use App\LinkedItems\Models\LinkedItem;
+use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Character extends Model
 {
-    use Uuid;
+    /** @use HasModelFactory<Character> */
+    use HasModelFactory, Uuid;
 
     protected $fillable = [
         'game_id',

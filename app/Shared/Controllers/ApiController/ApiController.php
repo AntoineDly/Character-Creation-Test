@@ -36,10 +36,27 @@ final readonly class ApiController implements ApiControllerInterface
 
     public function sendException(HttpExceptionInterface $e): JsonResponse
     {
+        $exceptionStatus = $e->getStatus();
+
+        if ($exceptionStatus->isInternalError()) {
+            $data = [
+                'className' => $e::class,
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'traceAsString' => $e->getTraceAsString(),
+                'trace' => $e->getTrace(),
+                'additionalData' => $e->getData(),
+            ];
+        } else {
+            $data = $e->getData();
+        }
+
         return $this->sendError(
             error: $e->getMessage(),
-            data: $e->getData(),
-            status: $e->getStatus(),
+            data: $data,
+            status: $exceptionStatus,
         );
     }
 

@@ -34,14 +34,12 @@ final readonly class ApiController implements ApiControllerInterface
         return $this->sendResponse(success: false, message: $error, data: $data, status: $status);
     }
 
-    public function sendException(HttpExceptionInterface $exception): JsonResponse
+    public function sendException(HttpExceptionInterface $e): JsonResponse
     {
-        $exceptionStatus = $exception->getStatus();
-
         return $this->sendError(
-            error: $exception->getMessage(),
-            data: $exception->getData(),
-            status: $exceptionStatus,
+            error: $e->getMessage(),
+            data: $e->getData(),
+            status: $e->getStatus(),
         );
     }
 
@@ -78,13 +76,15 @@ final readonly class ApiController implements ApiControllerInterface
     public function sendExceptionNotCatch(Exception $e): JsonResponse
     {
         return $this->sendError(
-            error: 'Exception : '.$e::class.' not catch.',
+            error: 'Exception not catch.',
             data: [
+                'className' => $e::class,
                 'message' => $e->getMessage(),
                 'code' => $e->getCode(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString(),
+                'traceAsString' => $e->getTraceAsString(),
+                'trace' => $e->getTrace(),
             ],
             status: HttpStatusEnum::INTERNAL_SERVER_ERROR
         );

@@ -31,7 +31,7 @@ final readonly class GetParameterController
             );
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
-            return $this->apiController->sendException(exception: $e);
+            return $this->apiController->sendException($e);
         } catch (Exception $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
@@ -49,7 +49,7 @@ final readonly class GetParameterController
             );
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
-            return $this->apiController->sendException(exception: $e);
+            return $this->apiController->sendException($e);
         } catch (Exception $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }

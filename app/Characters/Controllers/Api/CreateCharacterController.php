@@ -40,7 +40,7 @@ final readonly class CreateCharacterController
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
-            return $this->apiController->sendException(exception: $e);
+            return $this->apiController->sendException($e);
         } catch (Exception $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }

@@ -48,7 +48,7 @@ final class ParameterDtoBuilder implements BuilderInterface
         }
 
         if ($this->name === '') {
-            throw new StringIsEmptyException('name field is empty');
+            throw new StringIsEmptyException(data: ['field' => 'name']);
         }
 
         if (! $this->type instanceof TypeParameterEnum) {

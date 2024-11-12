@@ -46,11 +46,11 @@ final class UserDtoBuilder implements BuilderInterface
         }
 
         if ($this->email === '') {
-            throw new StringIsEmptyException('email field is empty');
+            throw new StringIsEmptyException(data: ['field' => 'email']);
         }
 
         if ($this->token === '') {
-            throw new StringIsEmptyException('token field is empty');
+            throw new StringIsEmptyException(data: ['field' => 'token']);
         }
 
         $userDto = new UserDto(

@@ -30,7 +30,7 @@ final readonly class UpdateDefaultComponentFieldHandler implements CommandHandle
 
         $isUpdated = $this->defaultComponentFieldRepository->updateById(id: $command->id, attributes: ['value' => $value, 'component_id' => $command->componentId, 'parameter_id' => $command->parameterId]);
         if (! $isUpdated) {
-            throw new DefaultComponentFieldNotFoundException(message: 'Default Component Field not found with id : '.$command->id);
+            throw new DefaultComponentFieldNotFoundException(data: ['id' => $command->id]);
         }
     }
 }

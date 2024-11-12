@@ -34,7 +34,7 @@ final readonly class AssertHelper
     public static function isCharacter(?Model $character): Character
     {
         if (is_null($character)) {
-            throw new CharacterNotFoundException(message: 'Character not found');
+            throw new CharacterNotFoundException();
         }
 
         if (! $character instanceof Character) {
@@ -49,7 +49,7 @@ final readonly class AssertHelper
     public static function isGame(?Model $game): Game
     {
         if (is_null($game)) {
-            throw new GameNotFoundException(message: 'Game not found');
+            throw new GameNotFoundException();
         }
 
         if (! $game instanceof Game) {
@@ -64,7 +64,7 @@ final readonly class AssertHelper
     public static function isCategory(?Model $category): Category
     {
         if (is_null($category)) {
-            throw new CategoryNotFoundException(message: 'Category not found');
+            throw new CategoryNotFoundException();
         }
 
         if (! $category instanceof Category) {
@@ -79,7 +79,7 @@ final readonly class AssertHelper
     public static function isLinkedItem(?Model $linkedItem): LinkedItem
     {
         if (is_null($linkedItem)) {
-            throw new LinkedItemNotFoundException(message: 'LinkedItem not found');
+            throw new LinkedItemNotFoundException();
         }
 
         if (! $linkedItem instanceof LinkedItem) {
@@ -94,7 +94,7 @@ final readonly class AssertHelper
     public static function isItem(?Model $item): Item
     {
         if (is_null($item)) {
-            throw new ItemNotFoundException(message: 'Item not found');
+            throw new ItemNotFoundException();
         }
 
         if (! $item instanceof Item) {
@@ -109,7 +109,7 @@ final readonly class AssertHelper
     public static function isComponent(?Model $component): Component
     {
         if (is_null($component)) {
-            throw new ComponentNotFoundException(message: 'Component not found');
+            throw new ComponentNotFoundException();
         }
 
         if (! $component instanceof Component) {
@@ -124,7 +124,7 @@ final readonly class AssertHelper
     public static function isFieldInterface(?Model $fieldInterface): FieldInterface
     {
         if (is_null($fieldInterface)) {
-            throw new FieldInterfaceNotFoundException(message: 'Object implementing FieldInterface not found');
+            throw new FieldInterfaceNotFoundException();
         }
 
         if (! $fieldInterface instanceof FieldInterface) {
@@ -139,7 +139,7 @@ final readonly class AssertHelper
     public static function isDefaultItemField(?Model $defaultItemField): DefaultItemField
     {
         if (is_null($defaultItemField)) {
-            throw new DefaultItemFieldNotFoundException(message: 'Default Item Field not found');
+            throw new DefaultItemFieldNotFoundException();
         }
 
         if (! $defaultItemField instanceof DefaultItemField) {
@@ -154,7 +154,7 @@ final readonly class AssertHelper
     public static function isDefaultComponentField(?Model $defaultComponentField): DefaultComponentField
     {
         if (is_null($defaultComponentField)) {
-            throw new DefaultComponentFieldNotFoundException(message: 'Default Component Field not found');
+            throw new DefaultComponentFieldNotFoundException();
         }
 
         if (! $defaultComponentField instanceof DefaultComponentField) {
@@ -169,7 +169,7 @@ final readonly class AssertHelper
     public static function isField(?Model $field): Field
     {
         if (is_null($field)) {
-            throw new FieldNotFoundException(message: 'Field not found');
+            throw new FieldNotFoundException();
         }
 
         if (! $field instanceof Field) {
@@ -184,7 +184,7 @@ final readonly class AssertHelper
     public static function isParameter(?Model $parameter): Parameter
     {
         if (is_null($parameter)) {
-            throw new ParameterNotFoundException(message: 'Parameter not found');
+            throw new ParameterNotFoundException();
         }
 
         if (! $parameter instanceof Parameter) {

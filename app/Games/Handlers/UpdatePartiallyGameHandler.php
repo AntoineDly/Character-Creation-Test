@@ -36,7 +36,7 @@ final readonly class UpdatePartiallyGameHandler implements CommandHandlerInterfa
 
         $isUpdated = $this->gameRepository->updateById(id: $command->id, attributes: $attributes);
         if (! $isUpdated) {
-            throw new GameNotFoundException(message: 'Game not found with id : '.$command->id);
+            throw new GameNotFoundException(data: ['id' => $command->id]);
         }
     }
 }

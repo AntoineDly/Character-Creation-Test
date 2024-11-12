@@ -14,7 +14,7 @@ final readonly class RequestHelper
     {
         $user = $request->user();
         if (! $user instanceof User) {
-            throw new UserNotFoundException(message: 'User not found.');
+            throw new UserNotFoundException();
         }
 
         /** @var array{'id': string} $userData */

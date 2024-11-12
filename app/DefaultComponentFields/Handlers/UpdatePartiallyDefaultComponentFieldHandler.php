@@ -63,7 +63,7 @@ final readonly class UpdatePartiallyDefaultComponentFieldHandler implements Comm
 
         $isUpdated = $this->defaultComponentFieldRepository->updateById(id: $command->id, attributes: $attributes);
         if (! $isUpdated) {
-            throw new DefaultComponentFieldNotFoundException(message: 'Default Component Field not found with id : '.$command->id);
+            throw new DefaultComponentFieldNotFoundException(data: ['id' => $command->id]);
         }
     }
 }

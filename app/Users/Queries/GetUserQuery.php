@@ -28,13 +28,13 @@ final class GetUserQuery implements QueryInterface
     {
         $user = $this->userRepository->findByAttribute(column: 'email', value: $this->email);
         if (! $user instanceof User) {
-            throw new UserNotFoundException(message: 'User not found.');
+            throw new UserNotFoundException();
         }
 
         $isGoodPassword = Hash::check($this->password, $user->password);
 
         if (! $isGoodPassword) {
-            throw new UserNotFoundException(message: 'User not found.');
+            throw new UserNotFoundException();
         }
 
         try {

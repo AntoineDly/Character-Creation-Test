@@ -77,13 +77,13 @@ it('get category with valid game uuid should return 200 with the game', function
         ]);
 });
 
-it('get category with invalid game uuid should return 404 with the game not found', function () {
+it('get category with invalid game uuid should return 404 with the game not found.', function () {
     $response = $this->getJson('/api/categories/invalid-uuid');
 
     $response->assertStatus(404)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'Category not found',
+            'message' => 'Category not found.',
         ]);
 });

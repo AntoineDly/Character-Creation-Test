@@ -30,7 +30,7 @@ final readonly class UpdateDefaultItemFieldHandler implements CommandHandlerInte
 
         $isUpdated = $this->defaultItemFieldRepository->updateById(id: $command->id, attributes: ['value' => $value, 'item_id' => $command->itemId, 'parameter_id' => $command->parameterId]);
         if (! $isUpdated) {
-            throw new DefaultItemFieldNotFoundException(message: 'Default Item Field not found with id : '.$command->id);
+            throw new DefaultItemFieldNotFoundException(data: ['id' => $command->id]);
         }
     }
 }

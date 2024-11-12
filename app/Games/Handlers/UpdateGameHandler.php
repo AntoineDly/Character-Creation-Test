@@ -28,7 +28,7 @@ final readonly class UpdateGameHandler implements CommandHandlerInterface
             attributes: ['name' => $command->name, 'visible_for_all' => $command->visibleForAll]
         );
         if (! $isUpdated) {
-            throw new GameNotFoundException(message: 'Game not found with id : '.$command->id);
+            throw new GameNotFoundException(data: ['id' => $command->id]);
         }
     }
 }

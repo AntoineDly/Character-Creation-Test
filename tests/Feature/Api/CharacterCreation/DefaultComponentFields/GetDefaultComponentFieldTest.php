@@ -94,12 +94,12 @@ it('get defaultComponentField with valid defaultComponentField uuid should retur
         ]);
 });
 
-it('get defaultComponentField with invalid defaultComponentField uuid should return 404 with the game not found', function () {
+it('get defaultComponentField with invalid defaultComponentField uuid should return 404 with the game not found.', function () {
     $response = $this->getJson('/api/default_component_fields/invalid-uuid');
     $response->assertStatus(404)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'Default Component Field not found',
+            'message' => 'Default Component Field not found.',
         ]);
 });

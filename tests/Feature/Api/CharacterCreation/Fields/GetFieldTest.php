@@ -121,12 +121,12 @@ it('get field with valid field uuid should return 200 with the field', function 
         ]);
 });
 
-it('get field with invalid field uuid should return 404 with the game not found', function () {
+it('get field with invalid field uuid should return 404 with the game not found.', function () {
     $response = $this->getJson('/api/fields/invalid-uuid');
     $response->assertStatus(404)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'Field not found',
+            'message' => 'Field not found.',
         ]);
 });

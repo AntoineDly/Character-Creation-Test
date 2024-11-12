@@ -108,12 +108,12 @@ it('get defaultItemField with valid defaultItemField uuid should return 200 with
         ]);
 });
 
-it('get defaultItemField with invalid defaultItemField uuid should return 404 with the game not found', function () {
+it('get defaultItemField with invalid defaultItemField uuid should return 404 with the game not found.', function () {
     $response = $this->getJson('/api/default_item_fields/invalid-uuid');
     $response->assertStatus(404)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'Default Item Field not found',
+            'message' => 'Default Item Field not found.',
         ]);
 });

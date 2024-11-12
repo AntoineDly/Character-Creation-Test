@@ -90,11 +90,11 @@ final readonly class AuthenticationController
         /** @var ?User $user */
         $user = $request->user();
         if (! $user instanceof User) {
-            throw new UserNotFoundException(message: 'User not found.');
+            throw new UserNotFoundException();
         }
         $token = $user->token();
         if (! $token instanceof Token) {
-            throw new TokenNotFoundException(message: 'Token not found.');
+            throw new TokenNotFoundException();
         }
         $token->revoke();
 

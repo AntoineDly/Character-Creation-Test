@@ -37,7 +37,7 @@ final class DefaultItemFieldDtoBuilder implements BuilderInterface
         }
 
         if ($this->value === '') {
-            throw new StringIsEmptyException('value field is empty');
+            throw new StringIsEmptyException(data: ['field' => 'value']);
         }
 
         $defaultItemFieldDto = new DefaultItemFieldDto(

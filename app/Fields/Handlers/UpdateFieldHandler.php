@@ -30,7 +30,7 @@ final readonly class UpdateFieldHandler implements CommandHandlerInterface
 
         $isUpdated = $this->fieldRepository->updateById(id: $command->id, attributes: ['value' => $value, 'linked_item_id' => $command->linkedItemId, 'parameter_id' => $command->parameterId]);
         if (! $isUpdated) {
-            throw new FieldNotFoundException(message: 'Field not found with id : '.$command->id);
+            throw new FieldNotFoundException(data: ['id' => $command->id]);
         }
     }
 }

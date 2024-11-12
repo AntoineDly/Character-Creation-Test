@@ -62,7 +62,7 @@ final readonly class UpdatePartiallyDefaultItemFieldHandler implements CommandHa
 
         $isUpdated = $this->defaultItemFieldRepository->updateById(id: $command->id, attributes: $attributes);
         if (! $isUpdated) {
-            throw new DefaultItemFieldNotFoundException(message: 'Default Item Field not found with id : '.$command->id);
+            throw new DefaultItemFieldNotFoundException(data: ['id' => $command->id]);
         }
     }
 }

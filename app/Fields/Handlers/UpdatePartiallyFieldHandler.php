@@ -69,7 +69,7 @@ final readonly class UpdatePartiallyFieldHandler implements CommandHandlerInterf
 
         $isUpdated = $this->fieldRepository->updateById(id: $command->id, attributes: $attributes);
         if (! $isUpdated) {
-            throw new FieldNotFoundException(message: 'Field not found with id : '.$command->id);
+            throw new FieldNotFoundException(data: ['id' => $command->id]);
         }
     }
 }

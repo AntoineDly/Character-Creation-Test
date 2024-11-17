@@ -4,33 +4,32 @@ declare(strict_types=1);
 
 namespace App\Shared\Controllers\ApiController;
 
+use App\Shared\Dtos\DtoInterface;
 use App\Shared\Enums\HttpStatusEnum;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 interface ApiControllerInterface
 {
-    /**
-     * @param  array<mixed, mixed>  $data
-     */
-    public function sendError(string $error, mixed $data = [], HttpStatusEnum $status = HttpStatusEnum::BAD_REQUEST): JsonResponse;
+    /** @param string[][]|string[]|int[] $data */
+    public function sendError(string $error, array $data = [], HttpStatusEnum $status = HttpStatusEnum::BAD_REQUEST): JsonResponse;
 
-    public function sendException(HttpExceptionInterface $exception): JsonResponse;
+    public function sendException(HttpExceptionInterface $e): JsonResponse;
 
     /**
-     * @param  array<mixed, mixed>  $data
+     * @param  string[][]|string[]|int[]|DtoInterface[]|DtoInterface  $data
      */
-    public function sendResponse(bool $success, string $message, mixed $data, HttpStatusEnum $status): JsonResponse;
+    public function sendResponse(bool $success, string $message, array|DtoInterface $data, HttpStatusEnum $status): JsonResponse;
 
-    /** @param  array<mixed, mixed>  $content */
-    public function sendSuccess(string $message, array $content = [], HttpStatusEnum $status = HttpStatusEnum::OK): JsonResponse;
+    /** @param DtoInterface[]|DtoInterface $content */
+    public function sendSuccess(string $message, array|DtoInterface $content = [], HttpStatusEnum $status = HttpStatusEnum::OK): JsonResponse;
 
-    /** @param  array<mixed, mixed>  $content */
-    public function sendCreated(string $message, array $content = []): JsonResponse;
+    /** @param DtoInterface[]|DtoInterface $content */
+    public function sendCreated(string $message, array|DtoInterface $content = []): JsonResponse;
 
     public function sendExceptionFromLaravelValidationException(string $message, ValidationException $e): JsonResponse;
 
-    public function sendExceptionNotCatch(Exception $e): JsonResponse;
+    public function sendExceptionNotCatch(Throwable $e): JsonResponse;
 }

@@ -9,10 +9,10 @@ use App\Helpers\RequestHelper;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 final readonly class CreateComponentController
 {
@@ -37,7 +37,7 @@ final readonly class CreateComponentController
             );
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 

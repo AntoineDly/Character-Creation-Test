@@ -19,7 +19,7 @@ final readonly class CreateCategoryHandler implements CommandHandlerInterface
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof CreateCategoryCommand) {
-            throw new IncorrectCommandException('Command must be an instance of CreateCategoryCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => CreateCategoryCommand::class]);
         }
 
         $this->categoryRepository->create(attributes: ['name' => $command->name, 'user_id' => $command->userId]);

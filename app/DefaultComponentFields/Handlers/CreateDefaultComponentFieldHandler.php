@@ -22,7 +22,7 @@ final readonly class CreateDefaultComponentFieldHandler implements CommandHandle
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof CreateDefaultComponentFieldCommand) {
-            throw new IncorrectCommandException('Command must be an instance of CreateDefaultComponentFieldCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => CreateDefaultComponentFieldCommand::class]);
         }
 
         $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);

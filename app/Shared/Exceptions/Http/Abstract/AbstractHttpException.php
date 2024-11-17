@@ -10,7 +10,7 @@ use Exception;
 
 abstract class AbstractHttpException extends Exception implements HttpExceptionInterface
 {
-    /** @param array<mixed, mixed> $data */
+    /** @param string[] $data */
     public function __construct(
         string $message,
         private readonly HttpStatusEnum $status,
@@ -24,6 +24,7 @@ abstract class AbstractHttpException extends Exception implements HttpExceptionI
         return $this->status;
     }
 
+    /** @return string[] */
     public function getData(): array
     {
         return $this->data;

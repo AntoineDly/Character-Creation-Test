@@ -13,9 +13,7 @@ it('get categories should return 200 without any games', function () {
         ->assertJson([
             'success' => true,
             'message' => 'Categories were successfully retrieved.',
-            'data' => [
-                [],
-            ],
+            'data' => [],
         ]);
 });
 
@@ -29,10 +27,8 @@ it('get categories should return 200 with games', function () {
             'message',
             'data' => [
                 [
-                    [
-                        'id',
-                        'name',
-                    ],
+                    'id',
+                    'name',
                 ],
             ],
         ])
@@ -41,10 +37,8 @@ it('get categories should return 200 with games', function () {
             'message' => 'Categories were successfully retrieved.',
             'data' => [
                 [
-                    [
-                        'id' => $category->id,
-                        'name' => $category->name,
-                    ],
+                    'id' => $category->id,
+                    'name' => $category->name,
                 ],
             ],
         ]);
@@ -59,20 +53,16 @@ it('get category with valid game uuid should return 200 with the game', function
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                    'name',
-                ],
+                'id',
+                'name',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'Category was successfully retrieved.',
             'data' => [
-                [
-                    'id' => $category->id,
-                    'name' => $category->name,
-                ],
+                'id' => $category->id,
+                'name' => $category->name,
             ],
         ]);
 });

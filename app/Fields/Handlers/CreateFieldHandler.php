@@ -22,7 +22,7 @@ final readonly class CreateFieldHandler implements CommandHandlerInterface
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof CreateFieldCommand) {
-            throw new IncorrectCommandException('Command must be an instance of CreateFieldCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => CreateFieldCommand::class]);
         }
 
         $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);

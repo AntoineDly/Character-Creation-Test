@@ -23,7 +23,7 @@ final readonly class UpdateFieldHandler implements CommandHandlerInterface
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof UpdateFieldCommand) {
-            throw new IncorrectCommandException('Command must be an instance of UpdateFieldCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => UpdateFieldCommand::class]);
         }
 
         $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);

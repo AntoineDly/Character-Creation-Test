@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Shared\Controllers\ApiController;
 
-use App\Helpers\ArrayHelper;
+use App\Shared\Dtos\DtoInterface;
 use App\Shared\Enums\HttpStatusEnum;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
 use App\Shared\Exceptions\Http\InvalidBodyParamsException;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 final readonly class ApiController implements ApiControllerInterface
 {
@@ -21,9 +21,9 @@ final readonly class ApiController implements ApiControllerInterface
     }
 
     /**
-     * @param  array<mixed, mixed>  $data
+     * @param  string[][]|string[]|int[]  $data
      */
-    public function sendError(string $error, mixed $data = [], HttpStatusEnum $status = HttpStatusEnum::BAD_REQUEST): JsonResponse
+    public function sendError(string $error, array $data = [], HttpStatusEnum $status = HttpStatusEnum::BAD_REQUEST): JsonResponse
     {
         if ($status->isInternalError()) {
             Log::error($error, $data);
@@ -39,46 +39,44 @@ final readonly class ApiController implements ApiControllerInterface
         $exceptionStatus = $e->getStatus();
 
         if ($exceptionStatus->isInternalError()) {
-            $data = [
-                'className' => $e::class,
-                'message' => $e->getMessage(),
-                'code' => $e->getCode(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'traceAsString' => $e->getTraceAsString(),
-                'trace' => $e->getTrace(),
-                'additionalData' => $e->getData(),
-            ];
-        } else {
-            $data = $e->getData();
+            return $this->sendError(
+                error: $e->getMessage(),
+                data: [
+                    'className' => $e::class,
+                    'message' => $e->getMessage(),
+                    'code' => $e->getCode(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'traceAsString' => $e->getTraceAsString(),
+                    'additionalData' => $e->getData(),
+                ],
+                status: $exceptionStatus,
+            );
         }
 
         return $this->sendError(
             error: $e->getMessage(),
-            data: $data,
+            data: $e->getData(),
             status: $exceptionStatus,
         );
     }
 
     /**
-     * @param  array<mixed, mixed>  $data
+     * @param  string[][]|string[]|int[]|DtoInterface[]|DtoInterface  $data
      */
-    public function sendResponse(bool $success, string $message, mixed $data, HttpStatusEnum $status): JsonResponse
+    public function sendResponse(bool $success, string $message, array|DtoInterface $data, HttpStatusEnum $status): JsonResponse
     {
         $response = [
             'success' => $success,
             'message' => $message,
+            'data' => $data,
         ];
-
-        if (! ArrayHelper::isEmpty($data)) {
-            $response['data'] = $data;
-        }
 
         return $this->responseFactory->json(data: $response, status: $status->getCode());
     }
 
-    /** @param  array<mixed, mixed>  $content */
-    public function sendSuccess(string $message, array $content = [], HttpStatusEnum $status = HttpStatusEnum::OK): JsonResponse
+    /** @param DtoInterface[]|DtoInterface $content */
+    public function sendSuccess(string $message, array|DtoInterface $content = [], HttpStatusEnum $status = HttpStatusEnum::OK): JsonResponse
     {
         return $this->sendResponse(success: true, message: $message, data: $content, status: $status);
     }
@@ -90,7 +88,7 @@ final readonly class ApiController implements ApiControllerInterface
         return $this->sendException($httpException);
     }
 
-    public function sendExceptionNotCatch(Exception $e): JsonResponse
+    public function sendExceptionNotCatch(Throwable $e): JsonResponse
     {
         return $this->sendError(
             error: 'Exception not catch.',
@@ -101,14 +99,13 @@ final readonly class ApiController implements ApiControllerInterface
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
                 'traceAsString' => $e->getTraceAsString(),
-                'trace' => $e->getTrace(),
             ],
             status: HttpStatusEnum::INTERNAL_SERVER_ERROR
         );
     }
 
-    /** @param  array<mixed, mixed>  $content */
-    public function sendCreated(string $message, array $content = []): JsonResponse
+    /** @param DtoInterface[]|DtoInterface $content */
+    public function sendCreated(string $message, array|DtoInterface $content = []): JsonResponse
     {
         return $this->sendSuccess(message: $message, content: $content, status: HttpStatusEnum::CREATED);
     }

@@ -11,6 +11,6 @@ interface HttpExceptionInterface extends Throwable
 {
     public function getStatus(): HttpStatusEnum;
 
-    /** @return array<mixed, mixed> */
+    /** @return string[] */
     public function getData(): array;
 }

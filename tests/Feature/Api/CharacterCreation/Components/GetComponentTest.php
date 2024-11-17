@@ -13,9 +13,7 @@ it('get components should return 200 without any games', function () {
         ->assertJson([
             'success' => true,
             'message' => 'Components were successfully retrieved.',
-            'data' => [
-                [],
-            ],
+            'data' => [],
         ]);
 });
 
@@ -29,9 +27,7 @@ it('get components should return 200 with games', function () {
             'message',
             'data' => [
                 [
-                    [
-                        'id',
-                    ],
+                    'id',
                 ],
             ],
         ])
@@ -40,9 +36,7 @@ it('get components should return 200 with games', function () {
             'message' => 'Components were successfully retrieved.',
             'data' => [
                 [
-                    [
-                        'id' => $component->id,
-                    ],
+                    'id' => $component->id,
                 ],
             ],
         ]);
@@ -57,18 +51,14 @@ it('get component with valid game uuid should return 200 with the game', functio
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                ],
+                'id',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'Component was successfully retrieved.',
             'data' => [
-                [
-                    'id' => $component->id,
-                ],
+                'id' => $component->id,
             ],
         ]);
 });

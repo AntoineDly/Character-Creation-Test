@@ -10,8 +10,8 @@ use App\Fields\Repositories\FieldRepositoryInterface;
 use App\Fields\Services\FieldQueriesService;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
-use Exception;
 use Illuminate\Http\JsonResponse;
+use Throwable;
 
 final readonly class GetFieldsController
 {
@@ -32,11 +32,11 @@ final readonly class GetFieldsController
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Fields were successfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Fields were successfully retrieved.', content: $result);
     }
 
     public function getField(string $fieldId): JsonResponse
@@ -50,10 +50,10 @@ final readonly class GetFieldsController
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Field was successfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Field was successfully retrieved.', content: $result);
     }
 }

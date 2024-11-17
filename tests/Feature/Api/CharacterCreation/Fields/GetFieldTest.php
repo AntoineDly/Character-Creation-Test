@@ -21,9 +21,7 @@ it('get fields should return 200 without any fields', function () {
         ->assertJson([
             'success' => true,
             'message' => 'Fields were successfully retrieved.',
-            'data' => [
-                [],
-            ],
+            'data' => [],
         ]);
 });
 
@@ -55,10 +53,8 @@ it('get fields should return 200 with fields', function () {
             'message',
             'data' => [
                 [
-                    [
-                        'id',
-                        'value',
-                    ],
+                    'id',
+                    'value',
                 ],
             ],
         ])
@@ -67,10 +63,8 @@ it('get fields should return 200 with fields', function () {
             'message' => 'Fields were successfully retrieved.',
             'data' => [
                 [
-                    [
-                        'id' => $field->id,
-                        'value' => $field->value,
-                    ],
+                    'id' => $field->id,
+                    'value' => $field->value,
                 ],
             ],
         ]);
@@ -103,20 +97,16 @@ it('get field with valid field uuid should return 200 with the field', function 
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                    'value',
-                ],
+                'id',
+                'value',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'Field was successfully retrieved.',
             'data' => [
-                [
-                    'id' => $field->id,
-                    'value' => $field->value,
-                ],
+                'id' => $field->id,
+                'value' => $field->value,
             ],
         ]);
 });

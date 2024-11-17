@@ -10,8 +10,8 @@ use App\Parameters\Repositories\ParameterRepositoryInterface;
 use App\Parameters\Services\ParameterQueriesService;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
-use Exception;
 use Illuminate\Http\JsonResponse;
+use Throwable;
 
 final readonly class GetParameterController
 {
@@ -32,11 +32,11 @@ final readonly class GetParameterController
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Parameters were successfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Parameters were successfully retrieved.', content: $result);
     }
 
     public function getParameter(string $parameterId): JsonResponse
@@ -50,10 +50,10 @@ final readonly class GetParameterController
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Parameter was successfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Parameter was successfully retrieved.', content: $result);
     }
 }

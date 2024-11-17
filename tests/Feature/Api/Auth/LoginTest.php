@@ -22,11 +22,9 @@ it('login with the current user should return a 200 with the user being logged i
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                    'email',
-                    'token',
-                ],
+                'id',
+                'email',
+                'token',
             ],
         ])
         ->assertJson([

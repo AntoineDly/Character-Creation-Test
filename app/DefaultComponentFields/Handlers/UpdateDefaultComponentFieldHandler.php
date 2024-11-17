@@ -23,7 +23,7 @@ final readonly class UpdateDefaultComponentFieldHandler implements CommandHandle
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof UpdateDefaultComponentFieldCommand) {
-            throw new IncorrectCommandException('Command must be an instance of UpdateDefaultComponentFieldCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => UpdateDefaultComponentFieldCommand::class]);
         }
 
         $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);

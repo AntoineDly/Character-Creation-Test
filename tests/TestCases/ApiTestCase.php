@@ -63,6 +63,6 @@ abstract class ApiTestCase extends BaseTestCase
         /** @var array{'id': string, 'email': string, 'token': string} $data */
         $data = $response->json('data');
 
-        return $data[0]['token'];
+        return $data['token'];
     }
 }

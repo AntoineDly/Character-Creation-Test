@@ -38,9 +38,7 @@ final readonly class AssertHelper
         }
 
         if (! $character instanceof Character) {
-            throw new InvalidClassException(
-                'Class was expected to be Character, '.get_class($character).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedClass' => Character::class, 'currentClass' => $character::class]);
         }
 
         return $character;
@@ -53,9 +51,7 @@ final readonly class AssertHelper
         }
 
         if (! $game instanceof Game) {
-            throw new InvalidClassException(
-                'Class was expected to be Game, '.get_class($game).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedClass' => Game::class, 'currentClass' => $game::class]);
         }
 
         return $game;
@@ -68,9 +64,7 @@ final readonly class AssertHelper
         }
 
         if (! $category instanceof Category) {
-            throw new InvalidClassException(
-                'Class was expected to be Category, '.get_class($category).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedClass' => Category::class, 'currentClass' => $category::class]);
         }
 
         return $category;
@@ -83,9 +77,7 @@ final readonly class AssertHelper
         }
 
         if (! $linkedItem instanceof LinkedItem) {
-            throw new InvalidClassException(
-                'Class was expected to be LinkedItem, '.get_class($linkedItem).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedClass' => LinkedItem::class, 'currentClass' => $linkedItem::class]);
         }
 
         return $linkedItem;
@@ -98,9 +90,7 @@ final readonly class AssertHelper
         }
 
         if (! $item instanceof Item) {
-            throw new InvalidClassException(
-                'Class was expected to be Item, '.get_class($item).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedClass' => Item::class, 'currentClass' => $item::class]);
         }
 
         return $item;
@@ -113,9 +103,7 @@ final readonly class AssertHelper
         }
 
         if (! $component instanceof Component) {
-            throw new InvalidClassException(
-                'Class was expected to be Component, '.get_class($component).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedClass' => Component::class, 'currentClass' => $component::class]);
         }
 
         return $component;
@@ -128,9 +116,7 @@ final readonly class AssertHelper
         }
 
         if (! $fieldInterface instanceof FieldInterface) {
-            throw new InvalidClassException(
-                'Class was expected to implement FieldInterface, '.get_class($fieldInterface).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedImplementedInterface' => FieldInterface::class, 'currentClass' => $fieldInterface::class]);
         }
 
         return $fieldInterface;
@@ -143,9 +129,7 @@ final readonly class AssertHelper
         }
 
         if (! $defaultItemField instanceof DefaultItemField) {
-            throw new InvalidClassException(
-                'Class was expected to be DefaultItemField, '.get_class($defaultItemField).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedClass' => DefaultItemField::class, 'currentClass' => $defaultItemField::class]);
         }
 
         return $defaultItemField;
@@ -158,9 +142,7 @@ final readonly class AssertHelper
         }
 
         if (! $defaultComponentField instanceof DefaultComponentField) {
-            throw new InvalidClassException(
-                'Class was expected to be DefaultComponentField, '.get_class($defaultComponentField).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedClass' => DefaultComponentField::class, 'currentClass' => $defaultComponentField::class]);
         }
 
         return $defaultComponentField;
@@ -173,9 +155,7 @@ final readonly class AssertHelper
         }
 
         if (! $field instanceof Field) {
-            throw new InvalidClassException(
-                'Class was expected to be Field, '.get_class($field).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedClass' => Field::class, 'currentClass' => $field::class]);
         }
 
         return $field;
@@ -188,9 +168,7 @@ final readonly class AssertHelper
         }
 
         if (! $parameter instanceof Parameter) {
-            throw new InvalidClassException(
-                'Class was expected to be Parameter, '.get_class($parameter).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedClass' => Parameter::class, 'currentClass' => $parameter::class]);
         }
 
         return $parameter;

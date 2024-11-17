@@ -19,7 +19,7 @@ final readonly class CreateParameterHandler implements CommandHandlerInterface
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof CreateParameterCommand) {
-            throw new IncorrectCommandException('Command must be an instance of CreateParameterCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => CreateParameterCommand::class]);
         }
 
         $this->parameterRepository->create(attributes: ['name' => $command->name, 'type' => $command->type, 'user_id' => $command->userId]);

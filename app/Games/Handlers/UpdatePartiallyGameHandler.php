@@ -20,7 +20,7 @@ final readonly class UpdatePartiallyGameHandler implements CommandHandlerInterfa
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof UpdatePartiallyGameCommand) {
-            throw new IncorrectCommandException('Command must be an instance of UpdatePartiallyGameCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => UpdatePartiallyGameCommand::class]);
         }
 
         /** @var array{'name': ?string, 'visibleForAll': ?bool} $attributes */

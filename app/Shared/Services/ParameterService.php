@@ -26,12 +26,12 @@ final readonly class ParameterService
     public function validateValueTypeByType(TypeParameterEnum $type, string $value): string
     {
         if ($type === TypeParameterEnum::INT && ! is_numeric($value)) {
-            throw new InvalidValueForParameterTypeException('Value '.$value.' should be castable to int.');
+            throw new InvalidValueForParameterTypeException(data: ['value' => $value, 'valueType' => gettype($value), 'expectedCastableType' => TypeParameterEnum::INT->value]);
         }
 
         if ($type === TypeParameterEnum::BOOLEAN) {
             if (! in_array($value, self::BOOLEAN_VALUES)) {
-                throw new InvalidValueForParameterTypeException('Value '.$value.' should be castable to boolean.');
+                throw new InvalidValueForParameterTypeException(data: ['value' => $value, 'valueType' => gettype($value), 'expectedCastableType' => TypeParameterEnum::BOOLEAN->value]);
             }
             if (in_array($value, self::BOOLEAN_VALUES_TO_CONVERT_TO_FALSE)) {
                 $value = self::FALSE_VALUE;

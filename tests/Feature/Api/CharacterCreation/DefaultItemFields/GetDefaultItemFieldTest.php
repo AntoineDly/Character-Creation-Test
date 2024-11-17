@@ -18,9 +18,7 @@ it('get defaultItemFields should return 200 without any defaultItemFields', func
         ->assertJson([
             'success' => true,
             'message' => 'Default Item Fields were successfully retrieved.',
-            'data' => [
-                [],
-            ],
+            'data' => [],
         ]);
 });
 
@@ -47,10 +45,8 @@ it('get defaultItemFields should return 200 with defaultItemFields', function ()
             'message',
             'data' => [
                 [
-                    [
-                        'id',
-                        'value',
-                    ],
+                    'id',
+                    'value',
                 ],
             ],
         ])
@@ -59,10 +55,8 @@ it('get defaultItemFields should return 200 with defaultItemFields', function ()
             'message' => 'Default Item Fields were successfully retrieved.',
             'data' => [
                 [
-                    [
-                        'id' => $defaultItemField->id,
-                        'value' => $defaultItemField->value,
-                    ],
+                    'id' => $defaultItemField->id,
+                    'value' => $defaultItemField->value,
                 ],
             ],
         ]);
@@ -90,20 +84,16 @@ it('get defaultItemField with valid defaultItemField uuid should return 200 with
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                    'value',
-                ],
+                'id',
+                'value',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'Default Item Field was successfully retrieved.',
             'data' => [
-                [
-                    'id' => $defaultItemField->id,
-                    'value' => $defaultItemField->value,
-                ],
+                'id' => $defaultItemField->id,
+                'value' => $defaultItemField->value,
             ],
         ]);
 });

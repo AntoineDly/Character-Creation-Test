@@ -24,7 +24,7 @@ final readonly class UpdatePartiallyDefaultComponentFieldHandler implements Comm
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof UpdatePartiallyDefaultComponentFieldCommand) {
-            throw new IncorrectCommandException('Command must be an instance of UpdatePartiallyDefaultComponentFieldCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => UpdatePartiallyDefaultComponentFieldCommand::class]);
         }
 
         /** @var array{'value': ?string, 'componentId': ?string, 'parameterId': ?string} $attributes */

@@ -82,11 +82,11 @@ final class SharedFieldDtoBuilder implements BuilderInterface
     public function build(): SharedFieldDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
-            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.');
+            throw new NotAValidUuidException(data: ['value' => $this->id]);
         }
 
         if (! UuidHelper::isValidUuid($this->parameterId)) {
-            throw new NotAValidUuidException('parameterId field is not a valid uuid, '.$this->id.' given.');
+            throw new NotAValidUuidException(message: 'parameterId field is not a valid uuid.', data: ['value' => $this->id]);
         }
 
         if ($this->name === '') {

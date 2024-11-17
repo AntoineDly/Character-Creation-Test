@@ -13,9 +13,7 @@ it('get parameters should return 200 without any games', function () {
         ->assertJson([
             'success' => true,
             'message' => 'Parameters were successfully retrieved.',
-            'data' => [
-                [],
-            ],
+            'data' => [],
         ]);
 });
 
@@ -23,39 +21,6 @@ it('get parameters should return 200 with games', function () {
     $parameter = Parameter::factory()->create(['user_id' => $this->getUserId()]);
 
     $response = $this->getJson('/api/parameters');
-    $response->assertStatus(200)
-        ->assertJsonStructure([
-            'success',
-            'message',
-            'data' => [
-                [
-                    [
-                        'id',
-                        'name',
-                        'type',
-                    ],
-                ],
-            ],
-        ])
-        ->assertJson([
-            'success' => true,
-            'message' => 'Parameters were successfully retrieved.',
-            'data' => [
-                [
-                    [
-                        'id' => $parameter->id,
-                        'name' => $parameter->name,
-                        'type' => $parameter->type->value,
-                    ],
-                ],
-            ],
-        ]);
-});
-
-it('get parameter with valid game uuid should return 200 with the game', function () {
-    $parameter = Parameter::factory()->create(['user_id' => $this->getUserId()]);
-
-    $response = $this->getJson('/api/parameters/'.$parameter->id);
     $response->assertStatus(200)
         ->assertJsonStructure([
             'success',
@@ -70,13 +35,38 @@ it('get parameter with valid game uuid should return 200 with the game', functio
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Parameter was successfully retrieved.',
+            'message' => 'Parameters were successfully retrieved.',
             'data' => [
                 [
                     'id' => $parameter->id,
                     'name' => $parameter->name,
                     'type' => $parameter->type->value,
                 ],
+            ],
+        ]);
+});
+
+it('get parameter with valid game uuid should return 200 with the game', function () {
+    $parameter = Parameter::factory()->create(['user_id' => $this->getUserId()]);
+
+    $response = $this->getJson('/api/parameters/'.$parameter->id);
+    $response->assertStatus(200)
+        ->assertJsonStructure([
+            'success',
+            'message',
+            'data' => [
+                'id',
+                'name',
+                'type',
+            ],
+        ])
+        ->assertJson([
+            'success' => true,
+            'message' => 'Parameter was successfully retrieved.',
+            'data' => [
+                'id' => $parameter->id,
+                'name' => $parameter->name,
+                'type' => $parameter->type->value,
             ],
         ]);
 });

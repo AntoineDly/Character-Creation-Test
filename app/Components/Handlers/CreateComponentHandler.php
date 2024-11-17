@@ -19,7 +19,7 @@ final readonly class CreateComponentHandler implements CommandHandlerInterface
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof CreateComponentCommand) {
-            throw new IncorrectCommandException('Command must be an instance of CreateComponentCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => CreateComponentCommand::class]);
         }
 
         $this->componentRepository->create(['user_id' => $command->userId]);

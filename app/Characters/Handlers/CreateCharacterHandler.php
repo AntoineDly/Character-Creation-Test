@@ -19,7 +19,7 @@ final readonly class CreateCharacterHandler implements CommandHandlerInterface
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof CreateCharacterCommand) {
-            throw new IncorrectCommandException('Command must be an instance of CreateCharacterCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => CreateCharacterCommand::class]);
         }
 
         $this->characterRepository->create(attributes: ['game_id' => $command->gameId, 'user_id' => $command->userId]);

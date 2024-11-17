@@ -10,8 +10,8 @@ use App\DefaultComponentFields\Repositories\DefaultComponentFieldRepositoryInter
 use App\DefaultComponentFields\Services\DefaultComponentFieldQueriesService;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
-use Exception;
 use Illuminate\Http\JsonResponse;
+use Throwable;
 
 final readonly class GetDefaultComponentFieldsController
 {
@@ -32,11 +32,11 @@ final readonly class GetDefaultComponentFieldsController
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Default Component Fields were successfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Default Component Fields were successfully retrieved.', content: $result);
     }
 
     public function getDefaultComponentField(string $defaultComponentFieldId): JsonResponse
@@ -50,10 +50,10 @@ final readonly class GetDefaultComponentFieldsController
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Default Component Field was successfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Default Component Field was successfully retrieved.', content: $result);
     }
 }

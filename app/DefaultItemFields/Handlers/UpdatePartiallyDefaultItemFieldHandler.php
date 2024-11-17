@@ -24,7 +24,7 @@ final readonly class UpdatePartiallyDefaultItemFieldHandler implements CommandHa
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof UpdatePartiallyDefaultItemFieldCommand) {
-            throw new IncorrectCommandException('Command must be an instance of UpdatePartiallyDefaultItemFieldCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => UpdatePartiallyDefaultItemFieldCommand::class]);
         }
 
         /** @var array{'value': ?string, 'linkedItemId': ?string, 'parameterId': ?string} $attributes */

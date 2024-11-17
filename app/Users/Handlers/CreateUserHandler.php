@@ -21,7 +21,7 @@ final readonly class CreateUserHandler implements CommandHandlerInterface
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof CreateUserCommand) {
-            throw new IncorrectCommandException('Command must be an instance of CreateGameCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => CreateUserCommand::class]);
         }
 
         $password = Hash::make($command->password);

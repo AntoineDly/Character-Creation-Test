@@ -26,13 +26,13 @@ abstract readonly class AbstractRepository implements AbstractRepositoryInterfac
         return $this->findByAttribute(column: 'id', value: $id);
     }
 
-    public function findByAttribute(string $column, mixed $value): ?Model
+    public function findByAttribute(string $column, string|int $value): ?Model
     {
         return $this->model->query()->firstWhere(column: $column, operator: '=', value: $value);
     }
 
     /**
-     * @param  array<string, mixed>  $attributes
+     * @param  array<string, string|int|bool|null>  $attributes
      */
     public function create(array $attributes): void
     {
@@ -40,15 +40,15 @@ abstract readonly class AbstractRepository implements AbstractRepositoryInterfac
     }
 
     /**
-     * @param  array<string, mixed>  $attributes
+     * @param  array<string, string|int|bool|null>  $attributes
      */
-    public function update(string $key, mixed $value, array $attributes): ?bool
+    public function update(string $key, string|int $value, array $attributes): ?bool
     {
         return $this->model->query()->where($key, $value)->sole()->update($attributes);
     }
 
     /**
-     * @param  array<string, mixed>  $attributes
+     * @param  array<string, string|int|bool|null>  $attributes
      */
     public function updateById(string $id, array $attributes): ?bool
     {

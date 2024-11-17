@@ -44,7 +44,7 @@ final class ParameterDtoBuilder implements BuilderInterface
     public function build(): ParameterDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
-            throw new NotAValidUuidException('id field is not a valid uuid, '.$this->id.' given.');
+            throw new NotAValidUuidException(data: ['value' => $this->id]);
         }
 
         if ($this->name === '') {
@@ -52,7 +52,7 @@ final class ParameterDtoBuilder implements BuilderInterface
         }
 
         if (! $this->type instanceof TypeParameterEnum) {
-            throw new InvalidTypeParameterException('type should be an instance of TypeParameterEnum but is null');
+            throw new InvalidTypeParameterException(data: ['expectedType' => TypeParameterEnum::class, 'currentType' => gettype($this->type)]);
         }
 
         $parameterDto = new ParameterDto(

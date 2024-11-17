@@ -24,15 +24,11 @@ final readonly class CommandBus
         $handler = $this->container->get($handlerName);
 
         if (! is_object($handler)) {
-            throw new IsNotObjectException(
-                'Handler was expected to be an object : '.gettype($handler).' given.'
-            );
+            throw new IsNotObjectException(data: ['currentType' => gettype($handler)]);
         }
 
         if (! $handler instanceof CommandHandlerInterface) {
-            throw new InvalidClassException(
-                'Class was expected to implement CommandHandlerInterface, '.get_class($handler).' given.'
-            );
+            throw new InvalidClassException(data: ['expectedImplementedInterface' => CommandHandlerInterface::class, 'currentClass' => $handler::class]);
         }
 
         $handler->handle($command);

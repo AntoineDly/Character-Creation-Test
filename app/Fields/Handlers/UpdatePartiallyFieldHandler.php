@@ -30,7 +30,7 @@ final readonly class UpdatePartiallyFieldHandler implements CommandHandlerInterf
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof UpdatePartiallyFieldCommand) {
-            throw new IncorrectCommandException('Command must be an instance of UpdatePartiallyFieldCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => UpdatePartiallyFieldCommand::class]);
         }
 
         /** @var array{'value': ?string, 'linkedItemId': ?string, 'parameterId': ?string} $attributes */

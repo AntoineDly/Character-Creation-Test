@@ -20,7 +20,7 @@ final readonly class CreateLinkedItemHandler implements CommandHandlerInterface
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof CreateLinkedItemCommand) {
-            throw new IncorrectCommandException('Command must be an instance of CreateItemCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => CreateLinkedItemCommand::class]);
         }
 
         $this->linkedItemRepository->create(attributes: ['item_id' => $command->itemId, 'character_id' => $command->characterId, 'user_id' => $command->userId]);

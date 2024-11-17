@@ -16,9 +16,7 @@ it('get defaultComponentFields should return 200 without any defaultComponentFie
         ->assertJson([
             'success' => true,
             'message' => 'Default Component Fields were successfully retrieved.',
-            'data' => [
-                [],
-            ],
+            'data' => [],
         ]);
 });
 
@@ -39,10 +37,8 @@ it('get defaultComponentFields should return 200 with defaultComponentFields', f
             'message',
             'data' => [
                 [
-                    [
-                        'id',
-                        'value',
-                    ],
+                    'id',
+                    'value',
                 ],
             ],
         ])
@@ -51,10 +47,8 @@ it('get defaultComponentFields should return 200 with defaultComponentFields', f
             'message' => 'Default Component Fields were successfully retrieved.',
             'data' => [
                 [
-                    [
-                        'id' => $defaultComponentField->id,
-                        'value' => $defaultComponentField->value,
-                    ],
+                    'id' => $defaultComponentField->id,
+                    'value' => $defaultComponentField->value,
                 ],
             ],
         ]);
@@ -76,20 +70,16 @@ it('get defaultComponentField with valid defaultComponentField uuid should retur
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                    'value',
-                ],
+                'id',
+                'value',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'Default Component Field was successfully retrieved.',
             'data' => [
-                [
-                    'id' => $defaultComponentField->id,
-                    'value' => $defaultComponentField->value,
-                ],
+                'id' => $defaultComponentField->id,
+                'value' => $defaultComponentField->value,
             ],
         ]);
 });

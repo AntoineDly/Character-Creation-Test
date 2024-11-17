@@ -19,7 +19,7 @@ final readonly class CreateGameHandler implements CommandHandlerInterface
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof CreateGameCommand) {
-            throw new IncorrectCommandException('Command must be an instance of CreateGameCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => CreateGameCommand::class]);
         }
 
         $this->gameRepository->create(['name' => $command->name, 'visible_for_all' => $command->visibleForAll, 'user_id' => $command->userId]);

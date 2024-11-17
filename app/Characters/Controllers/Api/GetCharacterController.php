@@ -13,8 +13,8 @@ use App\Characters\Repositories\CharacterRepositoryInterface;
 use App\Characters\Services\CharacterQueriesService;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
-use Exception;
 use Illuminate\Http\JsonResponse;
+use Throwable;
 
 final readonly class GetCharacterController
 {
@@ -35,11 +35,11 @@ final readonly class GetCharacterController
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Characters were successfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Characters were successfully retrieved.', content: $result);
     }
 
     public function getCharacter(string $characterId): JsonResponse
@@ -53,11 +53,11 @@ final readonly class GetCharacterController
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: $result);
     }
 
     public function getCharacterWithGame(string $characterId): JsonResponse
@@ -71,11 +71,11 @@ final readonly class GetCharacterController
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: $result);
     }
 
     public function getCharactersWithGame(): JsonResponse
@@ -88,11 +88,11 @@ final readonly class GetCharacterController
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: $result);
     }
 
     public function getCharacterWithLinkedItems(string $characterId): JsonResponse
@@ -106,10 +106,10 @@ final readonly class GetCharacterController
             $result = $query->get();
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: [$result]);
+        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: $result);
     }
 }

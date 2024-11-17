@@ -19,7 +19,7 @@ final readonly class AssociateCategoryGameHandler implements CommandHandlerInter
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof AssociateCategoryGameCommand) {
-            throw new IncorrectCommandException('Command must be an instance of AssociateCategoryGameCommand');
+            throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => AssociateCategoryGameCommand::class]);
         }
 
         $this->categoryRepository->associateGame(categoryId: $command->categoryId, gameId: $command->gameId);

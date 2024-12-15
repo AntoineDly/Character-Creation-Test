@@ -10,13 +10,14 @@ use App\DefaultItemFields\Models\DefaultItemField;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
+use Database\Factories\ItemFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Item extends Model
 {
-    /** @use HasModelFactory<Item> */
+    /** @use HasModelFactory<ItemFactory> */
     use HasModelFactory, Uuid;
 
     protected $fillable = [

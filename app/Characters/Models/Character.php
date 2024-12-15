@@ -9,13 +9,14 @@ use App\LinkedItems\Models\LinkedItem;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
+use Database\Factories\CharacterFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Character extends Model
 {
-    /** @use HasModelFactory<Character> */
+    /** @use HasModelFactory<CharacterFactory> */
     use HasModelFactory, Uuid;
 
     protected $fillable = [

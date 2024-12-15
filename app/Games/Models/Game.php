@@ -10,6 +10,7 @@ use App\Components\Models\Component;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
+use Database\Factories\GameFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Game extends Model
 {
-    /** @use HasModelFactory<Game> */
+    /** @use HasModelFactory<GameFactory> */
     use HasModelFactory, Uuid;
 
     protected $fillable = [

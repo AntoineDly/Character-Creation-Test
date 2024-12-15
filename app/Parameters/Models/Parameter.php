@@ -10,13 +10,14 @@ use App\Parameters\Enums\TypeParameterEnum;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
+use Database\Factories\ParameterFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Parameter extends Model
 {
-    /** @use HasModelFactory<Parameter> */
+    /** @use HasModelFactory<ParameterFactory> */
     use HasModelFactory, Uuid;
 
     protected $fillable = [

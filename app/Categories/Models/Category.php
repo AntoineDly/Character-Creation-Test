@@ -9,13 +9,14 @@ use App\Games\Models\Game;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
+use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 final class Category extends Model
 {
-    /** @use HasModelFactory<Category> */
+    /** @use HasModelFactory<CategoryFactory> */
     use HasModelFactory, Uuid;
 
     protected $table = 'categories';

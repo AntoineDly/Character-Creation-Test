@@ -10,12 +10,13 @@ use App\Parameters\Models\Parameter;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
+use Database\Factories\DefaultItemFieldFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class DefaultItemField extends Model implements FieldInterface
 {
-    /** @use HasModelFactory<DefaultItemField> */
+    /** @use HasModelFactory<DefaultItemFieldFactory> */
     use HasModelFactory, Uuid;
 
     protected $fillable = [

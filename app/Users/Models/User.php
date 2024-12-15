@@ -11,6 +11,7 @@ use App\Games\Models\Game;
 use App\Parameters\Models\Parameter;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,7 +19,7 @@ use Laravel\Passport\HasApiTokens;
 
 final class User extends Authenticatable
 {
-    /** @use HasModelFactory<User> */
+    /** @use HasModelFactory<UserFactory> */
     use HasApiTokens, HasModelFactory, Notifiable, Uuid;
 
     /**

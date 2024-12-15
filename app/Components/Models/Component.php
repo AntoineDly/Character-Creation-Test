@@ -8,13 +8,14 @@ use App\DefaultComponentFields\Models\DefaultComponentField;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
+use Database\Factories\ComponentFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Component extends Model
 {
-    /** @use HasModelFactory<Component> */
+    /** @use HasModelFactory<ComponentFactory> */
     use HasModelFactory, Uuid;
 
     protected $fillable = [

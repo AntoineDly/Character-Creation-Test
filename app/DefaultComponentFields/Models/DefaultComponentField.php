@@ -10,12 +10,13 @@ use App\Parameters\Models\Parameter;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
+use Database\Factories\DefaultComponentFieldFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class DefaultComponentField extends Model implements FieldInterface
 {
-    /** @use HasModelFactory<DefaultComponentField> */
+    /** @use HasModelFactory<DefaultComponentFieldFactory> */
     use HasModelFactory, Uuid;
 
     protected $fillable = [

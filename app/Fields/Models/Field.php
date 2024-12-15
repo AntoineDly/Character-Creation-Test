@@ -10,12 +10,13 @@ use App\Parameters\Models\Parameter;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
+use Database\Factories\FieldFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class Field extends Model implements FieldInterface
 {
-    /** @use HasModelFactory<Field> */
+    /** @use HasModelFactory<FieldFactory> */
     use HasModelFactory, Uuid;
 
     protected $fillable = [

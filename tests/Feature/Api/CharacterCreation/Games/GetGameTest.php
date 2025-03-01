@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
+use App\Categories\Models\Category;
+use App\Components\Models\Component;
 use App\Games\Models\Game;
+use App\Items\Models\Item;
 
 it('get games should return 200 without any games', function () {
     $response = $this->getJson('/api/games');
@@ -69,6 +72,59 @@ it('get game with valid game uuid should return 200 with the game', function () 
 
 it('get game with invalid game uuid should return 404 with the game not found.', function () {
     $response = $this->getJson('/api/games/invalid-uuid');
+    $response->assertStatus(404)
+        ->assertJsonStructure(['success', 'message'])
+        ->assertJson([
+            'success' => false,
+            'message' => 'Game not found.',
+        ]);
+});
+
+it('get game with categories and components with valid game uuid should return 200 with the game', function () {
+    $game = Game::factory()->create(['user_id' => $this->getUserId()]);
+    $category = Category::factory()->create(['user_id' => $this->getUserId()]);
+    $component = Component::factory()->create(['user_id' => $this->getUserId()]);
+    $item = Item::factory()->create([
+        'category_id' => $category->id,
+        'component_id' => $component->id,
+        'user_id' => $this->getUserId(),
+    ]);
+    $game->categories()->save($category);
+    $game->items()->save($item);
+
+    $response = $this->getJson('/api/games/'.$game->id.'/with_categories_and_items');
+    $response->assertStatus(200)
+        ->assertJsonStructure([
+            'success',
+            'message',
+            'data' => [
+                'id',
+                'name',
+            ],
+        ])
+        ->assertJson([
+            'success' => true,
+            'message' => 'Game was successfully retrieved.',
+            'data' => [
+                'id' => $game->id,
+                'name' => $game->name,
+                'categoryDtos' => [
+                    [
+                        'id' => $category->id,
+                        'name' => $category->name,
+                    ],
+                ],
+                'itemDtos' => [
+                    [
+                        'id' => $item->id,
+                    ],
+                ],
+            ],
+        ]);
+});
+
+it('get game with categories and components with invalid game uuid should return 404 with the game not found.', function () {
+    $response = $this->getJson('/api/games/invalid-uuid/with_categories_and_items');
     $response->assertStatus(404)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([

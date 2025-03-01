@@ -6,6 +6,7 @@ namespace App\Games\Controllers\Api;
 
 use App\Games\Queries\GetGameQuery;
 use App\Games\Queries\GetGamesQuery;
+use App\Games\Queries\GetGameWithCategoriesAndItemsQuery;
 use App\Games\Repositories\GameRepositoryInterface;
 use App\Games\Services\GameQueriesService;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
@@ -43,6 +44,24 @@ final readonly class GetGameController
     {
         try {
             $query = new GetGameQuery(
+                gameRepository: $this->gameRepository,
+                gameQueriesService: $this->gameQueriesService,
+                gameId: $gameId
+            );
+            $result = $query->get();
+        } catch (HttpExceptionInterface $e) {
+            return $this->apiController->sendException($e);
+        } catch (Throwable $e) {
+            return $this->apiController->sendExceptionNotCatch($e);
+        }
+
+        return $this->apiController->sendSuccess(message: 'Game was successfully retrieved.', content: $result);
+    }
+
+    public function getGameWithCategoriesAndItems(string $gameId): JsonResponse
+    {
+        try {
+            $query = new GetGameWithCategoriesAndItemsQuery(
                 gameRepository: $this->gameRepository,
                 gameQueriesService: $this->gameQueriesService,
                 gameId: $gameId

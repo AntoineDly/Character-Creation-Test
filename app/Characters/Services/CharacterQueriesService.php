@@ -13,6 +13,7 @@ use App\Characters\Dtos\CharacterDto;
 use App\Characters\Dtos\CharacterWithGameDto;
 use App\Characters\Dtos\CharacterWithLinkedItemsDto;
 use App\Characters\Exceptions\CharacterNotFoundException;
+use App\Characters\Models\Character;
 use App\Components\Exceptions\ComponentNotFoundException;
 use App\Fields\Services\FieldQueriesService;
 use App\Games\Exceptions\GameNotFoundException;
@@ -85,9 +86,8 @@ final readonly class CharacterQueriesService
      * @throws StringIsEmptyException
      * @throws NotAValidUuidException
      */
-    public function getCharacterWithLinkedItemsDtoFromModel(?Model $character): CharacterWithLinkedItemsDto
+    public function getCharacterWithLinkedItemsDtoFromModel(Character $character): CharacterWithLinkedItemsDto
     {
-        $character = AssertHelper::isCharacter($character);
         $game = AssertHelper::isGame($character->game);
 
         $gameDto = $this->gameQueriesService->getGameDtoFromModel($character->game);

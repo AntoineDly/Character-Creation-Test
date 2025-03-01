@@ -8,6 +8,7 @@ use App\Categories\Dtos\CategoryDto;
 use App\Categories\Repositories\CategoryRepositoryInterface;
 use App\Categories\Services\CategoryQueriesService;
 use App\Shared\Queries\QueryInterface;
+use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetCategoriesQuery implements QueryInterface
 {
@@ -22,13 +23,6 @@ final readonly class GetCategoriesQuery implements QueryInterface
     {
         $categories = $this->categoryRepository->index();
 
-        /** @var CategoryDto[] $categoriesDtos */
-        $categoriesDtos = [];
-
-        foreach ($categories as $category) {
-            $categoriesDtos[] = $this->categoryQueriesService->getCategoryDtoFromModel(category: $category);
-        }
-
-        return $categoriesDtos;
+        return array_map(fn (?Model $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $categories->all());
     }
 }

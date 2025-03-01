@@ -48,6 +48,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/games', [GetGameController::class, 'getGames']);
     Route::get('/games/{id}', [GetGameController::class, 'getGame']);
+    Route::get('/games/{id}/with_categories_and_items', [GetGameController::class, 'getGameWithCategoriesAndItems']);
     Route::post('/games', [CreateGameController::class, 'createGame']);
     Route::put('/games/{id}', [UpdateGameController::class, 'updateGame']);
     Route::patch('/games/{id}', [UpdateGameController::class, 'updatePartiallyGame']);

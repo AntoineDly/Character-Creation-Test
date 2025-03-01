@@ -8,6 +8,7 @@ use App\Characters\Dtos\CharacterDto;
 use App\Characters\Repositories\CharacterRepositoryInterface;
 use App\Characters\Services\CharacterQueriesService;
 use App\Shared\Queries\QueryInterface;
+use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetCharactersQuery implements QueryInterface
 {
@@ -22,13 +23,6 @@ final readonly class GetCharactersQuery implements QueryInterface
     {
         $characters = $this->characterRepository->index();
 
-        /** @var CharacterDto[] $charactersDtos */
-        $charactersDtos = [];
-
-        foreach ($characters as $character) {
-            $charactersDtos[] = $this->characterQueriesService->getCharacterDtoFromModel(character: $character);
-        }
-
-        return $charactersDtos;
+        return array_map(fn (?Model $character) => $this->characterQueriesService->getCharacterDtoFromModel(character: $character), $characters->all());
     }
 }

@@ -32,7 +32,7 @@ final readonly class CharacterRepository extends AbstractRepository implements C
                     'linkedItems.item.component.defaultComponentFields.parameter',
                     'linkedItems.item.category',
                 ]
-            )->sole();
+            )->first();
 
         return AssertHelper::isCharacter($character);
     }
@@ -43,7 +43,7 @@ final readonly class CharacterRepository extends AbstractRepository implements C
      */
     public function getCharacterWithGameById(string $id): Character
     {
-        $character = $this->model->query()->where('id', $id)->with('game')->sole();
+        $character = $this->model->query()->where('id', $id)->with('game')->first();
 
         return AssertHelper::isCharacter($character);
     }

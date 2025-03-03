@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Models;
 
-use App\DefaultComponentFields\Models\DefaultComponentField;
+use App\ComponentFields\Models\ComponentField;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
@@ -33,12 +33,12 @@ final class Component extends Model
     }
 
     /**
-     * Get the default component fields of the component.
+     * Get the Component fields of the component.
      *
-     * @return HasMany<DefaultComponentField>
+     * @return HasMany<ComponentField>
      */
-    public function defaultComponentFields(): HasMany
+    public function componentFields(): HasMany
     {
-        return $this->hasMany(DefaultComponentField::class);
+        return $this->hasMany(ComponentField::class);
     }
 }

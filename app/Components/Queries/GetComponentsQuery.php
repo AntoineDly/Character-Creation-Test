@@ -8,6 +8,7 @@ use App\Components\Dtos\ComponentDto;
 use App\Components\Repositories\ComponentRepositoryInterface;
 use App\Components\Services\ComponentQueriesService;
 use App\Shared\Queries\QueryInterface;
+use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetComponentsQuery implements QueryInterface
 {
@@ -22,13 +23,6 @@ final readonly class GetComponentsQuery implements QueryInterface
     {
         $components = $this->componentRepository->index();
 
-        /** @var ComponentDto[] $componentsDtos */
-        $componentsDtos = [];
-
-        foreach ($components as $component) {
-            $componentsDtos[] = $this->componentQueriesService->getComponentDtoFromModel(component: $component);
-        }
-
-        return $componentsDtos;
+        return array_map(fn (?Model $component) => $this->componentQueriesService->getComponentDtoFromModel(component: $component), $components->all());
     }
 }

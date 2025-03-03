@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Parameters\Models;
 
-use App\DefaultItemFields\Models\DefaultItemField;
-use App\Fields\Models\Field;
+use App\ItemFields\Models\ItemField;
+use App\LinkedItemFields\Models\LinkedItemField;
 use App\Parameters\Enums\TypeParameterEnum;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
@@ -43,20 +43,20 @@ final class Parameter extends Model
     /**
      * Get the fields of the parameter.
      *
-     * @return HasMany<Field>
+     * @return HasMany<LinkedItemField>
      */
     public function fields(): HasMany
     {
-        return $this->hasMany(Field::class);
+        return $this->hasMany(LinkedItemField::class);
     }
 
     /**
      * Get the default fields of the parameter.
      *
-     * @return HasMany<DefaultItemField>
+     * @return HasMany<ItemField>
      */
-    public function defaultItemFields(): HasMany
+    public function itemFields(): HasMany
     {
-        return $this->hasMany(DefaultItemField::class);
+        return $this->hasMany(ItemField::class);
     }
 }

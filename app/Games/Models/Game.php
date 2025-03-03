@@ -6,7 +6,7 @@ namespace App\Games\Models;
 
 use App\Categories\Models\Category;
 use App\Characters\Models\Character;
-use App\Items\Models\Item;
+use App\PlayableItems\Models\PlayableItem;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
@@ -58,12 +58,12 @@ final class Game extends Model
     }
 
     /**
-     * Get the components of the game.
+     * Get the playableItems of the game.
      *
-     * @return BelongsToMany<Item>
+     * @return HasMany<PlayableItem>
      */
-    public function items(): BelongsToMany
+    public function playableItems(): HasMany
     {
-        return $this->belongsToMany(Item::class)->withTimestamps();
+        return $this->hasMany(PlayableItem::class);
     }
 }

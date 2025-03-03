@@ -7,24 +7,29 @@ use App\Categories\Controllers\Api\CreateCategoryController;
 use App\Categories\Controllers\Api\GetCategoryController;
 use App\Characters\Controllers\Api\CreateCharacterController;
 use App\Characters\Controllers\Api\GetCharacterController;
+use App\ComponentFields\Controllers\Api\CreateComponentFieldController;
+use App\ComponentFields\Controllers\Api\GetComponentFieldsController;
+use App\ComponentFields\Controllers\Api\UpdateComponentFieldController;
 use App\Components\Controllers\Api\CreateComponentController;
 use App\Components\Controllers\Api\GetComponentController;
-use App\DefaultComponentFields\Controllers\Api\CreateDefaultComponentFieldController;
-use App\DefaultComponentFields\Controllers\Api\GetDefaultComponentFieldsController;
-use App\DefaultComponentFields\Controllers\Api\UpdateDefaultComponentFieldController;
-use App\DefaultItemFields\Controllers\Api\CreateDefaultItemFieldController;
-use App\DefaultItemFields\Controllers\Api\GetDefaultItemFieldsController;
-use App\DefaultItemFields\Controllers\Api\UpdateDefaultItemFieldController;
-use App\Fields\Controllers\Api\CreateFieldController;
-use App\Fields\Controllers\Api\GetFieldsController;
-use App\Fields\Controllers\Api\UpdateFieldController;
 use App\Games\Controllers\Api\CreateGameController;
 use App\Games\Controllers\Api\GetGameController;
 use App\Games\Controllers\Api\UpdateGameController;
+use App\ItemFields\Controllers\Api\CreateItemFieldController;
+use App\ItemFields\Controllers\Api\GetItemFieldsController;
+use App\ItemFields\Controllers\Api\UpdateItemFieldController;
 use App\Items\Controllers\Api\CreateItemController;
+use App\LinkedItemFields\Controllers\Api\CreateLinkedItemFieldController;
+use App\LinkedItemFields\Controllers\Api\GetLinkedItemFieldsController;
+use App\LinkedItemFields\Controllers\Api\UpdateLinkedItemFieldController;
 use App\LinkedItems\Controllers\Api\CreateLinkedItemController;
 use App\Parameters\Controllers\Api\CreateParameterController;
 use App\Parameters\Controllers\Api\GetParameterController;
+use App\PlayableItemFields\Controllers\Api\CreatePlayableItemFieldController;
+use App\PlayableItemFields\Controllers\Api\GetPlayableItemFieldsController;
+use App\PlayableItemFields\Controllers\Api\UpdatePlayableItemFieldController;
+use App\PlayableItems\Controllers\Api\CreatePlayableItemController;
+use App\PlayableItems\Controllers\Api\GetPlayableItemController;
 use App\Users\Controllers\Api\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -48,7 +53,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/games', [GetGameController::class, 'getGames']);
     Route::get('/games/{id}', [GetGameController::class, 'getGame']);
-    Route::get('/games/{id}/with_categories_and_items', [GetGameController::class, 'getGameWithCategoriesAndItems']);
+    Route::get('/games/{id}/with_categories_and_playable_items', [GetGameController::class, 'getGameWithCategoriesAndPlayableItems']);
     Route::post('/games', [CreateGameController::class, 'createGame']);
     Route::put('/games/{id}', [UpdateGameController::class, 'updateGame']);
     Route::patch('/games/{id}', [UpdateGameController::class, 'updatePartiallyGame']);
@@ -58,33 +63,49 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/categories', [CreateCategoryController::class, 'createCategory']);
     Route::post('/categories/associate_game', [AssociateCategoryController::class, 'associateGame']);
 
-    Route::get('/components', [GetComponentController::class, 'getComponents']);
-    Route::get('/components/{id}', [GetComponentController::class, 'getComponent']);
-    Route::post('/components', [CreateComponentController::class, 'createComponent']);
-
     Route::get('/parameters', [GetParameterController::class, 'getParameters']);
     Route::get('/parameters/{id}', [GetParameterController::class, 'getParameter']);
     Route::post('/parameters', [CreateParameterController::class, 'createParameter']);
 
-    Route::get('/default_item_fields', [GetDefaultItemFieldsController::class, 'getDefaultItemFields']);
-    Route::get('/default_item_fields/{id}', [GetDefaultItemFieldsController::class, 'getDefaultItemField']);
-    Route::post('/default_item_fields', [CreateDefaultItemFieldController::class, 'createDefaultItemField']);
-    Route::put('/default_item_fields/{id}', [UpdateDefaultItemFieldController::class, 'updateDefaultItemField']);
-    Route::patch('/default_item_fields/{id}', [UpdateDefaultItemFieldController::class, 'updatePartiallyDefaultItemField']);
+    // COMPONENTS
+    Route::get('/components', [GetComponentController::class, 'getComponents']);
+    Route::get('/components/{id}', [GetComponentController::class, 'getComponent']);
+    Route::post('/components', [CreateComponentController::class, 'createComponent']);
 
-    Route::get('/default_component_fields', [GetDefaultComponentFieldsController::class, 'getDefaultComponentFields']);
-    Route::get('/default_component_fields/{id}', [GetDefaultComponentFieldsController::class, 'getDefaultComponentField']);
-    Route::post('/default_component_fields', [CreateDefaultComponentFieldController::class, 'createDefaultComponentField']);
-    Route::put('/default_component_fields/{id}', [UpdateDefaultComponentFieldController::class, 'updateDefaultComponentField']);
-    Route::patch('/default_component_fields/{id}', [UpdateDefaultComponentFieldController::class, 'updatePartiallyDefaultComponentField']);
+    Route::get('/component_fields', [GetComponentFieldsController::class, 'getComponentFields']);
+    Route::get('/component_fields/{id}', [GetComponentFieldsController::class, 'getComponentField']);
+    Route::post('/component_fields', [CreateComponentFieldController::class, 'createComponentField']);
+    Route::put('/component_fields/{id}', [UpdateComponentFieldController::class, 'updateComponentField']);
+    Route::patch('/component_fields/{id}', [UpdateComponentFieldController::class, 'updatePartiallyComponentField']);
 
-    Route::get('/fields', [GetFieldsController::class, 'getFields']);
-    Route::get('/fields/{id}', [GetFieldsController::class, 'getField']);
-    Route::post('/fields', [CreateFieldController::class, 'createField']);
-    Route::put('/fields/{id}', [UpdateFieldController::class, 'updateField']);
-    Route::patch('/fields/{id}', [UpdateFieldController::class, 'updatePartiallyField']);
-
+    // ITEMS
+    Route::get('/items', [GetItemController::class, 'getItems']);
+    Route::get('/items/{id}', [GetItemController::class, 'getItem']);
     Route::post('/items', [CreateItemController::class, 'createItem']);
 
+    Route::get('/item_fields', [GetItemFieldsController::class, 'getItemFields']);
+    Route::get('/item_fields/{id}', [GetItemFieldsController::class, 'getItemField']);
+    Route::post('/item_fields', [CreateItemFieldController::class, 'createItemField']);
+    Route::put('/item_fields/{id}', [UpdateItemFieldController::class, 'updateItemField']);
+    Route::patch('/item_fields/{id}', [UpdateItemFieldController::class, 'updatePartiallyItemField']);
+
+    // PLAYABLE_ITEMS
+    Route::get('/playable_items', [GetPlayableItemController::class, 'getPlayableItems']);
+    Route::get('/playable_items/{id}', [GetPlayableItemController::class, 'getPlayableItem']);
+    Route::post('/playable_items', [CreatePlayableItemController::class, 'createPlayableItem']);
+
+    Route::get('/playable_item_fields', [GetPlayableItemFieldsController::class, 'getPlayableItemFields']);
+    Route::get('/playable_item_fields/{id}', [GetPlayableItemFieldsController::class, 'getPlayableItemField']);
+    Route::post('/playable_item_fields', [CreatePlayableItemFieldController::class, 'createPlayableItemField']);
+    Route::put('/playable_item_fields/{id}', [UpdatePlayableItemFieldController::class, 'updatePlayableItemField']);
+    Route::patch('/playable_item_fields/{id}', [UpdatePlayableItemFieldController::class, 'updatePartiallyPlayableItemField']);
+
+    // LINKED_ITEMS
     Route::post('/linked_items', [CreateLinkedItemController::class, 'createLinkedItem']);
+
+    Route::get('/linked_item_fields', [GetLinkedItemFieldsController::class, 'getLinkedItemFields']);
+    Route::get('/linked_item_fields/{id}', [GetLinkedItemFieldsController::class, 'getLinkedItemField']);
+    Route::post('/linked_item_fields', [CreateLinkedItemFieldController::class, 'createLinkedItemField']);
+    Route::put('/linked_item_fields/{id}', [UpdateLinkedItemFieldController::class, 'updateLinkedItemField']);
+    Route::patch('/linked_item_fields/{id}', [UpdateLinkedItemFieldController::class, 'updatePartiallyLinkedItemField']);
 });

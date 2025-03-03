@@ -6,16 +6,18 @@ namespace App\Shared\Enums;
 
 enum TypeFieldEnum: string
 {
-    case FIELD = 'field';
-    case DEFAULT_ITEM_FIELD = 'default_item_field';
-    case DEFAULT_COMPONENT_FIELD = 'default_component_field';
+    case LINKED_ITEM_FIELD = 'linked_item_field';
+    case PLAYABLE_ITEM_FIELD = 'playable_item_field';
+    case ITEM_FIELD = 'item_field';
+    case COMPONENT_FIELD = 'component_field';
 
     public function weight(): int
     {
         return match ($this) {
-            self::FIELD => 3,
-            self::DEFAULT_ITEM_FIELD => 2,
-            self::DEFAULT_COMPONENT_FIELD => 1,
+            self::LINKED_ITEM_FIELD => 4,
+            self::PLAYABLE_ITEM_FIELD => 3,
+            self::ITEM_FIELD => 2,
+            self::COMPONENT_FIELD => 1,
         };
     }
 }

@@ -8,6 +8,7 @@ use App\Games\Dtos\GameDto;
 use App\Games\Repositories\GameRepositoryInterface;
 use App\Games\Services\GameQueriesService;
 use App\Shared\Queries\QueryInterface;
+use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetGamesQuery implements QueryInterface
 {
@@ -22,13 +23,6 @@ final readonly class GetGamesQuery implements QueryInterface
     {
         $games = $this->gameRepository->index();
 
-        /** @var GameDto[] $gamesDtos */
-        $gamesDtos = [];
-
-        foreach ($games as $game) {
-            $gamesDtos[] = $this->gameQueriesService->getGameDtoFromModel(game: $game);
-        }
-
-        return $gamesDtos;
+        return array_map(fn (?Model $game) => $this->gameQueriesService->getGameDtoFromModel(game: $game), $games->all());
     }
 }

@@ -15,13 +15,13 @@ final readonly class GameRepository extends AbstractRepository implements GameRe
         parent::__construct($model);
     }
 
-    public function getGameWithCategoriesAndItemsById(string $id): Game
+    public function getGameWithCategoriesAndPlayableItemsById(string $id): Game
     {
         $game = $this->model->query()->where('id', $id)
             ->with(
                 [
                     'categories',
-                    'items',
+                    'playableItems',
                 ]
             )->first();
 

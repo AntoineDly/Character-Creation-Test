@@ -15,7 +15,6 @@ use App\Characters\Dtos\CharacterWithLinkedItemsDto;
 use App\Characters\Exceptions\CharacterNotFoundException;
 use App\Characters\Models\Character;
 use App\Components\Exceptions\ComponentNotFoundException;
-use App\Fields\Services\FieldQueriesService;
 use App\Games\Exceptions\GameNotFoundException;
 use App\Games\Services\GameQueriesService;
 use App\Helpers\ArrayHelper;
@@ -28,6 +27,7 @@ use App\Shared\Enums\TypeFieldEnum;
 use App\Shared\Exceptions\Http\InvalidClassException;
 use App\Shared\Exceptions\Http\NotAValidUuidException;
 use App\Shared\Exceptions\Http\StringIsEmptyException;
+use App\Shared\Fields\Services\FieldServices;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class CharacterQueriesService
@@ -39,7 +39,7 @@ final readonly class CharacterQueriesService
         private GameQueriesService $gameQueriesService,
         private LinkedItemsForCharacterDtoBuilder $linkedItemsForCharacterDtoBuilder,
         private CategoryForCharacterDtoBuilder $categoryForCharacterDtoBuilder,
-        private FieldQueriesService $fieldQueriesService,
+        private FieldServices $fieldServices,
     ) {
     }
 
@@ -110,7 +110,8 @@ final readonly class CharacterQueriesService
 
         foreach ($character->linkedItems as $linkedItem) {
             $linkedItem = AssertHelper::isLinkedItem($linkedItem);
-            $item = AssertHelper::isItem($linkedItem->item);
+            $playableItem = AssertHelper::isPlayableItem($linkedItem->playableItem);
+            $item = AssertHelper::isItem($playableItem->item);
             $component = AssertHelper::isComponent($item->component);
             $category = AssertHelper::isCategory($item->category);
             $categoryId = $category->id;
@@ -118,25 +119,32 @@ final readonly class CharacterQueriesService
             $this->linkedItemsForCharacterDtoBuilder
                 ->setId($linkedItem->id);
 
-            foreach ($linkedItem->fields as $field) {
-                $this->fieldQueriesService->getSharedFieldDtoFromFieldInterface(
+            foreach ($linkedItem->linkedItemFields as $field) {
+                $this->fieldServices->insertFieldIntoLinkedItemsForCharacterDtoBuilder(
                     $this->linkedItemsForCharacterDtoBuilder,
                     $field,
-                    TypeFieldEnum::FIELD
+                    TypeFieldEnum::LINKED_ITEM_FIELD
                 );
             }
-            foreach ($item->defaultItemFields as $defaultItemField) {
-                $this->fieldQueriesService->getSharedFieldDtoFromFieldInterface(
+            foreach ($playableItem->playableItemFields as $field) {
+                $this->fieldServices->insertFieldIntoLinkedItemsForCharacterDtoBuilder(
                     $this->linkedItemsForCharacterDtoBuilder,
-                    $defaultItemField,
-                    TypeFieldEnum::DEFAULT_ITEM_FIELD
+                    $field,
+                    TypeFieldEnum::PLAYABLE_ITEM_FIELD
                 );
             }
-            foreach ($component->defaultComponentFields as $defaultComponentField) {
-                $this->fieldQueriesService->getSharedFieldDtoFromFieldInterface(
+            foreach ($item->itemFields as $itemField) {
+                $this->fieldServices->insertFieldIntoLinkedItemsForCharacterDtoBuilder(
                     $this->linkedItemsForCharacterDtoBuilder,
-                    $defaultComponentField,
-                    TypeFieldEnum::DEFAULT_COMPONENT_FIELD
+                    $itemField,
+                    TypeFieldEnum::ITEM_FIELD
+                );
+            }
+            foreach ($component->componentFields as $componentField) {
+                $this->fieldServices->insertFieldIntoLinkedItemsForCharacterDtoBuilder(
+                    $this->linkedItemsForCharacterDtoBuilder,
+                    $componentField,
+                    TypeFieldEnum::COMPONENT_FIELD
                 );
             }
             $linkedItemForCharacterDto = $this->linkedItemsForCharacterDtoBuilder->build();

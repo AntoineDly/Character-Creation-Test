@@ -27,10 +27,11 @@ final readonly class CharacterRepository extends AbstractRepository implements C
             ->with(
                 [
                     'game.categories',
-                    'linkedItems.fields.parameter',
-                    'linkedItems.item.defaultItemFields.parameter',
-                    'linkedItems.item.component.defaultComponentFields.parameter',
-                    'linkedItems.item.category',
+                    'linkedItems.linkedItemFields.parameter',
+                    'linkedItems.playableItem.playableItemFields.parameter',
+                    'linkedItems.playableItem.item.itemFields.parameter',
+                    'linkedItems.playableItem.item.component.componentFields.parameter',
+                    'linkedItems.playableItem.item.category',
                 ]
             )->first();
 

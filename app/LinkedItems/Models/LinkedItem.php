@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\LinkedItems\Models;
 
-use App\Fields\Models\Field;
 use App\Items\Models\Item;
+use App\LinkedItemFields\Models\LinkedItemField;
+use App\PlayableItems\Models\PlayableItem;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
@@ -20,7 +21,7 @@ final class LinkedItem extends Model
     use HasModelFactory, Uuid;
 
     protected $fillable = [
-        'item_id',
+        'playable_item_id',
         'character_id',
         'user_id',
     ];
@@ -36,22 +37,22 @@ final class LinkedItem extends Model
     }
 
     /**
-     * Get the item of the linked item.
+     * Get the playable item of the linked item.
      *
-     * @return BelongsTo<Item, LinkedItem>
+     * @return BelongsTo<PlayableItem, LinkedItem>
      */
-    public function item(): BelongsTo
+    public function playableItem(): BelongsTo
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(PlayableItem::class);
     }
 
     /**
      * Get the fields of the linked item.
      *
-     * @return HasMany<Field>
+     * @return HasMany<LinkedItemField>
      */
-    public function fields(): HasMany
+    public function linkedItemFields(): HasMany
     {
-        return $this->hasMany(Field::class);
+        return $this->hasMany(LinkedItemField::class);
     }
 }

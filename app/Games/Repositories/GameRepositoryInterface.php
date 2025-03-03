@@ -9,5 +9,5 @@ use App\Shared\Repositories\AbstractRepository\AbstractRepositoryInterface;
 
 interface GameRepositoryInterface extends AbstractRepositoryInterface
 {
-    public function getGameWithCategoriesAndItemsById(string $id): Game;
+    public function getGameWithCategoriesAndPlayableItemsById(string $id): Game;
 }

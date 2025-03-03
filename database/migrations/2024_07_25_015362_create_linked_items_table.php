@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('linked_items', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('item_id')->references('id')->on('items');
+            $table->foreignUuid('playable_item_id')->references('id')->on('playable_items');
             $table->foreignUuid('character_id')->references('id')->on('characters');
             $table->foreignUuid('user_id')->references('id')->on('users');
             $table->timestamps();

@@ -7,14 +7,14 @@ namespace App\Games\Services;
 use App\Categories\Dtos\CategoryDto;
 use App\Categories\Services\CategoryQueriesService;
 use App\Games\Builders\GameDtoBuilder;
-use App\Games\Builders\GameWithCategoriesAndItemsDtoBuilder;
+use App\Games\Builders\GameWithCategoriesAndPlayableItemsDtoBuilder;
 use App\Games\Dtos\GameDto;
-use App\Games\Dtos\GameWithCategoriesAndItemsDto;
+use App\Games\Dtos\GameWithCategoriesAndPlayableItemsDto;
 use App\Games\Exceptions\GameNotFoundException;
 use App\Games\Models\Game;
 use App\Helpers\AssertHelper;
-use App\Items\Dtos\ItemDto;
-use App\Items\Services\ItemQueriesService;
+use App\PlayableItems\Dtos\PlayableItemDto;
+use App\PlayableItems\Services\PlayableItemQueriesService;
 use App\Shared\Exceptions\Http\InvalidClassException;
 use App\Shared\Exceptions\Http\NotAValidUuidException;
 use App\Shared\Exceptions\Http\StringIsEmptyException;
@@ -24,9 +24,9 @@ final readonly class GameQueriesService
 {
     public function __construct(
         private GameDtoBuilder $gameDtoBuilder,
-        private GameWithCategoriesAndItemsDtoBuilder $gameWithCategoriesAndItemsDtoBuilder,
+        private GameWithCategoriesAndPlayableItemsDtoBuilder $gameWithCategoriesAndPlayableItemsDtoBuilder,
         private CategoryQueriesService $categoryQueriesService,
-        private ItemQueriesService $itemQueriesService
+        private PlayableItemQueriesService $playableItemQueriesService
     ) {
     }
 
@@ -46,19 +46,19 @@ final readonly class GameQueriesService
             ->build();
     }
 
-    public function getGameWithCategoriesAndItemsDtoFromModel(Game $game): GameWithCategoriesAndItemsDto
+    public function getGameWithCategoriesAndPlayableItemsDtoFromModel(Game $game): GameWithCategoriesAndPlayableItemsDto
     {
         /** @var CategoryDto[] $categoryDtos */
         $categoryDtos = array_map(fn (?Model $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $game->categories->all());
 
-        /** @var ItemDto[] $itemDtos */
-        $itemDtos = array_map(fn (?Model $item) => $this->itemQueriesService->getItemDtoFromModel(item: $item), $game->items->all());
+        /** @var PlayableItemDto[] $playableItemDtos */
+        $playableItemDtos = array_map(fn (?Model $playableItem) => $this->playableItemQueriesService->getPlayableItemDtoFromModel(playableItem: $playableItem), $game->playableItems->all());
 
-        return $this->gameWithCategoriesAndItemsDtoBuilder
+        return $this->gameWithCategoriesAndPlayableItemsDtoBuilder
             ->setId($game->id)
             ->setName($game->name)
             ->setCategoryDtos($categoryDtos)
-            ->setItemDtos($itemDtos)
+            ->setPlayableItemDtos($playableItemDtos)
             ->build();
     }
 }

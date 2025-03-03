@@ -8,6 +8,7 @@ use App\Parameters\Dtos\ParameterDto;
 use App\Parameters\Repositories\ParameterRepositoryInterface;
 use App\Parameters\Services\ParameterQueriesService;
 use App\Shared\Queries\QueryInterface;
+use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetParametersQuery implements QueryInterface
 {
@@ -22,13 +23,6 @@ final readonly class GetParametersQuery implements QueryInterface
     {
         $parameters = $this->parameterRepository->index();
 
-        /** @var ParameterDto[] $parametersDtos */
-        $parametersDtos = [];
-
-        foreach ($parameters as $parameter) {
-            $parametersDtos[] = $this->parameterQueriesService->getParameterDtoFromModel(parameter: $parameter);
-        }
-
-        return $parametersDtos;
+        return array_map(fn (?Model $parameter) => $this->parameterQueriesService->getParameterDtoFromModel(parameter: $parameter), $parameters->all());
     }
 }

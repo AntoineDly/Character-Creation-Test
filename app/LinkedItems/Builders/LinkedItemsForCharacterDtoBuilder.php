@@ -7,15 +7,15 @@ namespace App\LinkedItems\Builders;
 use App\Helpers\UuidHelper;
 use App\LinkedItems\Dtos\LinkedItemsForCharacterDto;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Dtos\SharedFieldDto\SharedFieldDto;
 use App\Shared\Enums\TypeFieldEnum;
 use App\Shared\Exceptions\Http\NotAValidUuidException;
+use App\Shared\Fields\Dtos\FieldDto;
 
 final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
 {
     private string $id = '';
 
-    /** @var SharedFieldDto[] */
+    /** @var FieldDto[] */
     private array $sharedFieldDtos = [];
 
     public function setId(string $id): self
@@ -25,14 +25,14 @@ final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    public function addSharedFieldDto(SharedFieldDto $sharedFieldDto): self
+    public function addSharedFieldDto(FieldDto $sharedFieldDto): self
     {
         $this->sharedFieldDtos[] = $sharedFieldDto;
 
         return $this;
     }
 
-    /** @param SharedFieldDto[] $sharedFieldDtos */
+    /** @param FieldDto[] $sharedFieldDtos */
     public function setSharedFieldDtos(array $sharedFieldDtos): self
     {
         $this->sharedFieldDtos = $sharedFieldDtos;

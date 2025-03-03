@@ -23,7 +23,7 @@ final class LinkedItemFactory extends Factory
     public function definition()
     {
         return [
-            'item_id' => $this->faker->uuid(),
+            'playable_item_id' => $this->faker->uuid(),
             'character_id' => $this->faker->uuid(),
             'user_id' => $this->faker->uuid(),
         ];

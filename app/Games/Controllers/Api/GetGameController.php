@@ -6,7 +6,7 @@ namespace App\Games\Controllers\Api;
 
 use App\Games\Queries\GetGameQuery;
 use App\Games\Queries\GetGamesQuery;
-use App\Games\Queries\GetGameWithCategoriesAndItemsQuery;
+use App\Games\Queries\GetGameWithCategoriesAndPlayableItemsQuery;
 use App\Games\Repositories\GameRepositoryInterface;
 use App\Games\Services\GameQueriesService;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
@@ -58,10 +58,10 @@ final readonly class GetGameController
         return $this->apiController->sendSuccess(message: 'Game was successfully retrieved.', content: $result);
     }
 
-    public function getGameWithCategoriesAndItems(string $gameId): JsonResponse
+    public function getGameWithCategoriesAndPlayableItems(string $gameId): JsonResponse
     {
         try {
-            $query = new GetGameWithCategoriesAndItemsQuery(
+            $query = new GetGameWithCategoriesAndPlayableItemsQuery(
                 gameRepository: $this->gameRepository,
                 gameQueriesService: $this->gameQueriesService,
                 gameId: $gameId

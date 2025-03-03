@@ -6,7 +6,7 @@ namespace App\Items\Models;
 
 use App\Categories\Models\Category;
 use App\Components\Models\Component;
-use App\DefaultItemFields\Models\DefaultItemField;
+use App\ItemFields\Models\ItemField;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Models\User;
@@ -21,7 +21,7 @@ final class Item extends Model
     use HasModelFactory, Uuid;
 
     protected $fillable = [
-        'component_id',
+        'item_id',
         'category_id',
         'user_id',
     ];
@@ -59,10 +59,10 @@ final class Item extends Model
     /**
      * Get the default fields of the item.
      *
-     * @return HasMany<DefaultItemField>
+     * @return HasMany<ItemField>
      */
-    public function defaultItemFields(): HasMany
+    public function itemFields(): HasMany
     {
-        return $this->hasMany(DefaultItemField::class);
+        return $this->hasMany(ItemField::class);
     }
 }

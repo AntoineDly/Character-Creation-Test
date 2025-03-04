@@ -25,11 +25,11 @@ final readonly class CreateLinkedItemController
     public function createLinkedItem(CreateLinkedItemRequest $request): JsonResponse
     {
         try {
-            /** @var array{'itemId': string, 'characterId': string} $validated */
+            /** @var array{'playableItemId': string, 'characterId': string} $validated */
             $validated = $request->validated();
 
             $command = new CreateLinkedItemCommand(
-                itemId: $validated['itemId'],
+                playableItemId: $validated['playableItemId'],
                 characterId: $validated['characterId'],
                 userId: RequestHelper::getUserId($request),
             );

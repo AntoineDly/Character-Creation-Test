@@ -16,7 +16,7 @@ final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
     private string $id = '';
 
     /** @var FieldDto[] */
-    private array $sharedFieldDtos = [];
+    private array $fieldDtos = [];
 
     public function setId(string $id): self
     {
@@ -27,22 +27,22 @@ final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
 
     public function addSharedFieldDto(FieldDto $sharedFieldDto): self
     {
-        $this->sharedFieldDtos[] = $sharedFieldDto;
+        $this->fieldDtos[] = $sharedFieldDto;
 
         return $this;
     }
 
-    /** @param FieldDto[] $sharedFieldDtos */
-    public function setSharedFieldDtos(array $sharedFieldDtos): self
+    /** @param FieldDto[] $fieldDtos */
+    public function setFieldDtos(array $fieldDtos): self
     {
-        $this->sharedFieldDtos = $sharedFieldDtos;
+        $this->fieldDtos = $fieldDtos;
 
         return $this;
     }
 
     public function containsSharedFieldDtoWithSameNameAndBiggerWeightOrRemoveIfLower(string $name, TypeFieldEnum $type): bool
     {
-        foreach ($this->sharedFieldDtos as $key => $sharedFieldDto) {
+        foreach ($this->fieldDtos as $key => $sharedFieldDto) {
             if ($sharedFieldDto->name !== $name) {
                 continue;
             }
@@ -51,7 +51,7 @@ final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
                 return true;
             }
 
-            unset($this->sharedFieldDtos[$key]);
+            unset($this->fieldDtos[$key]);
 
             return false;
         }
@@ -67,11 +67,11 @@ final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
 
         $linkedItemsForCharacterDto = new LinkedItemsForCharacterDto(
             id: $this->id,
-            sharedFieldDtos: $this->sharedFieldDtos
+            fieldDtos: $this->fieldDtos
         );
 
         $this->id = '';
-        $this->sharedFieldDtos = [];
+        $this->fieldDtos = [];
 
         return $linkedItemsForCharacterDto;
     }

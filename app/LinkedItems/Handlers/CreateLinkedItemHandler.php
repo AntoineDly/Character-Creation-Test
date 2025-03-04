@@ -23,6 +23,6 @@ final readonly class CreateLinkedItemHandler implements CommandHandlerInterface
             throw new IncorrectCommandException(data: ['handler' => self::class, 'currentCommand' => $command::class, 'expectedCommand' => CreateLinkedItemCommand::class]);
         }
 
-        $this->linkedItemRepository->create(attributes: ['item_id' => $command->itemId, 'character_id' => $command->characterId, 'user_id' => $command->userId]);
+        $this->linkedItemRepository->create(attributes: ['playable_item_id' => $command->playableItemId, 'character_id' => $command->characterId, 'user_id' => $command->userId]);
     }
 }

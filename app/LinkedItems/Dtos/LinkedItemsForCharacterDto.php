@@ -9,10 +9,10 @@ use App\Shared\Fields\Dtos\FieldDto;
 
 final readonly class LinkedItemsForCharacterDto implements DtoInterface
 {
-    /** @param FieldDto[] $sharedFieldDtos */
+    /** @param FieldDto[] $fieldDtos */
     public function __construct(
         public string $id,
-        public array $sharedFieldDtos,
+        public array $fieldDtos,
     ) {
     }
 }

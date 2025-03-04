@@ -9,7 +9,7 @@ use App\Shared\Commands\CommandInterface;
 final readonly class CreateLinkedItemCommand implements CommandInterface
 {
     public function __construct(
-        public string $itemId,
+        public string $playableItemId,
         public string $characterId,
         public string $userId,
     ) {

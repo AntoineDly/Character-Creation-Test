@@ -17,7 +17,7 @@ final class CreateLinkedItemRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'itemId' => 'required|exists:items,id',
+            'playableItemId' => 'required|exists:playable_items,id',
             'characterId' => 'required|exists:characters,id',
         ];
     }
@@ -26,8 +26,8 @@ final class CreateLinkedItemRequest extends BaseFormRequest
     public function messages(): array
     {
         return [
-            'itemId.required' => 'The itemId field is required.',
-            'itemId.exists' => 'No item found for this itemId.',
+            'playableItemId.required' => 'The playableItemId field is required.',
+            'playableItemId.exists' => 'No item found for this playableItemId.',
             'characterId.required' => 'The characterId field is required.',
             'characterId.exists' => 'No character found for this characterId.',
         ];

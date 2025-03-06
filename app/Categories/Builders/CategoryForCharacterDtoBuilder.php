@@ -6,7 +6,7 @@ namespace App\Categories\Builders;
 
 use App\Categories\Dtos\CategoryForCharacterDto;
 use App\Helpers\UuidHelper;
-use App\LinkedItems\Dtos\LinkedItemsForCharacterDto;
+use App\LinkedItems\Dtos\LinkedItemForCharacterDto;
 use App\Shared\Builders\BuilderInterface;
 use App\Shared\Exceptions\Http\NotAValidUuidException;
 use App\Shared\Exceptions\Http\StringIsEmptyException;
@@ -17,8 +17,8 @@ final class CategoryForCharacterDtoBuilder implements BuilderInterface
 
     private string $name = '';
 
-    /** @var LinkedItemsForCharacterDto[] */
-    private array $linkedItemsForCharacterDtos = [];
+    /** @var LinkedItemForCharacterDto[] */
+    private array $linkedItemForCharacterDtos = [];
 
     public function setId(string $id): self
     {
@@ -34,17 +34,17 @@ final class CategoryForCharacterDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    public function addLinkedItemsForCharacterDto(LinkedItemsForCharacterDto $linkedItemsForCharacterDto): self
+    public function addLinkedItemsForCharacterDto(LinkedItemForCharacterDto $linkedItemsForCharacterDto): self
     {
-        $this->linkedItemsForCharacterDtos[] = $linkedItemsForCharacterDto;
+        $this->linkedItemForCharacterDtos[] = $linkedItemsForCharacterDto;
 
         return $this;
     }
 
-    /** @param LinkedItemsForCharacterDto[] $linkedItemsForCharacterDtos */
-    public function setLinkedItemsForCharacterDtos(array $linkedItemsForCharacterDtos): self
+    /** @param LinkedItemForCharacterDto[] $linkedItemForCharacterDtos */
+    public function setLinkedItemForCharacterDtos(array $linkedItemForCharacterDtos): self
     {
-        $this->linkedItemsForCharacterDtos = $linkedItemsForCharacterDtos;
+        $this->linkedItemForCharacterDtos = $linkedItemForCharacterDtos;
 
         return $this;
     }
@@ -62,11 +62,11 @@ final class CategoryForCharacterDtoBuilder implements BuilderInterface
         $categoryForCharacterDto = new CategoryForCharacterDto(
             id: $this->id,
             name: $this->name,
-            linkedItemsForCharacterDtos: $this->linkedItemsForCharacterDtos
+            linkedItemForCharacterDtos: $this->linkedItemForCharacterDtos
         );
 
         $this->id = $this->name = '';
-        $this->linkedItemsForCharacterDtos = [];
+        $this->linkedItemForCharacterDtos = [];
 
         return $categoryForCharacterDto;
     }

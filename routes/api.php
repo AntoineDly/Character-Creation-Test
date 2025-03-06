@@ -24,6 +24,7 @@ use App\LinkedItemFields\Controllers\Api\CreateLinkedItemFieldController;
 use App\LinkedItemFields\Controllers\Api\GetLinkedItemFieldsController;
 use App\LinkedItemFields\Controllers\Api\UpdateLinkedItemFieldController;
 use App\LinkedItems\Controllers\Api\CreateLinkedItemController;
+use App\LinkedItems\Controllers\Api\GetLinkedItemController;
 use App\Parameters\Controllers\Api\CreateParameterController;
 use App\Parameters\Controllers\Api\GetParameterController;
 use App\PlayableItemFields\Controllers\Api\CreatePlayableItemFieldController;
@@ -102,6 +103,8 @@ Route::middleware('auth:api')->group(function () {
     Route::patch('/playable_item_fields/{id}', [UpdatePlayableItemFieldController::class, 'updatePartiallyPlayableItemField']);
 
     // LINKED_ITEMS
+    Route::get('/linked_items', [GetLinkedItemController::class, 'getLinkedItems']);
+    Route::get('/linked_items/{id}', [GetLinkedItemController::class, 'getLinkedItem']);
     Route::post('/linked_items', [CreateLinkedItemController::class, 'createLinkedItem']);
 
     Route::get('/linked_item_fields', [GetLinkedItemFieldsController::class, 'getLinkedItemFields']);

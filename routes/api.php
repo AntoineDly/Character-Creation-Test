@@ -19,6 +19,7 @@ use App\ItemFields\Controllers\Api\CreateItemFieldController;
 use App\ItemFields\Controllers\Api\GetItemFieldsController;
 use App\ItemFields\Controllers\Api\UpdateItemFieldController;
 use App\Items\Controllers\Api\CreateItemController;
+use App\Items\Controllers\Api\GetItemController;
 use App\LinkedItemFields\Controllers\Api\CreateLinkedItemFieldController;
 use App\LinkedItemFields\Controllers\Api\GetLinkedItemFieldsController;
 use App\LinkedItemFields\Controllers\Api\UpdateLinkedItemFieldController;

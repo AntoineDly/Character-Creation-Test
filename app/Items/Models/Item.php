@@ -21,7 +21,7 @@ final class Item extends Model
     use HasModelFactory, Uuid;
 
     protected $fillable = [
-        'item_id',
+        'component_id',
         'category_id',
         'user_id',
     ];

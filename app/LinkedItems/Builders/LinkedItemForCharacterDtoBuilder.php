@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\LinkedItems\Builders;
 
 use App\Helpers\UuidHelper;
-use App\LinkedItems\Dtos\LinkedItemsForCharacterDto;
+use App\LinkedItems\Dtos\LinkedItemForCharacterDto;
 use App\Shared\Builders\BuilderInterface;
 use App\Shared\Enums\TypeFieldEnum;
 use App\Shared\Exceptions\Http\NotAValidUuidException;
 use App\Shared\Fields\Dtos\FieldDto;
 
-final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
+final class LinkedItemForCharacterDtoBuilder implements BuilderInterface
 {
     private string $id = '';
 
@@ -59,13 +59,13 @@ final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
         return false;
     }
 
-    public function build(): LinkedItemsForCharacterDto
+    public function build(): LinkedItemForCharacterDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {
             throw new NotAValidUuidException(data: ['value' => $this->id]);
         }
 
-        $linkedItemsForCharacterDto = new LinkedItemsForCharacterDto(
+        $linkedItemForCharacterDto = new LinkedItemForCharacterDto(
             id: $this->id,
             fieldDtos: $this->fieldDtos
         );
@@ -73,6 +73,6 @@ final class LinkedItemsForCharacterDtoBuilder implements BuilderInterface
         $this->id = '';
         $this->fieldDtos = [];
 
-        return $linkedItemsForCharacterDto;
+        return $linkedItemForCharacterDto;
     }
 }

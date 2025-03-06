@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Fields\Services;
 
 use App\Helpers\AssertHelper;
-use App\LinkedItems\Builders\LinkedItemsForCharacterDtoBuilder;
+use App\LinkedItems\Builders\LinkedItemForCharacterDtoBuilder;
 use App\Shared\Enums\TypeFieldEnum;
 use App\Shared\Fields\Builders\FieldDtoBuilder;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +17,7 @@ final readonly class FieldServices
     }
 
     public function insertFieldIntoLinkedItemsForCharacterDtoBuilder(
-        LinkedItemsForCharacterDtoBuilder $linkedItemsForCharacterDtoBuilder,
+        LinkedItemForCharacterDtoBuilder $linkedItemsForCharacterDtoBuilder,
         Model $fieldInterface,
         TypeFieldEnum $type
     ): void {

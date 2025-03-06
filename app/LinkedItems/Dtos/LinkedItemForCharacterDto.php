@@ -7,7 +7,7 @@ namespace App\LinkedItems\Dtos;
 use App\Shared\Dtos\DtoInterface;
 use App\Shared\Fields\Dtos\FieldDto;
 
-final readonly class LinkedItemsForCharacterDto implements DtoInterface
+final readonly class LinkedItemForCharacterDto implements DtoInterface
 {
     /** @param FieldDto[] $fieldDtos */
     public function __construct(

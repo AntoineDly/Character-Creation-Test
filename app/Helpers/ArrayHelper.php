@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-use App\LinkedItems\Dtos\LinkedItemsForCharacterDto;
+use App\LinkedItems\Dtos\LinkedItemForCharacterDto;
 use App\Shared\Exceptions\Http\InvalidArrayValueTypeException;
 
 final readonly class ArrayHelper
 {
-    /** @param array<string, array{'name': string, 'linkedItemForCharacterDtos': LinkedItemsForCharacterDto[]}> $array */
+    /** @param array<string, array{'name': string, 'linkedItemForCharacterDtos': LinkedItemForCharacterDto[]}> $array */
     public static function isEmpty(array $array): bool
     {
         return count($array) === 0;

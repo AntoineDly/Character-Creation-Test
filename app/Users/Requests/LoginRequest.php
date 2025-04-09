@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Users\Requests;
 
-use App\Shared\Requests\BaseFormRequest;
+use App\Shared\Requests\BaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-final class LoginRequest extends BaseFormRequest
+final class LoginRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Parameters\Requests;
 
 use App\Parameters\Enums\TypeParameterEnum;
-use App\Shared\Requests\BaseFormRequest;
+use App\Shared\Requests\BaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
-final class CreateParameterRequest extends BaseFormRequest
+final class CreateParameterRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.

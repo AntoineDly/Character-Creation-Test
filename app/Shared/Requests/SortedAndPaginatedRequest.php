@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Shared\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -16,6 +18,7 @@ final class SortedAndPaginatedRequest extends BaseRequest
         $this->mergeIfMissing(['sortOrder' => 'asc']);
         $this->mergeIfMissing(['perPage' => 15]);
         $this->mergeIfMissing(['page' => 1]);
+
         return [
             'sortOrder' => 'required|in:asc,desc',
             'perPage' => 'required|int|max:100',

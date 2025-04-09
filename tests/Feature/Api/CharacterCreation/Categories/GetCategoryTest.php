@@ -26,20 +26,38 @@ it('get categories should return 200 with games', function () {
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                    'name',
+                'dtos' => [
+                    [
+                        'id',
+                        'name',
+                    ],
                 ],
+                'currentPage',
+                'perPage',
+                'total',
+                'firstPage',
+                'previousPage',
+                'nextPage',
+                'lastPage',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'Categories were successfully retrieved.',
             'data' => [
-                [
-                    'id' => $category->id,
-                    'name' => $category->name,
+                'dtos' => [
+                    [
+                        'id' => $category->id,
+                        'name' => $category->name,
+                    ],
                 ],
+                'currentPage' => 1,
+                'perPage' => 15,
+                'total' => 1,
+                'firstPage' => null,
+                'previousPage' => null,
+                'nextPage' => null,
+                'lastPage' => null,
             ],
         ]);
 });

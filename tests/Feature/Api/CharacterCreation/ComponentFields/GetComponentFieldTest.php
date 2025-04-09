@@ -36,20 +36,38 @@ it('get componentFields should return 200 with componentFields', function () {
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                    'value',
+                'dtos' => [
+                    [
+                        'id',
+                        'value',
+                    ],
                 ],
+                'currentPage',
+                'perPage',
+                'total',
+                'firstPage',
+                'previousPage',
+                'nextPage',
+                'lastPage',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'Component Fields were successfully retrieved.',
             'data' => [
-                [
-                    'id' => $componentField->id,
-                    'value' => $componentField->value,
+                'dtos' => [
+                    [
+                        'id' => $componentField->id,
+                        'value' => $componentField->value,
+                    ],
                 ],
+                'currentPage' => 1,
+                'perPage' => 15,
+                'total' => 1,
+                'firstPage' => null,
+                'previousPage' => null,
+                'nextPage' => null,
+                'lastPage' => null,
             ],
         ]);
 });

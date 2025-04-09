@@ -8,6 +8,7 @@ use App\Categories\Queries\GetCategoriesQuery;
 use App\Categories\Queries\GetCategoryQuery;
 use App\Categories\Repositories\CategoryRepositoryInterface;
 use App\Categories\Services\CategoryQueriesService;
+use App\Shared\Builders\DtosWithPaginationDtoBuilder;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Dtos\SortedAndPaginatedDto;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
@@ -22,6 +23,7 @@ final readonly class GetCategoryController
         private CategoryRepositoryInterface $categoryRepository,
         private CategoryQueriesService $categoryQueriesService,
         private ApiControllerInterface $apiController,
+        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
     ) {
     }
 
@@ -36,7 +38,7 @@ final readonly class GetCategoryController
                 categoryRepository: $this->categoryRepository,
                 categoryQueriesService: $this->categoryQueriesService,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
-
+                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
             );
             $result = $query->get();
         } catch (ValidationException $e) {

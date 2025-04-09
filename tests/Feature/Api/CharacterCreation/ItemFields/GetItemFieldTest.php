@@ -44,20 +44,38 @@ it('get itemFields should return 200 with itemFields', function () {
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                    'value',
+                'dtos' => [
+                    [
+                        'id',
+                        'value',
+                    ],
                 ],
+                'currentPage',
+                'perPage',
+                'total',
+                'firstPage',
+                'previousPage',
+                'nextPage',
+                'lastPage',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'Item Fields were successfully retrieved.',
             'data' => [
-                [
-                    'id' => $itemField->id,
-                    'value' => $itemField->value,
+                'dtos' => [
+                    [
+                        'id' => $itemField->id,
+                        'value' => $itemField->value,
+                    ],
                 ],
+                'currentPage' => 1,
+                'perPage' => 15,
+                'total' => 1,
+                'firstPage' => null,
+                'previousPage' => null,
+                'nextPage' => null,
+                'lastPage' => null,
             ],
         ]);
 });

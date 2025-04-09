@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Shared\Dtos;
 
 final readonly class SortedAndPaginatedDto implements DtoInterface

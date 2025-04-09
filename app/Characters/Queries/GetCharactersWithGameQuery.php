@@ -4,25 +4,34 @@ declare(strict_types=1);
 
 namespace App\Characters\Queries;
 
-use App\Characters\Dtos\CharacterWithGameDto;
 use App\Characters\Repositories\CharacterRepositoryInterface;
 use App\Characters\Services\CharacterQueriesService;
+use App\Shared\Builders\DtosWithPaginationDtoBuilder;
+use App\Shared\Dtos\DtosWithPaginationDto;
+use App\Shared\Dtos\SortedAndPaginatedDto;
 use App\Shared\Queries\QueryInterface;
+use App\Shared\Traits\DtosWithPaginationBuilderHelper;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetCharactersWithGameQuery implements QueryInterface
 {
+    use DtosWithPaginationBuilderHelper;
+
     public function __construct(
         private CharacterRepositoryInterface $characterRepository,
         private CharacterQueriesService $characterQueriesService,
+        private SortedAndPaginatedDto $sortedAndPaginatedDto,
+        DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
     ) {
+        $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
-    /** @return CharacterWithGameDto[] */
-    public function get(): array
+    public function get(): DtosWithPaginationDto
     {
-        $characters = $this->characterRepository->index();
+        $characters = $this->characterRepository->index($this->sortedAndPaginatedDto);
 
-        return array_map(fn (?Model $character) => $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character), $characters->all());
+        $dtos = array_map(fn (?Model $character) => $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character), $characters->items());
+
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $characters);
     }
 }

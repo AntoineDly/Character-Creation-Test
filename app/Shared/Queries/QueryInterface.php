@@ -8,6 +8,5 @@ use App\Shared\Dtos\DtoInterface;
 
 interface QueryInterface
 {
-    /** @return DtoInterface|DtoInterface[] */
-    public function get(): DtoInterface|array;
+    public function get(): DtoInterface;
 }

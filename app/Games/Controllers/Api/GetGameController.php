@@ -9,9 +9,13 @@ use App\Games\Queries\GetGamesQuery;
 use App\Games\Queries\GetGameWithCategoriesAndPlayableItemsQuery;
 use App\Games\Repositories\GameRepositoryInterface;
 use App\Games\Services\GameQueriesService;
+use App\Shared\Builders\DtosWithPaginationDtoBuilder;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Dtos\SortedAndPaginatedDto;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
+use App\Shared\Requests\SortedAndPaginatedRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 final readonly class GetGameController
@@ -20,17 +24,29 @@ final readonly class GetGameController
         private GameRepositoryInterface $gameRepository,
         private GameQueriesService $gameQueriesService,
         private ApiControllerInterface $apiController,
+        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
     ) {
     }
 
-    public function getGames(): JsonResponse
+    public function getGames(SortedAndPaginatedRequest $request): JsonResponse
     {
         try {
+            /** @var array{'sortOrder': string, 'perPage': int, 'page': int} $validatedData */
+            $validatedData = $request->validated();
+            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromArray($validatedData);
+
             $query = new GetGamesQuery(
                 gameRepository: $this->gameRepository,
                 gameQueriesService: $this->gameQueriesService,
+                sortedAndPaginatedDto: $sortedAndPaginatedDto,
+                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
             );
             $result = $query->get();
+        } catch (ValidationException $e) {
+            return $this->apiController->sendExceptionFromLaravelValidationException(
+                message: 'Games  were not successfully retrieved.',
+                e: $e
+            );
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

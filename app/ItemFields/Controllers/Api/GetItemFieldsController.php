@@ -8,9 +8,13 @@ use App\ItemFields\Queries\GetItemFieldQuery;
 use App\ItemFields\Queries\GetItemFieldsQuery;
 use App\ItemFields\Repositories\ItemFieldRepositoryInterface;
 use App\ItemFields\Services\ItemFieldQueriesService;
+use App\Shared\Builders\DtosWithPaginationDtoBuilder;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Dtos\SortedAndPaginatedDto;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
+use App\Shared\Requests\SortedAndPaginatedRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 final readonly class GetItemFieldsController
@@ -18,18 +22,30 @@ final readonly class GetItemFieldsController
     public function __construct(
         private ItemFieldRepositoryInterface $itemFieldRepository,
         private ItemFieldQueriesService $itemFieldQueriesService,
-        private ApiControllerInterface $apiController
+        private ApiControllerInterface $apiController,
+        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
     ) {
     }
 
-    public function getItemFields(): JsonResponse
+    public function getItemFields(SortedAndPaginatedRequest $request): JsonResponse
     {
         try {
+            /** @var array{'sortOrder': string, 'perPage': int, 'page': int} $validatedData */
+            $validatedData = $request->validated();
+            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromArray($validatedData);
+
             $query = new GetItemFieldsQuery(
                 itemFieldRepository: $this->itemFieldRepository,
-                itemFieldQueriesService: $this->itemFieldQueriesService
+                itemFieldQueriesService: $this->itemFieldQueriesService,
+                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
+                sortedAndPaginatedDto: $sortedAndPaginatedDto,
             );
             $result = $query->get();
+        } catch (ValidationException $e) {
+            return $this->apiController->sendExceptionFromLaravelValidationException(
+                message: 'Item Fields were not successfully retrieved.',
+                e: $e
+            );
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\PlayableItemFields\Requests;
 
-use App\Shared\Requests\BaseFormRequest;
+use App\Shared\Requests\BaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-final class UpdatePartiallyPlayableItemFieldRequest extends BaseFormRequest
+final class UpdatePartiallyPlayableItemFieldRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.

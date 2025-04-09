@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\ItemFields\Requests;
 
-use App\Shared\Requests\BaseFormRequest;
+use App\Shared\Requests\BaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-final class CreateItemFieldRequest extends BaseFormRequest
+final class CreateItemFieldRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.

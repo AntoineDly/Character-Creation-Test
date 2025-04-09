@@ -12,8 +12,11 @@ use App\Characters\Queries\GetCharacterWithLinkedItemsQuery;
 use App\Characters\Repositories\CharacterRepositoryInterface;
 use App\Characters\Services\CharacterQueriesService;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Dtos\SortedAndPaginatedDto;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
+use App\Shared\Requests\SortedAndPaginatedRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 final readonly class GetCharacterController
@@ -25,14 +28,24 @@ final readonly class GetCharacterController
     ) {
     }
 
-    public function getCharacters(): JsonResponse
+    public function getCharacters(SortedAndPaginatedRequest $request): JsonResponse
     {
         try {
+            /** @var array{'sortOrder': string, 'perPage': int, 'page': int} $validatedData */
+            $validatedData = $request->validated();
+            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromArray($validatedData);
+
             $query = new GetCharactersQuery(
                 characterRepository: $this->characterRepository,
                 characterQueriesService: $this->characterQueriesService,
+                sortedAndPaginatedDto: $sortedAndPaginatedDto,
             );
             $result = $query->get();
+        } catch (ValidationException $e) {
+            return $this->apiController->sendExceptionFromLaravelValidationException(
+                message: 'Characters were not successfully retrieved.',
+                e: $e
+            );
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

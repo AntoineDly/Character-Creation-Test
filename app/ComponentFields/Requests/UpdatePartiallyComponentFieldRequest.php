@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\ComponentFields\Requests;
 
-use App\Shared\Requests\BaseFormRequest;
+use App\Shared\Requests\BaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-final class UpdatePartiallyComponentFieldRequest extends BaseFormRequest
+final class UpdatePartiallyComponentFieldRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.

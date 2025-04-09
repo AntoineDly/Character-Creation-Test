@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Games\Requests;
 
-use App\Shared\Requests\BaseFormRequest;
+use App\Shared\Requests\BaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-final class CreateGameRequest extends BaseFormRequest
+final class CreateGameRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.

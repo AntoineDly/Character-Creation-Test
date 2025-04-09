@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Shared\Repositories\AbstractRepository;
 
+use App\Shared\Dtos\SortedAndPaginatedDto;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,11 +16,13 @@ abstract readonly class AbstractRepository implements AbstractRepositoryInterfac
     }
 
     /**
-     * @return Collection<int, Model>
+     * @return LengthAwarePaginator<Model>
      */
-    public function index(): Collection
+    public function index(SortedAndPaginatedDto $sortedAndPaginatedDto): LengthAwarePaginator
     {
-        return $this->model->all();
+        return $this->model->newQuery()
+            ->orderBy(column: 'id', direction: $sortedAndPaginatedDto->sortOrder)
+            ->paginate(perPage: $sortedAndPaginatedDto->perPage, page: $sortedAndPaginatedDto->page);
     }
 
     public function findById(string $id): ?Model

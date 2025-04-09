@@ -11,6 +11,7 @@ use App\Characters\Queries\GetCharacterWithGameQuery;
 use App\Characters\Queries\GetCharacterWithLinkedItemsQuery;
 use App\Characters\Repositories\CharacterRepositoryInterface;
 use App\Characters\Services\CharacterQueriesService;
+use App\Shared\Builders\DtosWithPaginationDtoBuilder;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Dtos\SortedAndPaginatedDto;
 use App\Shared\Exceptions\Http\HttpExceptionInterface;
@@ -25,6 +26,7 @@ final readonly class GetCharacterController
         private CharacterRepositoryInterface $characterRepository,
         private CharacterQueriesService $characterQueriesService,
         private ApiControllerInterface $apiController,
+        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
     ) {
     }
 
@@ -39,6 +41,7 @@ final readonly class GetCharacterController
                 characterRepository: $this->characterRepository,
                 characterQueriesService: $this->characterQueriesService,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
+                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
             );
             $result = $query->get();
         } catch (ValidationException $e) {
@@ -91,21 +94,33 @@ final readonly class GetCharacterController
         return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: $result);
     }
 
-    public function getCharactersWithGame(): JsonResponse
+    public function getCharactersWithGame(SortedAndPaginatedRequest $request): JsonResponse
     {
         try {
+            /** @var array{'sortOrder': string, 'perPage': int, 'page': int} $validatedData */
+            $validatedData = $request->validated();
+            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromArray($validatedData);
+
             $query = new GetCharactersWithGameQuery(
                 characterRepository: $this->characterRepository,
                 characterQueriesService: $this->characterQueriesService,
+                sortedAndPaginatedDto: $sortedAndPaginatedDto,
+                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
+
             );
             $result = $query->get();
+        } catch (ValidationException $e) {
+            return $this->apiController->sendExceptionFromLaravelValidationException(
+                message: 'Characters were not successfully retrieved.',
+                e: $e
+            );
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
             return $this->apiController->sendExceptionNotCatch($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Character was successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'Characters were successfully retrieved.', content: $result);
     }
 
     public function getCharacterWithLinkedItems(string $characterId): JsonResponse

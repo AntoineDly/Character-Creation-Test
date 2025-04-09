@@ -14,6 +14,9 @@
         "array_syntax": true,
         "blank_line_after_namespace": true,
         "blank_line_after_opening_tag": true,
-        "no_unused_imports": true
+        "no_unused_imports": true,
+        "trailing_comma_in_multiline": {
+            "after_heredoc": true
+        }
     }
 }

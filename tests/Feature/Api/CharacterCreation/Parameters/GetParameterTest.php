@@ -26,22 +26,40 @@ it('get parameters should return 200 with games', function () {
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                    'name',
-                    'type',
+                'dtos' => [
+                    [
+                        'id',
+                        'name',
+                        'type',
+                    ],
                 ],
+                'currentPage',
+                'perPage',
+                'total',
+                'firstPage',
+                'previousPage',
+                'nextPage',
+                'lastPage',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'Parameters were successfully retrieved.',
             'data' => [
-                [
-                    'id' => $parameter->id,
-                    'name' => $parameter->name,
-                    'type' => $parameter->type->value,
+                'dtos' => [
+                    [
+                        'id' => $parameter->id,
+                        'name' => $parameter->name,
+                        'type' => $parameter->type->value,
+                    ],
                 ],
+                'currentPage' => 1,
+                'perPage' => 15,
+                'total' => 1,
+                'firstPage' => null,
+                'previousPage' => null,
+                'nextPage' => null,
+                'lastPage' => null,
             ],
         ]);
 });

@@ -30,20 +30,38 @@ it('get games should return 200 with games', function () {
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                    'name',
+                'dtos' => [
+                    [
+                        'id',
+                        'name',
+                    ],
                 ],
+                'currentPage',
+                'perPage',
+                'total',
+                'firstPage',
+                'previousPage',
+                'nextPage',
+                'lastPage',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'Games were successfully retrieved.',
             'data' => [
-                [
-                    'id' => $game->id,
-                    'name' => $game->name,
+                'dtos' => [
+                    [
+                        'id' => $game->id,
+                        'name' => $game->name,
+                    ],
                 ],
+                'currentPage' => 1,
+                'perPage' => 15,
+                'total' => 1,
+                'firstPage' => null,
+                'previousPage' => null,
+                'nextPage' => null,
+                'lastPage' => null,
             ],
         ]);
 });

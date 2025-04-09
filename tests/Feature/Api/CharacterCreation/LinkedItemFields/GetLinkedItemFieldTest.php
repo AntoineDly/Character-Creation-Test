@@ -58,20 +58,38 @@ it('get linked item fields should return 200 with fields', function () {
             'success',
             'message',
             'data' => [
-                [
-                    'id',
-                    'value',
+                'dtos' => [
+                    [
+                        'id',
+                        'value',
+                    ],
                 ],
+                'currentPage',
+                'perPage',
+                'total',
+                'firstPage',
+                'previousPage',
+                'nextPage',
+                'lastPage',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'Linked Item Fields were successfully retrieved.',
             'data' => [
-                [
-                    'id' => $field->id,
-                    'value' => $field->value,
+                'dtos' => [
+                    [
+                        'id' => $field->id,
+                        'value' => $field->value,
+                    ],
                 ],
+                'currentPage' => 1,
+                'perPage' => 15,
+                'total' => 1,
+                'firstPage' => null,
+                'previousPage' => null,
+                'nextPage' => null,
+                'lastPage' => null,
             ],
         ]);
 });

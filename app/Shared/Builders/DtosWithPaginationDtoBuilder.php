@@ -6,6 +6,7 @@ namespace App\Shared\Builders;
 
 use App\Shared\Dtos\DtoInterface;
 use App\Shared\Dtos\DtosWithPaginationDto;
+use App\Shared\Dtos\PaginationDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 
@@ -109,8 +110,7 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
 
     public function build(): DtosWithPaginationDto
     {
-        $dto = new DtosWithPaginationDto(
-            dtos: $this->dtos,
+        $paginationDto = new PaginationDto(
             currentPage: $this->currentPage,
             perPage: $this->perPage,
             total: $this->total,
@@ -118,6 +118,11 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
             previousPage: $this->previousPage,
             nextPage: $this->nextPage,
             lastPage: $this->lastPage,
+        );
+
+        $dto = new DtosWithPaginationDto(
+            dtos: $this->dtos,
+            paginationDto: $paginationDto,
         );
 
         $this->dtos = [];

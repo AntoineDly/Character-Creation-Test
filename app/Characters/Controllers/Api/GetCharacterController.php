@@ -33,9 +33,7 @@ final readonly class GetCharacterController
     public function getCharacters(SortedAndPaginatedRequest $request): JsonResponse
     {
         try {
-            /** @var array{'sortOrder': string, 'perPage': int, 'page': int} $validatedData */
-            $validatedData = $request->validated();
-            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromArray($validatedData);
+            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetCharactersQuery(
                 characterRepository: $this->characterRepository,
@@ -97,9 +95,7 @@ final readonly class GetCharacterController
     public function getCharactersWithGame(SortedAndPaginatedRequest $request): JsonResponse
     {
         try {
-            /** @var array{'sortOrder': string, 'perPage': int, 'page': int} $validatedData */
-            $validatedData = $request->validated();
-            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromArray($validatedData);
+            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetCharactersWithGameQuery(
                 characterRepository: $this->characterRepository,

@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\LinkedItems\Repositories;
 
 use App\LinkedItems\Models\LinkedItem;
-use App\Shared\Repositories\AbstractRepository\AbstractRepository;
+use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
 
-final readonly class LinkedItemRepository extends AbstractRepository implements LinkedItemRepositoryInterface
+final readonly class LinkedItemRepository implements LinkedItemRepositoryInterface
 {
+    use RepositoryTrait;
+
     public function __construct(LinkedItem $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 }

@@ -30,9 +30,7 @@ final readonly class GetParameterController
     public function getParameters(SortedAndPaginatedRequest $request): JsonResponse
     {
         try {
-            /** @var array{'sortOrder': string, 'perPage': int, 'page': int} $validatedData */
-            $validatedData = $request->validated();
-            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromArray($validatedData);
+            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetParametersQuery(
                 parameterRepository: $this->parameterRepository,

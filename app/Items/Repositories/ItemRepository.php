@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Items\Repositories;
 
 use App\Items\Models\Item;
-use App\Shared\Repositories\AbstractRepository\AbstractRepository;
+use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
 
-final readonly class ItemRepository extends AbstractRepository implements ItemRepositoryInterface
+final readonly class ItemRepository implements ItemRepositoryInterface
 {
+    use RepositoryTrait;
+
     public function __construct(Item $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 }

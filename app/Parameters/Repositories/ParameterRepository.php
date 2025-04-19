@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Parameters\Repositories;
 
 use App\Parameters\Models\Parameter;
-use App\Shared\Repositories\AbstractRepository\AbstractRepository;
+use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
 
-final readonly class ParameterRepository extends AbstractRepository implements ParameterRepositoryInterface
+final readonly class ParameterRepository implements ParameterRepositoryInterface
 {
+    use RepositoryTrait;
+
     public function __construct(Parameter $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 }

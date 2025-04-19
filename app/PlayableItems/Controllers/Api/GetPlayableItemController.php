@@ -30,9 +30,7 @@ final readonly class GetPlayableItemController
     public function getPlayableItems(SortedAndPaginatedRequest $request): JsonResponse
     {
         try {
-            /** @var array{'sortOrder': string, 'perPage': int, 'page': int} $validatedData */
-            $validatedData = $request->validated();
-            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromArray($validatedData);
+            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetPlayableItemsQuery(
                 playableItemRepository: $this->playableItemRepository,

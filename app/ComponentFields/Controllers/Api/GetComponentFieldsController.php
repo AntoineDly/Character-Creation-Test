@@ -30,9 +30,7 @@ final readonly class GetComponentFieldsController
     public function getComponentFields(SortedAndPaginatedRequest $request): JsonResponse
     {
         try {
-            /** @var array{'sortOrder': string, 'perPage': int, 'page': int} $validatedData */
-            $validatedData = $request->validated();
-            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromArray($validatedData);
+            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetComponentFieldsQuery(
                 componentFieldRepository: $this->componentFieldRepository,

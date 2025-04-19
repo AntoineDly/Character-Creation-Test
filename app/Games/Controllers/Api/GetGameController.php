@@ -31,9 +31,7 @@ final readonly class GetGameController
     public function getGames(SortedAndPaginatedRequest $request): JsonResponse
     {
         try {
-            /** @var array{'sortOrder': string, 'perPage': int, 'page': int} $validatedData */
-            $validatedData = $request->validated();
-            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromArray($validatedData);
+            $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetGamesQuery(
                 gameRepository: $this->gameRepository,

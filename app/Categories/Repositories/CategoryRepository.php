@@ -6,13 +6,15 @@ namespace App\Categories\Repositories;
 
 use App\Categories\Models\Category;
 use App\Helpers\AssertHelper;
-use App\Shared\Repositories\AbstractRepository\AbstractRepository;
+use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
 
-final readonly class CategoryRepository extends AbstractRepository implements CategoryRepositoryInterface
+final readonly class CategoryRepository implements CategoryRepositoryInterface
 {
+    use RepositoryTrait;
+
     public function __construct(Category $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     public function associateGame(string $categoryId, string $gameId): void

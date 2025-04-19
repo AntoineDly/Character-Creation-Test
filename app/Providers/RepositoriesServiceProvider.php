@@ -18,8 +18,8 @@ use App\ItemFields\Repositories\ItemFieldRepository;
 use App\ItemFields\Repositories\ItemFieldRepositoryInterface;
 use App\Items\Repositories\ItemRepository;
 use App\Items\Repositories\ItemRepositoryInterface;
+use App\LinkedItemFields\Repositories\LinkedItemFieldRepository;
 use App\LinkedItemFields\Repositories\LinkedItemFieldRepositoryInterface;
-use App\LinkedItemFields\Repositories\LinkedItemLinkedItemFieldRepository;
 use App\LinkedItems\Repositories\LinkedItemRepository;
 use App\LinkedItems\Repositories\LinkedItemRepositoryInterface;
 use App\Parameters\Repositories\ParameterRepository;
@@ -28,8 +28,8 @@ use App\PlayableItemFields\Repositories\PlayableItemFieldRepository;
 use App\PlayableItemFields\Repositories\PlayableItemFieldRepositoryInterface;
 use App\PlayableItems\Repositories\PlayableItemRepository;
 use App\PlayableItems\Repositories\PlayableItemRepositoryInterface;
-use App\Shared\Repositories\AbstractRepository\AbstractRepository;
 use App\Shared\Repositories\AbstractRepository\AbstractRepositoryInterface;
+use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
 use App\Users\Repositories\UserRepository;
 use App\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -41,7 +41,7 @@ final class RepositoriesServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(abstract: AbstractRepositoryInterface::class, concrete: AbstractRepository::class);
+        $this->app->bind(abstract: AbstractRepositoryInterface::class, concrete: RepositoryTrait::class);
         $this->app->bind(abstract: CharacterRepositoryInterface::class, concrete: CharacterRepository::class);
         $this->app->bind(abstract: GameRepositoryInterface::class, concrete: GameRepository::class);
         $this->app->bind(abstract: UserRepositoryInterface::class, concrete: UserRepository::class);
@@ -54,7 +54,7 @@ final class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(abstract: PlayableItemRepositoryInterface::class, concrete: PlayableItemRepository::class);
         $this->app->bind(abstract: PlayableItemFieldRepositoryInterface::class, concrete: PlayableItemFieldRepository::class);
         $this->app->bind(abstract: LinkedItemRepositoryInterface::class, concrete: LinkedItemRepository::class);
-        $this->app->bind(abstract: LinkedItemFieldRepositoryInterface::class, concrete: LinkedItemLinkedItemFieldRepository::class);
+        $this->app->bind(abstract: LinkedItemFieldRepositoryInterface::class, concrete: LinkedItemFieldRepository::class);
     }
 
     /**

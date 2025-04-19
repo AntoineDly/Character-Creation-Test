@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Users\Repositories;
 
-use App\Shared\Repositories\AbstractRepository\AbstractRepository;
+use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
 use App\Users\Models\User;
 
-final readonly class UserRepository extends AbstractRepository implements UserRepositoryInterface
+final readonly class UserRepository implements UserRepositoryInterface
 {
+    use RepositoryTrait;
+
     public function __construct(User $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 }

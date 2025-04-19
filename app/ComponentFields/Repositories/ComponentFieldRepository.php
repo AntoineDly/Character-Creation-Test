@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\ComponentFields\Repositories;
 
 use App\ComponentFields\Models\ComponentField;
-use App\Shared\Repositories\AbstractRepository\AbstractRepository;
+use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
 
-final readonly class ComponentFieldRepository extends AbstractRepository implements ComponentFieldRepositoryInterface
+final readonly class ComponentFieldRepository implements ComponentFieldRepositoryInterface
 {
+    use RepositoryTrait;
+
     public function __construct(ComponentField $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 }

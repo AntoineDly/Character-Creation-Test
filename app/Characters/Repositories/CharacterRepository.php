@@ -8,13 +8,15 @@ use App\Characters\Exceptions\CharacterNotFoundException;
 use App\Characters\Models\Character;
 use App\Helpers\AssertHelper;
 use App\Shared\Exceptions\Http\InvalidClassException;
-use App\Shared\Repositories\AbstractRepository\AbstractRepository;
+use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
 
-final readonly class CharacterRepository extends AbstractRepository implements CharacterRepositoryInterface
+final readonly class CharacterRepository implements CharacterRepositoryInterface
 {
+    use RepositoryTrait;
+
     public function __construct(Character $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     /**

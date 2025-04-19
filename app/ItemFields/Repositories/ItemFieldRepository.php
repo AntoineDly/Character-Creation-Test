@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\ItemFields\Repositories;
 
 use App\ItemFields\Models\ItemField;
-use App\Shared\Repositories\AbstractRepository\AbstractRepository;
+use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
 
-final readonly class ItemFieldRepository extends AbstractRepository implements ItemFieldRepositoryInterface
+final readonly class ItemFieldRepository implements ItemFieldRepositoryInterface
 {
+    use RepositoryTrait;
+
     public function __construct(ItemField $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 }

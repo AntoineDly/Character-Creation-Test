@@ -6,13 +6,15 @@ namespace App\Games\Repositories;
 
 use App\Games\Models\Game;
 use App\Helpers\AssertHelper;
-use App\Shared\Repositories\AbstractRepository\AbstractRepository;
+use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
 
-final readonly class GameRepository extends AbstractRepository implements GameRepositoryInterface
+final readonly class GameRepository implements GameRepositoryInterface
 {
+    use RepositoryTrait;
+
     public function __construct(Game $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     public function getGameWithCategoriesAndPlayableItemsById(string $id): Game

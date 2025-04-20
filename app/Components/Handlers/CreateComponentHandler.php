@@ -7,8 +7,8 @@ namespace App\Components\Handlers;
 use App\Components\Commands\CreateComponentCommand;
 use App\Components\Repositories\ComponentRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
+use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreateComponentHandler implements CommandHandlerInterface
 {

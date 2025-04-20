@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Shared\CommandBus;
 
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\Http\InvalidClassException;
-use App\Shared\Exceptions\Http\IsNotObjectException;
 use App\Shared\Handlers\CommandHandlerInterface;
+use App\Shared\Http\Exceptions\InvalidClassException;
+use App\Shared\Http\Exceptions\IsNotObjectException;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
 

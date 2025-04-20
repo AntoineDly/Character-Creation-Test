@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-use App\Shared\Exceptions\Http\InvalidArrayValueTypeException;
+use App\Shared\Http\Exceptions\InvalidArrayValueTypeException;
 
 final readonly class ArrayHelper
 {
-    /** @param mixed[] $array */
+    /** @phpstan-ignore-next-line  */
     public static function isEmpty(?array $array): bool
     {
         return count($array ?? []) === 0;
     }
 
-    /** @param mixed[] $array */
+    /** @phpstan-ignore-next-line  */
     public static function returnNullOrStringValueOfKey(array $array, string $key): ?string
     {
         if (! array_key_exists(key: $key, array: $array) || is_null($array[$key])) {

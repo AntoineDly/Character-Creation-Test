@@ -6,7 +6,7 @@ namespace App\Users\Controllers\Api;
 
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
-use App\Shared\Exceptions\Http\HttpExceptionInterface;
+use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use App\Users\Builders\UserDtoBuilder;
 use App\Users\Commands\CreateUserCommand;
 use App\Users\Exceptions\TokenNotFoundException;

@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Builders;
+namespace App\Shared\SortAndPagination\Builders;
 
+use App\Shared\Builders\BuilderInterface;
 use App\Shared\Dtos\DtoInterface;
-use App\Shared\Dtos\DtosWithPaginationDto;
-use App\Shared\Dtos\PaginationDto;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
+use App\Shared\SortAndPagination\Dtos\PaginationDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 

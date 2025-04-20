@@ -7,8 +7,8 @@ namespace App\LinkedItems\Handlers;
 use App\LinkedItems\Commands\CreateLinkedItemCommand;
 use App\LinkedItems\Repositories\LinkedItemRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
+use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreateLinkedItemHandler implements CommandHandlerInterface
 {

@@ -6,11 +6,11 @@ namespace App\Items\Queries;
 
 use App\Items\Repositories\ItemRepositoryInterface;
 use App\Items\Services\ItemQueriesService;
-use App\Shared\Builders\DtosWithPaginationDtoBuilder;
-use App\Shared\Dtos\DtosWithPaginationDto;
-use App\Shared\Dtos\SortedAndPaginatedDto;
 use App\Shared\Queries\QueryInterface;
-use App\Shared\Traits\DtosWithPaginationBuilderHelper;
+use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
+use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
+use App\Shared\SortAndPagination\Traits\DtosWithPaginationBuilderHelper;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetItemsQuery implements QueryInterface

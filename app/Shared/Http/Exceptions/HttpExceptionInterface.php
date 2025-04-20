@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Exceptions\Http;
+namespace App\Shared\Http\Exceptions;
 
-use App\Shared\Enums\HttpStatusEnum;
+use App\Shared\Http\Enums\HttpStatusEnum;
 use Throwable;
 
 interface HttpExceptionInterface extends Throwable

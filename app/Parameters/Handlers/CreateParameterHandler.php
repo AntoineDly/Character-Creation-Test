@@ -7,8 +7,8 @@ namespace App\Parameters\Handlers;
 use App\Parameters\Commands\CreateParameterCommand;
 use App\Parameters\Repositories\ParameterRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
+use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreateParameterHandler implements CommandHandlerInterface
 {

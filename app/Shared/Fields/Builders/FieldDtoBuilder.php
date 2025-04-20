@@ -7,11 +7,11 @@ namespace App\Shared\Fields\Builders;
 use App\Helpers\UuidHelper;
 use App\Parameters\Enums\TypeParameterEnum;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Enums\TypeFieldEnum;
-use App\Shared\Exceptions\Http\InvalidClassException;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
-use App\Shared\Exceptions\Http\StringIsEmptyException;
 use App\Shared\Fields\Dtos\FieldDto;
+use App\Shared\Fields\Enums\TypeFieldEnum;
+use App\Shared\Http\Exceptions\InvalidClassException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Http\Exceptions\StringIsEmptyException;
 
 final class FieldDtoBuilder implements BuilderInterface
 {
@@ -67,13 +67,8 @@ final class FieldDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    public function setTypeFieldEnum(TypeFieldEnum|string $typeFieldEnum): static
+    public function setTypeFieldEnum(TypeFieldEnum $typeFieldEnum): static
     {
-        if (is_string($typeFieldEnum)) {
-            $this->typeFieldEnum = TypeFieldEnum::tryFrom($typeFieldEnum) ?? '';
-
-            return $this;
-        }
         $this->typeFieldEnum = $typeFieldEnum;
 
         return $this;

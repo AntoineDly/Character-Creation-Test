@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\LinkedItemFields\Exceptions;
 
-use App\Shared\Exceptions\Http\Abstract\HttpNotFoundException;
+use App\Shared\Http\Exceptions\Abstract\HttpNotFoundException;
 
 final class LinkedItemFieldNotFoundException extends HttpNotFoundException
 {

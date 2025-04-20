@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Shared\Controllers\ApiController;
 
 use App\Shared\Dtos\DtoInterface;
-use App\Shared\Enums\HttpStatusEnum;
-use App\Shared\Exceptions\Http\HttpExceptionInterface;
+use App\Shared\Http\Enums\HttpStatusEnum;
+use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Throwable;

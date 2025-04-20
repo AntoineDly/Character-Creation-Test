@@ -9,7 +9,7 @@ use App\Games\Dtos\GameDto;
 use App\Games\Exceptions\GameNotFoundException;
 use App\Helpers\UuidHelper;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
 
 final class CharacterWithGameDtoBuilder implements BuilderInterface
 {

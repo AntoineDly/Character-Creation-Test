@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\PlayableItemFields\Handlers;
 
+use App\Parameters\Services\ParameterService;
 use App\PlayableItemFields\Commands\CreatePlayableItemFieldCommand;
 use App\PlayableItemFields\Repositories\PlayableItemFieldRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
-use App\Shared\Services\ParameterService;
+use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreatePlayableItemFieldHandler implements CommandHandlerInterface
 {

@@ -7,7 +7,7 @@ namespace App\LinkedItemFields\Models;
 use App\Characters\Models\Character;
 use App\LinkedItems\Models\LinkedItem;
 use App\Parameters\Models\Parameter;
-use App\Shared\Enums\TypeFieldEnum;
+use App\Shared\Fields\Enums\TypeFieldEnum;
 use App\Shared\Fields\Interfaces\FieldInterface;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;

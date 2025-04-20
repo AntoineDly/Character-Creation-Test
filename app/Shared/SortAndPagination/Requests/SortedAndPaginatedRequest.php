@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Requests;
+namespace App\Shared\SortAndPagination\Requests;
 
+use App\Shared\Requests\BaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 final class SortedAndPaginatedRequest extends BaseRequest

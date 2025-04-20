@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Dtos;
+namespace App\Shared\SortAndPagination\Dtos;
 
 use App\Helpers\RequestHelper;
-use App\Shared\Requests\SortedAndPaginatedRequest;
+use App\Shared\Dtos\DtoInterface;
+use App\Shared\SortAndPagination\Requests\SortedAndPaginatedRequest;
 
 final readonly class SortedAndPaginatedDto implements DtoInterface
 {

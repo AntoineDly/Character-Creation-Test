@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Dtos;
+namespace App\Shared\SortAndPagination\Dtos;
+
+use App\Shared\Dtos\DtoInterface;
 
 final readonly class PaginationDto implements DtoInterface
 {

@@ -6,11 +6,11 @@ namespace App\Games\Queries;
 
 use App\Games\Repositories\GameRepositoryInterface;
 use App\Games\Services\GameQueriesService;
-use App\Shared\Builders\DtosWithPaginationDtoBuilder;
-use App\Shared\Dtos\DtosWithPaginationDto;
-use App\Shared\Dtos\SortedAndPaginatedDto;
 use App\Shared\Queries\QueryInterface;
-use App\Shared\Traits\DtosWithPaginationBuilderHelper;
+use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
+use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
+use App\Shared\SortAndPagination\Traits\DtosWithPaginationBuilderHelper;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetGamesQuery implements QueryInterface

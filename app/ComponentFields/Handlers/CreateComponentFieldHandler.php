@@ -6,10 +6,10 @@ namespace App\ComponentFields\Handlers;
 
 use App\ComponentFields\Commands\CreateComponentFieldCommand;
 use App\ComponentFields\Repositories\ComponentFieldRepositoryInterface;
+use App\Parameters\Services\ParameterService;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
-use App\Shared\Services\ParameterService;
+use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreateComponentFieldHandler implements CommandHandlerInterface
 {

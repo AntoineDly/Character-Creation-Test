@@ -18,21 +18,21 @@ final class UserDtoBuilder implements BuilderInterface
 
     public string $token = '';
 
-    public function setId(string $id): self
+    public function setId(string $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(string $email): static
     {
         $this->email = $email;
 
         return $this;
     }
 
-    public function setToken(string $token): self
+    public function setToken(string $token): static
     {
         $this->token = $token;
 

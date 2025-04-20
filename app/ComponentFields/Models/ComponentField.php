@@ -6,6 +6,7 @@ namespace App\ComponentFields\Models;
 
 use App\Components\Models\Component;
 use App\Parameters\Models\Parameter;
+use App\Shared\Enums\TypeFieldEnum;
 use App\Shared\Fields\Interfaces\FieldInterface;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
@@ -69,5 +70,10 @@ final class ComponentField extends Model implements FieldInterface
     public function getParameter(): ?Parameter
     {
         return $this->parameter;
+    }
+
+    public function getType(): TypeFieldEnum
+    {
+        return TypeFieldEnum::COMPONENT_FIELD;
     }
 }

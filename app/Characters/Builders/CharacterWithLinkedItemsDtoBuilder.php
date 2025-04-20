@@ -21,21 +21,21 @@ final class CharacterWithLinkedItemsDtoBuilder implements BuilderInterface
     /** @var CategoryForCharacterDto[] */
     private array $categoryForCharacterDtos = [];
 
-    public function setId(string $id): self
+    public function setId(string $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function setGameDto(GameDto $gameDto): self
+    public function setGameDto(GameDto $gameDto): static
     {
         $this->gameDto = $gameDto;
 
         return $this;
     }
 
-    public function addCategoryForCharacterDto(CategoryForCharacterDto $linkedItemsForCharacterDto): self
+    public function addCategoryForCharacterDto(CategoryForCharacterDto $linkedItemsForCharacterDto): static
     {
         $this->categoryForCharacterDtos[] = $linkedItemsForCharacterDto;
 
@@ -43,7 +43,7 @@ final class CharacterWithLinkedItemsDtoBuilder implements BuilderInterface
     }
 
     /** @param CategoryForCharacterDto[] $categoryForCharacterDto */
-    public function setCategoryForCharacterDtos(array $categoryForCharacterDto): self
+    public function setCategoryForCharacterDtos(array $categoryForCharacterDto): static
     {
         $this->categoryForCharacterDtos = $categoryForCharacterDto;
 

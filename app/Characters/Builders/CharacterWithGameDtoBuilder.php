@@ -17,14 +17,14 @@ final class CharacterWithGameDtoBuilder implements BuilderInterface
 
     private ?GameDto $gameDto = null;
 
-    public function setId(string $id): self
+    public function setId(string $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function setGameDto(GameDto $gameDto): self
+    public function setGameDto(GameDto $gameDto): static
     {
         $this->gameDto = $gameDto;
 

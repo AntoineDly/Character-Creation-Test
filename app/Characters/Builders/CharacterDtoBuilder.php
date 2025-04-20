@@ -13,7 +13,7 @@ final class CharacterDtoBuilder implements BuilderInterface
 {
     private string $id = '';
 
-    public function setId(string $id): self
+    public function setId(string $id): static
     {
         $this->id = $id;
 

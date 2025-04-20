@@ -13,7 +13,7 @@ final readonly class SortedAndPaginatedDto implements DtoInterface
     {
     }
 
-    public static function fromSortedAndPaginatedRequest(SortedAndPaginatedRequest $request): self
+    public static function fromSortedAndPaginatedRequest(SortedAndPaginatedRequest $request): static
     {
         /** @var array{'sortOrder': string, 'perPage': int, 'page': int} $data */
         $data = $request->validated();

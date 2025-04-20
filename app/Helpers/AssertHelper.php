@@ -35,17 +35,29 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class AssertHelper
 {
+    /**
+     * @template T
+     *
+     * @param  class-string<T>  $class
+     * @return T
+     */
+    public static function isClass(object $object, string $class)
+    {
+        if (! $object instanceof $class) {
+            throw new InvalidClassException(data: ['expectedClass' => $class, 'currentClass' => get_class($object)]);
+        }
+
+        /** @var T $object */
+        return $object;
+    }
+
     public static function isCharacter(?Model $character): Character
     {
         if (is_null($character)) {
             throw new CharacterNotFoundException();
         }
 
-        if (! $character instanceof Character) {
-            throw new InvalidClassException(data: ['expectedClass' => Character::class, 'currentClass' => $character::class]);
-        }
-
-        return $character;
+        return self::isClass($character, Character::class);
     }
 
     public static function isGame(?Model $game): Game
@@ -54,11 +66,7 @@ final readonly class AssertHelper
             throw new GameNotFoundException();
         }
 
-        if (! $game instanceof Game) {
-            throw new InvalidClassException(data: ['expectedClass' => Game::class, 'currentClass' => $game::class]);
-        }
-
-        return $game;
+        return self::isClass($game, Game::class);
     }
 
     public static function isCategory(?Model $category): Category
@@ -67,11 +75,7 @@ final readonly class AssertHelper
             throw new CategoryNotFoundException();
         }
 
-        if (! $category instanceof Category) {
-            throw new InvalidClassException(data: ['expectedClass' => Category::class, 'currentClass' => $category::class]);
-        }
-
-        return $category;
+        return self::isClass($category, Category::class);
     }
 
     public static function isComponent(?Model $component): Component
@@ -80,11 +84,7 @@ final readonly class AssertHelper
             throw new ComponentNotFoundException();
         }
 
-        if (! $component instanceof Component) {
-            throw new InvalidClassException(data: ['expectedClass' => Component::class, 'currentClass' => $component::class]);
-        }
-
-        return $component;
+        return self::isClass($component, Component::class);
     }
 
     public static function isItem(?Model $item): Item
@@ -93,11 +93,7 @@ final readonly class AssertHelper
             throw new ItemNotFoundException();
         }
 
-        if (! $item instanceof Item) {
-            throw new InvalidClassException(data: ['expectedClass' => Item::class, 'currentClass' => $item::class]);
-        }
-
-        return $item;
+        return self::isClass($item, Item::class);
     }
 
     public static function isPlayableItem(?Model $playableItem): PlayableItem
@@ -106,11 +102,7 @@ final readonly class AssertHelper
             throw new PlayableItemNotFoundException();
         }
 
-        if (! $playableItem instanceof PlayableItem) {
-            throw new InvalidClassException(data: ['expectedClass' => PlayableItem::class, 'currentClass' => $playableItem::class]);
-        }
-
-        return $playableItem;
+        return self::isClass($playableItem, PlayableItem::class);
     }
 
     public static function isLinkedItem(?Model $linkedItem): LinkedItem
@@ -119,11 +111,7 @@ final readonly class AssertHelper
             throw new LinkedItemNotFoundException();
         }
 
-        if (! $linkedItem instanceof LinkedItem) {
-            throw new InvalidClassException(data: ['expectedClass' => LinkedItem::class, 'currentClass' => $linkedItem::class]);
-        }
-
-        return $linkedItem;
+        return self::isClass($linkedItem, LinkedItem::class);
     }
 
     public static function isFieldInterface(?Model $fieldInterface): FieldInterface
@@ -132,11 +120,7 @@ final readonly class AssertHelper
             throw new FieldInterfaceNotFoundException();
         }
 
-        if (! $fieldInterface instanceof FieldInterface) {
-            throw new InvalidClassException(data: ['expectedImplementedInterface' => FieldInterface::class, 'currentClass' => $fieldInterface::class]);
-        }
-
-        return $fieldInterface;
+        return self::isClass($fieldInterface, FieldInterface::class);
     }
 
     public static function isComponentField(?Model $componentField): ComponentField
@@ -145,11 +129,7 @@ final readonly class AssertHelper
             throw new ComponentFieldNotFoundException();
         }
 
-        if (! $componentField instanceof ComponentField) {
-            throw new InvalidClassException(data: ['expectedClass' => ComponentField::class, 'currentClass' => $componentField::class]);
-        }
-
-        return $componentField;
+        return self::isClass($componentField, ComponentField::class);
     }
 
     public static function isItemField(?Model $itemField): ItemField
@@ -158,11 +138,7 @@ final readonly class AssertHelper
             throw new ItemFieldNotFoundException();
         }
 
-        if (! $itemField instanceof ItemField) {
-            throw new InvalidClassException(data: ['expectedClass' => ItemField::class, 'currentClass' => $itemField::class]);
-        }
-
-        return $itemField;
+        return self::isClass($itemField, ItemField::class);
     }
 
     public static function isPlayableItemField(?Model $playableItemField): PlayableItemField
@@ -171,11 +147,7 @@ final readonly class AssertHelper
             throw new PlayableItemFieldNotFoundException();
         }
 
-        if (! $playableItemField instanceof PlayableItemField) {
-            throw new InvalidClassException(data: ['expectedClass' => PlayableItemField::class, 'currentClass' => $playableItemField::class]);
-        }
-
-        return $playableItemField;
+        return self::isClass($playableItemField, PlayableItemField::class);
     }
 
     public static function isLinkedItemField(?Model $linkedItemField): LinkedItemField
@@ -184,11 +156,7 @@ final readonly class AssertHelper
             throw new LinkedItemFieldNotFoundException();
         }
 
-        if (! $linkedItemField instanceof LinkedItemField) {
-            throw new InvalidClassException(data: ['expectedClass' => LinkedItemField::class, 'currentClass' => $linkedItemField::class]);
-        }
-
-        return $linkedItemField;
+        return self::isClass($linkedItemField, LinkedItemField::class);
     }
 
     public static function isParameter(?Model $parameter): Parameter
@@ -197,10 +165,6 @@ final readonly class AssertHelper
             throw new ParameterNotFoundException();
         }
 
-        if (! $parameter instanceof Parameter) {
-            throw new InvalidClassException(data: ['expectedClass' => Parameter::class, 'currentClass' => $parameter::class]);
-        }
-
-        return $parameter;
+        return self::isClass($parameter, Parameter::class);
     }
 }

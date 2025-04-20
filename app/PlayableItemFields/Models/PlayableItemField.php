@@ -6,6 +6,7 @@ namespace App\PlayableItemFields\Models;
 
 use App\Parameters\Models\Parameter;
 use App\PlayableItems\Models\PlayableItem;
+use App\Shared\Enums\TypeFieldEnum;
 use App\Shared\Fields\Interfaces\FieldInterface;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
@@ -69,5 +70,10 @@ final class PlayableItemField extends Model implements FieldInterface
     public function getParameter(): ?Parameter
     {
         return $this->parameter;
+    }
+
+    public function getType(): TypeFieldEnum
+    {
+        return TypeFieldEnum::PLAYABLE_ITEM_FIELD;
     }
 }

@@ -23,10 +23,10 @@ use App\Items\Exceptions\ItemNotFoundException;
 use App\LinkedItems\Builders\LinkedItemForCharacterDtoBuilder;
 use App\LinkedItems\Dtos\LinkedItemForCharacterDto;
 use App\LinkedItems\Exceptions\LinkedItemNotFoundException;
-use App\Shared\Exceptions\Http\InvalidClassException;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
-use App\Shared\Exceptions\Http\StringIsEmptyException;
 use App\Shared\Fields\Services\FieldServices;
+use App\Shared\Http\Exceptions\InvalidClassException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Http\Exceptions\StringIsEmptyException;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class CharacterQueriesService
@@ -116,16 +116,21 @@ final readonly class CharacterQueriesService
             $categoryId = $category->id;
 
             $fieldDtos = $this->fieldServices->getFieldDtoCollectionFromFieldInterfaces([
-                ...$linkedItem->linkedItemFields, ...$item->itemFields, ...$component->componentFields,
+                ...$linkedItem->linkedItemFields,
+                ...$playableItem->playableItemFields,
+                ...$item->itemFields,
+                ...$component->componentFields,
             ]);
 
             $linkedItemForCharacterDto = $this->linkedItemsForCharacterDtoBuilder
                 ->setId($linkedItem->id)
                 ->setFieldDtoCollection($fieldDtos)
                 ->build();
-            if (array_key_exists($categoryId, $categories)) {
-                $categories[$categoryId]['linkedItemForCharacterDtos'][] = $linkedItemForCharacterDto;
+
+            if (! array_key_exists($categoryId, $categories)) {
+                throw new CategoryNotFoundException(message: 'Category not found inside game.');
             }
+            $categories[$categoryId]['linkedItemForCharacterDtos'][] = $linkedItemForCharacterDto;
         }
 
         foreach ($categories as $categoryId => $categoryData) {

@@ -7,7 +7,7 @@ namespace App\PlayableItems\Builders;
 use App\Helpers\UuidHelper;
 use App\PlayableItems\Dtos\PlayableItemDto;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
 
 final class PlayableItemDtoBuilder implements BuilderInterface
 {

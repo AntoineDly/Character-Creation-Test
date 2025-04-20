@@ -8,8 +8,8 @@ use App\Categories\Dtos\CategoryForCharacterDto;
 use App\Helpers\UuidHelper;
 use App\LinkedItems\Dtos\LinkedItemForCharacterDto;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
-use App\Shared\Exceptions\Http\StringIsEmptyException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Http\Exceptions\StringIsEmptyException;
 
 final class CategoryForCharacterDtoBuilder implements BuilderInterface
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Exceptions\Http;
+namespace App\Shared\Http\Exceptions;
 
-use App\Shared\Exceptions\Http\Abstract\HttpUnprocessableEntityException;
+use App\Shared\Http\Exceptions\Abstract\HttpUnprocessableEntityException;
 use Illuminate\Validation\ValidationException;
 
 final class InvalidBodyParamsException extends HttpUnprocessableEntityException

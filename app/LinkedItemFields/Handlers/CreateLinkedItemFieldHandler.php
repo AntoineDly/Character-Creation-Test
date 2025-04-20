@@ -6,10 +6,10 @@ namespace App\LinkedItemFields\Handlers;
 
 use App\LinkedItemFields\Commands\CreateLinkedItemFieldCommand;
 use App\LinkedItemFields\Repositories\LinkedItemFieldRepositoryInterface;
+use App\Parameters\Services\ParameterService;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
-use App\Shared\Services\ParameterService;
+use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreateLinkedItemFieldHandler implements CommandHandlerInterface
 {

@@ -8,9 +8,9 @@ use App\Helpers\UuidHelper;
 use App\Parameters\Dtos\ParameterDto;
 use App\Parameters\Enums\TypeParameterEnum;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\InvalidTypeParameterException;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
-use App\Shared\Exceptions\Http\StringIsEmptyException;
+use App\Shared\Http\Exceptions\InvalidTypeParameterException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Http\Exceptions\StringIsEmptyException;
 
 final class ParameterDtoBuilder implements BuilderInterface
 {

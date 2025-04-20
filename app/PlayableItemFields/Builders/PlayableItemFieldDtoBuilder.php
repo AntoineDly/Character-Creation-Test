@@ -7,8 +7,8 @@ namespace App\PlayableItemFields\Builders;
 use App\Helpers\UuidHelper;
 use App\PlayableItemFields\Dtos\PlayableItemFieldDto;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
-use App\Shared\Exceptions\Http\StringIsEmptyException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Http\Exceptions\StringIsEmptyException;
 
 final class PlayableItemFieldDtoBuilder implements BuilderInterface
 {

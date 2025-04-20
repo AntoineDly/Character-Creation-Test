@@ -11,7 +11,7 @@ use App\ComponentFields\Requests\UpdatePartiallyComponentFieldRequest;
 use App\Helpers\ArrayHelper;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
-use App\Shared\Exceptions\Http\HttpExceptionInterface;
+use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Throwable;

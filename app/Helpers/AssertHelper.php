@@ -28,9 +28,9 @@ use App\PlayableItemFields\Exceptions\PlayableItemFieldNotFoundException;
 use App\PlayableItemFields\Models\PlayableItemField;
 use App\PlayableItems\Exceptions\PlayableItemNotFoundException;
 use App\PlayableItems\Models\PlayableItem;
-use App\Shared\Exceptions\Http\InvalidClassException;
 use App\Shared\Fields\Exceptions\FieldInterfaceNotFoundException;
 use App\Shared\Fields\Interfaces\FieldInterface;
+use App\Shared\Http\Exceptions\InvalidClassException;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class AssertHelper

@@ -7,7 +7,7 @@ namespace App\Components\Builders;
 use App\Components\Dtos\ComponentDto;
 use App\Helpers\UuidHelper;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
 
 final class ComponentDtoBuilder implements BuilderInterface
 {

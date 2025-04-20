@@ -7,7 +7,7 @@ namespace App\Characters\Builders;
 use App\Characters\Dtos\CharacterDto;
 use App\Helpers\UuidHelper;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
 
 final class CharacterDtoBuilder implements BuilderInterface
 {

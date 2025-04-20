@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Enums;
+namespace App\Shared\Fields\Enums;
 
 enum TypeFieldEnum: int
 {

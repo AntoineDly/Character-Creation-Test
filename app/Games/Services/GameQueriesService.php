@@ -15,9 +15,9 @@ use App\Games\Models\Game;
 use App\Helpers\AssertHelper;
 use App\PlayableItems\Dtos\PlayableItemDto;
 use App\PlayableItems\Services\PlayableItemQueriesService;
-use App\Shared\Exceptions\Http\InvalidClassException;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
-use App\Shared\Exceptions\Http\StringIsEmptyException;
+use App\Shared\Http\Exceptions\InvalidClassException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Http\Exceptions\StringIsEmptyException;
 use Illuminate\Database\Eloquent\Model;
 
 final readonly class GameQueriesService

@@ -6,7 +6,7 @@ namespace App\PlayableItemFields\Models;
 
 use App\Parameters\Models\Parameter;
 use App\PlayableItems\Models\PlayableItem;
-use App\Shared\Enums\TypeFieldEnum;
+use App\Shared\Fields\Enums\TypeFieldEnum;
 use App\Shared\Fields\Interfaces\FieldInterface;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;

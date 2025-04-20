@@ -6,7 +6,7 @@ namespace App\Shared\Fields\Dtos;
 
 use App\Parameters\Enums\TypeParameterEnum;
 use App\Shared\Dtos\DtoInterface;
-use App\Shared\Enums\TypeFieldEnum;
+use App\Shared\Fields\Enums\TypeFieldEnum;
 
 final readonly class FieldDto implements DtoInterface
 {

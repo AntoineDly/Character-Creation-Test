@@ -8,8 +8,8 @@ use App\Games\Commands\UpdateGameCommand;
 use App\Games\Exceptions\GameNotFoundException;
 use App\Games\Repositories\GameRepositoryInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Exceptions\Http\IncorrectCommandException;
 use App\Shared\Handlers\CommandHandlerInterface;
+use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class UpdateGameHandler implements CommandHandlerInterface
 {

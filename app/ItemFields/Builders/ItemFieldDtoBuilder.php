@@ -7,8 +7,8 @@ namespace App\ItemFields\Builders;
 use App\Helpers\UuidHelper;
 use App\ItemFields\Dtos\ItemFieldDto;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
-use App\Shared\Exceptions\Http\StringIsEmptyException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Http\Exceptions\StringIsEmptyException;
 
 final class ItemFieldDtoBuilder implements BuilderInterface
 {

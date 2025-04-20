@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Services;
+namespace App\Parameters\Services;
 
 use App\Helpers\AssertHelper;
 use App\Parameters\Enums\TypeParameterEnum;
 use App\Parameters\Models\Parameter;
 use App\Parameters\Repositories\ParameterRepositoryInterface;
-use App\Shared\Exceptions\Http\InvalidValueForParameterTypeException;
+use App\Shared\Http\Exceptions\InvalidValueForParameterTypeException;
 
 final readonly class ParameterService
 {
@@ -30,10 +30,10 @@ final readonly class ParameterService
         }
 
         if ($type === TypeParameterEnum::BOOLEAN) {
-            if (! in_array($value, self::BOOLEAN_VALUES)) {
+            if (! in_array($value, self::BOOLEAN_VALUES, true)) {
                 throw new InvalidValueForParameterTypeException(data: ['value' => $value, 'valueType' => gettype($value), 'expectedCastableType' => TypeParameterEnum::BOOLEAN->value]);
             }
-            if (in_array($value, self::BOOLEAN_VALUES_TO_CONVERT_TO_FALSE)) {
+            if (in_array($value, self::BOOLEAN_VALUES_TO_CONVERT_TO_FALSE, true)) {
                 $value = self::FALSE_VALUE;
             }
         }

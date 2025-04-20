@@ -7,8 +7,8 @@ namespace App\Categories\Builders;
 use App\Categories\Dtos\CategoryDto;
 use App\Helpers\UuidHelper;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
-use App\Shared\Exceptions\Http\StringIsEmptyException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Http\Exceptions\StringIsEmptyException;
 
 final class CategoryDtoBuilder implements BuilderInterface
 {

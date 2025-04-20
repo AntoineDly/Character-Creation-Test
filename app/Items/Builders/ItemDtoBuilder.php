@@ -7,7 +7,7 @@ namespace App\Items\Builders;
 use App\Helpers\UuidHelper;
 use App\Items\Dtos\ItemDto;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
 
 final class ItemDtoBuilder implements BuilderInterface
 {

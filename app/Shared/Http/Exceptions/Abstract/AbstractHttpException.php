@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Exceptions\Http\Abstract;
+namespace App\Shared\Http\Exceptions\Abstract;
 
-use App\Shared\Enums\HttpStatusEnum;
-use App\Shared\Exceptions\Http\HttpExceptionInterface;
+use App\Shared\Http\Enums\HttpStatusEnum;
+use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Exception;
 
 abstract class AbstractHttpException extends Exception implements HttpExceptionInterface

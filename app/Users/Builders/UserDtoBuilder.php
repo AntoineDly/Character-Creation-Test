@@ -6,8 +6,8 @@ namespace App\Users\Builders;
 
 use App\Helpers\UuidHelper;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
-use App\Shared\Exceptions\Http\StringIsEmptyException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Http\Exceptions\StringIsEmptyException;
 use App\Users\Dtos\UserDto;
 
 final class UserDtoBuilder implements BuilderInterface

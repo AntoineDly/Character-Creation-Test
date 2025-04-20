@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Exceptions\Http\Abstract;
+namespace App\Shared\Http\Exceptions\Abstract;
 
-use App\Shared\Enums\HttpStatusEnum;
+use App\Shared\Http\Enums\HttpStatusEnum;
 
 abstract class HttpUnprocessableEntityException extends AbstractHttpException
 {

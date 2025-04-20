@@ -7,8 +7,8 @@ namespace App\ComponentFields\Builders;
 use App\ComponentFields\Dtos\ComponentFieldDto;
 use App\Helpers\UuidHelper;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
-use App\Shared\Exceptions\Http\StringIsEmptyException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Http\Exceptions\StringIsEmptyException;
 
 final class ComponentFieldDtoBuilder implements BuilderInterface
 {

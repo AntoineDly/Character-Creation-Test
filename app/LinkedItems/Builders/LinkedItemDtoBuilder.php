@@ -7,7 +7,7 @@ namespace App\LinkedItems\Builders;
 use App\Helpers\UuidHelper;
 use App\LinkedItems\Dtos\LinkedItemDto;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Exceptions\Http\NotAValidUuidException;
+use App\Shared\Http\Exceptions\NotAValidUuidException;
 
 final class LinkedItemDtoBuilder implements BuilderInterface
 {

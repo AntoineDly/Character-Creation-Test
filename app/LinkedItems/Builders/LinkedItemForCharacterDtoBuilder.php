@@ -7,56 +7,32 @@ namespace App\LinkedItems\Builders;
 use App\Helpers\UuidHelper;
 use App\LinkedItems\Dtos\LinkedItemForCharacterDto;
 use App\Shared\Builders\BuilderInterface;
-use App\Shared\Enums\TypeFieldEnum;
 use App\Shared\Exceptions\Http\NotAValidUuidException;
-use App\Shared\Fields\Dtos\FieldDto;
+use App\Shared\Fields\Collection\FieldDtoCollection;
 
 final class LinkedItemForCharacterDtoBuilder implements BuilderInterface
 {
     private string $id = '';
 
-    /** @var FieldDto[] */
-    private array $fieldDtos = [];
+    private FieldDtoCollection $fieldDtoCollection;
 
-    public function setId(string $id): self
+    public function __construct()
+    {
+        $this->fieldDtoCollection = new FieldDtoCollection();
+    }
+
+    public function setId(string $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function addSharedFieldDto(FieldDto $sharedFieldDto): self
+    public function setFieldDtoCollection(FieldDtoCollection $fieldDtoCollection): static
     {
-        $this->fieldDtos[] = $sharedFieldDto;
+        $this->fieldDtoCollection = $fieldDtoCollection;
 
         return $this;
-    }
-
-    /** @param FieldDto[] $fieldDtos */
-    public function setFieldDtos(array $fieldDtos): self
-    {
-        $this->fieldDtos = $fieldDtos;
-
-        return $this;
-    }
-
-    public function containsSharedFieldDtoWithSameNameAndBiggerWeightOrRemoveIfLower(string $name, TypeFieldEnum $type): bool
-    {
-        foreach ($this->fieldDtos as $key => $sharedFieldDto) {
-            if ($sharedFieldDto->name !== $name) {
-                continue;
-            }
-
-            if ($sharedFieldDto->typeFieldEnum->weight() > $type->weight()) {
-                return true;
-            }
-
-            unset($this->fieldDtos[$key]);
-
-            return false;
-        }
-
-        return false;
     }
 
     public function build(): LinkedItemForCharacterDto
@@ -67,11 +43,11 @@ final class LinkedItemForCharacterDtoBuilder implements BuilderInterface
 
         $linkedItemForCharacterDto = new LinkedItemForCharacterDto(
             id: $this->id,
-            fieldDtos: $this->fieldDtos
+            fieldDtoCollection: $this->fieldDtoCollection
         );
 
         $this->id = '';
-        $this->fieldDtos = [];
+        $this->fieldDtoCollection = new FieldDtoCollection();
 
         return $linkedItemForCharacterDto;
     }

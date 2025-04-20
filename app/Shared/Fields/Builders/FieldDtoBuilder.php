@@ -27,35 +27,35 @@ final class FieldDtoBuilder implements BuilderInterface
 
     private TypeFieldEnum|string $typeFieldEnum = '';
 
-    public function setId(string $id): self
+    public function setId(string $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function setParameterId(string $parameterId): self
+    public function setParameterId(string $parameterId): static
     {
         $this->parameterId = $parameterId;
 
         return $this;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function setValue(string $value): self
+    public function setValue(string $value): static
     {
         $this->value = $value;
 
         return $this;
     }
 
-    public function setTypeParameterEnum(TypeParameterEnum|string $typeParameterEnum): self
+    public function setTypeParameterEnum(TypeParameterEnum|string $typeParameterEnum): static
     {
         if (is_string($typeParameterEnum)) {
             $this->typeParameterEnum = TypeParameterEnum::tryFrom($typeParameterEnum) ?? '';
@@ -67,7 +67,7 @@ final class FieldDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    public function setTypeFieldEnum(TypeFieldEnum|string $typeFieldEnum): self
+    public function setTypeFieldEnum(TypeFieldEnum|string $typeFieldEnum): static
     {
         if (is_string($typeFieldEnum)) {
             $this->typeFieldEnum = TypeFieldEnum::tryFrom($typeFieldEnum) ?? '';

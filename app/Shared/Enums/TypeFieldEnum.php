@@ -4,20 +4,15 @@ declare(strict_types=1);
 
 namespace App\Shared\Enums;
 
-enum TypeFieldEnum: string
+enum TypeFieldEnum: int
 {
-    case LINKED_ITEM_FIELD = 'linked_item_field';
-    case PLAYABLE_ITEM_FIELD = 'playable_item_field';
-    case ITEM_FIELD = 'item_field';
-    case COMPONENT_FIELD = 'component_field';
+    case LINKED_ITEM_FIELD = 4;
+    case PLAYABLE_ITEM_FIELD = 3;
+    case ITEM_FIELD = 2;
+    case COMPONENT_FIELD = 1;
 
-    public function weight(): int
+    public function getValueName(): string
     {
-        return match ($this) {
-            self::LINKED_ITEM_FIELD => 4,
-            self::PLAYABLE_ITEM_FIELD => 3,
-            self::ITEM_FIELD => 2,
-            self::COMPONENT_FIELD => 1,
-        };
+        return strtolower($this->name);
     }
 }

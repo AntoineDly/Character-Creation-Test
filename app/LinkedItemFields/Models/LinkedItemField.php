@@ -7,6 +7,7 @@ namespace App\LinkedItemFields\Models;
 use App\Characters\Models\Character;
 use App\LinkedItems\Models\LinkedItem;
 use App\Parameters\Models\Parameter;
+use App\Shared\Enums\TypeFieldEnum;
 use App\Shared\Fields\Interfaces\FieldInterface;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
@@ -80,5 +81,10 @@ final class LinkedItemField extends Model implements FieldInterface
     public function getParameter(): ?Parameter
     {
         return $this->parameter;
+    }
+
+    public function getType(): TypeFieldEnum
+    {
+        return TypeFieldEnum::LINKED_ITEM_FIELD;
     }
 }

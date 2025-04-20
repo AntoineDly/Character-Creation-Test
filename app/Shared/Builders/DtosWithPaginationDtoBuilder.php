@@ -30,56 +30,56 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
     public ?int $lastPage = null;
 
     /** @param DtoInterface[] $dtos */
-    public function setDtos(array $dtos): self
+    public function setDtos(array $dtos): static
     {
         $this->dtos = $dtos;
 
         return $this;
     }
 
-    public function setCurrentPage(int $currentPage): self
+    public function setCurrentPage(int $currentPage): static
     {
         $this->currentPage = $currentPage;
 
         return $this;
     }
 
-    public function setPerPage(int $perPage): self
+    public function setPerPage(int $perPage): static
     {
         $this->perPage = $perPage;
 
         return $this;
     }
 
-    public function setTotal(int $total): self
+    public function setTotal(int $total): static
     {
         $this->total = $total;
 
         return $this;
     }
 
-    public function setFirstPage(?int $firstPage): self
+    public function setFirstPage(?int $firstPage): static
     {
         $this->firstPage = $firstPage;
 
         return $this;
     }
 
-    public function setPreviousPage(?int $previousPage): self
+    public function setPreviousPage(?int $previousPage): static
     {
         $this->previousPage = $previousPage;
 
         return $this;
     }
 
-    public function setNextPage(?int $nextPage): self
+    public function setNextPage(?int $nextPage): static
     {
         $this->nextPage = $nextPage;
 
         return $this;
     }
 
-    public function setLastPage(?int $lastPage): self
+    public function setLastPage(?int $lastPage): static
     {
         $this->lastPage = $lastPage;
 
@@ -89,7 +89,7 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
     /**
      * @param  LengthAwarePaginator<Model>  $lengthAwarePaginator
      */
-    public function setDataFromLengthAwarePaginator(LengthAwarePaginator $lengthAwarePaginator): self
+    public function setDataFromLengthAwarePaginator(LengthAwarePaginator $lengthAwarePaginator): static
     {
         $this->setCurrentPage($lengthAwarePaginator->currentPage());
         $this->setTotal($lengthAwarePaginator->total());

@@ -24,14 +24,14 @@ final class GameWithCategoriesAndPlayableItemsDtoBuilder implements BuilderInter
     /** @var PlayableItemDto[] */
     private array $playableItemDtos = [];
 
-    public function setId(string $id): self
+    public function setId(string $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -39,7 +39,7 @@ final class GameWithCategoriesAndPlayableItemsDtoBuilder implements BuilderInter
     }
 
     /** @param CategoryDto[] $categoryDtos */
-    public function setCategoryDtos(array $categoryDtos): self
+    public function setCategoryDtos(array $categoryDtos): static
     {
         $this->categoryDtos = $categoryDtos;
 
@@ -47,7 +47,7 @@ final class GameWithCategoriesAndPlayableItemsDtoBuilder implements BuilderInter
     }
 
     /** @param PlayableItemDto[] $playableItemDtos */
-    public function setPlayableItemDtos(array $playableItemDtos): self
+    public function setPlayableItemDtos(array $playableItemDtos): static
     {
         $this->playableItemDtos = $playableItemDtos;
 

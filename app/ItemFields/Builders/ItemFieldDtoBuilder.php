@@ -16,14 +16,14 @@ final class ItemFieldDtoBuilder implements BuilderInterface
 
     private string $value = '';
 
-    public function setId(string $id): self
+    public function setId(string $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function setValue(string $value): self
+    public function setValue(string $value): static
     {
         $this->value = $value;
 

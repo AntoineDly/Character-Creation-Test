@@ -23,7 +23,6 @@ use App\Items\Exceptions\ItemNotFoundException;
 use App\LinkedItems\Builders\LinkedItemForCharacterDtoBuilder;
 use App\LinkedItems\Dtos\LinkedItemForCharacterDto;
 use App\LinkedItems\Exceptions\LinkedItemNotFoundException;
-use App\Shared\Enums\TypeFieldEnum;
 use App\Shared\Exceptions\Http\InvalidClassException;
 use App\Shared\Exceptions\Http\NotAValidUuidException;
 use App\Shared\Exceptions\Http\StringIsEmptyException;
@@ -116,38 +115,14 @@ final readonly class CharacterQueriesService
             $category = AssertHelper::isCategory($item->category);
             $categoryId = $category->id;
 
-            $this->linkedItemsForCharacterDtoBuilder
-                ->setId($linkedItem->id);
+            $fieldDtos = $this->fieldServices->getFieldDtoCollectionFromFieldInterfaces([
+                ...$linkedItem->linkedItemFields, ...$item->itemFields, ...$component->componentFields,
+            ]);
 
-            foreach ($linkedItem->linkedItemFields as $field) {
-                $this->fieldServices->insertFieldIntoLinkedItemsForCharacterDtoBuilder(
-                    $this->linkedItemsForCharacterDtoBuilder,
-                    $field,
-                    TypeFieldEnum::LINKED_ITEM_FIELD
-                );
-            }
-            foreach ($playableItem->playableItemFields as $field) {
-                $this->fieldServices->insertFieldIntoLinkedItemsForCharacterDtoBuilder(
-                    $this->linkedItemsForCharacterDtoBuilder,
-                    $field,
-                    TypeFieldEnum::PLAYABLE_ITEM_FIELD
-                );
-            }
-            foreach ($item->itemFields as $itemField) {
-                $this->fieldServices->insertFieldIntoLinkedItemsForCharacterDtoBuilder(
-                    $this->linkedItemsForCharacterDtoBuilder,
-                    $itemField,
-                    TypeFieldEnum::ITEM_FIELD
-                );
-            }
-            foreach ($component->componentFields as $componentField) {
-                $this->fieldServices->insertFieldIntoLinkedItemsForCharacterDtoBuilder(
-                    $this->linkedItemsForCharacterDtoBuilder,
-                    $componentField,
-                    TypeFieldEnum::COMPONENT_FIELD
-                );
-            }
-            $linkedItemForCharacterDto = $this->linkedItemsForCharacterDtoBuilder->build();
+            $linkedItemForCharacterDto = $this->linkedItemsForCharacterDtoBuilder
+                ->setId($linkedItem->id)
+                ->setFieldDtoCollection($fieldDtos)
+                ->build();
             if (array_key_exists($categoryId, $categories)) {
                 $categories[$categoryId]['linkedItemForCharacterDtos'][] = $linkedItemForCharacterDto;
             }

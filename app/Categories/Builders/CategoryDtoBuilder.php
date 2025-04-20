@@ -16,14 +16,14 @@ final class CategoryDtoBuilder implements BuilderInterface
 
     private string $name = '';
 
-    public function setId(string $id): self
+    public function setId(string $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 

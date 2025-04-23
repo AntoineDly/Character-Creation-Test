@@ -8,7 +8,7 @@ use App\Characters\Exceptions\CharacterNotFoundException;
 use App\Characters\Models\Character;
 use App\Helpers\AssertHelper;
 use App\Shared\Http\Exceptions\InvalidClassException;
-use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
+use App\Shared\Repositories\RepositoryTrait;
 
 final readonly class CharacterRepository implements CharacterRepositoryInterface
 {

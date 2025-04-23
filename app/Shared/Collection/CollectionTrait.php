@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Traits;
+namespace App\Shared\Collection;
 
 use ArrayIterator;
 
@@ -147,6 +147,24 @@ trait CollectionTrait
      * @return array<int, T>
      */
     public function all(): array
+    {
+        return $this->elements;
+    }
+
+    /** @return T[] */
+    public function __serialize(): array
+    {
+        return $this->elements;
+    }
+
+    /** @param T[] $elements */
+    public function __unserialize(array $elements): void
+    {
+        $this->elements = $elements;
+    }
+
+    /** @return T[] */
+    public function jsonSerialize(): mixed
     {
         return $this->elements;
     }

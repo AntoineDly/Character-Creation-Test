@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace App\Shared\Fields\Collection;
 
+use App\Shared\Collection\CollectionInterface;
+use App\Shared\Collection\CollectionTrait;
 use App\Shared\Fields\Dtos\FieldDto;
-use App\Shared\Traits\CollectionTrait;
-use ArrayAccess;
-use Countable;
-use IteratorAggregate;
 
 /**
- * @implements ArrayAccess<mixed, FieldDto>
- * @implements IteratorAggregate<FieldDto>
+ * @implements CollectionInterface<FieldDto>
  */
-final class FieldDtoCollection implements ArrayAccess, Countable, IteratorAggregate
+final class FieldDtoCollection implements CollectionInterface
 {
     /** @use CollectionTrait<FieldDto> */
     use CollectionTrait;
@@ -29,31 +26,15 @@ final class FieldDtoCollection implements ArrayAccess, Countable, IteratorAggreg
     public function setFromFieldDtos(array $dtos): static
     {
         foreach ($dtos as $dto) {
-            $cantBeAdd = $this->containsFieldDtoWithSameNameAndBiggerWeightOrRemoveIfLower($dto);
-
-            if ($cantBeAdd) {
+            if (($currentDto = $this->offsetGet($dto->name) ?? false) &&
+                $currentDto->typeFieldEnum->value > $dto->typeFieldEnum->value
+            ) {
                 continue;
             }
 
-            $this->add($dto, $dto->name);
+            $this->offsetSet($dto->name, $dto);
         }
 
         return $this;
-    }
-
-    private function containsFieldDtoWithSameNameAndBiggerWeightOrRemoveIfLower(FieldDto $dto): bool
-    {
-        $filteredCollection = $this->filterKey(fn (string $name) => $name === $dto->name);
-        foreach ($filteredCollection as $fieldDto) {
-            if ($fieldDto->typeFieldEnum->value > $dto->typeFieldEnum->value) {
-                return true;
-            }
-
-            $this->offsetUnset($fieldDto);
-
-            return false;
-        }
-
-        return false;
     }
 }

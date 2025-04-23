@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\PlayableItemFields\Repositories;
 
-use App\Shared\Repositories\AbstractRepository\AbstractRepositoryInterface;
+use App\Shared\Repositories\RepositoryInterface;
 
-interface PlayableItemFieldRepositoryInterface extends AbstractRepositoryInterface
+interface PlayableItemFieldRepositoryInterface extends RepositoryInterface
 {
 }

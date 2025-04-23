@@ -6,7 +6,7 @@ namespace App\Games\Repositories;
 
 use App\Games\Models\Game;
 use App\Helpers\AssertHelper;
-use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
+use App\Shared\Repositories\RepositoryTrait;
 
 final readonly class GameRepository implements GameRepositoryInterface
 {

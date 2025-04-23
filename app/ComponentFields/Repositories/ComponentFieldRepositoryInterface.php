@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\ComponentFields\Repositories;
 
-use App\Shared\Repositories\AbstractRepository\AbstractRepositoryInterface;
+use App\Shared\Repositories\RepositoryInterface;
 
-interface ComponentFieldRepositoryInterface extends AbstractRepositoryInterface
+interface ComponentFieldRepositoryInterface extends RepositoryInterface
 {
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Items\Repositories;
 
-use App\Shared\Repositories\AbstractRepository\AbstractRepositoryInterface;
+use App\Shared\Repositories\RepositoryInterface;
 
-interface ItemRepositoryInterface extends AbstractRepositoryInterface
+interface ItemRepositoryInterface extends RepositoryInterface
 {
 }

@@ -115,7 +115,7 @@ final readonly class CharacterQueriesService
             $category = AssertHelper::isCategory($item->category);
             $categoryId = $category->id;
 
-            $fieldDtos = $this->fieldServices->getFieldDtoCollectionFromFieldInterfaces([
+            $fieldDtoCollection = $this->fieldServices->getFieldDtoCollectionFromFieldInterfaces([
                 ...$linkedItem->linkedItemFields,
                 ...$playableItem->playableItemFields,
                 ...$item->itemFields,
@@ -124,7 +124,7 @@ final readonly class CharacterQueriesService
 
             $linkedItemForCharacterDto = $this->linkedItemsForCharacterDtoBuilder
                 ->setId($linkedItem->id)
-                ->setFieldDtoCollection($fieldDtos)
+                ->setFieldDtoCollection($fieldDtoCollection)
                 ->build();
 
             if (! array_key_exists($categoryId, $categories)) {

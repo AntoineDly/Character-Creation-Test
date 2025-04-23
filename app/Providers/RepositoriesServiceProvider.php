@@ -28,8 +28,6 @@ use App\PlayableItemFields\Repositories\PlayableItemFieldRepository;
 use App\PlayableItemFields\Repositories\PlayableItemFieldRepositoryInterface;
 use App\PlayableItems\Repositories\PlayableItemRepository;
 use App\PlayableItems\Repositories\PlayableItemRepositoryInterface;
-use App\Shared\Repositories\AbstractRepository\AbstractRepositoryInterface;
-use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
 use App\Users\Repositories\UserRepository;
 use App\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -41,7 +39,6 @@ final class RepositoriesServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(abstract: AbstractRepositoryInterface::class, concrete: RepositoryTrait::class);
         $this->app->bind(abstract: CharacterRepositoryInterface::class, concrete: CharacterRepository::class);
         $this->app->bind(abstract: GameRepositoryInterface::class, concrete: GameRepository::class);
         $this->app->bind(abstract: UserRepositoryInterface::class, concrete: UserRepository::class);

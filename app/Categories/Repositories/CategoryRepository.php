@@ -6,7 +6,7 @@ namespace App\Categories\Repositories;
 
 use App\Categories\Models\Category;
 use App\Helpers\AssertHelper;
-use App\Shared\Repositories\AbstractRepository\RepositoryTrait;
+use App\Shared\Repositories\RepositoryTrait;
 
 final readonly class CategoryRepository implements CategoryRepositoryInterface
 {

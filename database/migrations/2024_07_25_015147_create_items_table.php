@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignUuid('component_id')->references('id')->on('components');
             $table->foreignUuid('category_id')->references('id')->on('categories');
             $table->foreignUuid('user_id')->references('id')->on('users');
-            $table->unique(['component_id', 'category_id']);
             $table->timestamps();
         });
     }

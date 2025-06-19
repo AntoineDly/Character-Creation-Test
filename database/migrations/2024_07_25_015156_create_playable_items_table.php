@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignUuid('item_id')->references('id')->on('items');
             $table->foreignUuid('game_id')->references('id')->on('games');
             $table->foreignUuid('user_id')->references('id')->on('users');
-            $table->unique(['item_id', 'game_id']);
             $table->timestamps();
         });
     }

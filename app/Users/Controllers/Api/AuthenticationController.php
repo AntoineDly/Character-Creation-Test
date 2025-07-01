@@ -52,7 +52,7 @@ final readonly class AuthenticationController
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
-            return $this->apiController->sendExceptionNotCatch($e);
+            return $this->apiController->sendUncaughtThrowable($e);
         }
 
         return $this->apiController->sendCreated(message: 'You have been successfully registered!');
@@ -79,7 +79,7 @@ final readonly class AuthenticationController
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
-            return $this->apiController->sendExceptionNotCatch($e);
+            return $this->apiController->sendUncaughtThrowable($e);
         }
 
         return $this->apiController->sendSuccess(message: 'You have been successfully logged in!', content: $result);

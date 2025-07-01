@@ -6,6 +6,7 @@ namespace App\Shared\Repositories;
 
 use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 interface RepositoryInterface
@@ -14,6 +15,9 @@ interface RepositoryInterface
      * @return LengthAwarePaginator<Model>
      */
     public function index(SortedAndPaginatedDto $sortedAndPaginatedDto): LengthAwarePaginator;
+
+    /** @return Collection<int, Model> */
+    public function all(string $userId): Collection;
 
     public function findById(string $id): ?Model;
 

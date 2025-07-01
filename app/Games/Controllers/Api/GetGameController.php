@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App\Games\Controllers\Api;
 
+use App\Games\Queries\GetAllGamesQuery;
 use App\Games\Queries\GetGameQuery;
 use App\Games\Queries\GetGamesQuery;
 use App\Games\Queries\GetGameWithCategoriesAndPlayableItemsQuery;
 use App\Games\Repositories\GameRepositoryInterface;
 use App\Games\Services\GameQueriesService;
+use App\Helpers\RequestHelper;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
+use App\Shared\Requests\BaseRequest;
 use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
 use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
 use App\Shared\SortAndPagination\Requests\SortedAndPaginatedRequest;
@@ -48,10 +51,27 @@ final readonly class GetGameController
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
-            return $this->apiController->sendExceptionNotCatch($e);
+            return $this->apiController->sendUncaughtThrowable($e);
         }
 
         return $this->apiController->sendSuccess(message: 'Games were successfully retrieved.', content: $result);
+    }
+
+    public function getAllGames(BaseRequest $request): JsonResponse
+    {
+        try {
+            $query = new GetAllGamesQuery(
+                gameRepository: $this->gameRepository,
+                gameQueriesService: $this->gameQueriesService,
+                userId: RequestHelper::getUserId($request)
+            );
+            $result = $query->get();
+        } catch (HttpExceptionInterface $e) {
+            return $this->apiController->sendException($e);
+        } catch (Throwable $e) {
+            return $this->apiController->sendUncaughtThrowable($e);
+        }
+        return $this->apiController->sendSuccess(message: 'All games were successfully retrieved.', content: $result);
     }
 
     public function getGame(string $gameId): JsonResponse
@@ -66,7 +86,7 @@ final readonly class GetGameController
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
-            return $this->apiController->sendExceptionNotCatch($e);
+            return $this->apiController->sendUncaughtThrowable($e);
         }
 
         return $this->apiController->sendSuccess(message: 'Game was successfully retrieved.', content: $result);
@@ -84,7 +104,7 @@ final readonly class GetGameController
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
-            return $this->apiController->sendExceptionNotCatch($e);
+            return $this->apiController->sendUncaughtThrowable($e);
         }
 
         return $this->apiController->sendSuccess(message: 'Game was successfully retrieved.', content: $result);

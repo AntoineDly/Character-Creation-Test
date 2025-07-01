@@ -28,7 +28,7 @@ final readonly class ApiController implements ApiControllerInterface
         if ($status->isInternalError()) {
             Log::error($error, $data);
 
-            return $this->sendResponse(success: false, message: 'Internal Error.', data: [], status: HttpStatusEnum::INTERNAL_SERVER_ERROR);
+            return $this->sendResponse(success: false, message: 'Internal Error.', data: [], status: HttpStatusEnum::INTERNAL_SERVER_ERROR, withData: false);
         }
 
         return $this->sendResponse(success: false, message: $error, data: $data, status: $status);
@@ -62,23 +62,25 @@ final readonly class ApiController implements ApiControllerInterface
     }
 
     /**
-     * @param  string[][]|string[]|int[]|DtoInterface[]|DtoInterface  $data
+     * @param  null|string[][]|string[]|int[]|DtoInterface  $data
      */
-    public function sendResponse(bool $success, string $message, array|DtoInterface $data, HttpStatusEnum $status): JsonResponse
+    public function sendResponse(bool $success, string $message, null|array|DtoInterface $data = null, HttpStatusEnum $status, bool $withData = true): JsonResponse
     {
         $response = [
             'success' => $success,
             'message' => $message,
-            'data' => $data,
         ];
+
+        if ($withData) {
+            $response['data'] = $data;
+        }
 
         return $this->responseFactory->json(data: $response, status: $status->getCode());
     }
 
-    /** @param DtoInterface[]|DtoInterface $content */
-    public function sendSuccess(string $message, array|DtoInterface $content = [], HttpStatusEnum $status = HttpStatusEnum::OK): JsonResponse
+    public function sendSuccess(string $message, ?DtoInterface $content = null, HttpStatusEnum $status = HttpStatusEnum::OK, bool $withData = true): JsonResponse
     {
-        return $this->sendResponse(success: true, message: $message, data: $content, status: $status);
+        return $this->sendResponse(success: true, message: $message, data: $content, status: $status, withData: $withData);
     }
 
     public function sendExceptionFromLaravelValidationException(string $message, ValidationException $e): JsonResponse
@@ -88,7 +90,7 @@ final readonly class ApiController implements ApiControllerInterface
         return $this->sendException($httpException);
     }
 
-    public function sendExceptionNotCatch(Throwable $e): JsonResponse
+    public function sendUncaughtThrowable(Throwable $e): JsonResponse
     {
         return $this->sendError(
             error: 'Exception not catch.',
@@ -104,9 +106,8 @@ final readonly class ApiController implements ApiControllerInterface
         );
     }
 
-    /** @param DtoInterface[]|DtoInterface $content */
-    public function sendCreated(string $message, array|DtoInterface $content = []): JsonResponse
+    public function sendCreated(string $message): JsonResponse
     {
-        return $this->sendSuccess(message: $message, content: $content, status: HttpStatusEnum::CREATED);
+        return $this->sendSuccess(message: $message, status: HttpStatusEnum::CREATED, withData: false);
     }
 }

@@ -19,17 +19,15 @@ interface ApiControllerInterface
     public function sendException(HttpExceptionInterface $e): JsonResponse;
 
     /**
-     * @param  string[][]|string[]|int[]|DtoInterface[]|DtoInterface  $data
+     * @param  string[][]|string[]|int[]|DtoInterface  $data
      */
     public function sendResponse(bool $success, string $message, array|DtoInterface $data, HttpStatusEnum $status): JsonResponse;
 
-    /** @param DtoInterface[]|DtoInterface $content */
-    public function sendSuccess(string $message, array|DtoInterface $content = [], HttpStatusEnum $status = HttpStatusEnum::OK): JsonResponse;
+    public function sendSuccess(string $message, ?DtoInterface $content = null, HttpStatusEnum $status = HttpStatusEnum::OK): JsonResponse;
 
-    /** @param DtoInterface[]|DtoInterface $content */
-    public function sendCreated(string $message, array|DtoInterface $content = []): JsonResponse;
+    public function sendCreated(string $message): JsonResponse;
 
     public function sendExceptionFromLaravelValidationException(string $message, ValidationException $e): JsonResponse;
 
-    public function sendExceptionNotCatch(Throwable $e): JsonResponse;
+    public function sendUncaughtThrowable(Throwable $e): JsonResponse;
 }

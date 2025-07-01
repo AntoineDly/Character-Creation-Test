@@ -43,7 +43,7 @@ final readonly class CreatePlayableItemController
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
-            return $this->apiController->sendExceptionNotCatch($e);
+            return $this->apiController->sendUncaughtThrowable($e);
         }
 
         return $this->apiController->sendCreated(message: 'Playable Item was successfully created.');

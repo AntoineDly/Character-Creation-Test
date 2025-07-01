@@ -47,7 +47,7 @@ final readonly class GetCategoryController
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
-            return $this->apiController->sendExceptionNotCatch($e);
+            return $this->apiController->sendUncaughtThrowable($e);
         }
 
         return $this->apiController->sendSuccess(message: 'Categories were successfully retrieved.', content: $result);
@@ -65,7 +65,7 @@ final readonly class GetCategoryController
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
-            return $this->apiController->sendExceptionNotCatch($e);
+            return $this->apiController->sendUncaughtThrowable($e);
         }
 
         return $this->apiController->sendSuccess(message: 'Category was successfully retrieved.', content: $result);

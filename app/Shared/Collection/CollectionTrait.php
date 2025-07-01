@@ -14,15 +14,31 @@ trait CollectionTrait
     /** @var T[] */
     private array $elements;
 
+    /** @param T[] $elements */
+    public static function create(array $elements): static
+    {
+        return (new static())->set($elements);
+    }
+
     public static function createEmpty(): static
     {
-        return new static([]);
+        return self::create([]);
     }
 
     /** @param mixed[] $elements */
-    public static function fromMap(array $elements, callable $fn): static
+    public static function fromMap(callable $fn, array $elements): static
     {
-        return new static(array_map($fn, $elements));
+        return self::create(array_map($fn, $elements));
+    }
+
+    public function filter(callable $fn): static
+    {
+        return self::create(array_filter($this->elements, $fn, ARRAY_FILTER_USE_BOTH));
+    }
+
+    public function filterKey(callable $fn): static
+    {
+        return self::create(array_filter($this->elements, $fn, ARRAY_FILTER_USE_KEY));
     }
 
     /**
@@ -56,16 +72,6 @@ trait CollectionTrait
         return false;
     }
 
-    public function filter(callable $fn): static
-    {
-        return new static(array_filter($this->elements, $fn, ARRAY_FILTER_USE_BOTH));
-    }
-
-    public function filterKey(callable $fn): static
-    {
-        return new static(array_filter($this->elements, $fn, ARRAY_FILTER_USE_KEY));
-    }
-
     /** @return T|false */
     public function first(): mixed
     {
@@ -84,7 +90,15 @@ trait CollectionTrait
 
     public function isEmpty(): bool
     {
-        return empty($this->elements);
+        return count($this->elements) === 0;
+    }
+
+    /** @param T[] $elements */
+    public function set(array $elements): static
+    {
+        $this->elements = $elements;
+
+        return $this;
     }
 
     /** @param T $element */
@@ -143,9 +157,7 @@ trait CollectionTrait
         unset($this->elements[$offset]);
     }
 
-    /**
-     * @return array<int, T>
-     */
+    /** @return T[] */
     public function all(): array
     {
         return $this->elements;

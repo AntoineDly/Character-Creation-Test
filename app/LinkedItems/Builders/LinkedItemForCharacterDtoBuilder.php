@@ -18,7 +18,7 @@ final class LinkedItemForCharacterDtoBuilder implements BuilderInterface
 
     public function __construct()
     {
-        $this->fieldDtoCollection = new FieldDtoCollection();
+        $this->fieldDtoCollection = FieldDtoCollection::createEmpty();
     }
 
     public function setId(string $id): static
@@ -47,7 +47,7 @@ final class LinkedItemForCharacterDtoBuilder implements BuilderInterface
         );
 
         $this->id = '';
-        $this->fieldDtoCollection = new FieldDtoCollection();
+        $this->fieldDtoCollection = FieldDtoCollection::createEmpty();
 
         return $linkedItemForCharacterDto;
     }

@@ -16,12 +16,6 @@ final class FieldDtoCollection implements CollectionInterface
     /** @use CollectionTrait<FieldDto> */
     use CollectionTrait;
 
-    /** @param FieldDto[] $elements */
-    public function __construct(array $elements = [])
-    {
-        $this->elements = $elements;
-    }
-
     /** @param FieldDto[] $dtos */
     public function setFromFieldDtos(array $dtos): static
     {

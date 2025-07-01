@@ -7,6 +7,7 @@ namespace App\Shared\Repositories;
 use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 trait RepositoryTrait
@@ -22,6 +23,12 @@ trait RepositoryTrait
             $this->model->query()->where(column: 'user_id', operator: '=', value: $sortedAndPaginatedDto->userId),
             $sortedAndPaginatedDto
         );
+    }
+
+    /** @return Collection<int, Model> */
+    public function all(string $userId): Collection
+    {
+        return $this->model->query()->where(column: 'user_id', operator: '=', value: $userId)->get();
     }
 
     public function findById(string $id): ?Model

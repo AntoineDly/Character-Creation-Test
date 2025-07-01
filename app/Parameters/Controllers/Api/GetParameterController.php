@@ -47,7 +47,7 @@ final readonly class GetParameterController
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
-            return $this->apiController->sendExceptionNotCatch($e);
+            return $this->apiController->sendUncaughtThrowable($e);
         }
 
         return $this->apiController->sendSuccess(message: 'Parameters were successfully retrieved.', content: $result);
@@ -65,7 +65,7 @@ final readonly class GetParameterController
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
-            return $this->apiController->sendExceptionNotCatch($e);
+            return $this->apiController->sendUncaughtThrowable($e);
         }
 
         return $this->apiController->sendSuccess(message: 'Parameter was successfully retrieved.', content: $result);

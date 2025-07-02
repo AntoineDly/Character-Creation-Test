@@ -13,11 +13,11 @@ use App\Games\Services\GameQueriesService;
 use App\Helpers\RequestHelper;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
-use App\Shared\Requests\BaseRequest;
 use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
 use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
 use App\Shared\SortAndPagination\Requests\SortedAndPaginatedRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -57,7 +57,7 @@ final readonly class GetGameController
         return $this->apiController->sendSuccess(message: 'Games were successfully retrieved.', content: $result);
     }
 
-    public function getAllGames(BaseRequest $request): JsonResponse
+    public function getAllGames(Request $request): JsonResponse
     {
         try {
             $query = new GetAllGamesQuery(
@@ -71,6 +71,7 @@ final readonly class GetGameController
         } catch (Throwable $e) {
             return $this->apiController->sendUncaughtThrowable($e);
         }
+
         return $this->apiController->sendSuccess(message: 'All games were successfully retrieved.', content: $result);
     }
 

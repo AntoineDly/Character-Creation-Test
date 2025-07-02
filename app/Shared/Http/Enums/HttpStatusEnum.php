@@ -173,19 +173,6 @@ enum HttpStatusEnum: int
 
     public function isInternalError(): bool
     {
-        return match ($this) {
-            self::INTERNAL_SERVER_ERROR,
-            self::NOT_IMPLEMENTED,
-            self::BAD_GATEWAY,
-            self::SERVICE_UNAVAILABLE,
-            self::GATEWAY_TIMEOUT,
-            self::HTTP_VERSION_NOT_SUPPORTED,
-            self::VARIANT_ALSO_NEGOTIATES,
-            self::INSUFFICIENT_STORAGE,
-            self::LOOP_DETECTED,
-            self::NOT_EXTENDED,
-            self::NETWORK_AUTHENTICATION_REQUIRED => true,
-            default => false
-        };
+        return $this->value >= 500;
     }
 }

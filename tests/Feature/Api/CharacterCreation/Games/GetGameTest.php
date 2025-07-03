@@ -135,7 +135,7 @@ it('get game with categories and components with valid game uuid should return 2
             'data' => [
                 'id' => $game->id,
                 'name' => $game->name,
-                'categoryDtos' => [
+                'categoryDtoCollection' => [
                     [
                         'id' => $category->id,
                         'name' => $category->name,

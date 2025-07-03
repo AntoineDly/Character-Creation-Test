@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Games\Builders;
 
-use App\Categories\Dtos\CategoryDto;
+use App\Categories\Collection\CategoryDtoCollection;
 use App\Games\Dtos\GameWithCategoriesAndPlayableItemsDto;
 use App\Helpers\UuidHelper;
 use App\PlayableItems\Dtos\PlayableItemDto;
@@ -18,11 +18,15 @@ final class GameWithCategoriesAndPlayableItemsDtoBuilder implements BuilderInter
 
     private string $name = '';
 
-    /** @var CategoryDto[] */
-    private array $categoryDtos = [];
+    private CategoryDtoCollection $categoryDtoCollection;
 
     /** @var PlayableItemDto[] */
     private array $playableItemDtos = [];
+
+    public function __construct()
+    {
+        $this->categoryDtoCollection = CategoryDtoCollection::createEmpty();
+    }
 
     public function setId(string $id): static
     {
@@ -38,10 +42,9 @@ final class GameWithCategoriesAndPlayableItemsDtoBuilder implements BuilderInter
         return $this;
     }
 
-    /** @param CategoryDto[] $categoryDtos */
-    public function setCategoryDtos(array $categoryDtos): static
+    public function setCategoryDtoCollection(CategoryDtoCollection $categoryDtoCollection): static
     {
-        $this->categoryDtos = $categoryDtos;
+        $this->categoryDtoCollection = $categoryDtoCollection;
 
         return $this;
     }
@@ -67,12 +70,13 @@ final class GameWithCategoriesAndPlayableItemsDtoBuilder implements BuilderInter
         $GameWithCategoriesAndPlayableItemsDto = new GameWithCategoriesAndPlayableItemsDto(
             id: $this->id,
             name: $this->name,
-            categoryDtos: $this->categoryDtos,
+            categoryDtoCollection: $this->categoryDtoCollection,
             playableItemDtos: $this->playableItemDtos
         );
 
         $this->id = $this->name = '';
-        $this->categoryDtos = $this->playableItemDtos = [];
+        $this->categoryDtoCollection = CategoryDtoCollection::createEmpty();
+        $this->playableItemDtos = [];
 
         return $GameWithCategoriesAndPlayableItemsDto;
     }

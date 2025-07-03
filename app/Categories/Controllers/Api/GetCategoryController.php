@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace App\Categories\Controllers\Api;
 
+use App\Categories\Queries\GetAllCategoriesQuery;
 use App\Categories\Queries\GetCategoriesQuery;
 use App\Categories\Queries\GetCategoryQuery;
 use App\Categories\Repositories\CategoryRepositoryInterface;
 use App\Categories\Services\CategoryQueriesService;
+use App\Helpers\RequestHelper;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
 use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
 use App\Shared\SortAndPagination\Requests\SortedAndPaginatedRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -51,6 +54,24 @@ final readonly class GetCategoryController
         }
 
         return $this->apiController->sendSuccess(message: 'Categories were successfully retrieved.', content: $result);
+    }
+
+    public function getAllCategories(Request $request): JsonResponse
+    {
+        try {
+            $query = new GetAllCategoriesQuery(
+                categoryRepository: $this->categoryRepository,
+                categoryQueriesService: $this->categoryQueriesService,
+                userId: RequestHelper::getUserId($request)
+            );
+            $result = $query->get();
+        } catch (HttpExceptionInterface $e) {
+            return $this->apiController->sendException($e);
+        } catch (Throwable $e) {
+            return $this->apiController->sendUncaughtThrowable($e);
+        }
+
+        return $this->apiController->sendSuccess(message: 'All Categories were successfully retrieved.', content: $result);
     }
 
     public function getCategory(string $categoryId): JsonResponse

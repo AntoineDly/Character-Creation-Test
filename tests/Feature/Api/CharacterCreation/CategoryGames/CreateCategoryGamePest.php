@@ -7,14 +7,14 @@ namespace Tests\Feature\Users;
 use App\Categories\Models\Category;
 use App\Games\Models\Game;
 
-it('associate category with game should return 201 with a new association created', function () {
+it('create categoryGame should return 201 with a new association created', function () {
     $category = Category::factory()->create(['user_id' => $this->getUserId()]);
     $game = Game::factory()->create(['user_id' => $this->getUserId()]);
     $categoryData = ['gameId' => $game->id, 'categoryId' => $category->id];
     $categoryExpectedResult = [...$categoryData, 'userId' => 'userId'];
     $this->assertDatabaseMissing('category_game', $categoryExpectedResult);
 
-    $response = $this->postJson('/api/categories/associate_game', $categoryData);
+    $response = $this->postJson('/api/category_games', $categoryData);
     $response->assertStatus(201)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
@@ -22,15 +22,15 @@ it('associate category with game should return 201 with a new association create
             'message' => 'Game was successfully associated to the category.',
         ]);
 
-    $this->assertDatabaseHas('categories', $categoryExpectedResult);
+    $this->assertDatabaseHas('category_game', $categoryExpectedResult);
 });
 
-it('associate category with game should return 422 with gameId parameter not being an existing game id and categoryId being required', function () {
+it('create categoryGame should return 422 with gameId parameter not being an existing game id and categoryId being required', function () {
     $categoryData = ['gameId' => 'test'];
     $categoryExpectedResult = [...$categoryData, 'userId' => 'userId'];
     $this->assertDatabaseMissing('category_game', $categoryExpectedResult);
 
-    $response = $this->postJson('/api/categories/associate_game', $categoryData);
+    $response = $this->postJson('/api/category_games', $categoryData);
     $response->assertStatus(422)
         ->assertJsonStructure([
             'success',

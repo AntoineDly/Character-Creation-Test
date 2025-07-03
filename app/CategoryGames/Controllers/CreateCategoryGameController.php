@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Categories\Controllers\Api;
+namespace App\CategoryGames\Controllers;
 
-use App\Categories\Commands\AssociateCategoryGameCommand;
-use App\Categories\Requests\AssociateCategoryGameRequest;
+use App\CategoryGames\Commands\CreateCategoryGameCommand;
+use App\CategoryGames\Requests\CreateCategoryGameRequest;
 use App\Shared\CommandBus\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
@@ -13,7 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
-final readonly class AssociateCategoryController
+final readonly class CreateCategoryGameController
 {
     public function __construct(
         private ApiControllerInterface $apiController,
@@ -21,13 +21,13 @@ final readonly class AssociateCategoryController
     ) {
     }
 
-    public function associateGame(AssociateCategoryGameRequest $request): JsonResponse
+    public function createCategoryGame(CreateCategoryGameRequest $request): JsonResponse
     {
         try {
             /** @var array{'categoryId': string, 'gameId': string} $validated */
             $validated = $request->validated();
 
-            $command = new AssociateCategoryGameCommand(
+            $command = new CreateCategoryGameCommand(
                 categoryId: $validated['categoryId'],
                 gameId: $validated['gameId'],
             );
@@ -35,7 +35,7 @@ final readonly class AssociateCategoryController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Game was not successfully associated to the category.',
+                message: 'CategoryGame was not successfully created.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -44,6 +44,6 @@ final readonly class AssociateCategoryController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendCreated(message: 'Game was successfully associated to the category.');
+        return $this->apiController->sendCreated(message: 'CategoryGame was successfully created.');
     }
 }

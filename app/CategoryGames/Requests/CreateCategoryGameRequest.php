@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Categories\Requests;
+namespace App\CategoryGames\Requests;
 
 use App\Shared\Requests\BaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-final class AssociateCategoryGameRequest extends BaseRequest
+final class CreateCategoryGameRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.

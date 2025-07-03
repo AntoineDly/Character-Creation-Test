@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Categories\Controllers\Api\AssociateCategoryController;
 use App\Categories\Controllers\Api\CreateCategoryController;
 use App\Categories\Controllers\Api\GetCategoryController;
+use App\CategoryGames\Controllers\CreateCategoryGameController;
 use App\Characters\Controllers\Api\CreateCharacterController;
 use App\Characters\Controllers\Api\GetCharacterController;
 use App\ComponentFields\Controllers\Api\CreateComponentFieldController;
@@ -64,7 +64,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/categories', [GetCategoryController::class, 'getCategories']);
     Route::get('/categories/{id}', [GetCategoryController::class, 'getCategory']);
     Route::post('/categories', [CreateCategoryController::class, 'createCategory']);
-    Route::post('/categories/associate_game', [AssociateCategoryController::class, 'associateGame']);
+
+    Route::post('/category_games', [CreateCategoryGameController::class, 'createCategoryGame']);
 
     Route::get('/parameters', [GetParameterController::class, 'getParameters']);
     Route::get('/parameters/{id}', [GetParameterController::class, 'getParameter']);

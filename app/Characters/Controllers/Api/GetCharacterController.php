@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Characters\Controllers\Api;
 
+use App\Characters\Models\Character;
 use App\Characters\Queries\GetCharacterQuery;
 use App\Characters\Queries\GetCharactersQuery;
 use App\Characters\Queries\GetCharactersWithGameQuery;
@@ -22,6 +23,7 @@ use Throwable;
 
 final readonly class GetCharacterController
 {
+    /** @param DtosWithPaginationDtoBuilder<Character> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private CharacterRepositoryInterface $characterRepository,
         private CharacterQueriesService $characterQueriesService,

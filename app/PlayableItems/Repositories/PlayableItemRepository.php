@@ -9,6 +9,7 @@ use App\Shared\Repositories\RepositoryTrait;
 
 final readonly class PlayableItemRepository implements PlayableItemRepositoryInterface
 {
+    /** @use RepositoryTrait<PlayableItem> */
     use RepositoryTrait;
 
     public function __construct(PlayableItem $model)

@@ -9,6 +9,7 @@ use App\Shared\Repositories\RepositoryTrait;
 
 final readonly class ComponentFieldRepository implements ComponentFieldRepositoryInterface
 {
+    /** @use RepositoryTrait<ComponentField> */
     use RepositoryTrait;
 
     public function __construct(ComponentField $model)

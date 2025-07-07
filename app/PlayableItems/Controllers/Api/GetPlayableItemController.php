@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\PlayableItems\Controllers\Api;
 
+use App\PlayableItems\Models\PlayableItem;
 use App\PlayableItems\Queries\GetPlayableItemQuery;
 use App\PlayableItems\Queries\GetPlayableItemsQuery;
 use App\PlayableItems\Repositories\PlayableItemRepositoryInterface;
@@ -19,6 +20,7 @@ use Throwable;
 
 final readonly class GetPlayableItemController
 {
+    /** @param DtosWithPaginationDtoBuilder<PlayableItem> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private PlayableItemRepositoryInterface $playableItemRepository,
         private PlayableItemQueriesService $playableItemQueriesService,

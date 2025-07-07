@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Parameters\Controllers\Api;
 
+use App\Parameters\Models\Parameter;
 use App\Parameters\Queries\GetParameterQuery;
 use App\Parameters\Queries\GetParametersQuery;
 use App\Parameters\Repositories\ParameterRepositoryInterface;
@@ -19,6 +20,7 @@ use Throwable;
 
 final readonly class GetParameterController
 {
+    /** @param DtosWithPaginationDtoBuilder<Parameter> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private ParameterRepositoryInterface $parameterRepository,
         private ParameterQueriesService $parameterQueriesService,

@@ -10,18 +10,19 @@ use App\Categories\Repositories\CategoryRepositoryInterface;
 use App\Categories\Services\CategoryQueriesService;
 use App\Shared\Queries\QueryInterface;
 
-final readonly class GetAllCategoriesQuery implements QueryInterface
+final readonly class GetAllCategoriesWithoutRequestedGameQuery implements QueryInterface
 {
     public function __construct(
         private CategoryRepositoryInterface $categoryRepository,
         private CategoryQueriesService $categoryQueriesService,
-        private string $userId
+        private string $userId,
+        private string $gameId,
     ) {
     }
 
     public function get(): CategoryDtoCollection
     {
-        $categories = $this->categoryRepository->all($this->userId);
+        $categories = $this->categoryRepository->getAllCategoriesWithoutRequestedGame($this->userId, $this->gameId);
 
         return CategoryDtoCollection::fromMap(fn (Category $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $categories->all());
     }

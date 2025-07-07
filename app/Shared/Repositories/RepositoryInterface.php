@@ -6,21 +6,27 @@ namespace App\Shared\Repositories;
 
 use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @template TModel of Model
+ */
 interface RepositoryInterface
 {
     /**
-     * @return LengthAwarePaginator<Model>
+     * @return LengthAwarePaginator<TModel>
      */
     public function index(SortedAndPaginatedDto $sortedAndPaginatedDto): LengthAwarePaginator;
 
-    /** @return Collection<int, Model> */
+    /** @return Collection<int, TModel> */
     public function all(string $userId): Collection;
 
+    /** @return null|TModel */
     public function findById(string $id): ?Model;
 
+    /** @return null|TModel */
     public function findByAttribute(string $column, string|int $value): ?Model;
 
     /**
@@ -37,4 +43,15 @@ interface RepositoryInterface
      * @param  array<string, string|int|bool|null>  $attributes
      */
     public function updateById(string $id, array $attributes): ?bool;
+
+    /** @return Builder<TModel> */
+    public function newQuery(): Builder;
+
+    /** @return Builder<TModel> */
+    public function queryWhereUserId(string $userId): Builder;
+
+    /**
+     * @return LengthAwarePaginator<TModel>
+     */
+    public function getFromSortedAndPaginatedDto(SortedAndPaginatedDto $sortedAndPaginatedDto): LengthAwarePaginator;
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ComponentFields\Controllers\Api;
 
+use App\ComponentFields\Models\ComponentField;
 use App\ComponentFields\Queries\GetComponentFieldQuery;
 use App\ComponentFields\Queries\GetComponentFieldsQuery;
 use App\ComponentFields\Repositories\ComponentFieldRepositoryInterface;
@@ -19,6 +20,7 @@ use Throwable;
 
 final readonly class GetComponentFieldsController
 {
+    /** @param DtosWithPaginationDtoBuilder<ComponentField> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private ComponentFieldRepositoryInterface $componentFieldRepository,
         private ComponentFieldQueriesService $componentFieldQueriesService,

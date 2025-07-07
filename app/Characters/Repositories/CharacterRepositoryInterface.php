@@ -7,6 +7,9 @@ namespace App\Characters\Repositories;
 use App\Characters\Models\Character;
 use App\Shared\Repositories\RepositoryInterface;
 
+/**
+ * @extends RepositoryInterface<Character>
+ */
 interface CharacterRepositoryInterface extends RepositoryInterface
 {
     public function getCharacterWithLinkedItemsById(string $id): Character;

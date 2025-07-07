@@ -10,10 +10,10 @@ use IteratorAggregate;
 use JsonSerializable;
 
 /**
- * @template T
+ * @template TCollectionElement
  *
- * @extends ArrayAccess<mixed, T>
- * @extends IteratorAggregate<T>
+ * @extends ArrayAccess<mixed, TCollectionElement>
+ * @extends IteratorAggregate<TCollectionElement>
  */
 interface CollectionInterface extends ArrayAccess, Countable, IteratorAggregate, JsonSerializable
 {

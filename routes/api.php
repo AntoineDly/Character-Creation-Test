@@ -55,6 +55,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/games', [GetGameController::class, 'getGames']);
     Route::get('/games_all', [GetGameController::class, 'getAllGames']);
+    Route::get('/games_all_without_requested_category', [GetGameController::class, 'getAllGamesWithoutRequestedCategory']);
     Route::get('/games/{id}', [GetGameController::class, 'getGame']);
     Route::get('/games/{id}/with_categories_and_playable_items', [GetGameController::class, 'getGameWithCategoriesAndPlayableItems']);
     Route::post('/games', [CreateGameController::class, 'createGame']);
@@ -63,6 +64,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/categories', [GetCategoryController::class, 'getCategories']);
     Route::get('/categories_all', [GetCategoryController::class, 'getAllCategories']);
+    Route::get('/categories_all_without_requested_game', [GetCategoryController::class, 'getAllCategoriesWithoutRequestedGame']);
     Route::get('/categories/{id}', [GetCategoryController::class, 'getCategory']);
     Route::post('/categories', [CreateCategoryController::class, 'createCategory']);
 

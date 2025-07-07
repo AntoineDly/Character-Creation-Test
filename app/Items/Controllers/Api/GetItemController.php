@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Items\Controllers\Api;
 
+use App\Items\Models\Item;
 use App\Items\Queries\GetItemQuery;
 use App\Items\Queries\GetItemsQuery;
 use App\Items\Repositories\ItemRepositoryInterface;
@@ -19,6 +20,7 @@ use Throwable;
 
 final readonly class GetItemController
 {
+    /** @param DtosWithPaginationDtoBuilder<Item> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private ItemRepositoryInterface $itemRepository,
         private ItemQueriesService $itemQueriesService,

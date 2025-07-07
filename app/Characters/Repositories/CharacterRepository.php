@@ -12,6 +12,7 @@ use App\Shared\Repositories\RepositoryTrait;
 
 final readonly class CharacterRepository implements CharacterRepositoryInterface
 {
+    /** @use RepositoryTrait<Character> */
     use RepositoryTrait;
 
     public function __construct(Character $model)

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Games\Services;
 
 use App\Categories\Collection\CategoryDtoCollection;
+use App\Categories\Models\Category;
 use App\Categories\Services\CategoryQueriesService;
 use App\Games\Builders\GameDtoBuilder;
 use App\Games\Builders\GameWithCategoriesAndPlayableItemsDtoBuilder;
@@ -14,11 +15,11 @@ use App\Games\Exceptions\GameNotFoundException;
 use App\Games\Models\Game;
 use App\Helpers\AssertHelper;
 use App\PlayableItems\Dtos\PlayableItemDto;
+use App\PlayableItems\Models\PlayableItem;
 use App\PlayableItems\Services\PlayableItemQueriesService;
 use App\Shared\Http\Exceptions\InvalidClassException;
 use App\Shared\Http\Exceptions\NotAValidUuidException;
 use App\Shared\Http\Exceptions\StringIsEmptyException;
-use Illuminate\Database\Eloquent\Model;
 
 final readonly class GameQueriesService
 {
@@ -36,7 +37,7 @@ final readonly class GameQueriesService
      * @throws InvalidClassException
      * @throws StringIsEmptyException
      */
-    public function getGameDtoFromModel(?Model $game): GameDto
+    public function getGameDtoFromModel(?Game $game): GameDto
     {
         $game = AssertHelper::isGame($game);
 
@@ -48,10 +49,10 @@ final readonly class GameQueriesService
 
     public function getGameWithCategoriesAndPlayableItemsDtoFromModel(Game $game): GameWithCategoriesAndPlayableItemsDto
     {
-        $categoryDtoCollection = CategoryDtoCollection::fromMap(fn (?Model $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $game->categories->all());
+        $categoryDtoCollection = CategoryDtoCollection::fromMap(fn (Category $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $game->categories->all());
 
         /** @var PlayableItemDto[] $playableItemDtos */
-        $playableItemDtos = array_map(fn (?Model $playableItem) => $this->playableItemQueriesService->getPlayableItemDtoFromModel(playableItem: $playableItem), $game->playableItems->all());
+        $playableItemDtos = array_map(fn (PlayableItem $playableItem) => $this->playableItemQueriesService->getPlayableItemDtoFromModel(playableItem: $playableItem), $game->playableItems->all());
 
         return $this->gameWithCategoriesAndPlayableItemsDtoBuilder
             ->setId($game->id)

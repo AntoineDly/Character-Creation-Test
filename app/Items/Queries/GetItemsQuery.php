@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Items\Queries;
 
+use App\Items\Models\Item;
 use App\Items\Repositories\ItemRepositoryInterface;
 use App\Items\Services\ItemQueriesService;
 use App\Shared\Queries\QueryInterface;
@@ -15,8 +16,10 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetItemsQuery implements QueryInterface
 {
+    /** @use DtosWithPaginationBuilderHelper<Item> */
     use DtosWithPaginationBuilderHelper;
 
+    /** @param DtosWithPaginationDtoBuilder<Item> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private ItemRepositoryInterface $itemRepository,
         private ItemQueriesService $itemQueriesService,
@@ -26,6 +29,7 @@ final readonly class GetItemsQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
+    /** @return DtosWithPaginationDto<Item> */
     public function get(): DtosWithPaginationDto
     {
         $items = $this->itemRepository->index($this->sortedAndPaginatedDto);

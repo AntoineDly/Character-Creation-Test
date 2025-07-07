@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LinkedItems\Controllers\Api;
 
+use App\LinkedItems\Models\LinkedItem;
 use App\LinkedItems\Queries\GetLinkedItemQuery;
 use App\LinkedItems\Queries\GetLinkedItemsQuery;
 use App\LinkedItems\Repositories\LinkedItemRepositoryInterface;
@@ -19,6 +20,7 @@ use Throwable;
 
 final readonly class GetLinkedItemController
 {
+    /** @param DtosWithPaginationDtoBuilder<LinkedItem> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private LinkedItemRepositoryInterface $linkedItemRepository,
         private LinkedItemQueriesService $linkedItemQueriesService,

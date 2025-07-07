@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\PlayableItemFields\Queries;
 
+use App\PlayableItemFields\Models\PlayableItemField;
 use App\PlayableItemFields\Repositories\PlayableItemFieldRepositoryInterface;
 use App\PlayableItemFields\Services\PlayableItemFieldQueriesService;
 use App\Shared\Queries\QueryInterface;
@@ -15,8 +16,10 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetPlayableItemFieldsQuery implements QueryInterface
 {
+    /** @use DtosWithPaginationBuilderHelper<PlayableItemField> */
     use DtosWithPaginationBuilderHelper;
 
+    /** @param DtosWithPaginationDtoBuilder<PlayableItemField> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private PlayableItemFieldRepositoryInterface $playableItemFieldRepository,
         private PlayableItemFieldQueriesService $playableItemFieldQueriesService,
@@ -26,6 +29,7 @@ final readonly class GetPlayableItemFieldsQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
+    /** @return DtosWithPaginationDto<PlayableItemField> */
     public function get(): DtosWithPaginationDto
     {
         $playableItemFields = $this->playableItemFieldRepository->index($this->sortedAndPaginatedDto);

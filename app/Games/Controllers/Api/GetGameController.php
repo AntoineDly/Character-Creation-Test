@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Games\Controllers\Api;
 
+use App\Games\Models\Game;
 use App\Games\Queries\GetAllGamesQuery;
+use App\Games\Queries\GetAllGamesWithoutRequestedCategoryQuery;
 use App\Games\Queries\GetGameQuery;
 use App\Games\Queries\GetGamesQuery;
 use App\Games\Queries\GetGameWithCategoriesAndPlayableItemsQuery;
 use App\Games\Repositories\GameRepositoryInterface;
+use App\Games\Requests\AllGamesWithoutRequestedCategoryRequest;
 use App\Games\Services\GameQueriesService;
 use App\Helpers\RequestHelper;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
@@ -23,6 +26,7 @@ use Throwable;
 
 final readonly class GetGameController
 {
+    /** @param DtosWithPaginationDtoBuilder<Game> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private GameRepositoryInterface $gameRepository,
         private GameQueriesService $gameQueriesService,
@@ -73,6 +77,28 @@ final readonly class GetGameController
         }
 
         return $this->apiController->sendSuccess(message: 'All games were successfully retrieved.', content: $result);
+    }
+
+    public function getAllGamesWithoutRequestedCategory(AllGamesWithoutRequestedCategoryRequest $request): JsonResponse
+    {
+        try {
+            /** @var array{'categoryId': string} $validated */
+            $validated = $request->validated();
+
+            $query = new GetAllGamesWithoutRequestedCategoryQuery(
+                gameRepository: $this->gameRepository,
+                gameQueriesService: $this->gameQueriesService,
+                userId: RequestHelper::getUserId($request),
+                categoryId: $validated['categoryId']
+            );
+            $result = $query->get();
+        } catch (HttpExceptionInterface $e) {
+            return $this->apiController->sendException($e);
+        } catch (Throwable $e) {
+            return $this->apiController->sendUncaughtThrowable($e);
+        }
+
+        return $this->apiController->sendSuccess(message: 'All Games without requested category were successfully retrieved.', content: $result);
     }
 
     public function getGame(string $gameId): JsonResponse

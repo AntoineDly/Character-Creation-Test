@@ -6,8 +6,8 @@ namespace App\Categories\Services;
 
 use App\Categories\Builders\CategoryDtoBuilder;
 use App\Categories\Dtos\CategoryDto;
+use App\Categories\Models\Category;
 use App\Helpers\AssertHelper;
-use Illuminate\Database\Eloquent\Model;
 
 final readonly class CategoryQueriesService
 {
@@ -16,7 +16,7 @@ final readonly class CategoryQueriesService
     ) {
     }
 
-    public function getCategoryDtoFromModel(?Model $category): CategoryDto
+    public function getCategoryDtoFromModel(?Category $category): CategoryDto
     {
         $category = AssertHelper::isCategory($category);
 

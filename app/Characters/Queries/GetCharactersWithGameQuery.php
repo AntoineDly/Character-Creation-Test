@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Characters\Queries;
 
+use App\Characters\Models\Character;
 use App\Characters\Repositories\CharacterRepositoryInterface;
 use App\Characters\Services\CharacterQueriesService;
 use App\Shared\Queries\QueryInterface;
@@ -15,8 +16,10 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetCharactersWithGameQuery implements QueryInterface
 {
+    /** @use DtosWithPaginationBuilderHelper<Character> */
     use DtosWithPaginationBuilderHelper;
 
+    /** @param DtosWithPaginationDtoBuilder<Character> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private CharacterRepositoryInterface $characterRepository,
         private CharacterQueriesService $characterQueriesService,
@@ -26,6 +29,7 @@ final readonly class GetCharactersWithGameQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
+    /** @return DtosWithPaginationDto<Character> */
     public function get(): DtosWithPaginationDto
     {
         $characters = $this->characterRepository->index($this->sortedAndPaginatedDto);

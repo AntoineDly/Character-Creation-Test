@@ -9,6 +9,7 @@ use App\Shared\Repositories\RepositoryTrait;
 
 final readonly class ParameterRepository implements ParameterRepositoryInterface
 {
+    /** @use RepositoryTrait<Parameter> */
     use RepositoryTrait;
 
     public function __construct(Parameter $model)

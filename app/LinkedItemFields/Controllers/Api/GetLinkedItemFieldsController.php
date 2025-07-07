@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LinkedItemFields\Controllers\Api;
 
+use App\LinkedItemFields\Models\LinkedItemField;
 use App\LinkedItemFields\Queries\GetLinkedItemFieldQuery;
 use App\LinkedItemFields\Queries\GetLinkedItemFieldsQuery;
 use App\LinkedItemFields\Repositories\LinkedItemFieldRepositoryInterface;
@@ -19,6 +20,7 @@ use Throwable;
 
 final readonly class GetLinkedItemFieldsController
 {
+    /** @param DtosWithPaginationDtoBuilder<LinkedItemField> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private LinkedItemFieldRepositoryInterface $linkedItemFieldRepository,
         private LinkedItemFieldQueriesService $linkedItemFieldQueriesService,

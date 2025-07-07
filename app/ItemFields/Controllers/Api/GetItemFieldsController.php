@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ItemFields\Controllers\Api;
 
+use App\ItemFields\Models\ItemField;
 use App\ItemFields\Queries\GetItemFieldQuery;
 use App\ItemFields\Queries\GetItemFieldsQuery;
 use App\ItemFields\Repositories\ItemFieldRepositoryInterface;
@@ -19,6 +20,7 @@ use Throwable;
 
 final readonly class GetItemFieldsController
 {
+    /** @param DtosWithPaginationDtoBuilder<ItemField> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private ItemFieldRepositoryInterface $itemFieldRepository,
         private ItemFieldQueriesService $itemFieldQueriesService,

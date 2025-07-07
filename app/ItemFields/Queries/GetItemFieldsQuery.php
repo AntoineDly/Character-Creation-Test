@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ItemFields\Queries;
 
+use App\ItemFields\Models\ItemField;
 use App\ItemFields\Repositories\ItemFieldRepositoryInterface;
 use App\ItemFields\Services\ItemFieldQueriesService;
 use App\Shared\Queries\QueryInterface;
@@ -15,8 +16,10 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetItemFieldsQuery implements QueryInterface
 {
+    /** @use DtosWithPaginationBuilderHelper<ItemField> */
     use DtosWithPaginationBuilderHelper;
 
+    /** @param DtosWithPaginationDtoBuilder<ItemField> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private ItemFieldRepositoryInterface $itemFieldRepository,
         private ItemFieldQueriesService $itemFieldQueriesService,
@@ -26,6 +29,7 @@ final readonly class GetItemFieldsQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
+    /** @return DtosWithPaginationDto<ItemField> */
     public function get(): DtosWithPaginationDto
     {
         $itemFields = $this->itemFieldRepository->index($this->sortedAndPaginatedDto);

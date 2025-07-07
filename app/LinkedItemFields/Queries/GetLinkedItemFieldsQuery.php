@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LinkedItemFields\Queries;
 
+use App\LinkedItemFields\Models\LinkedItemField;
 use App\LinkedItemFields\Repositories\LinkedItemFieldRepositoryInterface;
 use App\LinkedItemFields\Services\LinkedItemFieldQueriesService;
 use App\Shared\Queries\QueryInterface;
@@ -15,8 +16,10 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetLinkedItemFieldsQuery implements QueryInterface
 {
+    /** @use DtosWithPaginationBuilderHelper<LinkedItemField> */
     use DtosWithPaginationBuilderHelper;
 
+    /** @param DtosWithPaginationDtoBuilder<LinkedItemField> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private LinkedItemFieldRepositoryInterface $linkedItemFieldRepository,
         private LinkedItemFieldQueriesService $linkedItemFieldQueriesService,
@@ -26,6 +29,7 @@ final readonly class GetLinkedItemFieldsQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
+    /** @return DtosWithPaginationDto<LinkedItemField> */
     public function get(): DtosWithPaginationDto
     {
         $fields = $this->linkedItemFieldRepository->index($this->sortedAndPaginatedDto);

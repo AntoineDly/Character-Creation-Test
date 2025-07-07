@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\PlayableItemFields\Controllers\Api;
 
+use App\PlayableItemFields\Models\PlayableItemField;
 use App\PlayableItemFields\Queries\GetPlayableItemFieldQuery;
 use App\PlayableItemFields\Queries\GetPlayableItemFieldsQuery;
 use App\PlayableItemFields\Repositories\PlayableItemFieldRepositoryInterface;
@@ -19,6 +20,7 @@ use Throwable;
 
 final readonly class GetPlayableItemFieldsController
 {
+    /** @param DtosWithPaginationDtoBuilder<PlayableItemField> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private PlayableItemFieldRepositoryInterface $playableItemFieldRepository,
         private PlayableItemFieldQueriesService $playableItemFieldQueriesService,

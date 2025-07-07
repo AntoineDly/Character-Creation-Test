@@ -7,9 +7,11 @@ namespace App\Games\Repositories;
 use App\Games\Models\Game;
 use App\Helpers\AssertHelper;
 use App\Shared\Repositories\RepositoryTrait;
+use Illuminate\Database\Eloquent\Collection;
 
 final readonly class GameRepository implements GameRepositoryInterface
 {
+    /** @use RepositoryTrait<Game> */
     use RepositoryTrait;
 
     public function __construct(Game $model)
@@ -28,5 +30,13 @@ final readonly class GameRepository implements GameRepositoryInterface
             )->first();
 
         return AssertHelper::isGame($game);
+    }
+
+    /** @return Collection<int, Game> */
+    public function getAllGamesWithoutRequestedCategory(string $userId, string $categoryId): Collection
+    {
+        return $this->queryWhereUserId($userId)->doesntHave(relation: 'categories', callback: function ($query) use ($categoryId) {
+            $query->where('categories.id', $categoryId);
+        })->get();
     }
 }

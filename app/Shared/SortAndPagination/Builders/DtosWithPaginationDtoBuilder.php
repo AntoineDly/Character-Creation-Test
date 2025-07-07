@@ -5,16 +5,20 @@ declare(strict_types=1);
 namespace App\Shared\SortAndPagination\Builders;
 
 use App\Shared\Builders\BuilderInterface;
+use App\Shared\Collection\DtoCollectionInterface;
 use App\Shared\Dtos\DtoInterface;
 use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
 use App\Shared\SortAndPagination\Dtos\PaginationDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @template TModel of Model
+ */
 final class DtosWithPaginationDtoBuilder implements BuilderInterface
 {
-    /** @var DtoInterface[] */
-    public array $dtos = [];
+    /** @var DtoInterface[]|DtoCollectionInterface<TModel> */
+    public array|DtoCollectionInterface $dtos = [];
 
     public int $currentPage = 1;
 
@@ -30,8 +34,8 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
 
     public ?int $lastPage = null;
 
-    /** @param DtoInterface[] $dtos */
-    public function setDtos(array $dtos): static
+    /** @param DtoInterface[]|DtoCollectionInterface<TModel> $dtos */
+    public function setDtos(array|DtoCollectionInterface $dtos): static
     {
         $this->dtos = $dtos;
 
@@ -88,7 +92,7 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
     }
 
     /**
-     * @param  LengthAwarePaginator<Model>  $lengthAwarePaginator
+     * @param  LengthAwarePaginator<TModel>  $lengthAwarePaginator
      */
     public function setDataFromLengthAwarePaginator(LengthAwarePaginator $lengthAwarePaginator): static
     {
@@ -109,6 +113,7 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
         return $this;
     }
 
+    /** @return DtosWithPaginationDto<TModel> */
     public function build(): DtosWithPaginationDto
     {
         $paginationDto = new PaginationDto(
@@ -121,6 +126,7 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
             lastPage: $this->lastPage,
         );
 
+        /** @var DtosWithPaginationDto<TModel> $dto */
         $dto = new DtosWithPaginationDto(
             dtos: $this->dtos,
             paginationDto: $paginationDto,

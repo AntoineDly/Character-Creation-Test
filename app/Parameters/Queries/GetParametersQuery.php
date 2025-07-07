@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Parameters\Queries;
 
+use App\Parameters\Models\Parameter;
 use App\Parameters\Repositories\ParameterRepositoryInterface;
 use App\Parameters\Services\ParameterQueriesService;
 use App\Shared\Queries\QueryInterface;
@@ -15,8 +16,10 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetParametersQuery implements QueryInterface
 {
+    /** @use DtosWithPaginationBuilderHelper<Parameter> */
     use DtosWithPaginationBuilderHelper;
 
+    /** @param DtosWithPaginationDtoBuilder<Parameter> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private ParameterRepositoryInterface $parameterRepository,
         private ParameterQueriesService $parameterQueriesService,
@@ -26,6 +29,7 @@ final readonly class GetParametersQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
+    /** @return DtosWithPaginationDto<Parameter> */
     public function get(): DtosWithPaginationDto
     {
         $parameters = $this->parameterRepository->index($this->sortedAndPaginatedDto);

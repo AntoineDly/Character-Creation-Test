@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Categories\Collection;
 
 use App\Categories\Dtos\CategoryDto;
-use App\Shared\Collection\CollectionInterface;
 use App\Shared\Collection\CollectionTrait;
-use App\Shared\Dtos\DtoInterface;
+use App\Shared\Collection\DtoCollectionInterface;
 
 /**
- * @implements CollectionInterface<CategoryDto>
+ * @implements DtoCollectionInterface<CategoryDto>
  */
-final class CategoryDtoCollection implements CollectionInterface, DtoInterface
+final class CategoryDtoCollection implements DtoCollectionInterface
 {
     /** @use CollectionTrait<CategoryDto> */
     use CollectionTrait;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Controllers\Api;
 
+use App\Components\Models\Component;
 use App\Components\Queries\GetComponentQuery;
 use App\Components\Queries\GetComponentsQuery;
 use App\Components\Repositories\ComponentRepositoryInterface;
@@ -19,6 +20,7 @@ use Throwable;
 
 final readonly class GetComponentController
 {
+    /** @param DtosWithPaginationDtoBuilder<Component> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private ComponentRepositoryInterface $componentRepository,
         private ComponentQueriesService $componentQueriesService,

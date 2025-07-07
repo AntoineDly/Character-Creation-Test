@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\PlayableItems\Queries;
 
+use App\PlayableItems\Models\PlayableItem;
 use App\PlayableItems\Repositories\PlayableItemRepositoryInterface;
 use App\PlayableItems\Services\PlayableItemQueriesService;
 use App\Shared\Queries\QueryInterface;
@@ -15,8 +16,10 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetPlayableItemsQuery implements QueryInterface
 {
+    /** @use DtosWithPaginationBuilderHelper<PlayableItem> */
     use DtosWithPaginationBuilderHelper;
 
+    /** @param DtosWithPaginationDtoBuilder<PlayableItem> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private PlayableItemRepositoryInterface $playableItemRepository,
         private PlayableItemQueriesService $playableItemQueriesService,
@@ -26,6 +29,7 @@ final readonly class GetPlayableItemsQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
+    /** @return DtosWithPaginationDto<PlayableItem> */
     public function get(): DtosWithPaginationDto
     {
         $playableItems = $this->playableItemRepository->index($this->sortedAndPaginatedDto);

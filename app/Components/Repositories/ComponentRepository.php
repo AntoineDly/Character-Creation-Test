@@ -9,6 +9,7 @@ use App\Shared\Repositories\RepositoryTrait;
 
 final readonly class ComponentRepository implements ComponentRepositoryInterface
 {
+    /** @use RepositoryTrait<Component> */
     use RepositoryTrait;
 
     public function __construct(Component $model)

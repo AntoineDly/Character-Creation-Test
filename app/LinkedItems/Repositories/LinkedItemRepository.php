@@ -9,6 +9,7 @@ use App\Shared\Repositories\RepositoryTrait;
 
 final readonly class LinkedItemRepository implements LinkedItemRepositoryInterface
 {
+    /** @use RepositoryTrait<LinkedItem> */
     use RepositoryTrait;
 
     public function __construct(LinkedItem $model)

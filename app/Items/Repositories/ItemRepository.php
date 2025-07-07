@@ -9,6 +9,7 @@ use App\Shared\Repositories\RepositoryTrait;
 
 final readonly class ItemRepository implements ItemRepositoryInterface
 {
+    /** @use RepositoryTrait<Item> */
     use RepositoryTrait;
 
     public function __construct(Item $model)

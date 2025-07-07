@@ -10,18 +10,19 @@ use App\Games\Repositories\GameRepositoryInterface;
 use App\Games\Services\GameQueriesService;
 use App\Shared\Queries\QueryInterface;
 
-final readonly class GetAllGamesQuery implements QueryInterface
+final readonly class GetAllGamesWithoutRequestedCategoryQuery implements QueryInterface
 {
     public function __construct(
         private GameRepositoryInterface $gameRepository,
         private GameQueriesService $gameQueriesService,
-        private string $userId
+        private string $userId,
+        private string $categoryId,
     ) {
     }
 
     public function get(): GameDtoCollection
     {
-        $games = $this->gameRepository->all($this->userId);
+        $games = $this->gameRepository->getAllGamesWithoutRequestedCategory($this->userId, $this->categoryId);
 
         return GameDtoCollection::fromMap(fn (Game $game) => $this->gameQueriesService->getGameDtoFromModel(game: $game), $games->all());
     }

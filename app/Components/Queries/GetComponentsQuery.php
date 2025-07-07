@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Queries;
 
+use App\Components\Models\Component;
 use App\Components\Repositories\ComponentRepositoryInterface;
 use App\Components\Services\ComponentQueriesService;
 use App\Shared\Queries\QueryInterface;
@@ -15,8 +16,10 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetComponentsQuery implements QueryInterface
 {
+    /** @use DtosWithPaginationBuilderHelper<Component> */
     use DtosWithPaginationBuilderHelper;
 
+    /** @param DtosWithPaginationDtoBuilder<Component> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private ComponentRepositoryInterface $componentRepository,
         private ComponentQueriesService $componentQueriesService,
@@ -26,6 +29,7 @@ final readonly class GetComponentsQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
+    /** @return DtosWithPaginationDto<Component> */
     public function get(): DtosWithPaginationDto
     {
         $components = $this->componentRepository->index($this->sortedAndPaginatedDto);

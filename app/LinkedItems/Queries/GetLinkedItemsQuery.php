@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LinkedItems\Queries;
 
+use App\LinkedItems\Models\LinkedItem;
 use App\LinkedItems\Repositories\LinkedItemRepositoryInterface;
 use App\LinkedItems\Services\LinkedItemQueriesService;
 use App\Shared\Queries\QueryInterface;
@@ -15,8 +16,10 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetLinkedItemsQuery implements QueryInterface
 {
+    /** @use DtosWithPaginationBuilderHelper<LinkedItem> */
     use DtosWithPaginationBuilderHelper;
 
+    /** @param DtosWithPaginationDtoBuilder<LinkedItem> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private LinkedItemRepositoryInterface $linkedItemRepository,
         private LinkedItemQueriesService $linkedItemQueriesService,
@@ -26,6 +29,7 @@ final readonly class GetLinkedItemsQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
+    /** @return DtosWithPaginationDto<LinkedItem> */
     public function get(): DtosWithPaginationDto
     {
         $linkedItems = $this->linkedItemRepository->index($this->sortedAndPaginatedDto);

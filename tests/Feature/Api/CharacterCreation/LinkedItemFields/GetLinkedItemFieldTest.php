@@ -132,7 +132,7 @@ it('get linked itemFieldith valid field uuid should return 200 with the field', 
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Linked ItemFieldas successfully retrieved.',
+            'message' => 'Linked ItemField was successfully retrieved.',
             'data' => [
                 'id' => $field->id,
                 'value' => $field->value,

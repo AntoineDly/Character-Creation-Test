@@ -29,7 +29,7 @@ it('create itemField should return 201 with a new itemField created', function (
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => true,
-            'message' => 'ItemFieldas successfully created.',
+            'message' => 'ItemField was successfully created.',
         ]);
 
     $this->assertDatabaseHas('item_fields', $itemFieldExpectedResult);
@@ -53,7 +53,7 @@ it('create itemFields should return 422 with value not being a string and parame
         ])
         ->assertJson([
             'success' => false,
-            'message' => 'ItemFieldas not successfully created.',
+            'message' => 'ItemField was not successfully created.',
             'data' => [
                 'value' => [
                     'The value field must be a string.',

@@ -98,7 +98,7 @@ it('get componentField with valid componentField uuid should return 200 with the
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'ComponentFieldas successfully retrieved.',
+            'message' => 'ComponentField was successfully retrieved.',
             'data' => [
                 'id' => $componentField->id,
                 'value' => $componentField->value,

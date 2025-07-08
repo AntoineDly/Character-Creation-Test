@@ -70,6 +70,6 @@ final readonly class GetItemFieldsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'ItemFieldas successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'ItemField was successfully retrieved.', content: $result);
     }
 }

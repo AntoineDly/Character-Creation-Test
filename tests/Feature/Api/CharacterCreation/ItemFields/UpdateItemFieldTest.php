@@ -46,7 +46,7 @@ it('update partially itemFields should return 201 with itemFields updated partia
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'ItemFieldas successfully updated partially.',
+            'message' => 'ItemField was successfully updated partially.',
         ]);
 
     $this->assertDatabaseHas('item_fields', $itemFieldExpectedResult);
@@ -93,7 +93,7 @@ it('update itemFields should return 201 with itemFields updated', function () {
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'ItemFieldas successfully updated.',
+            'message' => 'ItemField was successfully updated.',
         ]);
 
     $this->assertDatabaseHas('item_fields', $itemFieldExpectedResult);

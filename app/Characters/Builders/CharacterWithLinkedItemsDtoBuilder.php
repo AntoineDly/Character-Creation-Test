@@ -50,9 +50,6 @@ final class CharacterWithLinkedItemsDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    /**
-     * @throws NotAValidUuidException
-     */
     public function build(): CharacterWithLinkedItemsDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {

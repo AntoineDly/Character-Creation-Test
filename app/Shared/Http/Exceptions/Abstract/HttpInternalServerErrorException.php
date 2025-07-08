@@ -8,7 +8,6 @@ use App\Shared\Http\Enums\HttpStatusEnum;
 
 abstract class HttpInternalServerErrorException extends AbstractHttpException
 {
-    /** @param string[] $data */
     public function __construct(string $message = '', array $data = [])
     {
         parent::__construct($message, HttpStatusEnum::NOT_FOUND, $data);

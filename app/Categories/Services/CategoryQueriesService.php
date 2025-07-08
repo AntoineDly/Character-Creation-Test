@@ -18,7 +18,7 @@ final readonly class CategoryQueriesService
 
     public function getCategoryDtoFromModel(?Category $category): CategoryDto
     {
-        $category = AssertHelper::isCategory($category);
+        $category = AssertHelper::isCategoryNotNull($category);
 
         return $this->categoryDtoBuilder
             ->setId(id: $category->id)

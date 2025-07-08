@@ -6,8 +6,8 @@ namespace App\ComponentFields\Services;
 
 use App\ComponentFields\Builders\ComponentFieldDtoBuilder;
 use App\ComponentFields\Dtos\ComponentFieldDto;
+use App\ComponentFields\Models\ComponentField;
 use App\Helpers\AssertHelper;
-use Illuminate\Database\Eloquent\Model;
 
 final readonly class ComponentFieldQueriesService
 {
@@ -16,9 +16,9 @@ final readonly class ComponentFieldQueriesService
     ) {
     }
 
-    public function getComponentFieldDtoFromModel(?Model $componentField): ComponentFieldDto
+    public function getComponentFieldDtoFromModel(?ComponentField $componentField): ComponentFieldDto
     {
-        $componentField = AssertHelper::isComponentField($componentField);
+        $componentField = AssertHelper::isComponentFieldNotNull($componentField);
 
         return $this->componentFieldDtoBuilder
             ->setId(id: $componentField->id)

@@ -9,7 +9,7 @@ use App\Shared\Http\Exceptions\Abstract\HttpNotFoundException;
 final class LinkedItemFieldNotFoundException extends HttpNotFoundException
 {
     /** @param string[] $data */
-    public function __construct(string $message = 'Linked Item Field not found.', array $data = [])
+    public function __construct(string $message = 'LinkedItemField not found.', array $data = [])
     {
         parent::__construct(message: $message, data: $data);
     }

@@ -17,7 +17,7 @@ it('get itemFields should return 200 without any itemFields', function () {
         ->assertJsonStructure(['success', 'message', 'data'])
         ->assertJson([
             'success' => true,
-            'message' => 'Item Fields were successfully retrieved.',
+            'message' => 'ItemFields were successfully retrieved.',
             'data' => [],
         ]);
 });
@@ -61,7 +61,7 @@ it('get itemFields should return 200 with itemFields', function () {
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Item Fields were successfully retrieved.',
+            'message' => 'ItemFields were successfully retrieved.',
             'data' => [
                 'dtos' => [
                     [
@@ -108,7 +108,7 @@ it('get itemField with valid itemField uuid should return 200 with the itemField
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Item Field was successfully retrieved.',
+            'message' => 'ItemFieldas successfully retrieved.',
             'data' => [
                 'id' => $itemField->id,
                 'value' => $itemField->value,
@@ -122,6 +122,6 @@ it('get itemField with invalid itemField uuid should return 404 with the game no
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'Item Field not found.',
+            'message' => 'ItemField not found.',
         ]);
 });

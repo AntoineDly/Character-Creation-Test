@@ -6,7 +6,7 @@ namespace App\Helpers;
 
 use App\Shared\Http\Exceptions\InvalidArrayValueTypeException;
 
-final readonly class ArrayHelper
+abstract readonly class ArrayHelper
 {
     /** @phpstan-ignore-next-line  */
     public static function isEmpty(?array $array): bool

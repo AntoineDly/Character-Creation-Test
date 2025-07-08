@@ -43,7 +43,7 @@ final readonly class GetItemFieldsController
             $result = $query->get();
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Item Fields were not successfully retrieved.',
+                message: 'ItemFields were not successfully retrieved.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -52,7 +52,7 @@ final readonly class GetItemFieldsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Item Fields were successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'ItemFields were successfully retrieved.', content: $result);
     }
 
     public function getItemField(string $itemFieldId): JsonResponse
@@ -70,6 +70,6 @@ final readonly class GetItemFieldsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Item Field was successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'ItemFieldas successfully retrieved.', content: $result);
     }
 }

@@ -53,6 +53,6 @@ final readonly class ParameterService
     {
         $parameter = $this->parameterRepository->findById(id: $parameterId);
 
-        return AssertHelper::isParameter($parameter);
+        return AssertHelper::isParameterNotNull($parameter);
     }
 }

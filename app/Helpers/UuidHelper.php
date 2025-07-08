@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-final readonly class UuidHelper
+abstract readonly class UuidHelper
 {
     public static function isValidUuid(string $uuid): bool
     {

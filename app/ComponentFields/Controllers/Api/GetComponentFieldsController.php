@@ -43,7 +43,7 @@ final readonly class GetComponentFieldsController
             $result = $query->get();
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Component Fields were not successfully retrieved.',
+                message: 'ComponentFields were not successfully retrieved.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -52,7 +52,7 @@ final readonly class GetComponentFieldsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Component Fields were successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'ComponentFields were successfully retrieved.', content: $result);
     }
 
     public function getComponentField(string $componentFieldId): JsonResponse
@@ -70,6 +70,6 @@ final readonly class GetComponentFieldsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Component Field was successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'ComponentFieldas successfully retrieved.', content: $result);
     }
 }

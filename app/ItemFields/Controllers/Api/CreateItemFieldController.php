@@ -38,7 +38,7 @@ final readonly class CreateItemFieldController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Item Field was not successfully created.',
+                message: 'ItemFieldas not successfully created.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -47,6 +47,6 @@ final readonly class CreateItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendCreated(message: 'Item Field was successfully created.');
+        return $this->apiController->sendCreated(message: 'ItemFieldas successfully created.');
     }
 }

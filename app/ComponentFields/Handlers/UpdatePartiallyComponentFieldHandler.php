@@ -42,10 +42,10 @@ final readonly class UpdatePartiallyComponentFieldHandler implements CommandHand
             $attributes['parameter_id'] = $parameterId;
         } else {
             if (! is_null($value)) {
-                $componentField = AssertHelper::isComponentField(
+                $componentField = AssertHelper::isComponentFieldNotNull(
                     $this->componentFieldRepository->findById(id: $command->id)
                 );
-                $parameter = AssertHelper::isParameter($componentField->getParameter());
+                $parameter = AssertHelper::isParameterNotNull($componentField->getParameter());
                 $attributes['value'] = $this->parameterService->validateValueTypeByType(
                     type: $parameter->type,
                     value: $value

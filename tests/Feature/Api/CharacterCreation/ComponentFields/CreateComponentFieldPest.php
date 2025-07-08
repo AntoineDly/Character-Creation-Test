@@ -21,7 +21,7 @@ it('create componentFields should return 201 with a new component created', func
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => true,
-            'message' => 'Component Field was successfully created.',
+            'message' => 'ComponentFieldas successfully created.',
         ]);
 
     $this->assertDatabaseHas('component_fields', $componentFieldExpectedResult);
@@ -45,7 +45,7 @@ it('create componentFields should return 422 with value not being a string and p
         ])
         ->assertJson([
             'success' => false,
-            'message' => 'Component Field was not successfully created.',
+            'message' => 'ComponentFieldas not successfully created.',
             'data' => [
                 'value' => [
                     'The value field must be a string.',

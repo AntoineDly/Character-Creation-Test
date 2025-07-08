@@ -15,7 +15,7 @@ it('get componentFields should return 200 without any componentFields', function
         ->assertJsonStructure(['success', 'message', 'data'])
         ->assertJson([
             'success' => true,
-            'message' => 'Component Fields were successfully retrieved.',
+            'message' => 'ComponentFields were successfully retrieved.',
             'data' => [],
         ]);
 });
@@ -55,7 +55,7 @@ it('get componentFields should return 200 with componentFields', function () {
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Component Fields were successfully retrieved.',
+            'message' => 'ComponentFields were successfully retrieved.',
             'data' => [
                 'dtos' => [
                     [
@@ -98,7 +98,7 @@ it('get componentField with valid componentField uuid should return 200 with the
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Component Field was successfully retrieved.',
+            'message' => 'ComponentFieldas successfully retrieved.',
             'data' => [
                 'id' => $componentField->id,
                 'value' => $componentField->value,
@@ -112,6 +112,6 @@ it('get componentField with invalid componentField uuid should return 404 with t
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'Component Field not found.',
+            'message' => 'ComponentField not found.',
         ]);
 });

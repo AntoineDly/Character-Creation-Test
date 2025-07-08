@@ -48,10 +48,10 @@ final readonly class UpdatePartiallyLinkedItemFieldHandler implements CommandHan
             $attributes['parameter_id'] = $parameterId;
         } else {
             if (! is_null($value)) {
-                $field = AssertHelper::isLinkedItemField(
+                $field = AssertHelper::isLinkedItemFieldNotNull(
                     $this->fieldRepository->findById(id: $command->id)
                 );
-                $parameter = AssertHelper::isParameter($field->getParameter());
+                $parameter = AssertHelper::isParameterNotNull($field->getParameter());
                 $attributes['value'] = $this->parameterService->validateValueTypeByType(
                     type: $parameter->type,
                     value: $value

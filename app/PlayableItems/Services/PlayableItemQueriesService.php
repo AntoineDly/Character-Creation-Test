@@ -7,7 +7,7 @@ namespace App\PlayableItems\Services;
 use App\Helpers\AssertHelper;
 use App\PlayableItems\Builders\PlayableItemDtoBuilder;
 use App\PlayableItems\Dtos\PlayableItemDto;
-use Illuminate\Database\Eloquent\Model;
+use App\PlayableItems\Models\PlayableItem;
 
 final readonly class PlayableItemQueriesService
 {
@@ -16,9 +16,9 @@ final readonly class PlayableItemQueriesService
     ) {
     }
 
-    public function getPlayableItemDtoFromModel(?Model $playableItem): PlayableItemDto
+    public function getPlayableItemDtoFromModel(?PlayableItem $playableItem): PlayableItemDto
     {
-        $playableItem = AssertHelper::isPlayableItem($playableItem);
+        $playableItem = AssertHelper::isPlayableItemNotNull($playableItem);
 
         return $this->playableItemDtoBuilder
             ->setId(id: $playableItem->id)

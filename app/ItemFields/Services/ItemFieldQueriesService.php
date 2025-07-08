@@ -7,7 +7,7 @@ namespace App\ItemFields\Services;
 use App\Helpers\AssertHelper;
 use App\ItemFields\Builders\ItemFieldDtoBuilder;
 use App\ItemFields\Dtos\ItemFieldDto;
-use Illuminate\Database\Eloquent\Model;
+use App\ItemFields\Models\ItemField;
 
 final readonly class ItemFieldQueriesService
 {
@@ -16,9 +16,9 @@ final readonly class ItemFieldQueriesService
     ) {
     }
 
-    public function getItemFieldDtoFromModel(?Model $itemField): ItemFieldDto
+    public function getItemFieldDtoFromModel(?ItemField $itemField): ItemFieldDto
     {
-        $itemField = AssertHelper::isItemField($itemField);
+        $itemField = AssertHelper::isItemFieldNotNull($itemField);
 
         return $this->itemFieldDtoBuilder
             ->setId(id: $itemField->id)

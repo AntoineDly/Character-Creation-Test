@@ -7,7 +7,7 @@ namespace App\LinkedItemFields\Services;
 use App\Helpers\AssertHelper;
 use App\LinkedItemFields\Builders\LinkedItemFieldDtoBuilder;
 use App\LinkedItemFields\Dtos\LinkedItemFieldDto;
-use Illuminate\Database\Eloquent\Model;
+use App\LinkedItemFields\Models\LinkedItemField;
 
 final readonly class LinkedItemFieldQueriesService
 {
@@ -16,9 +16,9 @@ final readonly class LinkedItemFieldQueriesService
     ) {
     }
 
-    public function getLinkedFieldDtoFromModel(?Model $linkedItemField): LinkedItemFieldDto
+    public function getLinkedFieldDtoFromModel(?LinkedItemField $linkedItemField): LinkedItemFieldDto
     {
-        $linkedItemField = AssertHelper::isLinkedItemField($linkedItemField);
+        $linkedItemField = AssertHelper::isLinkedItemFieldNotNull($linkedItemField);
 
         return $this->linkedItemFieldDtoBuilder
             ->setId(id: $linkedItemField->id)

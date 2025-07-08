@@ -12,7 +12,6 @@ use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
 use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
 use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
 use App\Shared\SortAndPagination\Traits\DtosWithPaginationBuilderHelper;
-use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetCharactersWithGameQuery implements QueryInterface
 {
@@ -34,7 +33,7 @@ final readonly class GetCharactersWithGameQuery implements QueryInterface
     {
         $characters = $this->characterRepository->index($this->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?Model $character) => $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character), $characters->items());
+        $dtos = array_map(fn (?Character $character) => $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character), $characters->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $characters);
     }

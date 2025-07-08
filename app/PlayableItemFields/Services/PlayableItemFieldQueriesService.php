@@ -7,7 +7,7 @@ namespace App\PlayableItemFields\Services;
 use App\Helpers\AssertHelper;
 use App\PlayableItemFields\Builders\PlayableItemFieldDtoBuilder;
 use App\PlayableItemFields\Dtos\PlayableItemFieldDto;
-use Illuminate\Database\Eloquent\Model;
+use App\PlayableItemFields\Models\PlayableItemField;
 
 final readonly class PlayableItemFieldQueriesService
 {
@@ -16,9 +16,9 @@ final readonly class PlayableItemFieldQueriesService
     ) {
     }
 
-    public function getPlayableItemFieldDtoFromModel(?Model $playableItemField): PlayableItemFieldDto
+    public function getPlayableItemFieldDtoFromModel(?PlayableItemField $playableItemField): PlayableItemFieldDto
     {
-        $playableItemField = AssertHelper::isPlayableItemField($playableItemField);
+        $playableItemField = AssertHelper::isPlayableItemFieldNotNull($playableItemField);
 
         return $this->playableItemFieldDtoBuilder
             ->setId(id: $playableItemField->id)

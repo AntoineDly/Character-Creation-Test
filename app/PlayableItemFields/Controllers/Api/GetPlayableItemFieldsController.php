@@ -43,7 +43,7 @@ final readonly class GetPlayableItemFieldsController
             $result = $query->get();
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Playable Items Fields were not successfully retrieved.',
+                message: 'Playable ItemsFields were not successfully retrieved.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -52,7 +52,7 @@ final readonly class GetPlayableItemFieldsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Playable Item Fields were successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'Playable ItemFields were successfully retrieved.', content: $result);
     }
 
     public function getPlayableItemField(string $playableItemFieldId): JsonResponse
@@ -70,6 +70,6 @@ final readonly class GetPlayableItemFieldsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Playable Item Field was successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'Playable ItemFieldas successfully retrieved.', content: $result);
     }
 }

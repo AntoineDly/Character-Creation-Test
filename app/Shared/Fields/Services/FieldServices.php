@@ -8,7 +8,7 @@ use App\Helpers\AssertHelper;
 use App\Shared\Fields\Builders\FieldDtoBuilder;
 use App\Shared\Fields\Collection\FieldDtoCollection;
 use App\Shared\Fields\Dtos\FieldDto;
-use Illuminate\Database\Eloquent\Model;
+use App\Shared\Fields\Interfaces\FieldInterface;
 
 final readonly class FieldServices
 {
@@ -17,7 +17,7 @@ final readonly class FieldServices
     }
 
     /**
-     * @param  array<int, ?Model>  $fields
+     * @param  array<int, ?FieldInterface>  $fields
      */
     public function getFieldDtoCollectionFromFieldInterfaces(array $fields): FieldDtoCollection
     {
@@ -25,8 +25,8 @@ final readonly class FieldServices
         $fieldDtos = [];
 
         foreach ($fields as $field) {
-            $fieldInterface = AssertHelper::isFieldInterface($field);
-            $parameter = AssertHelper::isParameter($fieldInterface->getParameter());
+            $fieldInterface = AssertHelper::isFieldInterfaceNotNull($field);
+            $parameter = AssertHelper::isParameterNotNull($fieldInterface->getParameter());
             $parameterName = $parameter->name;
 
             $fieldDtos[] = $this->fieldDtoBuilder

@@ -38,7 +38,7 @@ final readonly class CreateComponentFieldController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Component Field was not successfully created.',
+                message: 'ComponentFieldas not successfully created.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -47,6 +47,6 @@ final readonly class CreateComponentFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendCreated(message: 'Component Field was successfully created.');
+        return $this->apiController->sendCreated(message: 'ComponentFieldas successfully created.');
     }
 }

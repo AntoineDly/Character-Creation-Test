@@ -39,7 +39,7 @@ final readonly class GameQueriesService
      */
     public function getGameDtoFromModel(?Game $game): GameDto
     {
-        $game = AssertHelper::isGame($game);
+        $game = AssertHelper::isGameNotNull($game);
 
         return $this->gameDtoBuilder
             ->setId(id: $game->id)

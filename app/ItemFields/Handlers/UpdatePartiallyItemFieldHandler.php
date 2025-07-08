@@ -41,10 +41,10 @@ final readonly class UpdatePartiallyItemFieldHandler implements CommandHandlerIn
             $attributes['parameter_id'] = $parameterId;
         } else {
             if (! is_null($value)) {
-                $itemField = AssertHelper::isItemField(
+                $itemField = AssertHelper::isItemFieldNotNull(
                     $this->itemFieldRepository->findById(id: $command->id)
                 );
-                $parameter = AssertHelper::isParameter($itemField->getParameter());
+                $parameter = AssertHelper::isParameterNotNull($itemField->getParameter());
                 $attributes['value'] = $this->parameterService->validateValueTypeByType(
                     type: $parameter->type,
                     value: $value

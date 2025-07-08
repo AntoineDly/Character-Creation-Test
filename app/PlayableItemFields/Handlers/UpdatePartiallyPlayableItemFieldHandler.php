@@ -42,10 +42,10 @@ final readonly class UpdatePartiallyPlayableItemFieldHandler implements CommandH
             $attributes['parameter_id'] = $parameterId;
         } else {
             if (! is_null($value)) {
-                $playableItemField = AssertHelper::isPlayableItemField(
+                $playableItemField = AssertHelper::isPlayableItemFieldNotNull(
                     $this->playableItemFieldRepository->findById(id: $command->id)
                 );
-                $parameter = AssertHelper::isParameter($playableItemField->getParameter());
+                $parameter = AssertHelper::isParameterNotNull($playableItemField->getParameter());
                 $attributes['value'] = $this->parameterService->validateValueTypeByType(
                     type: $parameter->type,
                     value: $value

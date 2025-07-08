@@ -7,7 +7,7 @@ namespace App\Items\Services;
 use App\Helpers\AssertHelper;
 use App\Items\Builders\ItemDtoBuilder;
 use App\Items\Dtos\ItemDto;
-use Illuminate\Database\Eloquent\Model;
+use App\Items\Models\Item;
 
 final readonly class ItemQueriesService
 {
@@ -15,9 +15,9 @@ final readonly class ItemQueriesService
     {
     }
 
-    public function getItemDtoFromModel(?Model $item): ItemDto
+    public function getItemDtoFromModel(?Item $item): ItemDto
     {
-        $item = AssertHelper::isItem($item);
+        $item = AssertHelper::isItemNotNull($item);
 
         return $this->itemDtoBuilder
             ->setId(id: $item->id)

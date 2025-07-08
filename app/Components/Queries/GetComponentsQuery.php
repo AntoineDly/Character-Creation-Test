@@ -12,7 +12,6 @@ use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
 use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
 use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
 use App\Shared\SortAndPagination\Traits\DtosWithPaginationBuilderHelper;
-use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetComponentsQuery implements QueryInterface
 {
@@ -34,7 +33,7 @@ final readonly class GetComponentsQuery implements QueryInterface
     {
         $components = $this->componentRepository->index($this->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?Model $component) => $this->componentQueriesService->getComponentDtoFromModel(component: $component), $components->items());
+        $dtos = array_map(fn (?Component $component) => $this->componentQueriesService->getComponentDtoFromModel(component: $component), $components->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $components);
     }

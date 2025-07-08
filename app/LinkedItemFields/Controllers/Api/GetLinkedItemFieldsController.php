@@ -43,7 +43,7 @@ final readonly class GetLinkedItemFieldsController
             $result = $query->get();
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Linked Item Fields were not successfully retrieved.',
+                message: 'LinkedItemFields were not successfully retrieved.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -52,7 +52,7 @@ final readonly class GetLinkedItemFieldsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Linked Item Fields were successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'LinkedItemFields were successfully retrieved.', content: $result);
     }
 
     public function getLinkedItemField(string $linkedItemFieldId): JsonResponse
@@ -70,6 +70,6 @@ final readonly class GetLinkedItemFieldsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Linked Item Field was successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'Linked ItemFieldas successfully retrieved.', content: $result);
     }
 }

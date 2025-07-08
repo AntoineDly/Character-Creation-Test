@@ -40,7 +40,7 @@ final readonly class UpdateItemFieldController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Item Field was not successfully updated.',
+                message: 'ItemFieldas not successfully updated.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -49,7 +49,7 @@ final readonly class UpdateItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Item Field was successfully updated.');
+        return $this->apiController->sendSuccess(message: 'ItemFieldas successfully updated.');
     }
 
     public function updatePartiallyItemField(UpdatePartiallyItemFieldRequest $request, string $id): JsonResponse
@@ -68,7 +68,7 @@ final readonly class UpdateItemFieldController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Item Field was not successfully updated partially.',
+                message: 'ItemFieldas not successfully updated partially.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -77,6 +77,6 @@ final readonly class UpdateItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Item Field was successfully updated partially.');
+        return $this->apiController->sendSuccess(message: 'ItemFieldas successfully updated partially.');
     }
 }

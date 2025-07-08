@@ -8,7 +8,7 @@ use App\Users\Exceptions\UserNotFoundException;
 use App\Users\Models\User;
 use Illuminate\Http\Request;
 
-final readonly class RequestHelper
+abstract readonly class RequestHelper
 {
     public static function getUserId(Request $request): string
     {

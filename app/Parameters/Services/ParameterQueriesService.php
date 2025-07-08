@@ -7,7 +7,7 @@ namespace App\Parameters\Services;
 use App\Helpers\AssertHelper;
 use App\Parameters\Builders\ParameterDtoBuilder;
 use App\Parameters\Dtos\ParameterDto;
-use Illuminate\Database\Eloquent\Model;
+use App\Parameters\Models\Parameter;
 
 final readonly class ParameterQueriesService
 {
@@ -16,9 +16,9 @@ final readonly class ParameterQueriesService
     ) {
     }
 
-    public function getParameterDtoFromModel(?Model $parameter): ParameterDto
+    public function getParameterDtoFromModel(?Parameter $parameter): ParameterDto
     {
-        $parameter = AssertHelper::isParameter($parameter);
+        $parameter = AssertHelper::isParameterNotNull($parameter);
 
         return $this->parameterDtoBuilder
             ->setId(id: $parameter->id)

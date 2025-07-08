@@ -21,7 +21,7 @@ final readonly class GameRepository implements GameRepositoryInterface
 
     public function getGameWithCategoriesAndPlayableItemsById(string $id): Game
     {
-        $game = $this->model->query()->where('id', $id)
+        $game = $this->queryWhereAttribute('id', $id)
             ->with(
                 [
                     'categories',
@@ -29,7 +29,7 @@ final readonly class GameRepository implements GameRepositoryInterface
                 ]
             )->first();
 
-        return AssertHelper::isGame($game);
+        return AssertHelper::isGameNotNull($game);
     }
 
     /** @return Collection<int, Game> */

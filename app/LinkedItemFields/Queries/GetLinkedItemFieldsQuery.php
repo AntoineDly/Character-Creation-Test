@@ -12,7 +12,6 @@ use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
 use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
 use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
 use App\Shared\SortAndPagination\Traits\DtosWithPaginationBuilderHelper;
-use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetLinkedItemFieldsQuery implements QueryInterface
 {
@@ -34,7 +33,7 @@ final readonly class GetLinkedItemFieldsQuery implements QueryInterface
     {
         $fields = $this->linkedItemFieldRepository->index($this->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?Model $linkedItemField) => $this->linkedItemFieldQueriesService->getLinkedFieldDtoFromModel(linkedItemField: $linkedItemField), $fields->items());
+        $dtos = array_map(fn (?LinkedItemField $linkedItemField) => $this->linkedItemFieldQueriesService->getLinkedFieldDtoFromModel(linkedItemField: $linkedItemField), $fields->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $fields);
     }

@@ -23,7 +23,7 @@ final readonly class CategoryRepository implements CategoryRepositoryInterface
     {
         $category = $this->findById(id: $categoryId);
 
-        $category = AssertHelper::isCategory($category);
+        $category = AssertHelper::isCategoryNotNull($category);
 
         $category->games()->attach($gameId);
     }

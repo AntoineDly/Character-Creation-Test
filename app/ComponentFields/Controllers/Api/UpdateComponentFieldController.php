@@ -49,7 +49,7 @@ final readonly class UpdateComponentFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Component Field was successfully updated.');
+        return $this->apiController->sendSuccess(message: 'ComponentFieldas successfully updated.');
     }
 
     public function updatePartiallyComponentField(UpdatePartiallyComponentFieldRequest $request, string $id): JsonResponse
@@ -77,6 +77,6 @@ final readonly class UpdateComponentFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Component Field was successfully updated partially.');
+        return $this->apiController->sendSuccess(message: 'ComponentFieldas successfully updated partially.');
     }
 }

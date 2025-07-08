@@ -21,7 +21,7 @@ it('get linked item fields should return 200 without any fields', function () {
         ->assertJsonStructure(['success', 'message', 'data'])
         ->assertJson([
             'success' => true,
-            'message' => 'Linked Item Fields were successfully retrieved.',
+            'message' => 'LinkedItemFields were successfully retrieved.',
             'data' => [],
         ]);
 });
@@ -75,7 +75,7 @@ it('get linked item fields should return 200 with fields', function () {
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Linked Item Fields were successfully retrieved.',
+            'message' => 'LinkedItemFields were successfully retrieved.',
             'data' => [
                 'dtos' => [
                     [
@@ -94,7 +94,7 @@ it('get linked item fields should return 200 with fields', function () {
         ]);
 });
 
-it('get linked item field with valid field uuid should return 200 with the field', function () {
+it('get linked itemFieldith valid field uuid should return 200 with the field', function () {
     $category = Category::factory()->create(['user_id' => $this->getUserId()]);
     $component = Component::factory()->create(['user_id' => $this->getUserId()]);
     $item = Item::factory()->create([
@@ -132,7 +132,7 @@ it('get linked item field with valid field uuid should return 200 with the field
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Linked Item Field was successfully retrieved.',
+            'message' => 'Linked ItemFieldas successfully retrieved.',
             'data' => [
                 'id' => $field->id,
                 'value' => $field->value,
@@ -140,12 +140,12 @@ it('get linked item field with valid field uuid should return 200 with the field
         ]);
 });
 
-it('get linked item field with invalid field uuid should return 404 with the linked item field not found.', function () {
+it('get linked itemFieldith invalid field uuid should return 404 with the linked itemField not found.', function () {
     $response = $this->getJson('/api/linked_item_fields/invalid-uuid');
     $response->assertStatus(404)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'Linked Item Field not found.',
+            'message' => 'LinkedItemField not found.',
         ]);
 });

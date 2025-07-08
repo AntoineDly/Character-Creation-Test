@@ -12,7 +12,6 @@ use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
 use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
 use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
 use App\Shared\SortAndPagination\Traits\DtosWithPaginationBuilderHelper;
-use Illuminate\Database\Eloquent\Model;
 
 final readonly class GetPlayableItemsQuery implements QueryInterface
 {
@@ -34,7 +33,7 @@ final readonly class GetPlayableItemsQuery implements QueryInterface
     {
         $playableItems = $this->playableItemRepository->index($this->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?Model $playableItem) => $this->playableItemQueriesService->getPlayableItemDtoFromModel(playableItem: $playableItem), $playableItems->items());
+        $dtos = array_map(fn (?PlayableItem $playableItem) => $this->playableItemQueriesService->getPlayableItemDtoFromModel(playableItem: $playableItem), $playableItems->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $playableItems);
     }

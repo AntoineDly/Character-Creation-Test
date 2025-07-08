@@ -6,8 +6,8 @@ namespace App\Components\Services;
 
 use App\Components\Builders\ComponentDtoBuilder;
 use App\Components\Dtos\ComponentDto;
+use App\Components\Models\Component;
 use App\Helpers\AssertHelper;
-use Illuminate\Database\Eloquent\Model;
 
 final readonly class ComponentQueriesService
 {
@@ -16,9 +16,9 @@ final readonly class ComponentQueriesService
     ) {
     }
 
-    public function getComponentDtoFromModel(?Model $component): ComponentDto
+    public function getComponentDtoFromModel(?Component $component): ComponentDto
     {
-        $component = AssertHelper::isComponent($component);
+        $component = AssertHelper::isComponentNotNull($component);
 
         return $this->componentDtoBuilder
             ->setId(id: $component->id)

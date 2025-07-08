@@ -40,7 +40,7 @@ final readonly class UpdateLinkedItemFieldController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Linked Item Field was not successfully updated.',
+                message: 'Linked ItemFieldas not successfully updated.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -49,7 +49,7 @@ final readonly class UpdateLinkedItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Linked Item Field was successfully updated.');
+        return $this->apiController->sendSuccess(message: 'Linked ItemFieldas successfully updated.');
     }
 
     public function updatePartiallyLinkedItemField(UpdatePartiallyLinkedItemFieldRequest $request, string $id): JsonResponse
@@ -68,7 +68,7 @@ final readonly class UpdateLinkedItemFieldController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Linked Item Field was not successfully updated partially.',
+                message: 'Linked ItemFieldas not successfully updated partially.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -77,6 +77,6 @@ final readonly class UpdateLinkedItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Linked Item Field was successfully updated partially.');
+        return $this->apiController->sendSuccess(message: 'Linked ItemFieldas successfully updated partially.');
     }
 }

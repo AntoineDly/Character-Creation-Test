@@ -38,7 +38,7 @@ it('update partially componentFields should return 201 with componentFields upda
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Component Field was successfully updated partially.',
+            'message' => 'ComponentFieldas successfully updated partially.',
         ]);
 
     $this->assertDatabaseHas('component_fields', $componentFieldExpectedResult);
@@ -79,7 +79,7 @@ it('update componentFields should return 201 with componentFields updated', func
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Component Field was successfully updated.',
+            'message' => 'ComponentFieldas successfully updated.',
         ]);
 
     $this->assertDatabaseHas('component_fields', $componentFieldExpectedResult);

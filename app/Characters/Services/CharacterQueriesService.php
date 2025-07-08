@@ -27,7 +27,6 @@ use App\Shared\Fields\Services\FieldServices;
 use App\Shared\Http\Exceptions\InvalidClassException;
 use App\Shared\Http\Exceptions\NotAValidUuidException;
 use App\Shared\Http\Exceptions\StringIsEmptyException;
-use Illuminate\Database\Eloquent\Model;
 
 final readonly class CharacterQueriesService
 {
@@ -47,9 +46,9 @@ final readonly class CharacterQueriesService
      * @throws NotAValidUuidException
      * @throws InvalidClassException
      */
-    public function getCharacterDtoFromModel(?Model $character): CharacterDto
+    public function getCharacterDtoFromModel(?Character $character): CharacterDto
     {
-        $character = AssertHelper::isCharacter($character);
+        $character = AssertHelper::isCharacterNotNull($character);
 
         return $this->characterDtoBuilder
             ->setId(id: $character->id)
@@ -62,9 +61,9 @@ final readonly class CharacterQueriesService
      * @throws NotAValidUuidException
      * @throws InvalidClassException
      */
-    public function getCharacterWithGameDtoFromModel(?Model $character): CharacterWithGameDto
+    public function getCharacterWithGameDtoFromModel(?Character $character): CharacterWithGameDto
     {
-        $character = AssertHelper::isCharacter($character);
+        $character = AssertHelper::isCharacterNotNull($character);
 
         $gameDto = $this->gameQueriesService->getGameDtoFromModel($character->game);
 
@@ -87,7 +86,7 @@ final readonly class CharacterQueriesService
      */
     public function getCharacterWithLinkedItemsDtoFromModel(Character $character): CharacterWithLinkedItemsDto
     {
-        $game = AssertHelper::isGame($character->game);
+        $game = AssertHelper::isGameNotNull($character->game);
 
         $gameDto = $this->gameQueriesService->getGameDtoFromModel($character->game);
 
@@ -99,7 +98,7 @@ final readonly class CharacterQueriesService
         $categories = [];
 
         foreach ($game->categories as $category) {
-            $category = AssertHelper::isCategory($category);
+            $category = AssertHelper::isCategoryNotNull($category);
             $categories[$category->id] = ['name' => $category->name, 'linkedItemForCharacterDtos' => []];
         }
 
@@ -108,11 +107,11 @@ final readonly class CharacterQueriesService
         }
 
         foreach ($character->linkedItems as $linkedItem) {
-            $linkedItem = AssertHelper::isLinkedItem($linkedItem);
-            $playableItem = AssertHelper::isPlayableItem($linkedItem->playableItem);
-            $item = AssertHelper::isItem($playableItem->item);
-            $component = AssertHelper::isComponent($item->component);
-            $category = AssertHelper::isCategory($item->category);
+            $linkedItem = AssertHelper::isLinkedItemNotNull($linkedItem);
+            $playableItem = AssertHelper::isPlayableItemNotNull($linkedItem->playableItem);
+            $item = AssertHelper::isItemNotNull($playableItem->item);
+            $component = AssertHelper::isComponentNotNull($item->component);
+            $category = AssertHelper::isCategoryNotNull($item->category);
             $categoryId = $category->id;
 
             $fieldDtoCollection = $this->fieldServices->getFieldDtoCollectionFromFieldInterfaces([

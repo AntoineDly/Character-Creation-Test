@@ -7,7 +7,7 @@ namespace App\LinkedItems\Services;
 use App\Helpers\AssertHelper;
 use App\LinkedItems\Builders\LinkedItemDtoBuilder;
 use App\LinkedItems\Dtos\LinkedItemDto;
-use Illuminate\Database\Eloquent\Model;
+use App\LinkedItems\Models\LinkedItem;
 
 final readonly class LinkedItemQueriesService
 {
@@ -16,9 +16,9 @@ final readonly class LinkedItemQueriesService
     ) {
     }
 
-    public function getLinkedItemDtoFromModel(?Model $linkedItem): LinkedItemDto
+    public function getLinkedItemDtoFromModel(?LinkedItem $linkedItem): LinkedItemDto
     {
-        $linkedItem = AssertHelper::isLinkedItem($linkedItem);
+        $linkedItem = AssertHelper::isLinkedItemNotNull($linkedItem);
 
         return $this->linkedItemDtoBuilder
             ->setId(id: $linkedItem->id)

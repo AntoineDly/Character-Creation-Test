@@ -38,17 +38,13 @@ final readonly class CharacterRepository implements CharacterRepositoryInterface
                 ]
             )->first();
 
-        return AssertHelper::isCharacter($character);
+        return AssertHelper::isCharacterNotNull($character);
     }
 
-    /**
-     * @throws CharacterNotFoundException
-     * @throws InvalidClassException
-     */
     public function getCharacterWithGameById(string $id): Character
     {
         $character = $this->model->query()->where('id', $id)->with('game')->first();
 
-        return AssertHelper::isCharacter($character);
+        return AssertHelper::isCharacterNotNull($character);
     }
 }

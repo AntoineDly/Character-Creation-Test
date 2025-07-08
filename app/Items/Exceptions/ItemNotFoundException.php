@@ -8,7 +8,6 @@ use App\Shared\Http\Exceptions\Abstract\HttpNotFoundException;
 
 final class ItemNotFoundException extends HttpNotFoundException
 {
-    /** @param string[] $data */
     public function __construct(string $message = 'Item not found.', array $data = [])
     {
         parent::__construct(message: $message, data: $data);

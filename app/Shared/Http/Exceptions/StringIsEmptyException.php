@@ -8,7 +8,6 @@ use App\Shared\Http\Exceptions\Abstract\HttpInternalServerErrorException;
 
 final class StringIsEmptyException extends HttpInternalServerErrorException
 {
-    /** @param string[] $data */
     public function __construct(string $message = 'String is empty.', array $data = [])
     {
         parent::__construct(message: $message, data: $data);

@@ -8,7 +8,6 @@ use App\Shared\Http\Enums\HttpStatusEnum;
 
 abstract class HttpUnprocessableEntityException extends AbstractHttpException
 {
-    /** @param string[] $data */
     public function __construct(string $message, array $data = [])
     {
         parent::__construct($message, HttpStatusEnum::UNPROCESSABLE_ENTITY, $data);

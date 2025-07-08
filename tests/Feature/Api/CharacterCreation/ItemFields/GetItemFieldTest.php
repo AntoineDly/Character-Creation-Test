@@ -108,7 +108,7 @@ it('get itemField with valid itemField uuid should return 200 with the itemField
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'ItemFieldas successfully retrieved.',
+            'message' => 'ItemField was successfully retrieved.',
             'data' => [
                 'id' => $itemField->id,
                 'value' => $itemField->value,

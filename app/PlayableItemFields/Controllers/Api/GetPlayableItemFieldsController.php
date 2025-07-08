@@ -70,6 +70,6 @@ final readonly class GetPlayableItemFieldsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Playable ItemFieldas successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'Playable ItemField was successfully retrieved.', content: $result);
     }
 }

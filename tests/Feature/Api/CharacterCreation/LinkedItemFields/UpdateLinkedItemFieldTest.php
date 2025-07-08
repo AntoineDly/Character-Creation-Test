@@ -58,7 +58,7 @@ it('update partially linked item field should return 201 with fields updated par
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Linked ItemFieldas successfully updated partially.',
+            'message' => 'Linked ItemField was successfully updated partially.',
         ]);
 
     $this->assertDatabaseHas('linked_item_fields', $fieldExpectedResult);
@@ -114,7 +114,7 @@ it('update linked item field should return 201 with fields updated', function ()
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Linked ItemFieldas successfully updated.',
+            'message' => 'Linked ItemField was successfully updated.',
         ]);
 
     $this->assertDatabaseHas('linked_item_fields', $fieldExpectedResult);

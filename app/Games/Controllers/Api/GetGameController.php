@@ -49,7 +49,7 @@ final readonly class GetGameController
             $result = $query->get();
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Games  were not successfully retrieved.',
+                message: 'Games were not successfully retrieved.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {

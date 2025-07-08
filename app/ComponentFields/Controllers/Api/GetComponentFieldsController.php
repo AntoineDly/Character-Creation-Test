@@ -70,6 +70,6 @@ final readonly class GetComponentFieldsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'ComponentFieldas successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'ComponentField was successfully retrieved.', content: $result);
     }
 }

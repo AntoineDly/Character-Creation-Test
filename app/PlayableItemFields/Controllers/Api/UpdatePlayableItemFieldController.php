@@ -49,7 +49,7 @@ final readonly class UpdatePlayableItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Playable ItemFieldas successfully updated.');
+        return $this->apiController->sendSuccess(message: 'Playable ItemField was successfully updated.');
     }
 
     public function updatePartiallyPlayableItemField(UpdatePartiallyPlayableItemFieldRequest $request, string $id): JsonResponse
@@ -77,6 +77,6 @@ final readonly class UpdatePlayableItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Playable ItemFieldas successfully updated partially.');
+        return $this->apiController->sendSuccess(message: 'Playable ItemField was successfully updated partially.');
     }
 }

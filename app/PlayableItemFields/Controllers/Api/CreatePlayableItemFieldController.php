@@ -38,7 +38,7 @@ final readonly class CreatePlayableItemFieldController
             $this->commandBus->handle($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Playable ItemFieldas not successfully created.',
+                message: 'Playable ItemField was not successfully created.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -47,6 +47,6 @@ final readonly class CreatePlayableItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendCreated(message: 'Playable ItemFieldas successfully created.');
+        return $this->apiController->sendCreated(message: 'Playable ItemField was successfully created.');
     }
 }

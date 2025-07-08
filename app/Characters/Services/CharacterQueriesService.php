@@ -12,21 +12,13 @@ use App\Characters\Builders\CharacterWithLinkedItemsDtoBuilder;
 use App\Characters\Dtos\CharacterDto;
 use App\Characters\Dtos\CharacterWithGameDto;
 use App\Characters\Dtos\CharacterWithLinkedItemsDto;
-use App\Characters\Exceptions\CharacterNotFoundException;
 use App\Characters\Models\Character;
-use App\Components\Exceptions\ComponentNotFoundException;
-use App\Games\Exceptions\GameNotFoundException;
 use App\Games\Services\GameQueriesService;
 use App\Helpers\ArrayHelper;
 use App\Helpers\AssertHelper;
-use App\Items\Exceptions\ItemNotFoundException;
 use App\LinkedItems\Builders\LinkedItemForCharacterDtoBuilder;
 use App\LinkedItems\Dtos\LinkedItemForCharacterDto;
-use App\LinkedItems\Exceptions\LinkedItemNotFoundException;
 use App\Shared\Fields\Services\FieldServices;
-use App\Shared\Http\Exceptions\InvalidClassException;
-use App\Shared\Http\Exceptions\NotAValidUuidException;
-use App\Shared\Http\Exceptions\StringIsEmptyException;
 
 final readonly class CharacterQueriesService
 {
@@ -41,11 +33,6 @@ final readonly class CharacterQueriesService
     ) {
     }
 
-    /**
-     * @throws CharacterNotFoundException
-     * @throws NotAValidUuidException
-     * @throws InvalidClassException
-     */
     public function getCharacterDtoFromModel(?Character $character): CharacterDto
     {
         $character = AssertHelper::isCharacterNotNull($character);
@@ -55,12 +42,6 @@ final readonly class CharacterQueriesService
             ->build();
     }
 
-    /**
-     * @throws CharacterNotFoundException
-     * @throws GameNotFoundException
-     * @throws NotAValidUuidException
-     * @throws InvalidClassException
-     */
     public function getCharacterWithGameDtoFromModel(?Character $character): CharacterWithGameDto
     {
         $character = AssertHelper::isCharacterNotNull($character);
@@ -73,17 +54,6 @@ final readonly class CharacterQueriesService
             ->build();
     }
 
-    /**
-     * @throws LinkedItemNotFoundException
-     * @throws CharacterNotFoundException
-     * @throws ComponentNotFoundException
-     * @throws ItemNotFoundException
-     * @throws CategoryNotFoundException
-     * @throws GameNotFoundException
-     * @throws InvalidClassException
-     * @throws StringIsEmptyException
-     * @throws NotAValidUuidException
-     */
     public function getCharacterWithLinkedItemsDtoFromModel(Character $character): CharacterWithLinkedItemsDto
     {
         $game = AssertHelper::isGameNotNull($character->game);

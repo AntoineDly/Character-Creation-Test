@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Characters\Repositories;
 
-use App\Characters\Exceptions\CharacterNotFoundException;
 use App\Characters\Models\Character;
 use App\Helpers\AssertHelper;
-use App\Shared\Http\Exceptions\InvalidClassException;
 use App\Shared\Repositories\RepositoryTrait;
 
 final readonly class CharacterRepository implements CharacterRepositoryInterface
@@ -20,10 +18,6 @@ final readonly class CharacterRepository implements CharacterRepositoryInterface
         $this->model = $model;
     }
 
-    /**
-     * @throws CharacterNotFoundException
-     * @throws InvalidClassException
-     */
     public function getCharacterWithLinkedItemsById(string $id): Character
     {
         $character = $this->model->query()->where('id', $id)

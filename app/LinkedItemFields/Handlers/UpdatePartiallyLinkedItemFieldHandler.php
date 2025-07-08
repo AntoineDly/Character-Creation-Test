@@ -12,7 +12,6 @@ use App\Parameters\Services\ParameterService;
 use App\Shared\Commands\CommandInterface;
 use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
-use App\Shared\Http\Exceptions\InvalidValueForParameterTypeException;
 
 final readonly class UpdatePartiallyLinkedItemFieldHandler implements CommandHandlerInterface
 {
@@ -22,11 +21,6 @@ final readonly class UpdatePartiallyLinkedItemFieldHandler implements CommandHan
     ) {
     }
 
-    /**
-     * @throws IncorrectCommandException
-     * @throws InvalidValueForParameterTypeException
-     * @throws LinkedItemFieldNotFoundException
-     */
     public function handle(CommandInterface $command): void
     {
         if (! $command instanceof UpdatePartiallyLinkedItemFieldCommand) {

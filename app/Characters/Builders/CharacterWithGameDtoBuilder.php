@@ -31,10 +31,6 @@ final class CharacterWithGameDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    /**
-     * @throws GameNotFoundException
-     * @throws NotAValidUuidException
-     */
     public function build(): CharacterWithGameDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {

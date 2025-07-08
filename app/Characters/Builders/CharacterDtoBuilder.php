@@ -20,9 +20,6 @@ final class CharacterDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    /**
-     * @throws NotAValidUuidException
-     */
     public function build(): CharacterDto
     {
         if (! UuidHelper::isValidUuid($this->id)) {

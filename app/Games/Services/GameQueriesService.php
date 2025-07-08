@@ -11,15 +11,11 @@ use App\Games\Builders\GameDtoBuilder;
 use App\Games\Builders\GameWithCategoriesAndPlayableItemsDtoBuilder;
 use App\Games\Dtos\GameDto;
 use App\Games\Dtos\GameWithCategoriesAndPlayableItemsDto;
-use App\Games\Exceptions\GameNotFoundException;
 use App\Games\Models\Game;
 use App\Helpers\AssertHelper;
 use App\PlayableItems\Dtos\PlayableItemDto;
 use App\PlayableItems\Models\PlayableItem;
 use App\PlayableItems\Services\PlayableItemQueriesService;
-use App\Shared\Http\Exceptions\InvalidClassException;
-use App\Shared\Http\Exceptions\NotAValidUuidException;
-use App\Shared\Http\Exceptions\StringIsEmptyException;
 
 final readonly class GameQueriesService
 {
@@ -31,12 +27,6 @@ final readonly class GameQueriesService
     ) {
     }
 
-    /**
-     * @throws NotAValidUuidException
-     * @throws GameNotFoundException
-     * @throws InvalidClassException
-     * @throws StringIsEmptyException
-     */
     public function getGameDtoFromModel(?Game $game): GameDto
     {
         $game = AssertHelper::isGameNotNull($game);

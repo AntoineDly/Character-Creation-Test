@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Fields\Dtos;
 
-use App\Parameters\Enums\TypeParameterEnum;
+use App\Parameters\Domain\Enums\TypeParameterEnum;
 use App\Shared\Dtos\DtoInterface;
 use App\Shared\Fields\Enums\TypeFieldEnum;
 

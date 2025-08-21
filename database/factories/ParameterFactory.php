@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Parameters\Enums\TypeParameterEnum;
-use App\Parameters\Models\Parameter;
+use App\Parameters\Domain\Enums\TypeParameterEnum;
+use App\Parameters\Domain\Models\Parameter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

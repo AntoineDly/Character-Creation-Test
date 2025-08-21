@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Fields\Interfaces;
 
-use App\Parameters\Models\Parameter;
+use App\Parameters\Domain\Models\Parameter;
 use App\Shared\Fields\Enums\TypeFieldEnum;
 
 interface FieldInterface

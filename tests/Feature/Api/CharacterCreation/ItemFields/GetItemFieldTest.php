@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\Categories\Models\Category;
-use App\Components\Models\Component;
-use App\ItemFields\Models\ItemField;
-use App\Items\Models\Item;
-use App\Parameters\Enums\TypeParameterEnum;
-use App\Parameters\Models\Parameter;
+use App\Categories\Domain\Models\Category;
+use App\Components\Domain\Models\Component;
+use App\ItemFields\Domain\Models\ItemField;
+use App\Items\Domain\Models\Item;
+use App\Parameters\Domain\Enums\TypeParameterEnum;
+use App\Parameters\Domain\Models\Parameter;
 
 it('get itemFields should return 200 without any itemFields', function () {
     $response = $this->getJson('/api/item_fields');

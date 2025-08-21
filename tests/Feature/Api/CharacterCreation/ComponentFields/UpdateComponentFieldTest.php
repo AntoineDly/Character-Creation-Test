@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\ComponentFields\Models\ComponentField;
-use App\Components\Models\Component;
-use App\Parameters\Enums\TypeParameterEnum;
-use App\Parameters\Models\Parameter;
+use App\ComponentFields\Domain\Models\ComponentField;
+use App\Components\Domain\Models\Component;
+use App\Parameters\Domain\Enums\TypeParameterEnum;
+use App\Parameters\Domain\Models\Parameter;
 
 it('update partially componentFields should return 201 with componentFields updated partially', function () {
     $component = Component::factory()->create(['user_id' => $this->getUserId()]);

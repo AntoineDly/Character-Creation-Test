@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\ItemFields\Models\ItemField;
+use App\ItemFields\Domain\Models\ItemField;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

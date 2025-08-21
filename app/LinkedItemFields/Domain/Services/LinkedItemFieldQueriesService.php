@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\LinkedItemFields\Domain\Services;
+
+use App\Helpers\AssertHelper;
+use App\LinkedItemFields\Domain\Builders\LinkedItemFieldDtoBuilder;
+use App\LinkedItemFields\Domain\Dtos\LinkedItemFieldDto;
+use App\LinkedItemFields\Domain\Models\LinkedItemField;
+
+final readonly class LinkedItemFieldQueriesService
+{
+    public function __construct(
+        private LinkedItemFieldDtoBuilder $linkedItemFieldDtoBuilder,
+    ) {
+    }
+
+    public function getLinkedFieldDtoFromModel(?LinkedItemField $linkedItemField): LinkedItemFieldDto
+    {
+        $linkedItemField = AssertHelper::isLinkedItemFieldNotNull($linkedItemField);
+
+        return $this->linkedItemFieldDtoBuilder
+            ->setId(id: $linkedItemField->id)
+            ->setValue(value: $linkedItemField->value)
+            ->build();
+    }
+}

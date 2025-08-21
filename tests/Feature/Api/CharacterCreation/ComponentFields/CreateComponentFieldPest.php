@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\Components\Models\Component;
-use App\Parameters\Enums\TypeParameterEnum;
-use App\Parameters\Models\Parameter;
+use App\Components\Domain\Models\Component;
+use App\Parameters\Domain\Enums\TypeParameterEnum;
+use App\Parameters\Domain\Models\Parameter;
 
 it('create componentFields should return 201 with a new component created', function () {
     $component = Component::factory()->create(['user_id' => $this->getUserId()]);

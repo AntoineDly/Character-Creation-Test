@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Fields\Builders;
 
 use App\Helpers\UuidHelper;
-use App\Parameters\Enums\TypeParameterEnum;
+use App\Parameters\Domain\Enums\TypeParameterEnum;
 use App\Shared\Builders\BuilderInterface;
 use App\Shared\Fields\Dtos\FieldDto;
 use App\Shared\Fields\Enums\TypeFieldEnum;

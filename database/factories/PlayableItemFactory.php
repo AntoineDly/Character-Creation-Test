@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\PlayableItems\Models\PlayableItem;
+use App\PlayableItems\Domain\Models\PlayableItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

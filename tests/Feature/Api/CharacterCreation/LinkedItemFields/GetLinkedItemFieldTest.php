@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\Categories\Models\Category;
-use App\Characters\Models\Character;
-use App\Components\Models\Component;
-use App\Games\Models\Game;
-use App\Items\Models\Item;
-use App\LinkedItemFields\Models\LinkedItemField;
-use App\LinkedItems\Models\LinkedItem;
-use App\Parameters\Enums\TypeParameterEnum;
-use App\Parameters\Models\Parameter;
-use App\PlayableItems\Models\PlayableItem;
+use App\Categories\Domain\Models\Category;
+use App\Characters\Domain\Models\Character;
+use App\Components\Domain\Models\Component;
+use App\Games\Domain\Models\Game;
+use App\Items\Domain\Models\Item;
+use App\LinkedItemFields\Domain\Models\LinkedItemField;
+use App\LinkedItems\Domain\Models\LinkedItem;
+use App\Parameters\Domain\Enums\TypeParameterEnum;
+use App\Parameters\Domain\Models\Parameter;
+use App\PlayableItems\Domain\Models\PlayableItem;
 
 it('get linked item fields should return 200 without any fields', function () {
     $response = $this->getJson('/api/linked_item_fields');

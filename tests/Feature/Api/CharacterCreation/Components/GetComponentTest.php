@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\Components\Models\Component;
+use App\Components\Domain\Models\Component;
 
 it('get components should return 200 without any games', function () {
     $response = $this->getJson('/api/components');

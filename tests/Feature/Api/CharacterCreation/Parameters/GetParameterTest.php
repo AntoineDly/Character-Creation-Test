@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\Parameters\Models\Parameter;
+use App\Parameters\Domain\Models\Parameter;
 
 it('get parameters should return 200 without any games', function () {
     $response = $this->getJson('/api/parameters');

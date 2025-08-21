@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\LinkedItems\Domain\Services;
+
+use App\Helpers\AssertHelper;
+use App\LinkedItems\Domain\Builders\LinkedItemDtoBuilder;
+use App\LinkedItems\Domain\Dtos\LinkedItemDto;
+use App\LinkedItems\Domain\Models\LinkedItem;
+
+final readonly class LinkedItemQueriesService
+{
+    public function __construct(
+        private LinkedItemDtoBuilder $linkedItemDtoBuilder,
+    ) {
+    }
+
+    public function getLinkedItemDtoFromModel(?LinkedItem $linkedItem): LinkedItemDto
+    {
+        $linkedItem = AssertHelper::isLinkedItemNotNull($linkedItem);
+
+        return $this->linkedItemDtoBuilder
+            ->setId(id: $linkedItem->id)
+            ->build();
+    }
+}

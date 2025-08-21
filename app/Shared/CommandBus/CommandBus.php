@@ -37,9 +37,9 @@ final readonly class CommandBus
     private function resolveHandlerName(CommandInterface $command): string
     {
         $reflection = new ReflectionClass($command);
-        $handlerName = str_replace('Command', 'Handler', $reflection->getShortName());
-        $namespaceName = str_replace('Commands', 'Handlers', $reflection->getNamespaceName());
+        $handlerName = "{$reflection->getShortName()}Handler";
+        $namespaceName = $reflection->getNamespaceName();
 
-        return $namespaceName.'\\'.$handlerName;
+        return "{$namespaceName}\\{$handlerName}";
     }
 }

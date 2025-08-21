@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-use App\Users\Exceptions\UserNotFoundException;
-use App\Users\Models\User;
+use App\Users\Domain\Models\User;
+use App\Users\Infrastructure\Exceptions\UserNotFoundException;
 use Illuminate\Http\Request;
 
 abstract readonly class RequestHelper

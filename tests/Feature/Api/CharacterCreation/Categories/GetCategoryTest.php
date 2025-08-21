@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\Categories\Models\Category;
+use App\Categories\Domain\Models\Category;
 
 it('get categories should return 200 without any games', function () {
     $response = $this->getJson('/api/categories');

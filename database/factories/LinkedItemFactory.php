@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\LinkedItems\Models\LinkedItem;
+use App\LinkedItems\Domain\Models\LinkedItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

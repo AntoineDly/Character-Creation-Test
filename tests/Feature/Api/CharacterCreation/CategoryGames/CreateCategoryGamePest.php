@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\Categories\Models\Category;
-use App\Games\Models\Game;
+use App\Categories\Domain\Models\Category;
+use App\Games\Domain\Models\Game;
 
 it('create categoryGame should return 201 with a new association created', function () {
     $category = Category::factory()->create(['user_id' => $this->getUserId()]);

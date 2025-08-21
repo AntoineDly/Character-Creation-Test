@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\TestCases;
 
-use App\Users\Models\User;
+use App\Users\Domain\Models\User;
 use DateTime;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\DB;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\Users\Models\User;
+use App\Users\Domain\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 it('login with the current user should return a 200 with the user being logged in', function () {

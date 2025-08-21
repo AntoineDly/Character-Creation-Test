@@ -1,0 +1,54 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Games\Domain\Services;
+
+use App\Categories\Domain\Collection\CategoryDtoCollection;
+use App\Categories\Domain\Models\Category;
+use App\Categories\Domain\Services\CategoryQueriesService;
+use App\Games\Domain\Builders\GameDtoBuilder;
+use App\Games\Domain\Builders\GameWithCategoriesAndPlayableItemsDtoBuilder;
+use App\Games\Domain\Dtos\GameDto;
+use App\Games\Domain\Dtos\GameWithCategoriesAndPlayableItemsDto;
+use App\Games\Domain\Models\Game;
+use App\Helpers\AssertHelper;
+use App\PlayableItems\Domain\Dtos\PlayableItemDto;
+use App\PlayableItems\Domain\Models\PlayableItem;
+use App\PlayableItems\Domain\Services\PlayableItemQueriesService;
+
+final readonly class GameQueriesService
+{
+    public function __construct(
+        private GameDtoBuilder $gameDtoBuilder,
+        private GameWithCategoriesAndPlayableItemsDtoBuilder $gameWithCategoriesAndPlayableItemsDtoBuilder,
+        private CategoryQueriesService $categoryQueriesService,
+        private PlayableItemQueriesService $playableItemQueriesService
+    ) {
+    }
+
+    public function getGameDtoFromModel(?Game $game): GameDto
+    {
+        $game = AssertHelper::isGameNotNull($game);
+
+        return $this->gameDtoBuilder
+            ->setId(id: $game->id)
+            ->setName(name: $game->name)
+            ->build();
+    }
+
+    public function getGameWithCategoriesAndPlayableItemsDtoFromModel(Game $game): GameWithCategoriesAndPlayableItemsDto
+    {
+        $categoryDtoCollection = CategoryDtoCollection::fromMap(fn (Category $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $game->categories->all());
+
+        /** @var PlayableItemDto[] $playableItemDtos */
+        $playableItemDtos = array_map(fn (PlayableItem $playableItem) => $this->playableItemQueriesService->getPlayableItemDtoFromModel(playableItem: $playableItem), $game->playableItems->all());
+
+        return $this->gameWithCategoriesAndPlayableItemsDtoBuilder
+            ->setId($game->id)
+            ->setName($game->name)
+            ->setCategoryDtoCollection($categoryDtoCollection)
+            ->setPlayableItemDtos($playableItemDtos)
+            ->build();
+    }
+}

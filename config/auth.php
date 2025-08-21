@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Users\Models\User;
+use App\Users\Domain\Models\User;
 
 return [
 

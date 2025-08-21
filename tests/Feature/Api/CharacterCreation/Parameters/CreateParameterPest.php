@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\Parameters\Enums\TypeParameterEnum;
+use App\Parameters\Domain\Enums\TypeParameterEnum;
 
 it('create parameter should return 201 with a new component created', function () {
     $parameterData = ['name' => 'name', 'type' => TypeParameterEnum::STRING];

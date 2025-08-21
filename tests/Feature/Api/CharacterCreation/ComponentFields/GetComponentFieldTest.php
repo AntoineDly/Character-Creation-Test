@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\ComponentFields\Models\ComponentField;
-use App\Components\Models\Component;
-use App\Parameters\Enums\TypeParameterEnum;
-use App\Parameters\Models\Parameter;
+use App\ComponentFields\Domain\Models\ComponentField;
+use App\Components\Domain\Models\Component;
+use App\Parameters\Domain\Enums\TypeParameterEnum;
+use App\Parameters\Domain\Models\Parameter;
 
 it('get componentFields should return 200 without any componentFields', function () {
     $response = $this->getJson('/api/component_fields');

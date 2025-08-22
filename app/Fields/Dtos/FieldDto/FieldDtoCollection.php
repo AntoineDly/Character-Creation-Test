@@ -10,7 +10,7 @@ use App\Shared\Dtos\DtoCollectionInterface;
 /**
  * @implements DtoCollectionInterface<FieldDto>
  */
-    final class FieldDtoCollection implements DtoCollectionInterface
+final class FieldDtoCollection implements DtoCollectionInterface
 {
     /** @use CollectionTrait<FieldDto> */
     use CollectionTrait;

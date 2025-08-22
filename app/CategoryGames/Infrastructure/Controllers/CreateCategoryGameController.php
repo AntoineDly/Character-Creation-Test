@@ -6,7 +6,7 @@ namespace App\CategoryGames\Infrastructure\Controllers;
 
 use App\CategoryGames\Application\Commands\CreateCategoryGameCommand\CreateCategoryGameCommand;
 use App\CategoryGames\Infrastructure\Requests\CreateCategoryGameRequest;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -32,7 +32,7 @@ final readonly class CreateCategoryGameController
                 gameId: $validated['gameId'],
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'CategoryGame was not successfully created.',

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Characters\Application\Commands\CreateCharacterCommand;
 
 use App\Characters\Infrastructure\Repositories\CharacterRepositoryInterface;
+use App\Shared\Commands\CommandHandlerInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreateCharacterCommandHandler implements CommandHandlerInterface

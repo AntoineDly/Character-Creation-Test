@@ -8,10 +8,10 @@ use App\PlayableItemFields\Domain\Models\PlayableItemField;
 use App\PlayableItemFields\Domain\Services\PlayableItemFieldQueriesService;
 use App\PlayableItemFields\Infrastructure\Repositories\PlayableItemFieldRepositoryInterface;
 use App\Shared\Queries\QueryInterface;
-use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
-use App\Shared\SortAndPagination\Traits\DtosWithPaginationBuilderHelper;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 
 final readonly class GetPlayableItemFieldsQuery implements QueryInterface
 {

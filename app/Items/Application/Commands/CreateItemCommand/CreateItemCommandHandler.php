@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Items\Application\Commands\CreateItemCommand;
 
 use App\Items\Infrastructure\Repositories\ItemRepositoryInterface;
+use App\Shared\Commands\CommandHandlerInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreateItemCommandHandler implements CommandHandlerInterface

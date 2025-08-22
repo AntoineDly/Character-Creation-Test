@@ -7,7 +7,7 @@ namespace App\Characters\Infrastructure\Controllers\Api;
 use App\Characters\Application\Commands\CreateCharacterCommand\CreateCharacterCommand;
 use App\Characters\Infrastructure\Requests\CreateCharacterRequest;
 use App\Helpers\RequestHelper;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -33,7 +33,7 @@ final readonly class CreateCharacterController
                 userId: RequestHelper::getUserId($request),
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Character was not successfully created.',

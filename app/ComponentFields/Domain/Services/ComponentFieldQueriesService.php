@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\ComponentFields\Domain\Services;
 
-use App\ComponentFields\Domain\Builders\ComponentFieldDtoBuilder;
-use App\ComponentFields\Domain\Dtos\ComponentFieldDto;
+use App\ComponentFields\Domain\Dtos\ComponentFieldDto\ComponentFieldDto;
+use App\ComponentFields\Domain\Dtos\ComponentFieldDto\ComponentFieldDtoBuilder;
 use App\ComponentFields\Domain\Models\ComponentField;
 use App\Helpers\AssertHelper;
 

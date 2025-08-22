@@ -6,7 +6,7 @@ namespace App\Components\Infrastructure\Controllers\Api;
 
 use App\Components\Application\Commands\CreateComponentCommand\CreateComponentCommand;
 use App\Helpers\RequestHelper;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -29,7 +29,7 @@ final readonly class CreateComponentController
                 userId: RequestHelper::getUserId($request),
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Component was not successfully created.',

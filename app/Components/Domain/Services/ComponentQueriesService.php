@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Components\Domain\Services;
 
-use App\Components\Domain\Builders\ComponentDtoBuilder;
-use App\Components\Domain\Dtos\ComponentDto;
+use App\Components\Domain\Dtos\ComponentDto\ComponentDto;
+use App\Components\Domain\Dtos\ComponentDto\ComponentDtoBuilder;
 use App\Components\Domain\Models\Component;
 use App\Helpers\AssertHelper;
 

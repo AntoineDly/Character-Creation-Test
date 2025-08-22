@@ -6,8 +6,8 @@ namespace App\ComponentFields\Application\Commands\CreateComponentFieldCommand;
 
 use App\ComponentFields\Infrastructure\Repositories\ComponentFieldRepositoryInterface;
 use App\Parameters\Domain\Services\ParameterService;
+use App\Shared\Commands\CommandHandlerInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreateComponentFieldCommandHandler implements CommandHandlerInterface

@@ -8,10 +8,10 @@ use App\LinkedItemFields\Domain\Models\LinkedItemField;
 use App\LinkedItemFields\Domain\Services\LinkedItemFieldQueriesService;
 use App\LinkedItemFields\Infrastructure\Repositories\LinkedItemFieldRepositoryInterface;
 use App\Shared\Queries\QueryInterface;
-use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
-use App\Shared\SortAndPagination\Traits\DtosWithPaginationBuilderHelper;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 
 final readonly class GetLinkedItemFieldsQuery implements QueryInterface
 {

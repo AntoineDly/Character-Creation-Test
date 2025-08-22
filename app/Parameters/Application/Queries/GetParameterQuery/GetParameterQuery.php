@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Parameters\Application\Queries\GetParameterQuery;
 
-use App\Parameters\Domain\Dtos\ParameterDto;
+use App\Parameters\Domain\Dtos\ParameterDto\ParameterDto;
 use App\Parameters\Domain\Services\ParameterQueriesService;
 use App\Parameters\Infrastructure\Repositories\ParameterRepositoryInterface;
 use App\Shared\Queries\QueryInterface;

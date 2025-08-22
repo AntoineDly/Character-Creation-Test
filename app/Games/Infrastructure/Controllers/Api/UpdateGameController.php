@@ -8,7 +8,7 @@ use App\Games\Application\Commands\UpdateGameCommand\UpdateGameCommand;
 use App\Games\Application\Commands\UpdatePartiallyGameCommand\UpdatePartiallyGameCommand;
 use App\Games\Infrastructure\Requests\UpdateGameRequest;
 use App\Games\Infrastructure\Requests\UpdatePartiallyGameRequest;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -35,7 +35,7 @@ final readonly class UpdateGameController
                 visibleForAll: $validated['visibleForAll'],
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Game was not successfully updated.',
@@ -62,7 +62,7 @@ final readonly class UpdateGameController
                 visibleForAll: $validated['visibleForAll'] ?? null,
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Game was not successfully updated partially.',

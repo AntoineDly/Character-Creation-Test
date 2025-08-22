@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\ItemFields\Domain\Models;
 
+use App\Fields\Enums\TypeFieldEnum;
+use App\Fields\Interfaces\FieldInterface;
 use App\Items\Domain\Models\Item;
 use App\Parameters\Domain\Models\Parameter;
-use App\Shared\Fields\Enums\TypeFieldEnum;
-use App\Shared\Fields\Interfaces\FieldInterface;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Domain\Models\User;

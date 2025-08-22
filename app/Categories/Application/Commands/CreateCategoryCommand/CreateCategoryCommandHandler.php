@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Categories\Application\Commands\CreateCategoryCommand;
 
 use App\Categories\Infrastructure\Repositories\CategoryRepositoryInterface;
+use App\Shared\Commands\CommandHandlerInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreateCategoryCommandHandler implements CommandHandlerInterface

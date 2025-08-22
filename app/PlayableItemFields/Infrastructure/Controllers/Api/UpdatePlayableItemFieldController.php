@@ -9,7 +9,7 @@ use App\PlayableItemFields\Application\Commands\UpdatePartiallyPlayableItemField
 use App\PlayableItemFields\Application\Commands\UpdatePlayableItemFieldCommand\UpdatePlayableItemFieldCommand;
 use App\PlayableItemFields\Infrastructure\Requests\UpdatePartiallyPlayableItemFieldRequest;
 use App\PlayableItemFields\Infrastructure\Requests\UpdatePlayableItemFieldRequest;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -37,7 +37,7 @@ final readonly class UpdatePlayableItemFieldController
                 parameterId: $validated['parameterId'],
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Playable Item was not successfully updated.',
@@ -65,7 +65,7 @@ final readonly class UpdatePlayableItemFieldController
                 parameterId: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'parameterId'),
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Playable Item was not successfully updated partially.',

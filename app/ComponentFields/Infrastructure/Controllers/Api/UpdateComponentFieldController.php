@@ -9,7 +9,7 @@ use App\ComponentFields\Application\Commands\UpdatePartiallyComponentFieldComman
 use App\ComponentFields\Infrastructure\Requests\UpdateComponentFieldRequest;
 use App\ComponentFields\Infrastructure\Requests\UpdatePartiallyComponentFieldRequest;
 use App\Helpers\ArrayHelper;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -37,7 +37,7 @@ final readonly class UpdateComponentFieldController
                 parameterId: $validated['parameterId'],
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Component was not successfully updated.',
@@ -65,7 +65,7 @@ final readonly class UpdateComponentFieldController
                 parameterId: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'parameterId'),
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Component was not successfully updated partially.',

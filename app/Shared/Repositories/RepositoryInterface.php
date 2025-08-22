@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Repositories;
 
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
+use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

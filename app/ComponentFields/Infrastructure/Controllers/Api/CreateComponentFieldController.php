@@ -7,7 +7,7 @@ namespace App\ComponentFields\Infrastructure\Controllers\Api;
 use App\ComponentFields\Application\Commands\CreateComponentFieldCommand\CreateComponentFieldCommand;
 use App\ComponentFields\Infrastructure\Requests\CreateComponentFieldRequest;
 use App\Helpers\RequestHelper;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -35,7 +35,7 @@ final readonly class CreateComponentFieldController
                 userId: RequestHelper::getUserId($request),
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'ComponentField was not successfully created.',

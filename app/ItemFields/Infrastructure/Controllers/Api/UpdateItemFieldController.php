@@ -9,7 +9,7 @@ use App\ItemFields\Application\Commands\UpdateItemFieldCommand\UpdateItemFieldCo
 use App\ItemFields\Application\Commands\UpdatePartiallyItemFieldCommand\UpdatePartiallyItemFieldCommand;
 use App\ItemFields\Infrastructure\Requests\UpdateItemFieldRequest;
 use App\ItemFields\Infrastructure\Requests\UpdatePartiallyItemFieldRequest;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -37,7 +37,7 @@ final readonly class UpdateItemFieldController
                 parameterId: $validated['parameterId'],
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'ItemField was not successfully updated.',
@@ -65,7 +65,7 @@ final readonly class UpdateItemFieldController
                 parameterId: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'parameterId'),
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'ItemField was not successfully updated partially.',

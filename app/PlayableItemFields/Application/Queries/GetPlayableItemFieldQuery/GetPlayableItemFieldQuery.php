@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\PlayableItemFields\Application\Queries\GetPlayableItemFieldQuery;
 
-use App\PlayableItemFields\Domain\Dtos\PlayableItemFieldDto;
+use App\PlayableItemFields\Domain\Dtos\PlayableItemFieldDto\PlayableItemFieldDto;
 use App\PlayableItemFields\Domain\Services\PlayableItemFieldQueriesService;
 use App\PlayableItemFields\Infrastructure\Repositories\PlayableItemFieldRepositoryInterface;
 use App\Shared\Queries\QueryInterface;

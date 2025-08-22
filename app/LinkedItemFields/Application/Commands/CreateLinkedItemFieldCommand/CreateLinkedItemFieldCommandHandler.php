@@ -6,8 +6,8 @@ namespace App\LinkedItemFields\Application\Commands\CreateLinkedItemFieldCommand
 
 use App\LinkedItemFields\Infrastructure\Repositories\LinkedItemFieldRepositoryInterface;
 use App\Parameters\Domain\Services\ParameterService;
+use App\Shared\Commands\CommandHandlerInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreateLinkedItemFieldCommandHandler implements CommandHandlerInterface

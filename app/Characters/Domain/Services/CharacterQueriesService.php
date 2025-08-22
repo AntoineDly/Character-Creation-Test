@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Characters\Domain\Services;
 
-use App\Categories\Domain\Builders\CategoryForCharacterDtoBuilder;
+use App\Categories\Domain\Dtos\CategoryForCharacterDto\CategoryForCharacterDtoBuilder;
 use App\Categories\Infrastructure\Exceptions\CategoryNotFoundException;
-use App\Characters\Domain\Builders\CharacterDtoBuilder;
-use App\Characters\Domain\Builders\CharacterWithGameDtoBuilder;
-use App\Characters\Domain\Builders\CharacterWithLinkedItemsDtoBuilder;
-use App\Characters\Domain\Dtos\CharacterDto;
-use App\Characters\Domain\Dtos\CharacterWithGameDto;
-use App\Characters\Domain\Dtos\CharacterWithLinkedItemsDto;
+use App\Characters\Domain\Dtos\CharacterDto\CharacterDto;
+use App\Characters\Domain\Dtos\CharacterDto\CharacterDtoBuilder;
+use App\Characters\Domain\Dtos\CharacterWithGameDto\CharacterWithGameDto;
+use App\Characters\Domain\Dtos\CharacterWithGameDto\CharacterWithGameDtoBuilder;
+use App\Characters\Domain\Dtos\CharacterWithLinkedItemsDto\CharacterWithLinkedItemsDto;
+use App\Characters\Domain\Dtos\CharacterWithLinkedItemsDto\CharacterWithLinkedItemsDtoBuilder;
 use App\Characters\Domain\Models\Character;
+use App\Fields\Services\FieldServices;
 use App\Games\Domain\Services\GameQueriesService;
 use App\Helpers\ArrayHelper;
 use App\Helpers\AssertHelper;
-use App\LinkedItems\Domain\Builders\LinkedItemForCharacterDtoBuilder;
-use App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto;
-use App\Shared\Fields\Services\FieldServices;
+use App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto\LinkedItemForCharacterDto;
+use App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto\LinkedItemForCharacterDtoBuilder;
 
 final readonly class CharacterQueriesService
 {

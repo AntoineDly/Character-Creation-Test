@@ -8,6 +8,7 @@ use App\Categories\Domain\Models\Category;
 use App\Characters\Domain\Models\Character;
 use App\ComponentFields\Domain\Models\ComponentField;
 use App\Components\Domain\Models\Component;
+use App\Fields\Interfaces\FieldInterface;
 use App\Games\Domain\Models\Game;
 use App\ItemFields\Domain\Models\ItemField;
 use App\Items\Domain\Models\Item;
@@ -16,7 +17,6 @@ use App\LinkedItems\Domain\Models\LinkedItem;
 use App\Parameters\Domain\Models\Parameter;
 use App\PlayableItemFields\Domain\Models\PlayableItemField;
 use App\PlayableItems\Domain\Models\PlayableItem;
-use App\Shared\Fields\Interfaces\FieldInterface;
 use App\Shared\Http\Exceptions\ElementNotFoundException;
 use App\Shared\Http\Exceptions\InvalidClassException;
 

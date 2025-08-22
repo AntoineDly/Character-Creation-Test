@@ -7,8 +7,8 @@ namespace App\ItemFields\Application\Commands\UpdateItemFieldCommand;
 use App\ItemFields\Infrastructure\Exceptions\ItemFieldNotFoundException;
 use App\ItemFields\Infrastructure\Repositories\ItemFieldRepositoryInterface;
 use App\Parameters\Domain\Services\ParameterService;
+use App\Shared\Commands\CommandHandlerInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class UpdateItemFieldCommandHandler implements CommandHandlerInterface

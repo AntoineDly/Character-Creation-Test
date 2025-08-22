@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\LinkedItemFields\Domain\Models;
 
 use App\Characters\Domain\Models\Character;
+use App\Fields\Enums\TypeFieldEnum;
+use App\Fields\Interfaces\FieldInterface;
 use App\LinkedItems\Domain\Models\LinkedItem;
 use App\Parameters\Domain\Models\Parameter;
-use App\Shared\Fields\Enums\TypeFieldEnum;
-use App\Shared\Fields\Interfaces\FieldInterface;
 use App\Shared\Traits\HasModelFactory;
 use App\Shared\Traits\Uuid;
 use App\Users\Domain\Models\User;

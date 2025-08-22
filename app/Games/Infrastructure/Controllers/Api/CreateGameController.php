@@ -7,7 +7,7 @@ namespace App\Games\Infrastructure\Controllers\Api;
 use App\Games\Application\Commands\CreateGameCommand\CreateGameCommand;
 use App\Games\Infrastructure\Requests\CreateGameRequest;
 use App\Helpers\RequestHelper;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -34,7 +34,7 @@ final readonly class CreateGameController
                 userId: RequestHelper::getUserId($request),
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Game was not successfully created.',

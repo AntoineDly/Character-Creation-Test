@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Categories\Domain\Services;
 
-use App\Categories\Domain\Builders\CategoryDtoBuilder;
-use App\Categories\Domain\Dtos\CategoryDto;
+use App\Categories\Domain\Dtos\CategoryDto\CategoryDto;
+use App\Categories\Domain\Dtos\CategoryDto\CategoryDtoBuilder;
 use App\Categories\Domain\Models\Category;
 use App\Helpers\AssertHelper;
 

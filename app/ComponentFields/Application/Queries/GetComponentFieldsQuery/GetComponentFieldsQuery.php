@@ -8,10 +8,10 @@ use App\ComponentFields\Domain\Models\ComponentField;
 use App\ComponentFields\Domain\Services\ComponentFieldQueriesService;
 use App\ComponentFields\Infrastructure\Repositories\ComponentFieldRepositoryInterface;
 use App\Shared\Queries\QueryInterface;
-use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
-use App\Shared\SortAndPagination\Traits\DtosWithPaginationBuilderHelper;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 
 final readonly class GetComponentFieldsQuery implements QueryInterface
 {

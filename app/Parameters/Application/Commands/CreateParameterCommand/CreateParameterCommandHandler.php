@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Parameters\Application\Commands\CreateParameterCommand;
 
 use App\Parameters\Infrastructure\Repositories\ParameterRepositoryInterface;
+use App\Shared\Commands\CommandHandlerInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreateParameterCommandHandler implements CommandHandlerInterface

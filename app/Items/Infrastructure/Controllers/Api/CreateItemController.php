@@ -7,7 +7,7 @@ namespace App\Items\Infrastructure\Controllers\Api;
 use App\Helpers\RequestHelper;
 use App\Items\Application\Commands\CreateItemCommand\CreateItemCommand;
 use App\Items\Infrastructure\Requests\CreateItemRequest;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -34,7 +34,7 @@ final readonly class CreateItemController
                 userId: RequestHelper::getUserId($request),
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Item was not successfully created.',

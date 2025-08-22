@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\ItemFields\Domain\Services;
 
 use App\Helpers\AssertHelper;
-use App\ItemFields\Domain\Builders\ItemFieldDtoBuilder;
-use App\ItemFields\Domain\Dtos\ItemFieldDto;
+use App\ItemFields\Domain\Dtos\ItemFieldDto\ItemFieldDto;
+use App\ItemFields\Domain\Dtos\ItemFieldDto\ItemFieldDtoBuilder;
 use App\ItemFields\Domain\Models\ItemField;
 
 final readonly class ItemFieldQueriesService

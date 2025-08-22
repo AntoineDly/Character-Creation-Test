@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Categories\Application\Queries\GetCategoriesQuery;
 
-use App\Categories\Domain\Collection\CategoryDtoCollection;
+use App\Categories\Domain\Dtos\CategoryDto\CategoryDtoCollection;
 use App\Categories\Domain\Models\Category;
 use App\Categories\Domain\Services\CategoryQueriesService;
 use App\Categories\Infrastructure\Repositories\CategoryRepositoryInterface;
-use App\Shared\Collection\DtoCollectionInterface;
+use App\Shared\Dtos\DtoCollectionInterface;
 use App\Shared\Queries\QueryInterface;
-use App\Shared\SortAndPagination\Builders\DtosWithPaginationDtoBuilder;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto;
-use App\Shared\SortAndPagination\Traits\DtosWithPaginationBuilderHelper;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
+use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 
 final readonly class GetCategoriesQuery implements QueryInterface
 {

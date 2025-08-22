@@ -7,7 +7,7 @@ namespace App\PlayableItems\Infrastructure\Controllers\Api;
 use App\Helpers\RequestHelper;
 use App\PlayableItems\Application\Commands\CreatePlayableItemCommand\CreatePlayableItemCommand;
 use App\PlayableItems\Infrastructure\Requests\CreatePlayableItemRequest;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -34,7 +34,7 @@ final readonly class CreatePlayableItemController
                 userId: RequestHelper::getUserId($request),
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Playable Item was not successfully created.',

@@ -8,8 +8,8 @@ use App\Helpers\AssertHelper;
 use App\Parameters\Domain\Services\ParameterService;
 use App\PlayableItemFields\Infrastructure\Exceptions\PlayableItemFieldNotFoundException;
 use App\PlayableItemFields\Infrastructure\Repositories\PlayableItemFieldRepositoryInterface;
+use App\Shared\Commands\CommandHandlerInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class UpdatePartiallyPlayableItemFieldCommandHandler implements CommandHandlerInterface

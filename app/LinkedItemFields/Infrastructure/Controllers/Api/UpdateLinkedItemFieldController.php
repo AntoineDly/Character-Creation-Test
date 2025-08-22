@@ -9,7 +9,7 @@ use App\LinkedItemFields\Application\Commands\UpdateLinkedItemFieldCommand\Updat
 use App\LinkedItemFields\Application\Commands\UpdatePartiallyLinkedItemFieldCommand\UpdatePartiallyLinkedItemFieldCommand;
 use App\LinkedItemFields\Infrastructure\Requests\UpdateLinkedItemFieldRequest;
 use App\LinkedItemFields\Infrastructure\Requests\UpdatePartiallyLinkedItemFieldRequest;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -37,7 +37,7 @@ final readonly class UpdateLinkedItemFieldController
                 parameterId: $validated['parameterId']
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Linked ItemField was not successfully updated.',
@@ -65,7 +65,7 @@ final readonly class UpdateLinkedItemFieldController
                 parameterId: ArrayHelper::returnNullOrStringValueOfKey(array: $validated, key: 'parameterId')
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Linked ItemField was not successfully updated partially.',

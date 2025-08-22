@@ -6,8 +6,8 @@ namespace App\Games\Application\Commands\UpdatePartiallyGameCommand;
 
 use App\Games\Infrastructure\Exceptions\GameNotFoundException;
 use App\Games\Infrastructure\Repositories\GameRepositoryInterface;
+use App\Shared\Commands\CommandHandlerInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class UpdatePartiallyGameCommandHandler implements CommandHandlerInterface

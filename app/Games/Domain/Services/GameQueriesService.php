@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Games\Domain\Services;
 
-use App\Categories\Domain\Collection\CategoryDtoCollection;
+use App\Categories\Domain\Dtos\CategoryDto\CategoryDtoCollection;
 use App\Categories\Domain\Models\Category;
 use App\Categories\Domain\Services\CategoryQueriesService;
-use App\Games\Domain\Builders\GameDtoBuilder;
-use App\Games\Domain\Builders\GameWithCategoriesAndPlayableItemsDtoBuilder;
-use App\Games\Domain\Dtos\GameDto;
-use App\Games\Domain\Dtos\GameWithCategoriesAndPlayableItemsDto;
+use App\Games\Domain\Dtos\GameDto\GameDto;
+use App\Games\Domain\Dtos\GameDto\GameDtoBuilder;
+use App\Games\Domain\Dtos\GameWithCategoriesAndPlayableItemsDto\GameWithCategoriesAndPlayableItemsDto;
+use App\Games\Domain\Dtos\GameWithCategoriesAndPlayableItemsDto\GameWithCategoriesAndPlayableItemsDtoBuilder;
 use App\Games\Domain\Models\Game;
 use App\Helpers\AssertHelper;
-use App\PlayableItems\Domain\Dtos\PlayableItemDto;
+use App\PlayableItems\Domain\Dtos\PlayableItemDto\PlayableItemDto;
 use App\PlayableItems\Domain\Models\PlayableItem;
 use App\PlayableItems\Domain\Services\PlayableItemQueriesService;
 

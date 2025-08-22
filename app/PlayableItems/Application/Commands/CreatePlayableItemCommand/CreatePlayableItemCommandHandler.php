@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\PlayableItems\Application\Commands\CreatePlayableItemCommand;
 
 use App\PlayableItems\Infrastructure\Repositories\PlayableItemRepositoryInterface;
+use App\Shared\Commands\CommandHandlerInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class CreatePlayableItemCommandHandler implements CommandHandlerInterface

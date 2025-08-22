@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Games\Application\Queries\GetAllGamesQuery;
 
-use App\Games\Domain\Collection\GameDtoCollection;
+use App\Games\Domain\Dtos\GameDto\GameDtoCollection;
 use App\Games\Domain\Models\Game;
 use App\Games\Domain\Services\GameQueriesService;
 use App\Games\Infrastructure\Repositories\GameRepositoryInterface;

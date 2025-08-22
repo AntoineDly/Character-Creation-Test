@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Users\Infrastructure\Controllers\Api;
 
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use App\Users\Application\Commands\CreateUserCommand\CreateUserCommand;
 use App\Users\Application\Queries\GetUserQuery\GetUserQuery;
-use App\Users\Domain\Builders\UserDtoBuilder;
+use App\Users\Domain\Dtos\UserDto\UserDtoBuilder;
 use App\Users\Domain\Models\User;
 use App\Users\Infrastructure\Exceptions\TokenNotFoundException;
 use App\Users\Infrastructure\Exceptions\UserNotFoundException;
@@ -43,7 +43,7 @@ final readonly class AuthenticationController
                 password: $validated['password'],
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'You haven\'t been registered.',

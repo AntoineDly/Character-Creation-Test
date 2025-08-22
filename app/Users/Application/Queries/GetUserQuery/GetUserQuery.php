@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Users\Application\Queries\GetUserQuery;
 
 use App\Shared\Queries\QueryInterface;
-use App\Users\Domain\Builders\UserDtoBuilder;
-use App\Users\Domain\Dtos\UserDto;
+use App\Users\Domain\Dtos\UserDto\UserDto;
+use App\Users\Domain\Dtos\UserDto\UserDtoBuilder;
 use App\Users\Domain\Models\User;
 use App\Users\Infrastructure\Exceptions\CantCreateTokenException;
 use App\Users\Infrastructure\Exceptions\UserNotFoundException;

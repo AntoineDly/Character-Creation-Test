@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\PlayableItemFields\Domain\Services;
 
 use App\Helpers\AssertHelper;
-use App\PlayableItemFields\Domain\Builders\PlayableItemFieldDtoBuilder;
-use App\PlayableItemFields\Domain\Dtos\PlayableItemFieldDto;
+use App\PlayableItemFields\Domain\Dtos\PlayableItemFieldDto\PlayableItemFieldDto;
+use App\PlayableItemFields\Domain\Dtos\PlayableItemFieldDto\PlayableItemFieldDtoBuilder;
 use App\PlayableItemFields\Domain\Models\PlayableItemField;
 
 final readonly class PlayableItemFieldQueriesService

@@ -8,8 +8,8 @@ use App\ComponentFields\Infrastructure\Exceptions\ComponentFieldNotFoundExceptio
 use App\ComponentFields\Infrastructure\Repositories\ComponentFieldRepositoryInterface;
 use App\Helpers\AssertHelper;
 use App\Parameters\Domain\Services\ParameterService;
+use App\Shared\Commands\CommandHandlerInterface;
 use App\Shared\Commands\CommandInterface;
-use App\Shared\Handlers\CommandHandlerInterface;
 use App\Shared\Http\Exceptions\IncorrectCommandException;
 
 final readonly class UpdatePartiallyComponentFieldCommandHandler implements CommandHandlerInterface

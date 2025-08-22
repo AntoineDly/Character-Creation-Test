@@ -7,7 +7,7 @@ namespace App\Parameters\Infrastructure\Controllers\Api;
 use App\Helpers\RequestHelper;
 use App\Parameters\Application\Commands\CreateParameterCommand\CreateParameterCommand;
 use App\Parameters\Infrastructure\Requests\CreateParameterRequest;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -34,7 +34,7 @@ final readonly class CreateParameterController
                 userId: RequestHelper::getUserId($request),
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Parameter was not successfully created.',

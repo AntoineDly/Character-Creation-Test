@@ -7,7 +7,7 @@ namespace App\ItemFields\Infrastructure\Controllers\Api;
 use App\Helpers\RequestHelper;
 use App\ItemFields\Application\Commands\CreateItemFieldCommand\CreateItemFieldCommand;
 use App\ItemFields\Infrastructure\Requests\CreateItemFieldRequest;
-use App\Shared\CommandBus\CommandBus;
+use App\Shared\Commands\CommandBus;
 use App\Shared\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
@@ -35,7 +35,7 @@ final readonly class CreateItemFieldController
                 userId: RequestHelper::getUserId($request),
             );
 
-            $this->commandBus->handle($command);
+            $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'ItemField was not successfully created.',

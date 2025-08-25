@@ -6,10 +6,7 @@ namespace App\Items\Infrastructure\Controllers\Api;
 
 use App\Items\Application\Queries\GetItemQuery\GetItemQuery;
 use App\Items\Application\Queries\GetItemsQuery\GetItemsQuery;
-use App\Items\Domain\Models\Item;
-use App\Items\Domain\Services\ItemQueriesService;
-use App\Items\Infrastructure\Repositories\ItemRepositoryInterface;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Application\Queries\QueryBus;
 use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
@@ -20,12 +17,9 @@ use Throwable;
 
 final readonly class GetItemController
 {
-    /** @param DtosWithPaginationDtoBuilder<Item> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private ItemRepositoryInterface $itemRepository,
-        private ItemQueriesService $itemQueriesService,
         private ApiControllerInterface $apiController,
-        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        private QueryBus $queryBus,
     ) {
     }
 
@@ -35,12 +29,9 @@ final readonly class GetItemController
             $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetItemsQuery(
-                itemRepository: $this->itemRepository,
-                itemQueriesService: $this->itemQueriesService,
-                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Items were not successfully retrieved.',
@@ -59,11 +50,9 @@ final readonly class GetItemController
     {
         try {
             $query = new GetItemQuery(
-                itemRepository: $this->itemRepository,
-                itemQueriesService: $this->itemQueriesService,
                 itemId: $itemId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

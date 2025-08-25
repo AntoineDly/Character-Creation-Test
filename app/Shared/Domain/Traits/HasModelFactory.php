@@ -18,7 +18,7 @@ trait HasModelFactory
     /**
      * Creates a new factory instance for the model.
      *
-     * @return Factory
+     * @return TFactory
      */
     protected static function newFactory(): Factory
     {

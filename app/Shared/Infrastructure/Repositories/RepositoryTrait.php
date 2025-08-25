@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 trait RepositoryTrait
 {
-    /** @var Model */
+    /** @var TModel */
     private readonly Model $model;
 
     /**

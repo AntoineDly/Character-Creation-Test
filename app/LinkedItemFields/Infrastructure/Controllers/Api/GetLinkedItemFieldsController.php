@@ -6,10 +6,7 @@ namespace App\LinkedItemFields\Infrastructure\Controllers\Api;
 
 use App\LinkedItemFields\Application\Queries\GetLinkedItemFieldQuery\GetLinkedItemFieldQuery;
 use App\LinkedItemFields\Application\Queries\GetLinkedItemFieldsQuery\GetLinkedItemFieldsQuery;
-use App\LinkedItemFields\Domain\Models\LinkedItemField;
-use App\LinkedItemFields\Domain\Services\LinkedItemFieldQueriesService;
-use App\LinkedItemFields\Infrastructure\Repositories\LinkedItemFieldRepositoryInterface;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Application\Queries\QueryBus;
 use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
@@ -20,12 +17,9 @@ use Throwable;
 
 final readonly class GetLinkedItemFieldsController
 {
-    /** @param DtosWithPaginationDtoBuilder<LinkedItemField> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private LinkedItemFieldRepositoryInterface $linkedItemFieldRepository,
-        private LinkedItemFieldQueriesService $linkedItemFieldQueriesService,
         private ApiControllerInterface $apiController,
-        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        private QueryBus $queryBus,
     ) {
     }
 
@@ -35,12 +29,9 @@ final readonly class GetLinkedItemFieldsController
             $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetLinkedItemFieldsQuery(
-                linkedItemFieldRepository: $this->linkedItemFieldRepository,
-                linkedItemFieldQueriesService: $this->linkedItemFieldQueriesService,
-                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'LinkedItemFields were not successfully retrieved.',
@@ -59,11 +50,9 @@ final readonly class GetLinkedItemFieldsController
     {
         try {
             $query = new GetLinkedItemFieldQuery(
-                linkedItemFieldRepository: $this->linkedItemFieldRepository,
-                linkedItemFieldQueriesService: $this->linkedItemFieldQueriesService,
                 linkedItemFieldId: $linkedItemFieldId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

@@ -6,10 +6,7 @@ namespace App\PlayableItems\Infrastructure\Controllers\Api;
 
 use App\PlayableItems\Application\Queries\GetPlayableItemQuery\GetPlayableItemQuery;
 use App\PlayableItems\Application\Queries\GetPlayableItemsQuery\GetPlayableItemsQuery;
-use App\PlayableItems\Domain\Models\PlayableItem;
-use App\PlayableItems\Domain\Services\PlayableItemQueriesService;
-use App\PlayableItems\Infrastructure\Repositories\PlayableItemRepositoryInterface;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Application\Queries\QueryBus;
 use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
@@ -20,12 +17,9 @@ use Throwable;
 
 final readonly class GetPlayableItemController
 {
-    /** @param DtosWithPaginationDtoBuilder<PlayableItem> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private PlayableItemRepositoryInterface $playableItemRepository,
-        private PlayableItemQueriesService $playableItemQueriesService,
         private ApiControllerInterface $apiController,
-        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        private QueryBus $queryBus,
     ) {
     }
 
@@ -35,12 +29,9 @@ final readonly class GetPlayableItemController
             $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetPlayableItemsQuery(
-                playableItemRepository: $this->playableItemRepository,
-                playableItemQueriesService: $this->playableItemQueriesService,
-                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Playable Items were not successfully retrieved.',
@@ -59,11 +50,9 @@ final readonly class GetPlayableItemController
     {
         try {
             $query = new GetPlayableItemQuery(
-                playableItemRepository: $this->playableItemRepository,
-                playableItemQueriesService: $this->playableItemQueriesService,
                 playableItemId: $playableItemId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

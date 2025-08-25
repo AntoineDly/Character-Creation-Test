@@ -6,10 +6,7 @@ namespace App\PlayableItemFields\Infrastructure\Controllers\Api;
 
 use App\PlayableItemFields\Application\Queries\GetPlayableItemFieldQuery\GetPlayableItemFieldQuery;
 use App\PlayableItemFields\Application\Queries\GetPlayableItemFieldsQuery\GetPlayableItemFieldsQuery;
-use App\PlayableItemFields\Domain\Models\PlayableItemField;
-use App\PlayableItemFields\Domain\Services\PlayableItemFieldQueriesService;
-use App\PlayableItemFields\Infrastructure\Repositories\PlayableItemFieldRepositoryInterface;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Application\Queries\QueryBus;
 use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
@@ -20,12 +17,9 @@ use Throwable;
 
 final readonly class GetPlayableItemFieldsController
 {
-    /** @param DtosWithPaginationDtoBuilder<PlayableItemField> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private PlayableItemFieldRepositoryInterface $playableItemFieldRepository,
-        private PlayableItemFieldQueriesService $playableItemFieldQueriesService,
         private ApiControllerInterface $apiController,
-        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        private QueryBus $queryBus,
     ) {
     }
 
@@ -35,12 +29,9 @@ final readonly class GetPlayableItemFieldsController
             $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetPlayableItemFieldsQuery(
-                playableItemFieldRepository: $this->playableItemFieldRepository,
-                playableItemFieldQueriesService: $this->playableItemFieldQueriesService,
-                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Playable ItemsFields were not successfully retrieved.',
@@ -59,11 +50,9 @@ final readonly class GetPlayableItemFieldsController
     {
         try {
             $query = new GetPlayableItemFieldQuery(
-                playableItemFieldRepository: $this->playableItemFieldRepository,
-                playableItemFieldQueriesService: $this->playableItemFieldQueriesService,
                 playableItemFieldId: $playableItemFieldId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

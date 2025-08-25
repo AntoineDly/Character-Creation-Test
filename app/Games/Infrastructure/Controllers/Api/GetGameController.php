@@ -9,12 +9,9 @@ use App\Games\Application\Queries\GetAllGamesWithoutRequestedCategoryQuery\GetAl
 use App\Games\Application\Queries\GetGameQuery\GetGameQuery;
 use App\Games\Application\Queries\GetGamesQuery\GetGamesQuery;
 use App\Games\Application\Queries\GetGameWithCategoriesAndPlayableItemsQuery\GetGameWithCategoriesAndPlayableItemsQuery;
-use App\Games\Domain\Models\Game;
-use App\Games\Domain\Services\GameQueriesService;
-use App\Games\Infrastructure\Repositories\GameRepositoryInterface;
 use App\Games\Infrastructure\Requests\AllGamesWithoutRequestedCategoryRequest;
 use App\Helpers\RequestHelper;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Application\Queries\QueryBus;
 use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
@@ -26,12 +23,9 @@ use Throwable;
 
 final readonly class GetGameController
 {
-    /** @param DtosWithPaginationDtoBuilder<Game> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private GameRepositoryInterface $gameRepository,
-        private GameQueriesService $gameQueriesService,
         private ApiControllerInterface $apiController,
-        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        private QueryBus $queryBus,
     ) {
     }
 
@@ -41,12 +35,9 @@ final readonly class GetGameController
             $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetGamesQuery(
-                gameRepository: $this->gameRepository,
-                gameQueriesService: $this->gameQueriesService,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
-                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Games were not successfully retrieved.',
@@ -65,11 +56,9 @@ final readonly class GetGameController
     {
         try {
             $query = new GetAllGamesQuery(
-                gameRepository: $this->gameRepository,
-                gameQueriesService: $this->gameQueriesService,
                 userId: RequestHelper::getUserId($request)
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
@@ -86,12 +75,10 @@ final readonly class GetGameController
             $validated = $request->validated();
 
             $query = new GetAllGamesWithoutRequestedCategoryQuery(
-                gameRepository: $this->gameRepository,
-                gameQueriesService: $this->gameQueriesService,
                 userId: RequestHelper::getUserId($request),
                 categoryId: $validated['categoryId']
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
@@ -105,11 +92,9 @@ final readonly class GetGameController
     {
         try {
             $query = new GetGameQuery(
-                gameRepository: $this->gameRepository,
-                gameQueriesService: $this->gameQueriesService,
                 gameId: $gameId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
@@ -123,11 +108,9 @@ final readonly class GetGameController
     {
         try {
             $query = new GetGameWithCategoriesAndPlayableItemsQuery(
-                gameRepository: $this->gameRepository,
-                gameQueriesService: $this->gameQueriesService,
                 gameId: $gameId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

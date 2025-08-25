@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace App\Users\Infrastructure\Controllers\Api;
 
 use App\Shared\Application\Commands\CommandBus;
+use App\Shared\Application\Queries\QueryBus;
 use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
 use App\Users\Application\Commands\CreateUserCommand\CreateUserCommand;
 use App\Users\Application\Queries\GetUserQuery\GetUserQuery;
-use App\Users\Domain\Dtos\UserDto\UserDtoBuilder;
 use App\Users\Domain\Models\User;
 use App\Users\Infrastructure\Exceptions\TokenNotFoundException;
 use App\Users\Infrastructure\Exceptions\UserNotFoundException;
-use App\Users\Infrastructure\Repositories\UserRepositoryInterface;
 use App\Users\Infrastructure\Requests\LoginRequest;
 use App\Users\Infrastructure\Requests\RegisterRequest;
 use Illuminate\Http\JsonResponse;
@@ -26,8 +25,7 @@ final readonly class AuthenticationController
 {
     public function __construct(
         private ApiControllerInterface $apiController,
-        private UserRepositoryInterface $userRepository,
-        private UserDtoBuilder $userDtoBuilder,
+        private QueryBus $queryBus,
         private CommandBus $commandBus,
     ) {
     }
@@ -65,12 +63,10 @@ final readonly class AuthenticationController
             $validated = $request->validated();
 
             $query = new GetUserQuery(
-                userRepository: $this->userRepository,
-                userDtoBuilder: $this->userDtoBuilder,
                 email: $validated['email'],
                 password: $validated['password'],
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'You haven\'t been logged in.',

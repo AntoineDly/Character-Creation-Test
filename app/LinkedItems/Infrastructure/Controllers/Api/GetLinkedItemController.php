@@ -6,10 +6,7 @@ namespace App\LinkedItems\Infrastructure\Controllers\Api;
 
 use App\LinkedItems\Application\Queries\GetLinkedItemQuery\GetLinkedItemQuery;
 use App\LinkedItems\Application\Queries\GetLinkedItemsQuery\GetLinkedItemsQuery;
-use App\LinkedItems\Domain\Models\LinkedItem;
-use App\LinkedItems\Domain\Services\LinkedItemQueriesService;
-use App\LinkedItems\Infrastructure\Repositories\LinkedItemRepositoryInterface;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Application\Queries\QueryBus;
 use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
@@ -20,12 +17,9 @@ use Throwable;
 
 final readonly class GetLinkedItemController
 {
-    /** @param DtosWithPaginationDtoBuilder<LinkedItem> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private LinkedItemRepositoryInterface $linkedItemRepository,
-        private LinkedItemQueriesService $linkedItemQueriesService,
         private ApiControllerInterface $apiController,
-        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        private QueryBus $queryBus,
     ) {
     }
 
@@ -35,12 +29,9 @@ final readonly class GetLinkedItemController
             $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetLinkedItemsQuery(
-                linkedItemRepository: $this->linkedItemRepository,
-                linkedItemQueriesService: $this->linkedItemQueriesService,
-                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Linked Items were not successfully retrieved.',
@@ -59,11 +50,9 @@ final readonly class GetLinkedItemController
     {
         try {
             $query = new GetLinkedItemQuery(
-                linkedItemRepository: $this->linkedItemRepository,
-                linkedItemQueriesService: $this->linkedItemQueriesService,
                 linkedItemId: $linkedItemId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

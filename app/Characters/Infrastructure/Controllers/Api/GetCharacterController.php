@@ -9,10 +9,7 @@ use App\Characters\Application\Queries\GetCharactersQuery\GetCharactersQuery;
 use App\Characters\Application\Queries\GetCharactersWithGameQuery\GetCharactersWithGameQuery;
 use App\Characters\Application\Queries\GetCharacterWithGameQuery\GetCharacterWithGameQuery;
 use App\Characters\Application\Queries\GetCharacterWithLinkedItemsQuery\GetCharacterWithLinkedItemsQuery;
-use App\Characters\Domain\Models\Character;
-use App\Characters\Domain\Services\CharacterQueriesService;
-use App\Characters\Infrastructure\Repositories\CharacterRepositoryInterface;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Application\Queries\QueryBus;
 use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
@@ -23,12 +20,9 @@ use Throwable;
 
 final readonly class GetCharacterController
 {
-    /** @param DtosWithPaginationDtoBuilder<Character> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private CharacterRepositoryInterface $characterRepository,
-        private CharacterQueriesService $characterQueriesService,
         private ApiControllerInterface $apiController,
-        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        private QueryBus $queryBus,
     ) {
     }
 
@@ -38,12 +32,9 @@ final readonly class GetCharacterController
             $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetCharactersQuery(
-                characterRepository: $this->characterRepository,
-                characterQueriesService: $this->characterQueriesService,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
-                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Characters were not successfully retrieved.',
@@ -62,11 +53,9 @@ final readonly class GetCharacterController
     {
         try {
             $query = new GetCharacterQuery(
-                characterRepository: $this->characterRepository,
-                characterQueriesService: $this->characterQueriesService,
                 characterId: $characterId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
@@ -80,11 +69,9 @@ final readonly class GetCharacterController
     {
         try {
             $query = new GetCharacterWithGameQuery(
-                characterRepository: $this->characterRepository,
-                characterQueriesService: $this->characterQueriesService,
                 characterId: $characterId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
@@ -100,13 +87,10 @@ final readonly class GetCharacterController
             $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetCharactersWithGameQuery(
-                characterRepository: $this->characterRepository,
-                characterQueriesService: $this->characterQueriesService,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
-                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
 
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Characters were not successfully retrieved.',
@@ -125,11 +109,9 @@ final readonly class GetCharacterController
     {
         try {
             $query = new GetCharacterWithLinkedItemsQuery(
-                characterRepository: $this->characterRepository,
-                characterQueriesService: $this->characterQueriesService,
                 characterId: $characterId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

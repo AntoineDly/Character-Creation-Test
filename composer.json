@@ -60,7 +60,8 @@
         "clean": [
             "composer pint",
             "composer larastan",
-            "composer pest"
+            "composer pest",
+            "composer audit"
         ]
     },
     "extra": {

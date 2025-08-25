@@ -6,10 +6,7 @@ namespace App\ItemFields\Infrastructure\Controllers\Api;
 
 use App\ItemFields\Application\Queries\GetItemFieldQuery\GetItemFieldQuery;
 use App\ItemFields\Application\Queries\GetItemFieldsQuery\GetItemFieldsQuery;
-use App\ItemFields\Domain\Models\ItemField;
-use App\ItemFields\Domain\Services\ItemFieldQueriesService;
-use App\ItemFields\Infrastructure\Repositories\ItemFieldRepositoryInterface;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Application\Queries\QueryBus;
 use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
@@ -20,12 +17,9 @@ use Throwable;
 
 final readonly class GetItemFieldsController
 {
-    /** @param DtosWithPaginationDtoBuilder<ItemField> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private ItemFieldRepositoryInterface $itemFieldRepository,
-        private ItemFieldQueriesService $itemFieldQueriesService,
         private ApiControllerInterface $apiController,
-        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        private QueryBus $queryBus,
     ) {
     }
 
@@ -35,12 +29,9 @@ final readonly class GetItemFieldsController
             $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetItemFieldsQuery(
-                itemFieldRepository: $this->itemFieldRepository,
-                itemFieldQueriesService: $this->itemFieldQueriesService,
-                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'ItemFields were not successfully retrieved.',
@@ -59,11 +50,9 @@ final readonly class GetItemFieldsController
     {
         try {
             $query = new GetItemFieldQuery(
-                itemFieldRepository: $this->itemFieldRepository,
-                itemFieldQueriesService: $this->itemFieldQueriesService,
                 itemFieldId: $itemFieldId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

@@ -6,7 +6,6 @@ namespace App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto;
 
 use App\Shared\Domain\Dtos\BuilderInterface;
 use App\Shared\Domain\Dtos\DtoCollectionInterface;
-use App\Shared\Domain\Dtos\DtoInterface;
 use App\Shared\Domain\Dtos\EmptyDto\EmptyDtoCollection;
 use App\Shared\Domain\SortAndPagination\Dtos\PaginationDto\PaginationDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

@@ -6,10 +6,7 @@ namespace App\Parameters\Infrastructure\Controllers\Api;
 
 use App\Parameters\Application\Queries\GetParameterQuery\GetParameterQuery;
 use App\Parameters\Application\Queries\GetParametersQuery\GetParametersQuery;
-use App\Parameters\Domain\Models\Parameter;
-use App\Parameters\Domain\Services\ParameterQueriesService;
-use App\Parameters\Infrastructure\Repositories\ParameterRepositoryInterface;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Application\Queries\QueryBus;
 use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
@@ -20,12 +17,9 @@ use Throwable;
 
 final readonly class GetParameterController
 {
-    /** @param DtosWithPaginationDtoBuilder<Parameter> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private ParameterRepositoryInterface $parameterRepository,
-        private ParameterQueriesService $parameterQueriesService,
         private ApiControllerInterface $apiController,
-        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        private QueryBus $queryBus,
     ) {
     }
 
@@ -35,12 +29,9 @@ final readonly class GetParameterController
             $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetParametersQuery(
-                parameterRepository: $this->parameterRepository,
-                parameterQueriesService: $this->parameterQueriesService,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
-                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Parameters were not successfully retrieved.',
@@ -59,11 +50,9 @@ final readonly class GetParameterController
     {
         try {
             $query = new GetParameterQuery(
-                parameterRepository: $this->parameterRepository,
-                parameterQueriesService: $this->parameterQueriesService,
                 parameterId: $parameterId,
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

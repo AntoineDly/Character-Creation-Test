@@ -4,37 +4,13 @@ declare(strict_types=1);
 
 namespace App\LinkedItemFields\Application\Queries\GetLinkedItemFieldsQuery;
 
-use App\LinkedItemFields\Domain\Dtos\LinkedItemFieldDto\LinkedItemFieldDto;
-use App\LinkedItemFields\Domain\Models\LinkedItemField;
-use App\LinkedItemFields\Domain\Services\LinkedItemFieldQueriesService;
-use App\LinkedItemFields\Infrastructure\Repositories\LinkedItemFieldRepositoryInterface;
 use App\Shared\Application\Queries\QueryInterface;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
 use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 
 final readonly class GetLinkedItemFieldsQuery implements QueryInterface
 {
-    /** @use DtosWithPaginationBuilderHelper<LinkedItemField> */
-    use DtosWithPaginationBuilderHelper;
-
-    /** @param DtosWithPaginationDtoBuilder<LinkedItemField> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private LinkedItemFieldRepositoryInterface $linkedItemFieldRepository,
-        private LinkedItemFieldQueriesService $linkedItemFieldQueriesService,
-        private SortedAndPaginatedDto $sortedAndPaginatedDto,
-        DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        public SortedAndPaginatedDto $sortedAndPaginatedDto,
     ) {
-        $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
-    }
-
-    public function get(): DtosWithPaginationDto
-    {
-        $fields = $this->linkedItemFieldRepository->index($this->sortedAndPaginatedDto);
-
-        $dtos = array_map(fn (?LinkedItemField $linkedItemField) => $this->linkedItemFieldQueriesService->getLinkedFieldDtoFromModel(linkedItemField: $linkedItemField), $fields->items());
-
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $fields);
     }
 }

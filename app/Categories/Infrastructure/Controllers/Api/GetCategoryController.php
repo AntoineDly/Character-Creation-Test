@@ -8,12 +8,9 @@ use App\Categories\Application\Queries\GetAllCategoriesQuery\GetAllCategoriesQue
 use App\Categories\Application\Queries\GetAllCategoriesWithoutRequestedGameQuery\GetAllCategoriesWithoutRequestedGameQuery;
 use App\Categories\Application\Queries\GetCategoriesQuery\GetCategoriesQuery;
 use App\Categories\Application\Queries\GetCategoryQuery\GetCategoryQuery;
-use App\Categories\Domain\Models\Category;
-use App\Categories\Domain\Services\CategoryQueriesService;
-use App\Categories\Infrastructure\Repositories\CategoryRepositoryInterface;
 use App\Categories\Infrastructure\Requests\AllCategoriesWithoutRequestedGameRequest;
 use App\Helpers\RequestHelper;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Application\Queries\QueryBus;
 use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
 use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
@@ -25,12 +22,9 @@ use Throwable;
 
 final readonly class GetCategoryController
 {
-    /** @param DtosWithPaginationDtoBuilder<Category> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private CategoryRepositoryInterface $categoryRepository,
-        private CategoryQueriesService $categoryQueriesService,
         private ApiControllerInterface $apiController,
-        private DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        private QueryBus $queryBus,
     ) {
     }
 
@@ -40,12 +34,9 @@ final readonly class GetCategoryController
             $sortedAndPaginatedDto = SortedAndPaginatedDto::fromSortedAndPaginatedRequest($request);
 
             $query = new GetCategoriesQuery(
-                categoryRepository: $this->categoryRepository,
-                categoryQueriesService: $this->categoryQueriesService,
                 sortedAndPaginatedDto: $sortedAndPaginatedDto,
-                dtosWithPaginationDtoBuilder: $this->dtosWithPaginationDtoBuilder,
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
                 message: 'Categories were not successfully retrieved.',
@@ -64,11 +55,9 @@ final readonly class GetCategoryController
     {
         try {
             $query = new GetAllCategoriesQuery(
-                categoryRepository: $this->categoryRepository,
-                categoryQueriesService: $this->categoryQueriesService,
                 userId: RequestHelper::getUserId($request)
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
@@ -85,12 +74,10 @@ final readonly class GetCategoryController
             $validated = $request->validated();
 
             $query = new GetAllCategoriesWithoutRequestedGameQuery(
-                categoryRepository: $this->categoryRepository,
-                categoryQueriesService: $this->categoryQueriesService,
                 userId: RequestHelper::getUserId($request),
                 gameId: $validated['gameId']
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {
@@ -104,11 +91,9 @@ final readonly class GetCategoryController
     {
         try {
             $query = new GetCategoryQuery(
-                categoryRepository: $this->categoryRepository,
-                categoryQueriesService: $this->categoryQueriesService,
                 categoryId: $categoryId
             );
-            $result = $query->get();
+            $result = $this->queryBus->dispatch($query);
         } catch (HttpExceptionInterface $e) {
             return $this->apiController->sendException($e);
         } catch (Throwable $e) {

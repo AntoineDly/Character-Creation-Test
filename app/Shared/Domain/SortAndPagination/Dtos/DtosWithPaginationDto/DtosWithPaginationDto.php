@@ -11,9 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 
 final readonly class DtosWithPaginationDto implements DtoInterface
 {
-    /** @param DtoInterface[]|DtoCollectionInterface $dtos */
     public function __construct(
-        public array|DtoCollectionInterface $dtos,
+        public DtoCollectionInterface $dtos,
         public PaginationDto $paginationDto,
     ) {
     }

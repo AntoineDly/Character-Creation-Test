@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\LinkedItemFields\Infrastructure\Requests;
 
-use App\Shared\Requests\BaseRequest;
+use App\Shared\Infrastructure\Requests\BaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 final class UpdatePartiallyLinkedItemFieldRequest extends BaseRequest

@@ -7,9 +7,9 @@ namespace App\Games\Domain\Dtos\GameWithCategoriesAndPlayableItemsDto;
 use App\Categories\Domain\Dtos\CategoryDto\CategoryDtoCollection;
 use App\Helpers\UuidHelper;
 use App\PlayableItems\Domain\Dtos\PlayableItemDto\PlayableItemDto;
-use App\Shared\Dtos\BuilderInterface;
-use App\Shared\Http\Exceptions\NotAValidUuidException;
-use App\Shared\Http\Exceptions\StringIsEmptyException;
+use App\Shared\Domain\Dtos\BuilderInterface;
+use App\Shared\Infrastructure\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Infrastructure\Http\Exceptions\StringIsEmptyException;
 
 final class GameWithCategoriesAndPlayableItemsDtoBuilder implements BuilderInterface
 {

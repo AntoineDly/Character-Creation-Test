@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ComponentFields\Application\Commands\UpdateComponentFieldCommand;
 
-use App\Shared\Commands\CommandInterface;
+use App\Shared\Application\Commands\CommandInterface;
 
 final readonly class UpdateComponentFieldCommand implements CommandInterface
 {

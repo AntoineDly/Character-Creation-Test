@@ -8,36 +8,17 @@ use App\Categories\Domain\Dtos\CategoryDto\CategoryDtoCollection;
 use App\Categories\Domain\Models\Category;
 use App\Categories\Domain\Services\CategoryQueriesService;
 use App\Categories\Infrastructure\Repositories\CategoryRepositoryInterface;
-use App\Shared\Dtos\DtoCollectionInterface;
-use App\Shared\Queries\QueryInterface;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
+use App\Shared\Application\Queries\QueryInterface;
+use App\Shared\Domain\Dtos\DtoCollectionInterface;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 
 final readonly class GetCategoriesQuery implements QueryInterface
 {
-    /** @use DtosWithPaginationBuilderHelper<Category> */
-    use DtosWithPaginationBuilderHelper;
-
-    /** @param DtosWithPaginationDtoBuilder<Category> $dtosWithPaginationDtoBuilder */
     public function __construct(
-        private CategoryRepositoryInterface $categoryRepository,
-        private CategoryQueriesService $categoryQueriesService,
-        private SortedAndPaginatedDto $sortedAndPaginatedDto,
-        DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
+        public SortedAndPaginatedDto $sortedAndPaginatedDto
     ) {
-        $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
-    }
-
-    /** @return DtosWithPaginationDto<Category> */
-    public function get(): DtosWithPaginationDto
-    {
-        $categories = $this->categoryRepository->index($this->sortedAndPaginatedDto);
-
-        /** @var DtoCollectionInterface<Category> $dtos */
-        $dtos = CategoryDtoCollection::fromMap(fn (Category $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $categories->items());
-
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator(dtos: $dtos, lengthAwarePaginator: $categories);
     }
 }

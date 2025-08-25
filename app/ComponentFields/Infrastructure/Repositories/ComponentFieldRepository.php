@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\ComponentFields\Infrastructure\Repositories;
 
 use App\ComponentFields\Domain\Models\ComponentField;
-use App\Shared\Repositories\RepositoryTrait;
+use App\Shared\Infrastructure\Repositories\RepositoryTrait;
 
 final readonly class ComponentFieldRepository implements ComponentFieldRepositoryInterface
 {

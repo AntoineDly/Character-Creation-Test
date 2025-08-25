@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\ItemFields\Application\Queries\GetItemFieldsQuery;
 
+use App\ItemFields\Domain\Dtos\ItemFieldDto\ItemFieldDto;
 use App\ItemFields\Domain\Models\ItemField;
 use App\ItemFields\Domain\Services\ItemFieldQueriesService;
 use App\ItemFields\Infrastructure\Repositories\ItemFieldRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
+use App\Shared\Application\Queries\QueryInterface;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 
 final readonly class GetItemFieldsQuery implements QueryInterface
 {
@@ -28,7 +29,6 @@ final readonly class GetItemFieldsQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
-    /** @return DtosWithPaginationDto<ItemField> */
     public function get(): DtosWithPaginationDto
     {
         $itemFields = $this->itemFieldRepository->index($this->sortedAndPaginatedDto);

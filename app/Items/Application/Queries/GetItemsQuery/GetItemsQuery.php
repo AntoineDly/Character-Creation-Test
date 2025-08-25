@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Items\Application\Queries\GetItemsQuery;
 
+use App\Items\Domain\Dtos\ItemDto\ItemDto;
 use App\Items\Domain\Models\Item;
 use App\Items\Domain\Services\ItemQueriesService;
 use App\Items\Infrastructure\Repositories\ItemRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
+use App\Shared\Application\Queries\QueryInterface;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 
 final readonly class GetItemsQuery implements QueryInterface
 {
@@ -28,7 +29,6 @@ final readonly class GetItemsQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
-    /** @return DtosWithPaginationDto<Item> */
     public function get(): DtosWithPaginationDto
     {
         $items = $this->itemRepository->index($this->sortedAndPaginatedDto);

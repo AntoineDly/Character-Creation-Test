@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Parameters\Application\Commands\CreateParameterCommand;
 
-use App\Shared\Commands\CommandInterface;
+use App\Shared\Application\Commands\CommandInterface;
 
 final readonly class CreateParameterCommand implements CommandInterface
 {

@@ -9,9 +9,9 @@ use App\ComponentFields\Application\Commands\UpdatePartiallyComponentFieldComman
 use App\ComponentFields\Infrastructure\Requests\UpdateComponentFieldRequest;
 use App\ComponentFields\Infrastructure\Requests\UpdatePartiallyComponentFieldRequest;
 use App\Helpers\ArrayHelper;
-use App\Shared\Commands\CommandBus;
-use App\Shared\Controllers\ApiController\ApiControllerInterface;
-use App\Shared\Http\Exceptions\HttpExceptionInterface;
+use App\Shared\Application\Commands\CommandBus;
+use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Throwable;

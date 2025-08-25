@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Fields\Dtos\FieldDto;
 
-use App\Shared\Collection\CollectionTrait;
-use App\Shared\Dtos\DtoCollectionInterface;
+use App\Shared\Domain\Collection\CollectionTrait;
+use App\Shared\Domain\Dtos\DtoCollectionInterface;
 
 /**
  * @implements DtoCollectionInterface<FieldDto>

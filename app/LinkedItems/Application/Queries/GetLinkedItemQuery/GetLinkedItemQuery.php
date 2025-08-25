@@ -7,7 +7,7 @@ namespace App\LinkedItems\Application\Queries\GetLinkedItemQuery;
 use App\LinkedItems\Domain\Dtos\LinkedItemDto\LinkedItemDto;
 use App\LinkedItems\Domain\Services\LinkedItemQueriesService;
 use App\LinkedItems\Infrastructure\Repositories\LinkedItemRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
+use App\Shared\Application\Queries\QueryInterface;
 
 final readonly class GetLinkedItemQuery implements QueryInterface
 {

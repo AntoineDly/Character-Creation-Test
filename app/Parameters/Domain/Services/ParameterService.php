@@ -8,7 +8,7 @@ use App\Helpers\AssertHelper;
 use App\Parameters\Domain\Enums\TypeParameterEnum;
 use App\Parameters\Domain\Models\Parameter;
 use App\Parameters\Infrastructure\Repositories\ParameterRepositoryInterface;
-use App\Shared\Http\Exceptions\InvalidValueForParameterTypeException;
+use App\Shared\Infrastructure\Http\Exceptions\InvalidValueForParameterTypeException;
 
 final readonly class ParameterService
 {

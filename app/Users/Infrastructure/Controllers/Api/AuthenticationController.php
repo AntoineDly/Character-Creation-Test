@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Users\Infrastructure\Controllers\Api;
 
-use App\Shared\Commands\CommandBus;
-use App\Shared\Controllers\ApiController\ApiControllerInterface;
-use App\Shared\Http\Exceptions\HttpExceptionInterface;
+use App\Shared\Application\Commands\CommandBus;
+use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
 use App\Users\Application\Commands\CreateUserCommand\CreateUserCommand;
 use App\Users\Application\Queries\GetUserQuery\GetUserQuery;
 use App\Users\Domain\Dtos\UserDto\UserDtoBuilder;

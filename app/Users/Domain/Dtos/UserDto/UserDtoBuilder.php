@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Users\Domain\Dtos\UserDto;
 
 use App\Helpers\UuidHelper;
-use App\Shared\Dtos\BuilderInterface;
-use App\Shared\Http\Exceptions\NotAValidUuidException;
-use App\Shared\Http\Exceptions\StringIsEmptyException;
+use App\Shared\Domain\Dtos\BuilderInterface;
+use App\Shared\Infrastructure\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Infrastructure\Http\Exceptions\StringIsEmptyException;
 
 final class UserDtoBuilder implements BuilderInterface
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Parameters\Infrastructure\Requests;
 
 use App\Parameters\Domain\Enums\TypeParameterEnum;
-use App\Shared\Requests\BaseRequest;
+use App\Shared\Infrastructure\Requests\BaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;

@@ -8,9 +8,9 @@ use App\Helpers\AssertHelper;
 use App\ItemFields\Infrastructure\Exceptions\ItemFieldNotFoundException;
 use App\ItemFields\Infrastructure\Repositories\ItemFieldRepositoryInterface;
 use App\Parameters\Domain\Services\ParameterService;
-use App\Shared\Commands\CommandHandlerInterface;
-use App\Shared\Commands\CommandInterface;
-use App\Shared\Http\Exceptions\IncorrectCommandException;
+use App\Shared\Application\Commands\CommandHandlerInterface;
+use App\Shared\Application\Commands\CommandInterface;
+use App\Shared\Application\Commands\IncorrectCommandException;
 
 final readonly class UpdatePartiallyItemFieldCommandHandler implements CommandHandlerInterface
 {

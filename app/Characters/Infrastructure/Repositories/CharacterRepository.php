@@ -6,7 +6,7 @@ namespace App\Characters\Infrastructure\Repositories;
 
 use App\Characters\Domain\Models\Character;
 use App\Helpers\AssertHelper;
-use App\Shared\Repositories\RepositoryTrait;
+use App\Shared\Infrastructure\Repositories\RepositoryTrait;
 
 final readonly class CharacterRepository implements CharacterRepositoryInterface
 {

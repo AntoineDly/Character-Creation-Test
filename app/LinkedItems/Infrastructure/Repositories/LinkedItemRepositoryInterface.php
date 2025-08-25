@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\LinkedItems\Infrastructure\Repositories;
 
 use App\LinkedItems\Domain\Models\LinkedItem;
-use App\Shared\Repositories\RepositoryInterface;
+use App\Shared\Infrastructure\Repositories\RepositoryInterface;
 
 /**
  * @extends RepositoryInterface<LinkedItem>

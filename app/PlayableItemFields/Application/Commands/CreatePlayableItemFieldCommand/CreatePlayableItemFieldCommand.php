@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\PlayableItemFields\Application\Commands\CreatePlayableItemFieldCommand;
 
-use App\Shared\Commands\CommandInterface;
+use App\Shared\Application\Commands\CommandInterface;
 
 final readonly class CreatePlayableItemFieldCommand implements CommandInterface
 {

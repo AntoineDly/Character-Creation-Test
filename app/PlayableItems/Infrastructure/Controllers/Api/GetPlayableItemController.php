@@ -9,11 +9,11 @@ use App\PlayableItems\Application\Queries\GetPlayableItemsQuery\GetPlayableItems
 use App\PlayableItems\Domain\Models\PlayableItem;
 use App\PlayableItems\Domain\Services\PlayableItemQueriesService;
 use App\PlayableItems\Infrastructure\Repositories\PlayableItemRepositoryInterface;
-use App\Shared\Controllers\ApiController\ApiControllerInterface;
-use App\Shared\Http\Exceptions\HttpExceptionInterface;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedRequest;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
+use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
+use App\Shared\Infrastructure\Requests\SortedAndPaginatedRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Throwable;

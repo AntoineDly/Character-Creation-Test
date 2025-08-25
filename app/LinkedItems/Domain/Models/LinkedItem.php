@@ -6,8 +6,8 @@ namespace App\LinkedItems\Domain\Models;
 
 use App\LinkedItemFields\Domain\Models\LinkedItemField;
 use App\PlayableItems\Domain\Models\PlayableItem;
-use App\Shared\Traits\HasModelFactory;
-use App\Shared\Traits\Uuid;
+use App\Shared\Domain\Traits\HasModelFactory;
+use App\Shared\Domain\Traits\Uuid;
 use App\Users\Domain\Models\User;
 use Database\Factories\LinkedItemFactory;
 use Illuminate\Database\Eloquent\Model;

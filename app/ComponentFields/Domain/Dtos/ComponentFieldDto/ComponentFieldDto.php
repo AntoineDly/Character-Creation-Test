@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ComponentFields\Domain\Dtos\ComponentFieldDto;
 
-use App\Shared\Dtos\DtoInterface;
+use App\Shared\Domain\Dtos\DtoInterface;
 
 final readonly class ComponentFieldDto implements DtoInterface
 {

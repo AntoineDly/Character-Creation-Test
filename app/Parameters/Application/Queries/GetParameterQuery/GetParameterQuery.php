@@ -7,7 +7,7 @@ namespace App\Parameters\Application\Queries\GetParameterQuery;
 use App\Parameters\Domain\Dtos\ParameterDto\ParameterDto;
 use App\Parameters\Domain\Services\ParameterQueriesService;
 use App\Parameters\Infrastructure\Repositories\ParameterRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
+use App\Shared\Application\Queries\QueryInterface;
 
 final readonly class GetParameterQuery implements QueryInterface
 {

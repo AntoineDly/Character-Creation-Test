@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Categories\Application\Commands\CreateCategoryCommand;
 
-use App\Shared\Commands\CommandInterface;
+use App\Shared\Application\Commands\CommandInterface;
 
 final readonly class CreateCategoryCommand implements CommandInterface
 {

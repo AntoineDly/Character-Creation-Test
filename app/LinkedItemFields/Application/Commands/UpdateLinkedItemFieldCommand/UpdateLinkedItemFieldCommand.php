@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\LinkedItemFields\Application\Commands\UpdateLinkedItemFieldCommand;
 
-use App\Shared\Commands\CommandInterface;
+use App\Shared\Application\Commands\CommandInterface;
 
 final readonly class UpdateLinkedItemFieldCommand implements CommandInterface
 {

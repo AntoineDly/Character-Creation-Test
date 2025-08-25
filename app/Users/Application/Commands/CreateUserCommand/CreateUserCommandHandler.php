@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Users\Application\Commands\CreateUserCommand;
 
-use App\Shared\Commands\CommandHandlerInterface;
-use App\Shared\Commands\CommandInterface;
-use App\Shared\Http\Exceptions\IncorrectCommandException;
+use App\Shared\Application\Commands\CommandHandlerInterface;
+use App\Shared\Application\Commands\CommandInterface;
+use App\Shared\Application\Commands\IncorrectCommandException;
 use App\Users\Infrastructure\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;

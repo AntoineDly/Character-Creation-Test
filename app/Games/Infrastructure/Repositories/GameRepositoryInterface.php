@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Games\Infrastructure\Repositories;
 
 use App\Games\Domain\Models\Game;
-use App\Shared\Repositories\RepositoryInterface;
+use App\Shared\Infrastructure\Repositories\RepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 /**

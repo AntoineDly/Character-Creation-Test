@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Items\Domain\Dtos\ItemDto;
 
-use App\Shared\Dtos\DtoInterface;
+use App\Shared\Domain\Dtos\DtoInterface;
 
 final readonly class ItemDto implements DtoInterface
 {

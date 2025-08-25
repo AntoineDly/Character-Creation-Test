@@ -12,11 +12,11 @@ use App\Characters\Application\Queries\GetCharacterWithLinkedItemsQuery\GetChara
 use App\Characters\Domain\Models\Character;
 use App\Characters\Domain\Services\CharacterQueriesService;
 use App\Characters\Infrastructure\Repositories\CharacterRepositoryInterface;
-use App\Shared\Controllers\ApiController\ApiControllerInterface;
-use App\Shared\Http\Exceptions\HttpExceptionInterface;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedRequest;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
+use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
+use App\Shared\Infrastructure\Requests\SortedAndPaginatedRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Throwable;

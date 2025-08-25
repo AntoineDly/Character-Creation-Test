@@ -8,21 +8,12 @@ use App\Categories\Domain\Dtos\CategoryDto\CategoryDtoCollection;
 use App\Categories\Domain\Models\Category;
 use App\Categories\Domain\Services\CategoryQueriesService;
 use App\Categories\Infrastructure\Repositories\CategoryRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
+use App\Shared\Application\Queries\QueryInterface;
 
 final readonly class GetAllCategoriesQuery implements QueryInterface
 {
     public function __construct(
-        private CategoryRepositoryInterface $categoryRepository,
-        private CategoryQueriesService $categoryQueriesService,
-        private string $userId
+        public string $userId
     ) {
-    }
-
-    public function get(): CategoryDtoCollection
-    {
-        $categories = $this->categoryRepository->all($this->userId);
-
-        return CategoryDtoCollection::fromMap(fn (Category $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $categories->all());
     }
 }

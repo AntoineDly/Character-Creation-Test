@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Categories\Infrastructure\Repositories;
 
 use App\Categories\Domain\Models\Category;
-use App\Shared\Repositories\RepositoryInterface;
+use App\Shared\Infrastructure\Repositories\RepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 /**

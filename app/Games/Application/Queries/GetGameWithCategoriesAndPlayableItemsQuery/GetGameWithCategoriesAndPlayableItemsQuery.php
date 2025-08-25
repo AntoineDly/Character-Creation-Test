@@ -7,14 +7,12 @@ namespace App\Games\Application\Queries\GetGameWithCategoriesAndPlayableItemsQue
 use App\Games\Domain\Dtos\GameWithCategoriesAndPlayableItemsDto\GameWithCategoriesAndPlayableItemsDto;
 use App\Games\Domain\Services\GameQueriesService;
 use App\Games\Infrastructure\Repositories\GameRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
+use App\Shared\Application\Queries\QueryInterface;
 
 final readonly class GetGameWithCategoriesAndPlayableItemsQuery implements QueryInterface
 {
     public function __construct(
-        private GameRepositoryInterface $gameRepository,
-        private GameQueriesService $gameQueriesService,
-        private string $gameId,
+        public string $gameId,
     ) {
     }
 

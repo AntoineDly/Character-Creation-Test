@@ -6,8 +6,8 @@ namespace App\Characters\Domain\Models;
 
 use App\Games\Domain\Models\Game;
 use App\LinkedItems\Domain\Models\LinkedItem;
-use App\Shared\Traits\HasModelFactory;
-use App\Shared\Traits\Uuid;
+use App\Shared\Domain\Traits\HasModelFactory;
+use App\Shared\Domain\Traits\Uuid;
 use App\Users\Domain\Models\User;
 use Database\Factories\CharacterFactory;
 use Illuminate\Database\Eloquent\Model;

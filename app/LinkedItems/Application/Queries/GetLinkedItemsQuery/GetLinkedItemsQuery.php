@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\LinkedItems\Application\Queries\GetLinkedItemsQuery;
 
+use App\LinkedItems\Domain\Dtos\LinkedItemDto\LinkedItemDto;
 use App\LinkedItems\Domain\Models\LinkedItem;
 use App\LinkedItems\Domain\Services\LinkedItemQueriesService;
 use App\LinkedItems\Infrastructure\Repositories\LinkedItemRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
+use App\Shared\Application\Queries\QueryInterface;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 
 final readonly class GetLinkedItemsQuery implements QueryInterface
 {
@@ -28,7 +29,6 @@ final readonly class GetLinkedItemsQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
-    /** @return DtosWithPaginationDto<LinkedItem> */
     public function get(): DtosWithPaginationDto
     {
         $linkedItems = $this->linkedItemRepository->index($this->sortedAndPaginatedDto);

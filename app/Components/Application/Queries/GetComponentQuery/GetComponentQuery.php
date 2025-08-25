@@ -7,21 +7,12 @@ namespace App\Components\Application\Queries\GetComponentQuery;
 use App\Components\Domain\Dtos\ComponentDto\ComponentDto;
 use App\Components\Domain\Services\ComponentQueriesService;
 use App\Components\Infrastructure\Repositories\ComponentRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
+use App\Shared\Application\Queries\QueryInterface;
 
 final readonly class GetComponentQuery implements QueryInterface
 {
     public function __construct(
-        private ComponentRepositoryInterface $componentRepository,
-        private ComponentQueriesService $componentQueriesService,
-        private string $componentId,
+        public string $componentId,
     ) {
-    }
-
-    public function get(): ComponentDto
-    {
-        $component = $this->componentRepository->findById(id: $this->componentId);
-
-        return $this->componentQueriesService->getComponentDtoFromModel(component: $component);
     }
 }

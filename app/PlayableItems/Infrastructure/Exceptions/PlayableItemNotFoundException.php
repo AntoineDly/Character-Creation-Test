@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\PlayableItems\Infrastructure\Exceptions;
 
-use App\Shared\Http\Exceptions\Abstract\HttpNotFoundException;
+use App\Shared\Infrastructure\Http\Exceptions\Abstract\HttpNotFoundException;
 
 final class PlayableItemNotFoundException extends HttpNotFoundException
 {

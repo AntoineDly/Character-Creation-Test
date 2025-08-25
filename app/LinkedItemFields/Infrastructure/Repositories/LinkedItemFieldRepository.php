@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\LinkedItemFields\Infrastructure\Repositories;
 
 use App\LinkedItemFields\Domain\Models\LinkedItemField;
-use App\Shared\Repositories\RepositoryTrait;
+use App\Shared\Infrastructure\Repositories\RepositoryTrait;
 
 final readonly class LinkedItemFieldRepository implements LinkedItemFieldRepositoryInterface
 {

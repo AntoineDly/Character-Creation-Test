@@ -7,7 +7,7 @@ namespace App\PlayableItems\Application\Queries\GetPlayableItemQuery;
 use App\PlayableItems\Domain\Dtos\PlayableItemDto\PlayableItemDto;
 use App\PlayableItems\Domain\Services\PlayableItemQueriesService;
 use App\PlayableItems\Infrastructure\Repositories\PlayableItemRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
+use App\Shared\Application\Queries\QueryInterface;
 
 final readonly class GetPlayableItemQuery implements QueryInterface
 {

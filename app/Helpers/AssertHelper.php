@@ -17,8 +17,8 @@ use App\LinkedItems\Domain\Models\LinkedItem;
 use App\Parameters\Domain\Models\Parameter;
 use App\PlayableItemFields\Domain\Models\PlayableItemField;
 use App\PlayableItems\Domain\Models\PlayableItem;
-use App\Shared\Http\Exceptions\ElementNotFoundException;
-use App\Shared\Http\Exceptions\InvalidClassException;
+use App\Shared\Infrastructure\Http\Exceptions\ElementNotFoundException;
+use App\Shared\Infrastructure\Http\Exceptions\InvalidClassException;
 
 abstract readonly class AssertHelper
 {

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\ItemFields\Domain\Dtos\ItemFieldDto;
 
 use App\Helpers\UuidHelper;
-use App\Shared\Dtos\BuilderInterface;
-use App\Shared\Http\Exceptions\NotAValidUuidException;
-use App\Shared\Http\Exceptions\StringIsEmptyException;
+use App\Shared\Domain\Dtos\BuilderInterface;
+use App\Shared\Infrastructure\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Infrastructure\Http\Exceptions\StringIsEmptyException;
 
 final class ItemFieldDtoBuilder implements BuilderInterface
 {

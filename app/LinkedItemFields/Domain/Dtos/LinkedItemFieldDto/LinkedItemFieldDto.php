@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\LinkedItemFields\Domain\Dtos\LinkedItemFieldDto;
 
-use App\Shared\Dtos\DtoInterface;
+use App\Shared\Domain\Dtos\DtoInterface;
 
 final readonly class LinkedItemFieldDto implements DtoInterface
 {

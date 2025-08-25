@@ -7,7 +7,7 @@ namespace App\Items\Application\Queries\GetItemQuery;
 use App\Items\Domain\Dtos\ItemDto\ItemDto;
 use App\Items\Domain\Services\ItemQueriesService;
 use App\Items\Infrastructure\Repositories\ItemRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
+use App\Shared\Application\Queries\QueryInterface;
 
 final readonly class GetItemQuery implements QueryInterface
 {

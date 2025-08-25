@@ -7,9 +7,9 @@ namespace App\ComponentFields\Application\Commands\UpdateComponentFieldCommand;
 use App\ComponentFields\Infrastructure\Exceptions\ComponentFieldNotFoundException;
 use App\ComponentFields\Infrastructure\Repositories\ComponentFieldRepositoryInterface;
 use App\Parameters\Domain\Services\ParameterService;
-use App\Shared\Commands\CommandHandlerInterface;
-use App\Shared\Commands\CommandInterface;
-use App\Shared\Http\Exceptions\IncorrectCommandException;
+use App\Shared\Application\Commands\CommandHandlerInterface;
+use App\Shared\Application\Commands\CommandInterface;
+use App\Shared\Application\Commands\IncorrectCommandException;
 
 final readonly class UpdateComponentFieldCommandHandler implements CommandHandlerInterface
 {

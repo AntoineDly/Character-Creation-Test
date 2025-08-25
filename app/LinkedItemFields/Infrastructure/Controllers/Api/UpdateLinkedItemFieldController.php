@@ -9,9 +9,9 @@ use App\LinkedItemFields\Application\Commands\UpdateLinkedItemFieldCommand\Updat
 use App\LinkedItemFields\Application\Commands\UpdatePartiallyLinkedItemFieldCommand\UpdatePartiallyLinkedItemFieldCommand;
 use App\LinkedItemFields\Infrastructure\Requests\UpdateLinkedItemFieldRequest;
 use App\LinkedItemFields\Infrastructure\Requests\UpdatePartiallyLinkedItemFieldRequest;
-use App\Shared\Commands\CommandBus;
-use App\Shared\Controllers\ApiController\ApiControllerInterface;
-use App\Shared\Http\Exceptions\HttpExceptionInterface;
+use App\Shared\Application\Commands\CommandBus;
+use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Throwable;

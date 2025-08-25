@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Users\Application\Queries\GetUserQuery;
 
-use App\Shared\Queries\QueryInterface;
+use App\Shared\Application\Queries\QueryInterface;
 use App\Users\Domain\Dtos\UserDto\UserDto;
 use App\Users\Domain\Dtos\UserDto\UserDtoBuilder;
 use App\Users\Domain\Models\User;

@@ -7,9 +7,9 @@ namespace App\LinkedItemFields\Application\Commands\UpdateLinkedItemFieldCommand
 use App\LinkedItemFields\Infrastructure\Exceptions\LinkedItemFieldNotFoundException;
 use App\LinkedItemFields\Infrastructure\Repositories\LinkedItemFieldRepositoryInterface;
 use App\Parameters\Domain\Services\ParameterService;
-use App\Shared\Commands\CommandHandlerInterface;
-use App\Shared\Commands\CommandInterface;
-use App\Shared\Http\Exceptions\IncorrectCommandException;
+use App\Shared\Application\Commands\CommandHandlerInterface;
+use App\Shared\Application\Commands\CommandInterface;
+use App\Shared\Application\Commands\IncorrectCommandException;
 
 final readonly class UpdateLinkedItemFieldCommandHandler implements CommandHandlerInterface
 {

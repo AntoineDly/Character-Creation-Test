@@ -6,8 +6,8 @@ namespace App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto;
 
 use App\Fields\Dtos\FieldDto\FieldDtoCollection;
 use App\Helpers\UuidHelper;
-use App\Shared\Dtos\BuilderInterface;
-use App\Shared\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Domain\Dtos\BuilderInterface;
+use App\Shared\Infrastructure\Http\Exceptions\NotAValidUuidException;
 
 final class LinkedItemForCharacterDtoBuilder implements BuilderInterface
 {

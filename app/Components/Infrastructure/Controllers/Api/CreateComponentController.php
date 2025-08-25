@@ -6,9 +6,9 @@ namespace App\Components\Infrastructure\Controllers\Api;
 
 use App\Components\Application\Commands\CreateComponentCommand\CreateComponentCommand;
 use App\Helpers\RequestHelper;
-use App\Shared\Commands\CommandBus;
-use App\Shared\Controllers\ApiController\ApiControllerInterface;
-use App\Shared\Http\Exceptions\HttpExceptionInterface;
+use App\Shared\Application\Commands\CommandBus;
+use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;

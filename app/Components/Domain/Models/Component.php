@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Components\Domain\Models;
 
 use App\ComponentFields\Domain\Models\ComponentField;
-use App\Shared\Traits\HasModelFactory;
-use App\Shared\Traits\Uuid;
+use App\Shared\Domain\Traits\HasModelFactory;
+use App\Shared\Domain\Traits\Uuid;
 use App\Users\Domain\Models\User;
 use Database\Factories\ComponentFactory;
 use Illuminate\Database\Eloquent\Model;

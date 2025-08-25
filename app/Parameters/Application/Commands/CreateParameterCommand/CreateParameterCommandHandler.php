@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Parameters\Application\Commands\CreateParameterCommand;
 
 use App\Parameters\Infrastructure\Repositories\ParameterRepositoryInterface;
-use App\Shared\Commands\CommandHandlerInterface;
-use App\Shared\Commands\CommandInterface;
-use App\Shared\Http\Exceptions\IncorrectCommandException;
+use App\Shared\Application\Commands\CommandHandlerInterface;
+use App\Shared\Application\Commands\CommandInterface;
+use App\Shared\Application\Commands\IncorrectCommandException;
 
 final readonly class CreateParameterCommandHandler implements CommandHandlerInterface
 {

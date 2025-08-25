@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\PlayableItemFields\Domain\Dtos\PlayableItemFieldDto;
 
-use App\Shared\Dtos\DtoInterface;
+use App\Shared\Domain\Dtos\DtoInterface;
 
 final readonly class PlayableItemFieldDto implements DtoInterface
 {

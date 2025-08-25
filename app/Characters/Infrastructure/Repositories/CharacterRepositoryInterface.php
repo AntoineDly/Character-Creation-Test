@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Characters\Infrastructure\Repositories;
 
 use App\Characters\Domain\Models\Character;
-use App\Shared\Repositories\RepositoryInterface;
+use App\Shared\Infrastructure\Repositories\RepositoryInterface;
 
 /**
  * @extends RepositoryInterface<Character>

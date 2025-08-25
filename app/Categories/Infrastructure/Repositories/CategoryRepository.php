@@ -6,7 +6,7 @@ namespace App\Categories\Infrastructure\Repositories;
 
 use App\Categories\Domain\Models\Category;
 use App\Helpers\AssertHelper;
-use App\Shared\Repositories\RepositoryTrait;
+use App\Shared\Infrastructure\Repositories\RepositoryTrait;
 use Illuminate\Database\Eloquent\Collection;
 
 final readonly class CategoryRepository implements CategoryRepositoryInterface

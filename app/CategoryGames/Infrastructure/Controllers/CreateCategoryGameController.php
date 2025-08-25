@@ -6,9 +6,9 @@ namespace App\CategoryGames\Infrastructure\Controllers;
 
 use App\CategoryGames\Application\Commands\CreateCategoryGameCommand\CreateCategoryGameCommand;
 use App\CategoryGames\Infrastructure\Requests\CreateCategoryGameRequest;
-use App\Shared\Commands\CommandBus;
-use App\Shared\Controllers\ApiController\ApiControllerInterface;
-use App\Shared\Http\Exceptions\HttpExceptionInterface;
+use App\Shared\Application\Commands\CommandBus;
+use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Throwable;

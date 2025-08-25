@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Users\Infrastructure\Repositories;
 
-use App\Shared\Repositories\RepositoryTrait;
+use App\Shared\Infrastructure\Repositories\RepositoryTrait;
 use App\Users\Domain\Models\User;
 
 final readonly class UserRepository implements UserRepositoryInterface

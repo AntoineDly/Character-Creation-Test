@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\CategoryGames\Application\Commands\CreateCategoryGameCommand;
 
 use App\Categories\Infrastructure\Repositories\CategoryRepositoryInterface;
-use App\Shared\Commands\CommandHandlerInterface;
-use App\Shared\Commands\CommandInterface;
-use App\Shared\Http\Exceptions\IncorrectCommandException;
+use App\Shared\Application\Commands\CommandHandlerInterface;
+use App\Shared\Application\Commands\CommandInterface;
+use App\Shared\Application\Commands\IncorrectCommandException;
 
 final readonly class CreateCategoryGameCommandHandler implements CommandHandlerInterface
 {

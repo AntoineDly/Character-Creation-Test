@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\PlayableItemFields\Infrastructure\Repositories;
 
 use App\PlayableItemFields\Domain\Models\PlayableItemField;
-use App\Shared\Repositories\RepositoryTrait;
+use App\Shared\Infrastructure\Repositories\RepositoryTrait;
 
 final readonly class PlayableItemFieldRepository implements PlayableItemFieldRepositoryInterface
 {

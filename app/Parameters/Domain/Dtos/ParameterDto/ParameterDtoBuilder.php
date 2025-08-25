@@ -6,10 +6,10 @@ namespace App\Parameters\Domain\Dtos\ParameterDto;
 
 use App\Helpers\UuidHelper;
 use App\Parameters\Domain\Enums\TypeParameterEnum;
-use App\Shared\Dtos\BuilderInterface;
-use App\Shared\Http\Exceptions\InvalidTypeParameterException;
-use App\Shared\Http\Exceptions\NotAValidUuidException;
-use App\Shared\Http\Exceptions\StringIsEmptyException;
+use App\Shared\Domain\Dtos\BuilderInterface;
+use App\Shared\Infrastructure\Http\Exceptions\InvalidTypeParameterException;
+use App\Shared\Infrastructure\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Infrastructure\Http\Exceptions\StringIsEmptyException;
 
 final class ParameterDtoBuilder implements BuilderInterface
 {

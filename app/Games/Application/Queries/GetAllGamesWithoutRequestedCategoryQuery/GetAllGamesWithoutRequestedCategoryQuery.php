@@ -8,22 +8,13 @@ use App\Games\Domain\Dtos\GameDto\GameDtoCollection;
 use App\Games\Domain\Models\Game;
 use App\Games\Domain\Services\GameQueriesService;
 use App\Games\Infrastructure\Repositories\GameRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
+use App\Shared\Application\Queries\QueryInterface;
 
 final readonly class GetAllGamesWithoutRequestedCategoryQuery implements QueryInterface
 {
     public function __construct(
-        private GameRepositoryInterface $gameRepository,
-        private GameQueriesService $gameQueriesService,
-        private string $userId,
-        private string $categoryId,
+        public string $userId,
+        public string $categoryId,
     ) {
-    }
-
-    public function get(): GameDtoCollection
-    {
-        $games = $this->gameRepository->getAllGamesWithoutRequestedCategory($this->userId, $this->categoryId);
-
-        return GameDtoCollection::fromMap(fn (Game $game) => $this->gameQueriesService->getGameDtoFromModel(game: $game), $games->all());
     }
 }

@@ -6,8 +6,8 @@ namespace App\Categories\Domain\Models;
 
 use App\Games\Domain\Models\Game;
 use App\Items\Domain\Models\Item;
-use App\Shared\Traits\HasModelFactory;
-use App\Shared\Traits\Uuid;
+use App\Shared\Domain\Traits\HasModelFactory;
+use App\Shared\Domain\Traits\Uuid;
 use App\Users\Domain\Models\User;
 use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Model;

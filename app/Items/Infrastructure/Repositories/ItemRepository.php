@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Items\Infrastructure\Repositories;
 
 use App\Items\Domain\Models\Item;
-use App\Shared\Repositories\RepositoryTrait;
+use App\Shared\Infrastructure\Repositories\RepositoryTrait;
 
 final readonly class ItemRepository implements ItemRepositoryInterface
 {

@@ -9,9 +9,9 @@ use App\PlayableItemFields\Application\Commands\UpdatePartiallyPlayableItemField
 use App\PlayableItemFields\Application\Commands\UpdatePlayableItemFieldCommand\UpdatePlayableItemFieldCommand;
 use App\PlayableItemFields\Infrastructure\Requests\UpdatePartiallyPlayableItemFieldRequest;
 use App\PlayableItemFields\Infrastructure\Requests\UpdatePlayableItemFieldRequest;
-use App\Shared\Commands\CommandBus;
-use App\Shared\Controllers\ApiController\ApiControllerInterface;
-use App\Shared\Http\Exceptions\HttpExceptionInterface;
+use App\Shared\Application\Commands\CommandBus;
+use App\Shared\Infrastructure\Controllers\ApiController\ApiControllerInterface;
+use App\Shared\Infrastructure\Http\Exceptions\HttpExceptionInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Throwable;

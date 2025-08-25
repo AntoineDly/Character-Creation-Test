@@ -7,7 +7,7 @@ namespace App\LinkedItemFields\Application\Queries\GetLinkedItemFieldQuery;
 use App\LinkedItemFields\Domain\Dtos\LinkedItemFieldDto\LinkedItemFieldDto;
 use App\LinkedItemFields\Domain\Services\LinkedItemFieldQueriesService;
 use App\LinkedItemFields\Infrastructure\Repositories\LinkedItemFieldRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
+use App\Shared\Application\Queries\QueryInterface;
 
 final readonly class GetLinkedItemFieldQuery implements QueryInterface
 {

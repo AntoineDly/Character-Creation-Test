@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\PlayableItems\Application\Queries\GetPlayableItemsQuery;
 
+use App\PlayableItems\Domain\Dtos\PlayableItemDto\PlayableItemDto;
 use App\PlayableItems\Domain\Models\PlayableItem;
 use App\PlayableItems\Domain\Services\PlayableItemQueriesService;
 use App\PlayableItems\Infrastructure\Repositories\PlayableItemRepositoryInterface;
-use App\Shared\Queries\QueryInterface;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
-use App\Shared\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
-use App\Shared\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
+use App\Shared\Application\Queries\QueryInterface;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
+use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
+use App\Shared\Domain\SortAndPagination\Dtos\SortedAndPaginatedDto\SortedAndPaginatedDto;
 
 final readonly class GetPlayableItemsQuery implements QueryInterface
 {
@@ -28,7 +29,6 @@ final readonly class GetPlayableItemsQuery implements QueryInterface
         $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
-    /** @return DtosWithPaginationDto<PlayableItem> */
     public function get(): DtosWithPaginationDto
     {
         $playableItems = $this->playableItemRepository->index($this->sortedAndPaginatedDto);

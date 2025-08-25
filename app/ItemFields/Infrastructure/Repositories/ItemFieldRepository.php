@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\ItemFields\Infrastructure\Repositories;
 
 use App\ItemFields\Domain\Models\ItemField;
-use App\Shared\Repositories\RepositoryTrait;
+use App\Shared\Infrastructure\Repositories\RepositoryTrait;
 
 final readonly class ItemFieldRepository implements ItemFieldRepositoryInterface
 {

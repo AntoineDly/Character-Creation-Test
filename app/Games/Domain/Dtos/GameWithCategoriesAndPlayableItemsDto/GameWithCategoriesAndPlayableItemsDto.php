@@ -6,7 +6,7 @@ namespace App\Games\Domain\Dtos\GameWithCategoriesAndPlayableItemsDto;
 
 use App\Categories\Domain\Dtos\CategoryDto\CategoryDtoCollection;
 use App\PlayableItems\Domain\Dtos\PlayableItemDto\PlayableItemDto;
-use App\Shared\Dtos\DtoInterface;
+use App\Shared\Domain\Dtos\DtoInterface;
 
 final readonly class GameWithCategoriesAndPlayableItemsDto implements DtoInterface
 {

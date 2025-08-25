@@ -6,9 +6,9 @@ namespace App\Categories\Domain\Dtos\CategoryForCharacterDto;
 
 use App\Helpers\UuidHelper;
 use App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto\LinkedItemForCharacterDto;
-use App\Shared\Dtos\BuilderInterface;
-use App\Shared\Http\Exceptions\NotAValidUuidException;
-use App\Shared\Http\Exceptions\StringIsEmptyException;
+use App\Shared\Domain\Dtos\BuilderInterface;
+use App\Shared\Infrastructure\Http\Exceptions\NotAValidUuidException;
+use App\Shared\Infrastructure\Http\Exceptions\StringIsEmptyException;
 
 final class CategoryForCharacterDtoBuilder implements BuilderInterface
 {

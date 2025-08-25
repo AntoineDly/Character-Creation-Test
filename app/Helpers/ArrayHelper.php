@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-use App\Shared\Http\Exceptions\InvalidArrayValueTypeException;
+use App\Shared\Infrastructure\Http\Exceptions\InvalidArrayValueTypeException;
 
 abstract readonly class ArrayHelper
 {

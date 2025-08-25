@@ -16,8 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class DtosWithPaginationDtoBuilder implements BuilderInterface
 {
-    /** @var DtoInterface[]|DtoCollectionInterface */
-    public array|DtoCollectionInterface $dtos = [];
+    public DtoCollectionInterface $dtos = [];
 
     public int $currentPage = 1;
 
@@ -33,8 +32,7 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
 
     public ?int $lastPage = null;
 
-    /** @param DtoInterface[]|DtoCollectionInterface $dtos */
-    public function setDtos(array|DtoCollectionInterface $dtos): static
+    public function setDtos(DtoCollectionInterface $dtos): static
     {
         $this->dtos = $dtos;
 

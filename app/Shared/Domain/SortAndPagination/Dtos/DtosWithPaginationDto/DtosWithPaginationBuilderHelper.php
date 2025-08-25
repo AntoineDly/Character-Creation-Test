@@ -18,10 +18,9 @@ trait DtosWithPaginationBuilderHelper
     private readonly DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder;
 
     /**
-     * @param  DtoInterface[]|DtoCollectionInterface  $dtos
      * @param  LengthAwarePaginator<TModel>  $lengthAwarePaginator
      */
-    private function getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator(array|DtoCollectionInterface $dtos, LengthAwarePaginator $lengthAwarePaginator): DtosWithPaginationDto
+    private function getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator(DtoCollectionInterface $dtos, LengthAwarePaginator $lengthAwarePaginator): DtosWithPaginationDto
     {
         return $this->dtosWithPaginationDtoBuilder
             ->setDtos($dtos)

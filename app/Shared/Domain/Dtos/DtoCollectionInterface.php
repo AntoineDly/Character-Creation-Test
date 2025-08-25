@@ -7,7 +7,7 @@ namespace App\Shared\Domain\Dtos;
 use App\Shared\Domain\Collection\CollectionInterface;
 
 /**
- * @template TDtoCollectionElement
+ * @template TDtoCollectionElement of DtoInterface
  *
  * @extends CollectionInterface<TDtoCollectionElement>
  */

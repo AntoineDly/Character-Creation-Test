@@ -7,6 +7,7 @@ namespace App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto;
 use App\Shared\Domain\Dtos\BuilderInterface;
 use App\Shared\Domain\Dtos\DtoCollectionInterface;
 use App\Shared\Domain\Dtos\DtoInterface;
+use App\Shared\Domain\Dtos\EmptyDto\EmptyDtoCollection;
 use App\Shared\Domain\SortAndPagination\Dtos\PaginationDto\PaginationDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
@@ -16,8 +17,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class DtosWithPaginationDtoBuilder implements BuilderInterface
 {
-    public DtoCollectionInterface $dtos = [];
-
     public int $currentPage = 1;
 
     public int $perPage = 15;
@@ -31,6 +30,10 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
     public ?int $nextPage = null;
 
     public ?int $lastPage = null;
+
+    public function __construct(public DtoCollectionInterface $dtos = new EmptyDtoCollection())
+    {
+    }
 
     public function setDtos(DtoCollectionInterface $dtos): static
     {
@@ -127,7 +130,7 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
             paginationDto: $paginationDto,
         );
 
-        $this->dtos = [];
+        $this->dtos = EmptyDtoCollection::createEmpty();
         $this->currentPage = 1;
         $this->perPage = 15;
         $this->total = 0;

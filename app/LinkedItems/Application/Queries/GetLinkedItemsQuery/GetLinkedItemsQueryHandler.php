@@ -13,20 +13,16 @@ use App\Shared\Application\Queries\QueryHandlerInterface;
 use App\Shared\Application\Queries\QueryInterface;
 use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
 use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
 
 final readonly class GetLinkedItemsQueryHandler implements QueryHandlerInterface
 {
     /** @use DtosWithPaginationBuilderHelper<LinkedItem> */
     use DtosWithPaginationBuilderHelper;
 
-    /** @param DtosWithPaginationDtoBuilder<LinkedItem> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private LinkedItemRepositoryInterface $linkedItemRepository,
         private LinkedItemQueriesService $linkedItemQueriesService,
-        DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
     ) {
-        $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
     public function handle(QueryInterface $query): DtosWithPaginationDto
@@ -36,8 +32,8 @@ final readonly class GetLinkedItemsQueryHandler implements QueryHandlerInterface
         }
         $linkedItems = $this->linkedItemRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = LinkedItemDtoCollection::fromMap(fn (?LinkedItem $linkedItem) => $this->linkedItemQueriesService->getLinkedItemDtoFromModel(linkedItem: $linkedItem), $linkedItems->items());
+        $dtoCollection = LinkedItemDtoCollection::fromMap(fn (?LinkedItem $linkedItem) => $this->linkedItemQueriesService->getLinkedItemDtoFromModel(linkedItem: $linkedItem), $linkedItems->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $linkedItems);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection, $linkedItems);
     }
 }

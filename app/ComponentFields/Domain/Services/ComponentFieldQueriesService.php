@@ -11,16 +11,11 @@ use App\Helpers\AssertHelper;
 
 final readonly class ComponentFieldQueriesService
 {
-    public function __construct(
-        private ComponentFieldDtoBuilder $componentFieldDtoBuilder,
-    ) {
-    }
-
     public function getComponentFieldDtoFromModel(?ComponentField $componentField): ComponentFieldDto
     {
         $componentField = AssertHelper::isComponentFieldNotNull($componentField);
 
-        return $this->componentFieldDtoBuilder
+        return ComponentFieldDtoBuilder::create()
             ->setId(id: $componentField->id)
             ->setValue(value: $componentField->value)
             ->build();

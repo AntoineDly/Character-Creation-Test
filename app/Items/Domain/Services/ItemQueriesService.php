@@ -11,15 +11,11 @@ use App\Items\Domain\Models\Item;
 
 final readonly class ItemQueriesService
 {
-    public function __construct(private ItemDtoBuilder $itemDtoBuilder)
-    {
-    }
-
     public function getItemDtoFromModel(?Item $item): ItemDto
     {
         $item = AssertHelper::isItemNotNull($item);
 
-        return $this->itemDtoBuilder
+        return ItemDtoBuilder::create()
             ->setId(id: $item->id)
             ->build();
     }

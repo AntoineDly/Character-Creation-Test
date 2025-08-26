@@ -17,4 +17,5 @@ use JsonSerializable;
  */
 interface CollectionInterface extends ArrayAccess, Countable, IteratorAggregate, JsonSerializable
 {
+    public static function createEmpty(): static;
 }

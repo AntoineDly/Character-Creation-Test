@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Categories\Domain\Dtos\CategoryForCharacterDto;
 
+use App\Helpers\SelfInstantiateTrait;
 use App\Helpers\UuidHelper;
 use App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto\LinkedItemForCharacterDto;
 use App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto\LinkedItemForCharacterDtoCollection;
@@ -13,6 +14,8 @@ use App\Shared\Infrastructure\Http\Exceptions\StringIsEmptyException;
 
 final class CategoryForCharacterDtoBuilder implements BuilderInterface
 {
+    use SelfInstantiateTrait;
+
     private string $id = '';
 
     private string $name = '';

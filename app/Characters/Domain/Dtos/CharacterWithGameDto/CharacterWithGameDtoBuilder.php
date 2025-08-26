@@ -6,12 +6,15 @@ namespace App\Characters\Domain\Dtos\CharacterWithGameDto;
 
 use App\Games\Domain\Dtos\GameDto\GameDto;
 use App\Games\Infrastructure\Exceptions\GameNotFoundException;
+use App\Helpers\SelfInstantiateTrait;
 use App\Helpers\UuidHelper;
 use App\Shared\Domain\Dtos\BuilderInterface;
 use App\Shared\Infrastructure\Http\Exceptions\NotAValidUuidException;
 
 final class CharacterWithGameDtoBuilder implements BuilderInterface
 {
+    use SelfInstantiateTrait;
+
     private string $id;
 
     private ?GameDto $gameDto = null;

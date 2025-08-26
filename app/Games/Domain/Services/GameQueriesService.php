@@ -20,8 +20,6 @@ use App\PlayableItems\Domain\Services\PlayableItemQueriesService;
 final readonly class GameQueriesService
 {
     public function __construct(
-        private GameDtoBuilder $gameDtoBuilder,
-        private GameWithCategoriesAndPlayableItemsDtoBuilder $gameWithCategoriesAndPlayableItemsDtoBuilder,
         private CategoryQueriesService $categoryQueriesService,
         private PlayableItemQueriesService $playableItemQueriesService
     ) {
@@ -31,7 +29,7 @@ final readonly class GameQueriesService
     {
         $game = AssertHelper::isGameNotNull($game);
 
-        return $this->gameDtoBuilder
+        return GameDtoBuilder::create()
             ->setId(id: $game->id)
             ->setName(name: $game->name)
             ->build();
@@ -43,7 +41,7 @@ final readonly class GameQueriesService
 
         $playableItemDtos = PlayableItemDtoCollection::fromMap(fn (PlayableItem $playableItem) => $this->playableItemQueriesService->getPlayableItemDtoFromModel(playableItem: $playableItem), $game->playableItems->all());
 
-        return $this->gameWithCategoriesAndPlayableItemsDtoBuilder
+        return GameWithCategoriesAndPlayableItemsDtoBuilder::create()
             ->setId($game->id)
             ->setName($game->name)
             ->setCategoryDtoCollection($categoryDtoCollection)

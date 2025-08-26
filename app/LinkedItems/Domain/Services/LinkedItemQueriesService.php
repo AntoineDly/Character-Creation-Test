@@ -11,16 +11,11 @@ use App\LinkedItems\Domain\Models\LinkedItem;
 
 final readonly class LinkedItemQueriesService
 {
-    public function __construct(
-        private LinkedItemDtoBuilder $linkedItemDtoBuilder,
-    ) {
-    }
-
     public function getLinkedItemDtoFromModel(?LinkedItem $linkedItem): LinkedItemDto
     {
         $linkedItem = AssertHelper::isLinkedItemNotNull($linkedItem);
 
-        return $this->linkedItemDtoBuilder
+        return LinkedItemDtoBuilder::create()
             ->setId(id: $linkedItem->id)
             ->build();
     }

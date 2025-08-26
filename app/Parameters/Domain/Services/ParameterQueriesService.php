@@ -11,16 +11,11 @@ use App\Parameters\Domain\Models\Parameter;
 
 final readonly class ParameterQueriesService
 {
-    public function __construct(
-        private ParameterDtoBuilder $parameterDtoBuilder,
-    ) {
-    }
-
     public function getParameterDtoFromModel(?Parameter $parameter): ParameterDto
     {
         $parameter = AssertHelper::isParameterNotNull($parameter);
 
-        return $this->parameterDtoBuilder
+        return ParameterDtoBuilder::create()
             ->setId(id: $parameter->id)
             ->setName(name: $parameter->name)
             ->setType(type: $parameter->type)

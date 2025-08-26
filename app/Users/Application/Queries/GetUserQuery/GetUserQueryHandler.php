@@ -20,7 +20,6 @@ final readonly class GetUserQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private UserRepositoryInterface $userRepository,
-        private UserDtoBuilder $userDtoBuilder,
     ) {
     }
 
@@ -46,7 +45,7 @@ final readonly class GetUserQueryHandler implements QueryHandlerInterface
             throw new CantCreateTokenException(message: 'The token could not be created => '.$e->getMessage());
         }
 
-        return $this->userDtoBuilder
+        return UserDtoBuilder::create()
             ->setId(id: $user->id)
             ->setEmail(email: $user->email)
             ->setToken(token: $token)

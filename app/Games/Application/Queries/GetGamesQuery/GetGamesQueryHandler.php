@@ -13,20 +13,16 @@ use App\Shared\Application\Queries\QueryHandlerInterface;
 use App\Shared\Application\Queries\QueryInterface;
 use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
 use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
 
 final readonly class GetGamesQueryHandler implements QueryHandlerInterface
 {
     /** @use DtosWithPaginationBuilderHelper<Game> */
     use DtosWithPaginationBuilderHelper;
 
-    /** @param DtosWithPaginationDtoBuilder<Game> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private GameRepositoryInterface $gameRepository,
         private GameQueriesService $gameQueriesService,
-        DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
     ) {
-        $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
     public function handle(QueryInterface $query): DtosWithPaginationDto
@@ -36,8 +32,8 @@ final readonly class GetGamesQueryHandler implements QueryHandlerInterface
         }
         $games = $this->gameRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = GameDtoCollection::fromMap(fn (Game $game) => $this->gameQueriesService->getGameDtoFromModel(game: $game), $games->items());
+        $dtoCollection = GameDtoCollection::fromMap(fn (Game $game) => $this->gameQueriesService->getGameDtoFromModel(game: $game), $games->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $games);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection, $games);
     }
 }

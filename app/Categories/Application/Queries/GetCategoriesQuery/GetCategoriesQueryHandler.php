@@ -13,20 +13,16 @@ use App\Shared\Application\Queries\QueryHandlerInterface;
 use App\Shared\Application\Queries\QueryInterface;
 use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
 use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
 
 final readonly class GetCategoriesQueryHandler implements QueryHandlerInterface
 {
     /** @use DtosWithPaginationBuilderHelper<Category> */
     use DtosWithPaginationBuilderHelper;
 
-    /** @param DtosWithPaginationDtoBuilder<Category> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private CategoryRepositoryInterface $categoryRepository,
         private CategoryQueriesService $categoryQueriesService,
-        DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
     ) {
-        $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
     public function handle(QueryInterface $query): DtosWithPaginationDto
@@ -36,8 +32,8 @@ final readonly class GetCategoriesQueryHandler implements QueryHandlerInterface
         }
         $categories = $this->categoryRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = CategoryDtoCollection::fromMap(fn (Category $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $categories->items());
+        $dtoCollection = CategoryDtoCollection::fromMap(fn (Category $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $categories->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator(dtos: $dtos, lengthAwarePaginator: $categories);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator(dtoCollection: $dtoCollection, lengthAwarePaginator: $categories);
     }
 }

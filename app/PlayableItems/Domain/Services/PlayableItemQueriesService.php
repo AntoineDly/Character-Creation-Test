@@ -11,16 +11,11 @@ use App\PlayableItems\Domain\Models\PlayableItem;
 
 final readonly class PlayableItemQueriesService
 {
-    public function __construct(
-        private PlayableItemDtoBuilder $playableItemDtoBuilder,
-    ) {
-    }
-
     public function getPlayableItemDtoFromModel(?PlayableItem $playableItem): PlayableItemDto
     {
         $playableItem = AssertHelper::isPlayableItemNotNull($playableItem);
 
-        return $this->playableItemDtoBuilder
+        return PlayableItemDtoBuilder::create()
             ->setId(id: $playableItem->id)
             ->build();
     }

@@ -6,17 +6,13 @@ namespace App\Shared\Domain\Dtos\EmptyDto;
 
 use App\Shared\Domain\Collection\CollectionTrait;
 use App\Shared\Domain\Dtos\DtoCollectionInterface;
+use App\Shared\Domain\Dtos\DtoInterface;
 
 /**
- * @implements DtoCollectionInterface<EmptyDto>
+ * @implements DtoCollectionInterface<DtoInterface>
  */
 final class EmptyDtoCollection implements DtoCollectionInterface
 {
-    /** @use CollectionTrait<EmptyDto> */
+    /** @use CollectionTrait<DtoInterface> */
     use CollectionTrait;
-
-    public function __construct()
-    {
-        self::createEmpty();
-    }
 }

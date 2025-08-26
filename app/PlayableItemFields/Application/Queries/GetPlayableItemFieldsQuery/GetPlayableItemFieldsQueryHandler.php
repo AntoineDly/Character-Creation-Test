@@ -13,20 +13,16 @@ use App\Shared\Application\Queries\QueryHandlerInterface;
 use App\Shared\Application\Queries\QueryInterface;
 use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
 use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
 
 final readonly class GetPlayableItemFieldsQueryHandler implements QueryHandlerInterface
 {
     /** @use DtosWithPaginationBuilderHelper<PlayableItemField> */
     use DtosWithPaginationBuilderHelper;
 
-    /** @param DtosWithPaginationDtoBuilder<PlayableItemField> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private PlayableItemFieldRepositoryInterface $playableItemFieldRepository,
         private PlayableItemFieldQueriesService $playableItemFieldQueriesService,
-        DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
     ) {
-        $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
     public function handle(QueryInterface $query): DtosWithPaginationDto
@@ -36,8 +32,8 @@ final readonly class GetPlayableItemFieldsQueryHandler implements QueryHandlerIn
         }
         $playableItemFields = $this->playableItemFieldRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = PlayableItemFieldDtoCollection::fromMap(fn (?PlayableItemField $playableItemField) => $this->playableItemFieldQueriesService->getPlayableItemFieldDtoFromModel(playableItemField: $playableItemField), $playableItemFields->items());
+        $dtoCollection = PlayableItemFieldDtoCollection::fromMap(fn (?PlayableItemField $playableItemField) => $this->playableItemFieldQueriesService->getPlayableItemFieldDtoFromModel(playableItemField: $playableItemField), $playableItemFields->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $playableItemFields);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection, $playableItemFields);
     }
 }

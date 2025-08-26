@@ -11,16 +11,11 @@ use App\Helpers\AssertHelper;
 
 final readonly class ComponentQueriesService
 {
-    public function __construct(
-        private ComponentDtoBuilder $componentDtoBuilder,
-    ) {
-    }
-
     public function getComponentDtoFromModel(?Component $component): ComponentDto
     {
         $component = AssertHelper::isComponentNotNull($component);
 
-        return $this->componentDtoBuilder
+        return ComponentDtoBuilder::create()
             ->setId(id: $component->id)
             ->build();
     }

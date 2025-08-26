@@ -11,16 +11,11 @@ use App\ItemFields\Domain\Models\ItemField;
 
 final readonly class ItemFieldQueriesService
 {
-    public function __construct(
-        private ItemFieldDtoBuilder $itemFieldDtoBuilder,
-    ) {
-    }
-
     public function getItemFieldDtoFromModel(?ItemField $itemField): ItemFieldDto
     {
         $itemField = AssertHelper::isItemFieldNotNull($itemField);
 
-        return $this->itemFieldDtoBuilder
+        return ItemFieldDtoBuilder::create()
             ->setId(id: $itemField->id)
             ->setValue(value: $itemField->value)
             ->build();

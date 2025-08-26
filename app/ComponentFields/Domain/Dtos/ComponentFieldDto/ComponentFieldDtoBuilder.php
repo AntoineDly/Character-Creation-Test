@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ComponentFields\Domain\Dtos\ComponentFieldDto;
 
+use App\Helpers\SelfInstantiateTrait;
 use App\Helpers\UuidHelper;
 use App\Shared\Domain\Dtos\BuilderInterface;
 use App\Shared\Infrastructure\Http\Exceptions\NotAValidUuidException;
@@ -11,6 +12,8 @@ use App\Shared\Infrastructure\Http\Exceptions\StringIsEmptyException;
 
 final class ComponentFieldDtoBuilder implements BuilderInterface
 {
+    use SelfInstantiateTrait;
+
     private string $id = '';
 
     private string $value = '';

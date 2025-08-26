@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Components\Domain\Dtos\ComponentDto;
 
+use App\Helpers\SelfInstantiateTrait;
 use App\Helpers\UuidHelper;
 use App\Shared\Domain\Dtos\BuilderInterface;
 use App\Shared\Infrastructure\Http\Exceptions\NotAValidUuidException;
 
 final class ComponentDtoBuilder implements BuilderInterface
 {
+    use SelfInstantiateTrait;
+
     private string $id = '';
 
     public function setId(string $id): static

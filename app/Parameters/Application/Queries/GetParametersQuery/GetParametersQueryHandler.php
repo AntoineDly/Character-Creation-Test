@@ -13,20 +13,16 @@ use App\Shared\Application\Queries\QueryHandlerInterface;
 use App\Shared\Application\Queries\QueryInterface;
 use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationBuilderHelper;
 use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDto;
-use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPaginationDtoBuilder;
 
 final readonly class GetParametersQueryHandler implements QueryHandlerInterface
 {
     /** @use DtosWithPaginationBuilderHelper<Parameter> */
     use DtosWithPaginationBuilderHelper;
 
-    /** @param DtosWithPaginationDtoBuilder<Parameter> $dtosWithPaginationDtoBuilder */
     public function __construct(
         private ParameterRepositoryInterface $parameterRepository,
         private ParameterQueriesService $parameterQueriesService,
-        DtosWithPaginationDtoBuilder $dtosWithPaginationDtoBuilder,
     ) {
-        $this->dtosWithPaginationDtoBuilder = $dtosWithPaginationDtoBuilder;
     }
 
     public function handle(QueryInterface $query): DtosWithPaginationDto
@@ -36,8 +32,8 @@ final readonly class GetParametersQueryHandler implements QueryHandlerInterface
         }
         $parameters = $this->parameterRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = ParameterDtoCollection::fromMap(fn (?Parameter $parameter) => $this->parameterQueriesService->getParameterDtoFromModel(parameter: $parameter), $parameters->items());
+        $dtoCollection = ParameterDtoCollection::fromMap(fn (?Parameter $parameter) => $this->parameterQueriesService->getParameterDtoFromModel(parameter: $parameter), $parameters->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $parameters);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection, $parameters);
     }
 }

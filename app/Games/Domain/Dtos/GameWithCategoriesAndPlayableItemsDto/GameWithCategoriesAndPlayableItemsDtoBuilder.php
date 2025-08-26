@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Games\Domain\Dtos\GameWithCategoriesAndPlayableItemsDto;
 
 use App\Categories\Domain\Dtos\CategoryDto\CategoryDtoCollection;
+use App\Helpers\SelfInstantiateTrait;
 use App\Helpers\UuidHelper;
 use App\PlayableItems\Domain\Dtos\PlayableItemDto\PlayableItemDtoCollection;
 use App\Shared\Domain\Dtos\BuilderInterface;
@@ -13,6 +14,8 @@ use App\Shared\Infrastructure\Http\Exceptions\StringIsEmptyException;
 
 final class GameWithCategoriesAndPlayableItemsDtoBuilder implements BuilderInterface
 {
+    use SelfInstantiateTrait;
+
     private string $id = '';
 
     private string $name = '';

@@ -11,16 +11,11 @@ use App\LinkedItemFields\Domain\Models\LinkedItemField;
 
 final readonly class LinkedItemFieldQueriesService
 {
-    public function __construct(
-        private LinkedItemFieldDtoBuilder $linkedItemFieldDtoBuilder,
-    ) {
-    }
-
     public function getLinkedFieldDtoFromModel(?LinkedItemField $linkedItemField): LinkedItemFieldDto
     {
         $linkedItemField = AssertHelper::isLinkedItemFieldNotNull($linkedItemField);
 
-        return $this->linkedItemFieldDtoBuilder
+        return LinkedItemFieldDtoBuilder::create()
             ->setId(id: $linkedItemField->id)
             ->setValue(value: $linkedItemField->value)
             ->build();

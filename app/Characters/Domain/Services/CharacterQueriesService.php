@@ -23,12 +23,7 @@ use App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto\LinkedItemForCharacter
 final readonly class CharacterQueriesService
 {
     public function __construct(
-        private CharacterDtoBuilder $characterDtoBuilder,
-        private CharacterWithGameDtoBuilder $characterWithGameDtoBuilder,
-        private CharacterWithLinkedItemsDtoBuilder $characterWithLinkedItemsDtoBuilder,
         private GameQueriesService $gameQueriesService,
-        private LinkedItemForCharacterDtoBuilder $linkedItemsForCharacterDtoBuilder,
-        private CategoryForCharacterDtoBuilder $categoryForCharacterDtoBuilder,
         private FieldServices $fieldServices,
     ) {
     }
@@ -37,7 +32,7 @@ final readonly class CharacterQueriesService
     {
         $character = AssertHelper::isCharacterNotNull($character);
 
-        return $this->characterDtoBuilder
+        return CharacterDtoBuilder::create()
             ->setId(id: $character->id)
             ->build();
     }
@@ -48,7 +43,7 @@ final readonly class CharacterQueriesService
 
         $gameDto = $this->gameQueriesService->getGameDtoFromModel($character->game);
 
-        return $this->characterWithGameDtoBuilder
+        return CharacterWithGameDtoBuilder::create()
             ->setId(id: $character->id)
             ->setGameDto(gameDto: $gameDto)
             ->build();
@@ -60,7 +55,7 @@ final readonly class CharacterQueriesService
 
         $gameDto = $this->gameQueriesService->getGameDtoFromModel($character->game);
 
-        $this->characterWithLinkedItemsDtoBuilder
+        $characterWithLinkedItemsDtoBuilder = CharacterWithLinkedItemsDtoBuilder::create()
             ->setId($character->id)
             ->setGameDto($gameDto);
 
@@ -73,7 +68,7 @@ final readonly class CharacterQueriesService
         }
 
         if (ArrayHelper::isEmpty($categories)) {
-            return $this->characterWithLinkedItemsDtoBuilder->build();
+            return $characterWithLinkedItemsDtoBuilder->build();
         }
 
         foreach ($character->linkedItems as $linkedItem) {
@@ -91,7 +86,7 @@ final readonly class CharacterQueriesService
                 ...$component->componentFields,
             ]);
 
-            $linkedItemForCharacterDto = $this->linkedItemsForCharacterDtoBuilder
+            $linkedItemForCharacterDto = LinkedItemForCharacterDtoBuilder::create()
                 ->setId($linkedItem->id)
                 ->setFieldDtoCollection($fieldDtoCollection)
                 ->build();
@@ -103,14 +98,14 @@ final readonly class CharacterQueriesService
         }
 
         foreach ($categories as $categoryId => $categoryData) {
-            $categoryForCharacterDto = $this->categoryForCharacterDtoBuilder
+            $categoryForCharacterDto = CategoryForCharacterDtoBuilder::create()
                 ->setId($categoryId)
                 ->setName($categoryData['name'])
                 ->setLinkedItemForCharacterDtoCollection($categoryData['linkedItemForCharacterDtos'])
                 ->build();
-            $this->characterWithLinkedItemsDtoBuilder->addCategoryForCharacterDto($categoryForCharacterDto);
+            $characterWithLinkedItemsDtoBuilder->addCategoryForCharacterDto($categoryForCharacterDto);
         }
 
-        return $this->characterWithLinkedItemsDtoBuilder->build();
+        return $characterWithLinkedItemsDtoBuilder->build();
     }
 }

@@ -6,13 +6,11 @@ namespace App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto;
 
 use App\Shared\Domain\Dtos\BuilderInterface;
 use App\Shared\Domain\Dtos\DtoCollectionInterface;
-use App\Shared\Domain\Dtos\EmptyDto\EmptyDtoCollection;
+use App\Shared\Domain\Dtos\DtoInterface;
 use App\Shared\Domain\SortAndPagination\Dtos\PaginationDto\PaginationDto;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Model;
 
 /**
- * @template TModel of Model
+ * @template TDto of DtoInterface
  */
 final class DtosWithPaginationDtoBuilder implements BuilderInterface
 {
@@ -30,10 +28,18 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
 
     public ?int $lastPage = null;
 
-    public function __construct(public DtoCollectionInterface $dtoCollection = new EmptyDtoCollection())
+    /** @param DtoCollectionInterface<TDto> $dtoCollection */
+    public static function createFromDtoCollection(DtoCollectionInterface $dtoCollection): static
+    {
+        return new self($dtoCollection);
+    }
+
+    /** @param DtoCollectionInterface<TDto> $dtoCollection */
+    public function __construct(public DtoCollectionInterface $dtoCollection)
     {
     }
 
+    /** @param DtoCollectionInterface<TDto> $dtoCollection */
     public function setDtoCollection(DtoCollectionInterface $dtoCollection): static
     {
         $this->dtoCollection = $dtoCollection;
@@ -90,28 +96,7 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
         return $this;
     }
 
-    /**
-     * @param  LengthAwarePaginator<TModel>  $lengthAwarePaginator
-     */
-    public function setDataFromLengthAwarePaginator(LengthAwarePaginator $lengthAwarePaginator): static
-    {
-        $this->setCurrentPage($lengthAwarePaginator->currentPage());
-        $this->setTotal($lengthAwarePaginator->total());
-        $this->setPerPage($lengthAwarePaginator->perPage());
-
-        if ($lengthAwarePaginator->currentPage() > 1) {
-            $this->setFirstPage(1);
-            $this->setPreviousPage($lengthAwarePaginator->currentPage() - 1);
-        }
-
-        if ($lengthAwarePaginator->currentPage() < $lengthAwarePaginator->lastPage()) {
-            $this->setNextPage($lengthAwarePaginator->currentPage() + 1);
-            $this->setLastPage($lengthAwarePaginator->lastPage());
-        }
-
-        return $this;
-    }
-
+    /** @return DtosWithPaginationDto<TDto> */
     public function build(): DtosWithPaginationDto
     {
         $paginationDto = new PaginationDto(
@@ -125,11 +110,11 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
         );
 
         $dto = new DtosWithPaginationDto(
-            dtos: $this->dtoCollection,
+            dtoCollection: $this->dtoCollection,
             paginationDto: $paginationDto,
         );
 
-        $this->dtoCollection = new EmptyDtoCollection();
+        $this->dtoCollection = $this->dtoCollection::createEmpty();
         $this->currentPage = 1;
         $this->perPage = 15;
         $this->total = 0;

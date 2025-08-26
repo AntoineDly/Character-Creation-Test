@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Characters\Application\Queries\GetCharactersQuery;
 
+use App\Characters\Domain\Dtos\CharacterDto\CharacterDtoCollection;
 use App\Characters\Domain\Models\Character;
 use App\Characters\Domain\Services\CharacterQueriesService;
 use App\Characters\Infrastructure\Repositories\CharacterRepositoryInterface;
@@ -35,7 +36,7 @@ final readonly class GetCharactersQueryHandler implements QueryHandlerInterface
         }
         $characters = $this->characterRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?Character $character) => $this->characterQueriesService->getCharacterDtoFromModel(character: $character), $characters->items());
+        $dtos = CharacterDtoCollection::fromMap(fn (?Character $character) => $this->characterQueriesService->getCharacterDtoFromModel(character: $character), $characters->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $characters);
     }

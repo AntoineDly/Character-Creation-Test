@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ComponentFields\Application\Queries\GetComponentFieldsQuery;
 
+use App\ComponentFields\Domain\Dtos\ComponentFieldDto\ComponentFieldDtoCollection;
 use App\ComponentFields\Domain\Models\ComponentField;
 use App\ComponentFields\Domain\Services\ComponentFieldQueriesService;
 use App\ComponentFields\Infrastructure\Repositories\ComponentFieldRepositoryInterface;
@@ -35,7 +36,7 @@ final readonly class GetComponentFieldsQueryHandler implements QueryHandlerInter
         }
         $componentFields = $this->componentFieldRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?ComponentField $componentField) => $this->componentFieldQueriesService->getComponentFieldDtoFromModel(componentField: $componentField), $componentFields->items());
+        $dtos = ComponentFieldDtoCollection::fromMap(fn (?ComponentField $componentField) => $this->componentFieldQueriesService->getComponentFieldDtoFromModel(componentField: $componentField), $componentFields->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $componentFields);
     }

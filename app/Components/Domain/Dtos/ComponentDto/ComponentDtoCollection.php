@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Categories\Domain\Dtos\CategoryDto;
+namespace App\Components\Domain\Dtos\ComponentDto;
 
 use App\Shared\Domain\Collection\CollectionTrait;
 use App\Shared\Domain\Dtos\DtoCollectionInterface;
 
 /**
- * @implements DtoCollectionInterface<CategoryDto>
+ * @implements DtoCollectionInterface<ComponentDto>
  */
-final class CategoryDtoCollection implements DtoCollectionInterface
+final class ComponentDtoCollection implements DtoCollectionInterface
 {
-    /** @use CollectionTrait<CategoryDto> */
+    /** @use CollectionTrait<ComponentDto> */
     use CollectionTrait;
 
     public function __construct()

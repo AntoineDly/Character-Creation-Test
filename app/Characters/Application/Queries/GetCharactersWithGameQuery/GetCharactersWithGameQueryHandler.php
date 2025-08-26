@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Characters\Application\Queries\GetCharactersWithGameQuery;
 
 use App\Characters\Application\Queries\GetCharactersQuery\GetCharactersQuery;
+use App\Characters\Domain\Dtos\CharacterWithGameDto\CharacterWithGameDtoCollection;
 use App\Characters\Domain\Models\Character;
 use App\Characters\Domain\Services\CharacterQueriesService;
 use App\Characters\Infrastructure\Repositories\CharacterRepositoryInterface;
@@ -36,7 +37,7 @@ final readonly class GetCharactersWithGameQueryHandler implements QueryHandlerIn
         }
         $characters = $this->characterRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?Character $character) => $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character), $characters->items());
+        $dtos = CharacterWithGameDtoCollection::fromMap(fn (?Character $character) => $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character), $characters->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $characters);
     }

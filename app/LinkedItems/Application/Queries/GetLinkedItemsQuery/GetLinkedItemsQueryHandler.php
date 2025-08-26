@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LinkedItems\Application\Queries\GetLinkedItemsQuery;
 
+use App\LinkedItems\Domain\Dtos\LinkedItemDto\LinkedItemDtoCollection;
 use App\LinkedItems\Domain\Models\LinkedItem;
 use App\LinkedItems\Domain\Services\LinkedItemQueriesService;
 use App\LinkedItems\Infrastructure\Repositories\LinkedItemRepositoryInterface;
@@ -35,7 +36,7 @@ final readonly class GetLinkedItemsQueryHandler implements QueryHandlerInterface
         }
         $linkedItems = $this->linkedItemRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?LinkedItem $linkedItem) => $this->linkedItemQueriesService->getLinkedItemDtoFromModel(linkedItem: $linkedItem), $linkedItems->items());
+        $dtos = LinkedItemDtoCollection::fromMap(fn (?LinkedItem $linkedItem) => $this->linkedItemQueriesService->getLinkedItemDtoFromModel(linkedItem: $linkedItem), $linkedItems->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $linkedItems);
     }

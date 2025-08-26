@@ -27,12 +27,11 @@ final readonly class FieldServices
         foreach ($fields as $field) {
             $fieldInterface = AssertHelper::isFieldInterfaceNotNull($field);
             $parameter = AssertHelper::isParameterNotNull($fieldInterface->getParameter());
-            $parameterName = $parameter->name;
 
             $fieldDtos[] = $this->fieldDtoBuilder
                 ->setId($fieldInterface->getId())
                 ->setParameterId($parameter->id)
-                ->setName($parameterName)
+                ->setName($parameter->name)
                 ->setValue($fieldInterface->getValue())
                 ->setTypeParameterEnum($parameter->type)
                 ->setTypeFieldEnum($fieldInterface->getType())

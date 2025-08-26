@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\PlayableItems\Application\Queries\GetPlayableItemsQuery;
 
+use App\PlayableItems\Domain\Dtos\PlayableItemDto\PlayableItemDtoCollection;
 use App\PlayableItems\Domain\Models\PlayableItem;
 use App\PlayableItems\Domain\Services\PlayableItemQueriesService;
 use App\PlayableItems\Infrastructure\Repositories\PlayableItemRepositoryInterface;
@@ -35,7 +36,7 @@ final readonly class GetPlayableItemsQueryHandler implements QueryHandlerInterfa
         }
         $playableItems = $this->playableItemRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?PlayableItem $playableItem) => $this->playableItemQueriesService->getPlayableItemDtoFromModel(playableItem: $playableItem), $playableItems->items());
+        $dtos = PlayableItemDtoCollection::fromMap(fn (?PlayableItem $playableItem) => $this->playableItemQueriesService->getPlayableItemDtoFromModel(playableItem: $playableItem), $playableItems->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $playableItems);
     }

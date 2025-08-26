@@ -17,8 +17,8 @@ use App\Fields\Services\FieldServices;
 use App\Games\Domain\Services\GameQueriesService;
 use App\Helpers\ArrayHelper;
 use App\Helpers\AssertHelper;
-use App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto\LinkedItemForCharacterDto;
 use App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto\LinkedItemForCharacterDtoBuilder;
+use App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto\LinkedItemForCharacterDtoCollection;
 
 final readonly class CharacterQueriesService
 {
@@ -64,12 +64,12 @@ final readonly class CharacterQueriesService
             ->setId($character->id)
             ->setGameDto($gameDto);
 
-        /** @var array<string, array{'name': string, 'linkedItemForCharacterDtos': LinkedItemForCharacterDto[]}> $categories */
+        /** @var array<string, array{'name': string, 'linkedItemForCharacterDtos': LinkedItemForCharacterDtoCollection}> $categories */
         $categories = [];
 
         foreach ($game->categories as $category) {
             $category = AssertHelper::isCategoryNotNull($category);
-            $categories[$category->id] = ['name' => $category->name, 'linkedItemForCharacterDtos' => []];
+            $categories[$category->id] = ['name' => $category->name, 'linkedItemForCharacterDtos' => new LinkedItemForCharacterDtoCollection()];
         }
 
         if (ArrayHelper::isEmpty($categories)) {
@@ -99,14 +99,14 @@ final readonly class CharacterQueriesService
             if (! array_key_exists($categoryId, $categories)) {
                 throw new CategoryNotFoundException(message: 'Category not found inside game.');
             }
-            $categories[$categoryId]['linkedItemForCharacterDtos'][] = $linkedItemForCharacterDto;
+            $categories[$categoryId]['linkedItemForCharacterDtos']->add($linkedItemForCharacterDto);
         }
 
         foreach ($categories as $categoryId => $categoryData) {
             $categoryForCharacterDto = $this->categoryForCharacterDtoBuilder
                 ->setId($categoryId)
                 ->setName($categoryData['name'])
-                ->setLinkedItemForCharacterDtos($categoryData['linkedItemForCharacterDtos'])
+                ->setLinkedItemForCharacterDtoCollection($categoryData['linkedItemForCharacterDtos'])
                 ->build();
             $this->characterWithLinkedItemsDtoBuilder->addCategoryForCharacterDto($categoryForCharacterDto);
         }

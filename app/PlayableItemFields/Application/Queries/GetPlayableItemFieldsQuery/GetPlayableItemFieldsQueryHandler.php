@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\PlayableItemFields\Application\Queries\GetPlayableItemFieldsQuery;
 
+use App\PlayableItemFields\Domain\Dtos\PlayableItemFieldDto\PlayableItemFieldDtoCollection;
 use App\PlayableItemFields\Domain\Models\PlayableItemField;
 use App\PlayableItemFields\Domain\Services\PlayableItemFieldQueriesService;
 use App\PlayableItemFields\Infrastructure\Repositories\PlayableItemFieldRepositoryInterface;
@@ -35,7 +36,7 @@ final readonly class GetPlayableItemFieldsQueryHandler implements QueryHandlerIn
         }
         $playableItemFields = $this->playableItemFieldRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?PlayableItemField $playableItemField) => $this->playableItemFieldQueriesService->getPlayableItemFieldDtoFromModel(playableItemField: $playableItemField), $playableItemFields->items());
+        $dtos = PlayableItemFieldDtoCollection::fromMap(fn (?PlayableItemField $playableItemField) => $this->playableItemFieldQueriesService->getPlayableItemFieldDtoFromModel(playableItemField: $playableItemField), $playableItemFields->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $playableItemFields);
     }

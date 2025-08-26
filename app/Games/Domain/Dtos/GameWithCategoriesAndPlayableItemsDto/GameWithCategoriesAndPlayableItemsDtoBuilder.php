@@ -6,7 +6,7 @@ namespace App\Games\Domain\Dtos\GameWithCategoriesAndPlayableItemsDto;
 
 use App\Categories\Domain\Dtos\CategoryDto\CategoryDtoCollection;
 use App\Helpers\UuidHelper;
-use App\PlayableItems\Domain\Dtos\PlayableItemDto\PlayableItemDto;
+use App\PlayableItems\Domain\Dtos\PlayableItemDto\PlayableItemDtoCollection;
 use App\Shared\Domain\Dtos\BuilderInterface;
 use App\Shared\Infrastructure\Http\Exceptions\NotAValidUuidException;
 use App\Shared\Infrastructure\Http\Exceptions\StringIsEmptyException;
@@ -17,14 +17,10 @@ final class GameWithCategoriesAndPlayableItemsDtoBuilder implements BuilderInter
 
     private string $name = '';
 
-    private CategoryDtoCollection $categoryDtoCollection;
-
-    /** @var PlayableItemDto[] */
-    private array $playableItemDtos = [];
-
-    public function __construct()
-    {
-        $this->categoryDtoCollection = CategoryDtoCollection::createEmpty();
+    public function __construct(
+        private CategoryDtoCollection $categoryDtoCollection = new CategoryDtoCollection(),
+        private PlayableItemDtoCollection $playableItemDtoCollection = new PlayableItemDtoCollection()
+    ) {
     }
 
     public function setId(string $id): static
@@ -48,10 +44,9 @@ final class GameWithCategoriesAndPlayableItemsDtoBuilder implements BuilderInter
         return $this;
     }
 
-    /** @param PlayableItemDto[] $playableItemDtos */
-    public function setPlayableItemDtos(array $playableItemDtos): static
+    public function setPlayableItemDtoCollection(PlayableItemDtoCollection $playableItemDtoCollection): static
     {
-        $this->playableItemDtos = $playableItemDtos;
+        $this->playableItemDtoCollection = $playableItemDtoCollection;
 
         return $this;
     }
@@ -70,12 +65,12 @@ final class GameWithCategoriesAndPlayableItemsDtoBuilder implements BuilderInter
             id: $this->id,
             name: $this->name,
             categoryDtoCollection: $this->categoryDtoCollection,
-            playableItemDtos: $this->playableItemDtos
+            playableItemDtos: $this->playableItemDtoCollection
         );
 
         $this->id = $this->name = '';
-        $this->categoryDtoCollection = CategoryDtoCollection::createEmpty();
-        $this->playableItemDtos = [];
+        $this->categoryDtoCollection = new CategoryDtoCollection();
+        $this->playableItemDtoCollection = new PlayableItemDtoCollection();
 
         return $GameWithCategoriesAndPlayableItemsDto;
     }

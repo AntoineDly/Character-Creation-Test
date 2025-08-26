@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LinkedItemFields\Application\Queries\GetLinkedItemFieldsQuery;
 
+use App\LinkedItemFields\Domain\Dtos\LinkedItemFieldDto\LinkedItemFieldDtoCollection;
 use App\LinkedItemFields\Domain\Models\LinkedItemField;
 use App\LinkedItemFields\Domain\Services\LinkedItemFieldQueriesService;
 use App\LinkedItemFields\Infrastructure\Repositories\LinkedItemFieldRepositoryInterface;
@@ -35,7 +36,7 @@ final readonly class GetLinkedItemFieldsQueryHandler implements QueryHandlerInte
         }
         $fields = $this->linkedItemFieldRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?LinkedItemField $linkedItemField) => $this->linkedItemFieldQueriesService->getLinkedFieldDtoFromModel(linkedItemField: $linkedItemField), $fields->items());
+        $dtos = LinkedItemFieldDtoCollection::fromMap(fn (?LinkedItemField $linkedItemField) => $this->linkedItemFieldQueriesService->getLinkedFieldDtoFromModel(linkedItemField: $linkedItemField), $fields->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $fields);
     }

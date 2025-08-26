@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ItemFields\Application\Queries\GetItemFieldsQuery;
 
+use App\ItemFields\Domain\Dtos\ItemFieldDto\ItemFieldDtoCollection;
 use App\ItemFields\Domain\Models\ItemField;
 use App\ItemFields\Domain\Services\ItemFieldQueriesService;
 use App\ItemFields\Infrastructure\Repositories\ItemFieldRepositoryInterface;
@@ -35,7 +36,7 @@ final readonly class GetItemFieldsQueryHandler implements QueryHandlerInterface
         }
         $itemFields = $this->itemFieldRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?ItemField $itemField) => $this->itemFieldQueriesService->getItemFieldDtoFromModel(itemField: $itemField), $itemFields->items());
+        $dtos = ItemFieldDtoCollection::fromMap(fn (?ItemField $itemField) => $this->itemFieldQueriesService->getItemFieldDtoFromModel(itemField: $itemField), $itemFields->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $itemFields);
     }

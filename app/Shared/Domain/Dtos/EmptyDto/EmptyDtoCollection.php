@@ -8,15 +8,15 @@ use App\Shared\Domain\Collection\CollectionTrait;
 use App\Shared\Domain\Dtos\DtoCollectionInterface;
 
 /**
- * @implements DtoCollectionInterface<object>
+ * @implements DtoCollectionInterface<EmptyDto>
  */
 final class EmptyDtoCollection implements DtoCollectionInterface
 {
-    /** @use CollectionTrait<object> */
+    /** @use CollectionTrait<EmptyDto> */
     use CollectionTrait;
 
     public function __construct()
     {
-        $this::createEmpty();
+        self::createEmpty();
     }
 }

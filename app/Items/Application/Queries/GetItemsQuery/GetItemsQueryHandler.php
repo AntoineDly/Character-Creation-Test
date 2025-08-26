@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Items\Application\Queries\GetItemsQuery;
 
+use App\Items\Domain\Dtos\ItemDto\ItemDtoCollection;
 use App\Items\Domain\Models\Item;
 use App\Items\Domain\Services\ItemQueriesService;
 use App\Items\Infrastructure\Repositories\ItemRepositoryInterface;
@@ -35,7 +36,7 @@ final readonly class GetItemsQueryHandler implements QueryHandlerInterface
         }
         $items = $this->itemRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?Item $item) => $this->itemQueriesService->getItemDtoFromModel(item: $item), $items->items());
+        $dtos = ItemDtoCollection::fromMap(fn (?Item $item) => $this->itemQueriesService->getItemDtoFromModel(item: $item), $items->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $items);
     }

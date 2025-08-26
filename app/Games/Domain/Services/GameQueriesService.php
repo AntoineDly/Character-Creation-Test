@@ -13,7 +13,7 @@ use App\Games\Domain\Dtos\GameWithCategoriesAndPlayableItemsDto\GameWithCategori
 use App\Games\Domain\Dtos\GameWithCategoriesAndPlayableItemsDto\GameWithCategoriesAndPlayableItemsDtoBuilder;
 use App\Games\Domain\Models\Game;
 use App\Helpers\AssertHelper;
-use App\PlayableItems\Domain\Dtos\PlayableItemDto\PlayableItemDto;
+use App\PlayableItems\Domain\Dtos\PlayableItemDto\PlayableItemDtoCollection;
 use App\PlayableItems\Domain\Models\PlayableItem;
 use App\PlayableItems\Domain\Services\PlayableItemQueriesService;
 
@@ -41,14 +41,13 @@ final readonly class GameQueriesService
     {
         $categoryDtoCollection = CategoryDtoCollection::fromMap(fn (Category $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $game->categories->all());
 
-        /** @var PlayableItemDto[] $playableItemDtos */
-        $playableItemDtos = array_map(fn (PlayableItem $playableItem) => $this->playableItemQueriesService->getPlayableItemDtoFromModel(playableItem: $playableItem), $game->playableItems->all());
+        $playableItemDtos = PlayableItemDtoCollection::fromMap(fn (PlayableItem $playableItem) => $this->playableItemQueriesService->getPlayableItemDtoFromModel(playableItem: $playableItem), $game->playableItems->all());
 
         return $this->gameWithCategoriesAndPlayableItemsDtoBuilder
             ->setId($game->id)
             ->setName($game->name)
             ->setCategoryDtoCollection($categoryDtoCollection)
-            ->setPlayableItemDtos($playableItemDtos)
+            ->setPlayableItemDtoCollection($playableItemDtos)
             ->build();
     }
 }

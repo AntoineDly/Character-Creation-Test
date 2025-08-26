@@ -14,4 +14,9 @@ final class GameDtoCollection implements DtoCollectionInterface
 {
     /** @use CollectionTrait<GameDto> */
     use CollectionTrait;
+
+    public function __construct()
+    {
+        self::createEmpty();
+    }
 }

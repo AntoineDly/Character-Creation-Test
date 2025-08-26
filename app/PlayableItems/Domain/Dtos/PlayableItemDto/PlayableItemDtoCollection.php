@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Categories\Domain\Dtos\CategoryDto;
+namespace App\PlayableItems\Domain\Dtos\PlayableItemDto;
 
 use App\Shared\Domain\Collection\CollectionTrait;
 use App\Shared\Domain\Dtos\DtoCollectionInterface;
 
 /**
- * @implements DtoCollectionInterface<CategoryDto>
+ * @implements DtoCollectionInterface<PlayableItemDto>
  */
-final class CategoryDtoCollection implements DtoCollectionInterface
+final class PlayableItemDtoCollection implements DtoCollectionInterface
 {
-    /** @use CollectionTrait<CategoryDto> */
+    /** @use CollectionTrait<PlayableItemDto> */
     use CollectionTrait;
 
     public function __construct()

@@ -24,7 +24,7 @@ final readonly class GetLinkedItemQueryHandler implements QueryHandlerInterface
         if (! $query instanceof GetLinkedItemQuery) {
             throw new IncorrectQueryException(data: ['handler' => self::class, 'currentQuery' => $query::class, 'expectedQuery' => GetLinkedItemQuery::class]);
         }
-        $linkedItem = $this->linkedItemRepository->findById(id: $this->linkedItemId);
+        $linkedItem = $this->linkedItemRepository->findById(id: $query->linkedItemId);
 
         return $this->linkedItemQueriesService->getLinkedItemDtoFromModel(linkedItem: $linkedItem);
     }

@@ -15,6 +15,11 @@ final class FieldDtoCollection implements DtoCollectionInterface
     /** @use CollectionTrait<FieldDto> */
     use CollectionTrait;
 
+    public function __construct()
+    {
+        self::createEmpty();
+    }
+
     /** @param FieldDto[] $dtos */
     public function setFromFieldDtos(array $dtos): static
     {

@@ -30,13 +30,13 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
 
     public ?int $lastPage = null;
 
-    public function __construct(public DtoCollectionInterface $dtos = new EmptyDtoCollection())
+    public function __construct(public DtoCollectionInterface $dtoCollection = new EmptyDtoCollection())
     {
     }
 
-    public function setDtos(DtoCollectionInterface $dtos): static
+    public function setDtoCollection(DtoCollectionInterface $dtoCollection): static
     {
-        $this->dtos = $dtos;
+        $this->dtoCollection = $dtoCollection;
 
         return $this;
     }
@@ -125,11 +125,11 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
         );
 
         $dto = new DtosWithPaginationDto(
-            dtos: $this->dtos,
+            dtos: $this->dtoCollection,
             paginationDto: $paginationDto,
         );
 
-        $this->dtos = EmptyDtoCollection::createEmpty();
+        $this->dtoCollection = new EmptyDtoCollection();
         $this->currentPage = 1;
         $this->perPage = 15;
         $this->total = 0;

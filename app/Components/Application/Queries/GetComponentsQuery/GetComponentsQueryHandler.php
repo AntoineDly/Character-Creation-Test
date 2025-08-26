@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Application\Queries\GetComponentsQuery;
 
+use App\Components\Domain\Dtos\ComponentDto\ComponentDtoCollection;
 use App\Components\Domain\Models\Component;
 use App\Components\Domain\Services\ComponentQueriesService;
 use App\Components\Infrastructure\Repositories\ComponentRepositoryInterface;
@@ -35,7 +36,7 @@ final readonly class GetComponentsQueryHandler implements QueryHandlerInterface
         }
         $components = $this->componentRepository->index($query->sortedAndPaginatedDto);
 
-        $dtos = array_map(fn (?Component $component) => $this->componentQueriesService->getComponentDtoFromModel(component: $component), $components->items());
+        $dtos = ComponentDtoCollection::fromMap(fn (?Component $component) => $this->componentQueriesService->getComponentDtoFromModel(component: $component), $components->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtos, $components);
     }

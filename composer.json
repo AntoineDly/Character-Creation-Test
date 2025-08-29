@@ -1,12 +1,12 @@
 {
-    "name": "laravel/laravel",
+    "name": "antoinedly/character-creation-test",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "The API of character creation",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^11.33",
+        "laravel/framework": "11.45.2",
         "laravel/passport": "^12.0",
         "laravel/tinker": "^2.9"
     },
@@ -17,7 +17,8 @@
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.0",
-        "pestphp/pest": "^2.34"
+        "pestphp/pest": "^2.34",
+        "roave/security-advisories": "dev-latest"
     },
     "autoload": {
         "psr-4": {

@@ -2,7 +2,7 @@
     "name": "antoinedly/character-creation-test",
     "type": "project",
     "description": "The API of character creation",
-    "keywords": ["laravel", "framework"],
+    "keywords": ["CharacterCreation", "API"],
     "license": "MIT",
     "require": {
         "php": "^8.2",

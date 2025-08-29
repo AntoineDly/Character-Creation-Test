@@ -14,9 +14,4 @@ final class CategoryForCharacterDtoCollection implements DtoCollectionInterface
 {
     /** @use CollectionTrait<CategoryForCharacterDto> */
     use CollectionTrait;
-
-    public function __construct()
-    {
-        self::createEmpty();
-    }
 }

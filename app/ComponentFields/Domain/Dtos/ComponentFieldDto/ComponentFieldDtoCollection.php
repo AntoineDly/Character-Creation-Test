@@ -14,9 +14,4 @@ final class ComponentFieldDtoCollection implements DtoCollectionInterface
 {
     /** @use CollectionTrait<ComponentFieldDto> */
     use CollectionTrait;
-
-    public function __construct()
-    {
-        self::createEmpty();
-    }
 }

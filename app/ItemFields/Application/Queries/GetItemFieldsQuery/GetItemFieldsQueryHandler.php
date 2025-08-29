@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ItemFields\Application\Queries\GetItemFieldsQuery;
 
+use App\ItemFields\Domain\Dtos\ItemFieldDto\ItemFieldDto;
 use App\ItemFields\Domain\Dtos\ItemFieldDto\ItemFieldDtoCollection;
 use App\ItemFields\Domain\Models\ItemField;
 use App\ItemFields\Domain\Services\ItemFieldQueriesService;
@@ -16,7 +17,7 @@ use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPagin
 
 final readonly class GetItemFieldsQueryHandler implements QueryHandlerInterface
 {
-    /** @use DtosWithPaginationBuilderHelper<ItemField> */
+    /** @use DtosWithPaginationBuilderHelper<ItemField, ItemFieldDto> */
     use DtosWithPaginationBuilderHelper;
 
     public function __construct(
@@ -25,6 +26,7 @@ final readonly class GetItemFieldsQueryHandler implements QueryHandlerInterface
     ) {
     }
 
+    /** @return DtosWithPaginationDto<ItemFieldDto> */
     public function handle(QueryInterface $query): DtosWithPaginationDto
     {
         if (! $query instanceof GetItemFieldsQuery) {
@@ -34,6 +36,6 @@ final readonly class GetItemFieldsQueryHandler implements QueryHandlerInterface
 
         $dtoCollection = ItemFieldDtoCollection::fromMap(fn (?ItemField $itemField) => $this->itemFieldQueriesService->getItemFieldDtoFromModel(itemField: $itemField), $itemFields->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection, $itemFields);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection->getReadonlyCollection(), $itemFields);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Games\Application\Queries\GetGamesQuery;
 
+use App\Games\Domain\Dtos\GameDto\GameDto;
 use App\Games\Domain\Dtos\GameDto\GameDtoCollection;
 use App\Games\Domain\Models\Game;
 use App\Games\Domain\Services\GameQueriesService;
@@ -16,7 +17,7 @@ use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPagin
 
 final readonly class GetGamesQueryHandler implements QueryHandlerInterface
 {
-    /** @use DtosWithPaginationBuilderHelper<Game> */
+    /** @use DtosWithPaginationBuilderHelper<Game, GameDto> */
     use DtosWithPaginationBuilderHelper;
 
     public function __construct(
@@ -25,6 +26,7 @@ final readonly class GetGamesQueryHandler implements QueryHandlerInterface
     ) {
     }
 
+    /** @return DtosWithPaginationDto<GameDto> */
     public function handle(QueryInterface $query): DtosWithPaginationDto
     {
         if (! $query instanceof GetGamesQuery) {
@@ -34,6 +36,6 @@ final readonly class GetGamesQueryHandler implements QueryHandlerInterface
 
         $dtoCollection = GameDtoCollection::fromMap(fn (Game $game) => $this->gameQueriesService->getGameDtoFromModel(game: $game), $games->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection, $games);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection->getReadonlyCollection(), $games);
     }
 }

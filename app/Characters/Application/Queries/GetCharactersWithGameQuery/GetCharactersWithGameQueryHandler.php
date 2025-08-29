@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Characters\Application\Queries\GetCharactersWithGameQuery;
 
-use App\Characters\Application\Queries\GetCharactersQuery\GetCharactersQuery;
+use App\Characters\Domain\Dtos\CharacterWithGameDto\CharacterWithGameDto;
 use App\Characters\Domain\Dtos\CharacterWithGameDto\CharacterWithGameDtoCollection;
 use App\Characters\Domain\Models\Character;
 use App\Characters\Domain\Services\CharacterQueriesService;
@@ -17,7 +17,7 @@ use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPagin
 
 final readonly class GetCharactersWithGameQueryHandler implements QueryHandlerInterface
 {
-    /** @use DtosWithPaginationBuilderHelper<Character> */
+    /** @use DtosWithPaginationBuilderHelper<Character, CharacterWithGameDto> */
     use DtosWithPaginationBuilderHelper;
 
     public function __construct(
@@ -26,15 +26,16 @@ final readonly class GetCharactersWithGameQueryHandler implements QueryHandlerIn
     ) {
     }
 
+    /** @return DtosWithPaginationDto<CharacterWithGameDto> */
     public function handle(QueryInterface $query): DtosWithPaginationDto
     {
-        if (! $query instanceof GetCharactersQuery) {
-            throw new IncorrectQueryException(data: ['handler' => self::class, 'currentQuery' => $query::class, 'expectedQuery' => GetCharactersQuery::class]);
+        if (! $query instanceof GetCharactersWithGameQuery) {
+            throw new IncorrectQueryException(data: ['handler' => self::class, 'currentQuery' => $query::class, 'expectedQuery' => GetCharactersWithGameQuery::class]);
         }
         $characters = $this->characterRepository->index($query->sortedAndPaginatedDto);
 
         $dtoCollection = CharacterWithGameDtoCollection::fromMap(fn (?Character $character) => $this->characterQueriesService->getCharacterWithGameDtoFromModel(character: $character), $characters->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection, $characters);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection->getReadonlyCollection(), $characters);
     }
 }

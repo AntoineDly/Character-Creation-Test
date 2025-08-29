@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Collection;
 
+use App\Shared\Domain\Collection\Readonly\ReadonlyCollection;
+use App\Shared\Domain\Collection\Readonly\ReadonlyCollectionInterface;
 use ArrayIterator;
 
 /**
- * @template T
+ * @template TCollectionElement
  */
 trait CollectionTrait
 {
-    /** @var T[] */
-    private array $elements;
+    /** @var TCollectionElement[] */
+    private array $elements = [];
 
-    /** @param T[] $elements */
+    /** @param TCollectionElement[] $elements */
     public static function create(array $elements): static
     {
         return (new static())->set($elements);
@@ -42,8 +44,8 @@ trait CollectionTrait
     }
 
     /**
-     * @param  T  $initial
-     * @return T
+     * @param  TCollectionElement  $initial
+     * @return TCollectionElement
      */
     public function reduce(callable $fn, mixed $initial): mixed
     {
@@ -72,12 +74,13 @@ trait CollectionTrait
         return false;
     }
 
-    /** @return T|false */
+    /** @return TCollectionElement|false */
     public function first(): mixed
     {
         return reset($this->elements);
     }
 
+    /** @return TCollectionElement|false */
     public function last(): mixed
     {
         return end($this->elements);
@@ -93,7 +96,7 @@ trait CollectionTrait
         return count($this->elements) === 0;
     }
 
-    /** @param T[] $elements */
+    /** @param TCollectionElement[] $elements */
     public function set(array $elements): static
     {
         $this->elements = $elements;
@@ -101,7 +104,10 @@ trait CollectionTrait
         return $this;
     }
 
-    /** @param T $element */
+    /**
+     * @param  TCollectionElement  $element
+     * @param  array-key|null  $offset
+     */
     public function add(mixed $element, mixed $offset = null): static
     {
         $this->offsetSet($offset, $element);
@@ -109,31 +115,33 @@ trait CollectionTrait
         return $this;
     }
 
-    /** @return T[] */
+    /** @return TCollectionElement[] */
     public function values(): array
     {
         return array_values($this->elements);
     }
 
-    /** @return T[] */
+    /** @return TCollectionElement[] */
     public function elements(): array
     {
         return $this->elements;
     }
 
-    /** @return ArrayIterator<int, T> */
+    /** @return ArrayIterator<int, TCollectionElement> */
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->elements);
     }
 
+    /** @param array-key $offset */
     public function offsetExists(mixed $offset): bool
     {
         return isset($this->elements[$offset]);
     }
 
     /**
-     * @return T|null
+     * @param  array-key  $offset
+     * @return TCollectionElement|null
      */
     public function offsetGet(mixed $offset): mixed
     {
@@ -141,7 +149,8 @@ trait CollectionTrait
     }
 
     /**
-     * @param  T  $element
+     * @param  TCollectionElement  $element
+     * @param  array-key|null  $offset
      */
     public function offsetSet(mixed $offset, mixed $element): void
     {
@@ -152,32 +161,39 @@ trait CollectionTrait
         }
     }
 
+    /** @param array-key $offset */
     public function offsetUnset(mixed $offset): void
     {
         unset($this->elements[$offset]);
     }
 
-    /** @return T[] */
+    /** @return TCollectionElement[] */
     public function all(): array
     {
         return $this->elements;
     }
 
-    /** @return T[] */
+    /** @return TCollectionElement[] */
     public function __serialize(): array
     {
         return $this->elements;
     }
 
-    /** @param T[] $elements */
+    /** @param TCollectionElement[] $elements */
     public function __unserialize(array $elements): void
     {
         $this->elements = $elements;
     }
 
-    /** @return T[] */
+    /** @return TCollectionElement[] */
     public function jsonSerialize(): mixed
     {
         return $this->elements;
+    }
+
+    /** @return ReadonlyCollectionInterface<TCollectionElement> */
+    public function getReadonlyCollection(): ReadonlyCollectionInterface
+    {
+        return new ReadonlyCollection($this);
     }
 }

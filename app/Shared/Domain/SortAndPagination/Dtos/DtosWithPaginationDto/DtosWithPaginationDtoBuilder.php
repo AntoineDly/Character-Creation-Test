@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto;
 
+use App\Shared\Domain\Collection\Readonly\ReadonlyCollectionInterface;
 use App\Shared\Domain\Dtos\BuilderInterface;
-use App\Shared\Domain\Dtos\DtoCollectionInterface;
 use App\Shared\Domain\Dtos\DtoInterface;
 use App\Shared\Domain\SortAndPagination\Dtos\PaginationDto\PaginationDto;
 
 /**
- * @template TDto of DtoInterface
+ * @template-covariant TDto of DtoInterface
  */
 final class DtosWithPaginationDtoBuilder implements BuilderInterface
 {
@@ -28,23 +28,15 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
 
     public ?int $lastPage = null;
 
-    /** @param DtoCollectionInterface<TDto> $dtoCollection */
-    public static function createFromDtoCollection(DtoCollectionInterface $dtoCollection): static
+    /** @param ReadonlyCollectionInterface<TDto> $readonlyCollection */
+    public static function createFromReadonlyCollection(ReadonlyCollectionInterface $readonlyCollection): static
     {
-        return new self($dtoCollection);
+        return new self($readonlyCollection);
     }
 
-    /** @param DtoCollectionInterface<TDto> $dtoCollection */
-    public function __construct(public DtoCollectionInterface $dtoCollection)
+    /** @param ReadonlyCollectionInterface<TDto> $readonlyCollection */
+    public function __construct(public ReadonlyCollectionInterface $readonlyCollection)
     {
-    }
-
-    /** @param DtoCollectionInterface<TDto> $dtoCollection */
-    public function setDtoCollection(DtoCollectionInterface $dtoCollection): static
-    {
-        $this->dtoCollection = $dtoCollection;
-
-        return $this;
     }
 
     public function setCurrentPage(int $currentPage): static
@@ -110,11 +102,11 @@ final class DtosWithPaginationDtoBuilder implements BuilderInterface
         );
 
         $dto = new DtosWithPaginationDto(
-            dtoCollection: $this->dtoCollection,
+            dtos: $this->readonlyCollection,
             paginationDto: $paginationDto,
         );
 
-        $this->dtoCollection = $this->dtoCollection::createEmpty();
+        $this->readonlyCollection = $this->readonlyCollection->createEmpty();
         $this->currentPage = 1;
         $this->perPage = 15;
         $this->total = 0;

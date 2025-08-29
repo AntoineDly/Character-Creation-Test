@@ -14,9 +14,4 @@ final class LinkedItemForCharacterDtoCollection implements DtoCollectionInterfac
 {
     /** @use CollectionTrait<LinkedItemForCharacterDto> */
     use CollectionTrait;
-
-    public function __construct()
-    {
-        self::createEmpty();
-    }
 }

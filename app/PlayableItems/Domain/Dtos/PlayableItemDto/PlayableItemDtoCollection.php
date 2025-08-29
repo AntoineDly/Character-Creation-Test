@@ -14,9 +14,4 @@ final class PlayableItemDtoCollection implements DtoCollectionInterface
 {
     /** @use CollectionTrait<PlayableItemDto> */
     use CollectionTrait;
-
-    public function __construct()
-    {
-        self::createEmpty();
-    }
 }

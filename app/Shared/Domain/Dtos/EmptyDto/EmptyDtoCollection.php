@@ -6,13 +6,12 @@ namespace App\Shared\Domain\Dtos\EmptyDto;
 
 use App\Shared\Domain\Collection\CollectionTrait;
 use App\Shared\Domain\Dtos\DtoCollectionInterface;
-use App\Shared\Domain\Dtos\DtoInterface;
 
 /**
- * @implements DtoCollectionInterface<DtoInterface>
+ * @implements DtoCollectionInterface<EmptyDto>
  */
 final class EmptyDtoCollection implements DtoCollectionInterface
 {
-    /** @use CollectionTrait<DtoInterface> */
+    /** @use CollectionTrait<EmptyDto> */
     use CollectionTrait;
 }

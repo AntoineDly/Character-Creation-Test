@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Characters\Application\Queries\GetCharactersQuery;
 
+use App\Characters\Domain\Dtos\CharacterDto\CharacterDto;
 use App\Characters\Domain\Dtos\CharacterDto\CharacterDtoCollection;
 use App\Characters\Domain\Models\Character;
 use App\Characters\Domain\Services\CharacterQueriesService;
@@ -16,7 +17,7 @@ use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPagin
 
 final readonly class GetCharactersQueryHandler implements QueryHandlerInterface
 {
-    /** @use DtosWithPaginationBuilderHelper<Character> */
+    /** @use DtosWithPaginationBuilderHelper<Character, CharacterDto> */
     use DtosWithPaginationBuilderHelper;
 
     public function __construct(
@@ -25,6 +26,7 @@ final readonly class GetCharactersQueryHandler implements QueryHandlerInterface
     ) {
     }
 
+    /** @return DtosWithPaginationDto<CharacterDto> */
     public function handle(QueryInterface $query): DtosWithPaginationDto
     {
         if (! $query instanceof GetCharactersQuery) {
@@ -34,6 +36,6 @@ final readonly class GetCharactersQueryHandler implements QueryHandlerInterface
 
         $dtoCollection = CharacterDtoCollection::fromMap(fn (?Character $character) => $this->characterQueriesService->getCharacterDtoFromModel(character: $character), $characters->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection, $characters);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection->getReadonlyCollection(), $characters);
     }
 }

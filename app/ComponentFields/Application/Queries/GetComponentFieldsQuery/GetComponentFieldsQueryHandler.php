@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ComponentFields\Application\Queries\GetComponentFieldsQuery;
 
+use App\ComponentFields\Domain\Dtos\ComponentFieldDto\ComponentFieldDto;
 use App\ComponentFields\Domain\Dtos\ComponentFieldDto\ComponentFieldDtoCollection;
 use App\ComponentFields\Domain\Models\ComponentField;
 use App\ComponentFields\Domain\Services\ComponentFieldQueriesService;
@@ -16,7 +17,7 @@ use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPagin
 
 final readonly class GetComponentFieldsQueryHandler implements QueryHandlerInterface
 {
-    /** @use DtosWithPaginationBuilderHelper<ComponentField> */
+    /** @use DtosWithPaginationBuilderHelper<ComponentField, ComponentFieldDto> */
     use DtosWithPaginationBuilderHelper;
 
     public function __construct(
@@ -25,6 +26,7 @@ final readonly class GetComponentFieldsQueryHandler implements QueryHandlerInter
     ) {
     }
 
+    /** @return DtosWithPaginationDto<ComponentFieldDto> */
     public function handle(QueryInterface $query): DtosWithPaginationDto
     {
         if (! $query instanceof GetComponentFieldsQuery) {
@@ -34,6 +36,6 @@ final readonly class GetComponentFieldsQueryHandler implements QueryHandlerInter
 
         $dtoCollection = ComponentFieldDtoCollection::fromMap(fn (?ComponentField $componentField) => $this->componentFieldQueriesService->getComponentFieldDtoFromModel(componentField: $componentField), $componentFields->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection, $componentFields);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection->getReadonlyCollection(), $componentFields);
     }
 }

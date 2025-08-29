@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Categories\Application\Queries\GetCategoriesQuery;
 
+use App\Categories\Domain\Dtos\CategoryDto\CategoryDto;
 use App\Categories\Domain\Dtos\CategoryDto\CategoryDtoCollection;
 use App\Categories\Domain\Models\Category;
 use App\Categories\Domain\Services\CategoryQueriesService;
@@ -16,7 +17,7 @@ use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPagin
 
 final readonly class GetCategoriesQueryHandler implements QueryHandlerInterface
 {
-    /** @use DtosWithPaginationBuilderHelper<Category> */
+    /** @use DtosWithPaginationBuilderHelper<Category, CategoryDto> */
     use DtosWithPaginationBuilderHelper;
 
     public function __construct(
@@ -25,6 +26,7 @@ final readonly class GetCategoriesQueryHandler implements QueryHandlerInterface
     ) {
     }
 
+    /** @return DtosWithPaginationDto<CategoryDto> */
     public function handle(QueryInterface $query): DtosWithPaginationDto
     {
         if (! $query instanceof GetCategoriesQuery) {
@@ -34,6 +36,6 @@ final readonly class GetCategoriesQueryHandler implements QueryHandlerInterface
 
         $dtoCollection = CategoryDtoCollection::fromMap(fn (Category $category) => $this->categoryQueriesService->getCategoryDtoFromModel(category: $category), $categories->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator(dtoCollection: $dtoCollection, lengthAwarePaginator: $categories);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator(readonlyCollection: $dtoCollection->getReadonlyCollection(), lengthAwarePaginator: $categories);
     }
 }

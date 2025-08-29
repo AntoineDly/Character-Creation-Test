@@ -14,9 +14,4 @@ final class CharacterDtoCollection implements DtoCollectionInterface
 {
     /** @use CollectionTrait<CharacterDto> */
     use CollectionTrait;
-
-    public function __construct()
-    {
-        self::createEmpty();
-    }
 }

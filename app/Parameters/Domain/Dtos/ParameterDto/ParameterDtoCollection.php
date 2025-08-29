@@ -14,9 +14,4 @@ final class ParameterDtoCollection implements DtoCollectionInterface
 {
     /** @use CollectionTrait<ParameterDto> */
     use CollectionTrait;
-
-    public function __construct()
-    {
-        self::createEmpty();
-    }
 }

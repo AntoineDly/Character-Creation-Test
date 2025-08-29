@@ -14,9 +14,4 @@ final class LinkedItemFieldDtoCollection implements DtoCollectionInterface
 {
     /** @use CollectionTrait<LinkedItemFieldDto> */
     use CollectionTrait;
-
-    public function __construct()
-    {
-        self::createEmpty();
-    }
 }

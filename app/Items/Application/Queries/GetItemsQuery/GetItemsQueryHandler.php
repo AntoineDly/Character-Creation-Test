@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Items\Application\Queries\GetItemsQuery;
 
+use App\Items\Domain\Dtos\ItemDto\ItemDto;
 use App\Items\Domain\Dtos\ItemDto\ItemDtoCollection;
 use App\Items\Domain\Models\Item;
 use App\Items\Domain\Services\ItemQueriesService;
@@ -16,7 +17,7 @@ use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPagin
 
 final readonly class GetItemsQueryHandler implements QueryHandlerInterface
 {
-    /** @use DtosWithPaginationBuilderHelper<Item> */
+    /** @use DtosWithPaginationBuilderHelper<Item, ItemDto> */
     use DtosWithPaginationBuilderHelper;
 
     public function __construct(
@@ -25,6 +26,7 @@ final readonly class GetItemsQueryHandler implements QueryHandlerInterface
     ) {
     }
 
+    /** @return DtosWithPaginationDto<ItemDto> */
     public function handle(QueryInterface $query): DtosWithPaginationDto
     {
         if (! $query instanceof GetItemsQuery) {
@@ -34,6 +36,6 @@ final readonly class GetItemsQueryHandler implements QueryHandlerInterface
 
         $dtoCollection = ItemDtoCollection::fromMap(fn (?Item $item) => $this->itemQueriesService->getItemDtoFromModel(item: $item), $items->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection, $items);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection->getReadonlyCollection(), $items);
     }
 }

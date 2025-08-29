@@ -14,9 +14,4 @@ final class ItemFieldDtoCollection implements DtoCollectionInterface
 {
     /** @use CollectionTrait<ItemFieldDto> */
     use CollectionTrait;
-
-    public function __construct()
-    {
-        self::createEmpty();
-    }
 }

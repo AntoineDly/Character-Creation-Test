@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Application\Queries\GetComponentsQuery;
 
+use App\Components\Domain\Dtos\ComponentDto\ComponentDto;
 use App\Components\Domain\Dtos\ComponentDto\ComponentDtoCollection;
 use App\Components\Domain\Models\Component;
 use App\Components\Domain\Services\ComponentQueriesService;
@@ -16,7 +17,7 @@ use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPagin
 
 final readonly class GetComponentsQueryHandler implements QueryHandlerInterface
 {
-    /** @use DtosWithPaginationBuilderHelper<Component> */
+    /** @use DtosWithPaginationBuilderHelper<Component, ComponentDto> */
     use DtosWithPaginationBuilderHelper;
 
     public function __construct(
@@ -25,6 +26,7 @@ final readonly class GetComponentsQueryHandler implements QueryHandlerInterface
     ) {
     }
 
+    /** @return DtosWithPaginationDto<ComponentDto> */
     public function handle(QueryInterface $query): DtosWithPaginationDto
     {
         if (! $query instanceof GetComponentsQuery) {
@@ -34,6 +36,6 @@ final readonly class GetComponentsQueryHandler implements QueryHandlerInterface
 
         $dtoCollection = ComponentDtoCollection::fromMap(fn (?Component $component) => $this->componentQueriesService->getComponentDtoFromModel(component: $component), $components->items());
 
-        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection, $components);
+        return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection->getReadonlyCollection(), $components);
     }
 }

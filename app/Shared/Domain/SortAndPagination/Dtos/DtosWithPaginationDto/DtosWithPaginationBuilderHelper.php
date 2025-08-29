@@ -4,25 +4,26 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto;
 
-use App\Shared\Domain\Dtos\DtoCollectionInterface;
+use App\Shared\Domain\Collection\Readonly\ReadonlyCollectionInterface;
 use App\Shared\Domain\Dtos\DtoInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @template TModel of Model
- * @template TDto of DtoInterface
+ *
+ * @template-covariant TDto of DtoInterface
  */
 trait DtosWithPaginationBuilderHelper
 {
     /**
-     * @param  DtoCollectionInterface<TDto>  $dtoCollection
+     * @param  ReadonlyCollectionInterface<TDto>  $readonlyCollection
      * @param  LengthAwarePaginator<TModel>  $lengthAwarePaginator
      * @return DtosWithPaginationDto<TDto>
      */
-    private function getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator(DtoCollectionInterface $dtoCollection, LengthAwarePaginator $lengthAwarePaginator): DtosWithPaginationDto
+    private function getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator(ReadonlyCollectionInterface $readonlyCollection, LengthAwarePaginator $lengthAwarePaginator): DtosWithPaginationDto
     {
-        $builder = DtosWithPaginationDtoBuilder::createFromDtoCollection($dtoCollection);
+        $builder = DtosWithPaginationDtoBuilder::createFromReadonlyCollection($readonlyCollection);
         $builder = $this->getBuilderWithDataFromLengthAwarePaginator($lengthAwarePaginator, $builder);
 
         return $builder->build();

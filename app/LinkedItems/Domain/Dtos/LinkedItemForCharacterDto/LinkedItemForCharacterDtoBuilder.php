@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\LinkedItems\Domain\Dtos\LinkedItemForCharacterDto;
 
-use App\Fields\Dtos\FieldDto\FieldDtoCollection;
+use App\Fields\Domain\Dtos\FieldDto\FieldDtoCollection;
 use App\Helpers\SelfInstantiateTrait;
 use App\Helpers\UuidHelper;
 use App\Shared\Domain\Dtos\BuilderInterface;

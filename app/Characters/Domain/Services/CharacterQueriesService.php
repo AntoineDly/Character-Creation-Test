@@ -13,7 +13,7 @@ use App\Characters\Domain\Dtos\CharacterWithGameDto\CharacterWithGameDtoBuilder;
 use App\Characters\Domain\Dtos\CharacterWithLinkedItemsDto\CharacterWithLinkedItemsDto;
 use App\Characters\Domain\Dtos\CharacterWithLinkedItemsDto\CharacterWithLinkedItemsDtoBuilder;
 use App\Characters\Domain\Models\Character;
-use App\Fields\Services\FieldServices;
+use App\Fields\Domain\Services\FieldServices;
 use App\Games\Domain\Services\GameQueriesService;
 use App\Helpers\ArrayHelper;
 use App\Helpers\AssertHelper;

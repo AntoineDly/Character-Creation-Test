@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\ItemFields\Domain\Models;
 
-use App\Fields\Enums\TypeFieldEnum;
-use App\Fields\Interfaces\FieldInterface;
+use App\Fields\Domain\Enums\TypeFieldEnum;
+use App\Fields\Domain\Interfaces\FieldInterface;
 use App\Items\Domain\Models\Item;
 use App\Parameters\Domain\Models\Parameter;
 use App\Shared\Domain\Traits\HasModelFactory;

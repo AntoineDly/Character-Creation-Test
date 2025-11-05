@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\LinkedItemFields\Domain\Models;
 
 use App\Characters\Domain\Models\Character;
-use App\Fields\Enums\TypeFieldEnum;
-use App\Fields\Interfaces\FieldInterface;
+use App\Fields\Domain\Enums\TypeFieldEnum;
+use App\Fields\Domain\Interfaces\FieldInterface;
 use App\LinkedItems\Domain\Models\LinkedItem;
 use App\Parameters\Domain\Models\Parameter;
 use App\Shared\Domain\Traits\HasModelFactory;

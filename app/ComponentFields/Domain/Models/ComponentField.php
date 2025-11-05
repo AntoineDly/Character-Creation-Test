@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\ComponentFields\Domain\Models;
 
 use App\Components\Domain\Models\Component;
-use App\Fields\Enums\TypeFieldEnum;
-use App\Fields\Interfaces\FieldInterface;
+use App\Fields\Domain\Enums\TypeFieldEnum;
+use App\Fields\Domain\Interfaces\FieldInterface;
 use App\Parameters\Domain\Models\Parameter;
 use App\Shared\Domain\Traits\HasModelFactory;
 use App\Shared\Domain\Traits\Uuid;

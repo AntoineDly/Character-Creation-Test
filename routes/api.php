@@ -2,16 +2,26 @@
 
 declare(strict_types=1);
 
-use App\Categories\Infrastructure\Controllers\Api\CreateCategoryController;
-use App\Categories\Infrastructure\Controllers\Api\GetCategoryController;
-use App\CategoryGames\Infrastructure\Controllers\CreateCategoryGameController;
-use App\Characters\Infrastructure\Controllers\Api\CreateCharacterController;
-use App\Characters\Infrastructure\Controllers\Api\GetCharacterController;
-use App\ComponentFields\Infrastructure\Controllers\Api\CreateComponentFieldController;
-use App\ComponentFields\Infrastructure\Controllers\Api\GetComponentFieldsController;
-use App\ComponentFields\Infrastructure\Controllers\Api\UpdateComponentFieldController;
-use App\Components\Infrastructure\Controllers\Api\CreateComponentController;
-use App\Components\Infrastructure\Controllers\Api\GetComponentController;
+use App\Categories\Infrastructure\Controllers\Get\GetAllCategories\GetAllCategoriesController;
+use App\Categories\Infrastructure\Controllers\Get\GetAllCategoriesWithoutRequestedGame\GetAllCategoriesWithoutRequestedGameController;
+use App\Categories\Infrastructure\Controllers\Get\GetCategories\GetCategoriesController;
+use App\Categories\Infrastructure\Controllers\Get\GetCategory\GetCategoryController;
+use App\Categories\Infrastructure\Controllers\Post\CreateCategory\CreateCategoryController;
+use App\CategoryGames\Infrastructure\Controllers\Post\CreateCategoryGame\CreateCategoryGameController;
+use App\Characters\Infrastructure\Controllers\Get\GetCharacter\GetCharacterController;
+use App\Characters\Infrastructure\Controllers\Get\GetCharacters\GetCharactersController;
+use App\Characters\Infrastructure\Controllers\Get\GetCharactersWithGame\GetCharactersWithGameController;
+use App\Characters\Infrastructure\Controllers\Get\GetCharacterWithGame\GetCharacterWithGameController;
+use App\Characters\Infrastructure\Controllers\Get\GetCharacterWithLinkedItems\GetCharacterWithLinkedItemsController;
+use App\Characters\Infrastructure\Controllers\Post\CreateCharacter\CreateCharacterController;
+use App\ComponentFields\Infrastructure\Controllers\Get\GetComponentField\GetComponentFieldController;
+use App\ComponentFields\Infrastructure\Controllers\Get\GetComponentFields\GetComponentFieldsController;
+use App\ComponentFields\Infrastructure\Controllers\Patch\UpdatePartiallyComponentField\UpdatePartiallyComponentFieldController;
+use App\ComponentFields\Infrastructure\Controllers\Post\CreateComponentField\CreateComponentFieldController;
+use App\ComponentFields\Infrastructure\Controllers\Put\UpdateComponentField\UpdateComponentFieldController;
+use App\Components\Infrastructure\Controllers\Get\GetComponent\GetComponentController;
+use App\Components\Infrastructure\Controllers\Get\GetComponents\GetComponentsController;
+use App\Components\Infrastructure\Controllers\Post\CreateComponent\CreateComponentController;
 use App\Games\Infrastructure\Controllers\Api\CreateGameController;
 use App\Games\Infrastructure\Controllers\Api\GetGameController;
 use App\Games\Infrastructure\Controllers\Api\UpdateGameController;
@@ -46,12 +56,12 @@ Route::post('/login', [AuthenticationController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthenticationController::class, 'logout']);
 
-    Route::get('/characters', [GetCharacterController::class, 'getCharacters']);
-    Route::get('/characters/with_game', [GetCharacterController::class, 'getCharactersWithGame']);
-    Route::get('/characters/{id}', [GetCharacterController::class, 'getCharacter']);
-    Route::get('/characters/{id}/with_game', [GetCharacterController::class, 'getCharacterWithGame']);
-    Route::get('/characters/{id}/with_linked_items', [GetCharacterController::class, 'getCharacterWithLinkedItems']);
-    Route::post('/characters', [CreateCharacterController::class, 'createCharacter']);
+    Route::get('/characters', GetCharactersController::class);
+    Route::get('/characters/with_game', GetCharactersWithGameController::class);
+    Route::get('/characters/{id}', GetCharacterController::class);
+    Route::get('/characters/{id}/with_game', GetCharacterWithGameController::class);
+    Route::get('/characters/{id}/with_linked_items', GetCharacterWithLinkedItemsController::class);
+    Route::post('/characters', CreateCharacterController::class);
 
     Route::get('/games', [GetGameController::class, 'getGames']);
     Route::get('/games_all', [GetGameController::class, 'getAllGames']);
@@ -62,28 +72,28 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/games/{id}', [UpdateGameController::class, 'updateGame']);
     Route::patch('/games/{id}', [UpdateGameController::class, 'updatePartiallyGame']);
 
-    Route::get('/categories', [GetCategoryController::class, 'getCategories']);
-    Route::get('/categories_all', [GetCategoryController::class, 'getAllCategories']);
-    Route::get('/categories_all_without_requested_game', [GetCategoryController::class, 'getAllCategoriesWithoutRequestedGame']);
-    Route::get('/categories/{id}', [GetCategoryController::class, 'getCategory']);
-    Route::post('/categories', [CreateCategoryController::class, 'createCategory']);
+    Route::get('/categories', GetCategoriesController::class);
+    Route::get('/categories_all', GetAllCategoriesController::class);
+    Route::get('/categories_all_without_requested_game', GetAllCategoriesWithoutRequestedGameController::class);
+    Route::get('/categories/{id}', GetCategoryController::class);
+    Route::post('/categories', CreateCategoryController::class);
 
-    Route::post('/category_games', [CreateCategoryGameController::class, 'createCategoryGame']);
+    Route::post('/category_games', CreateCategoryGameController::class);
 
     Route::get('/parameters', [GetParameterController::class, 'getParameters']);
     Route::get('/parameters/{id}', [GetParameterController::class, 'getParameter']);
     Route::post('/parameters', [CreateParameterController::class, 'createParameter']);
 
     // COMPONENTS
-    Route::get('/components', [GetComponentController::class, 'getComponents']);
-    Route::get('/components/{id}', [GetComponentController::class, 'getComponent']);
-    Route::post('/components', [CreateComponentController::class, 'createComponent']);
+    Route::get('/components', GetComponentsController::class);
+    Route::get('/components/{id}', GetComponentController::class);
+    Route::post('/components', CreateComponentController::class);
 
-    Route::get('/component_fields', [GetComponentFieldsController::class, 'getComponentFields']);
-    Route::get('/component_fields/{id}', [GetComponentFieldsController::class, 'getComponentField']);
-    Route::post('/component_fields', [CreateComponentFieldController::class, 'createComponentField']);
-    Route::put('/component_fields/{id}', [UpdateComponentFieldController::class, 'updateComponentField']);
-    Route::patch('/component_fields/{id}', [UpdateComponentFieldController::class, 'updatePartiallyComponentField']);
+    Route::get('/component_fields', GetComponentFieldsController::class);
+    Route::get('/component_fields/{id}', GetComponentFieldController::class);
+    Route::post('/component_fields', CreateComponentFieldController::class);
+    Route::put('/component_fields/{id}', UpdateComponentFieldController::class);
+    Route::patch('/component_fields/{id}', UpdatePartiallyComponentFieldController::class);
 
     // ITEMS
     Route::get('/items', [GetItemController::class, 'getItems']);

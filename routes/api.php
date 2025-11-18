@@ -22,27 +22,44 @@ use App\ComponentFields\Infrastructure\Controllers\Put\UpdateComponentField\Upda
 use App\Components\Infrastructure\Controllers\Get\GetComponent\GetComponentController;
 use App\Components\Infrastructure\Controllers\Get\GetComponents\GetComponentsController;
 use App\Components\Infrastructure\Controllers\Post\CreateComponent\CreateComponentController;
-use App\Games\Infrastructure\Controllers\Api\CreateGameController;
-use App\Games\Infrastructure\Controllers\Api\GetGameController;
-use App\Games\Infrastructure\Controllers\Api\UpdateGameController;
-use App\ItemFields\Infrastructure\Controllers\Api\CreateItemFieldController;
-use App\ItemFields\Infrastructure\Controllers\Api\GetItemFieldsController;
-use App\ItemFields\Infrastructure\Controllers\Api\UpdateItemFieldController;
-use App\Items\Infrastructure\Controllers\Api\CreateItemController;
-use App\Items\Infrastructure\Controllers\Api\GetItemController;
-use App\LinkedItemFields\Infrastructure\Controllers\Api\CreateLinkedItemFieldController;
-use App\LinkedItemFields\Infrastructure\Controllers\Api\GetLinkedItemFieldsController;
-use App\LinkedItemFields\Infrastructure\Controllers\Api\UpdateLinkedItemFieldController;
-use App\LinkedItems\Infrastructure\Controllers\Api\CreateLinkedItemController;
-use App\LinkedItems\Infrastructure\Controllers\Api\GetLinkedItemController;
-use App\Parameters\Infrastructure\Controllers\Api\CreateParameterController;
-use App\Parameters\Infrastructure\Controllers\Api\GetParameterController;
-use App\PlayableItemFields\Infrastructure\Controllers\Api\CreatePlayableItemFieldController;
-use App\PlayableItemFields\Infrastructure\Controllers\Api\GetPlayableItemFieldsController;
-use App\PlayableItemFields\Infrastructure\Controllers\Api\UpdatePlayableItemFieldController;
-use App\PlayableItems\Infrastructure\Controllers\Api\CreatePlayableItemController;
-use App\PlayableItems\Infrastructure\Controllers\Api\GetPlayableItemController;
-use App\Users\Infrastructure\Controllers\Api\AuthenticationController;
+use App\Games\Infrastructure\Controllers\Get\GetAllGames\GetAllGamesController;
+use App\Games\Infrastructure\Controllers\Get\GetAllGamesWithoutRequestedCategory\GetAllGamesWithoutRequestedCategoryController;
+use App\Games\Infrastructure\Controllers\Get\GetGame\GetGameController;
+use App\Games\Infrastructure\Controllers\Get\GetGames\GetGamesController;
+use App\Games\Infrastructure\Controllers\Get\GetGameWithCategoriesAndPlayableItems\GetGameWithCategoriesAndPlayableItemsController;
+use App\Games\Infrastructure\Controllers\Patch\UpdatePartiallyGame\UpdatePartiallyGameController;
+use App\Games\Infrastructure\Controllers\Post\CreateGame\CreateGameController;
+use App\Games\Infrastructure\Controllers\Put\UpdateGame\UpdateGameController;
+use App\ItemFields\Infrastructure\Controllers\Get\GetItemField\GetItemFieldController;
+use App\ItemFields\Infrastructure\Controllers\Get\GetItemFields\GetItemFieldsController;
+use App\ItemFields\Infrastructure\Controllers\Patch\UpdatePartiallyItemField\UpdatePartiallyItemFieldController;
+use App\ItemFields\Infrastructure\Controllers\Post\CreateItemField\CreateItemFieldController;
+use App\ItemFields\Infrastructure\Controllers\Put\UpdateItemFieldController;
+use App\Items\Infrastructure\Controllers\Get\GetItem\GetItemController;
+use App\Items\Infrastructure\Controllers\Get\GetItems\GetItemsController;
+use App\Items\Infrastructure\Controllers\Post\CreateItem\CreateItemController;
+use App\LinkedItemFields\Infrastructure\Controllers\Get\GetLinkedItemField\GetLinkedItemFieldController;
+use App\LinkedItemFields\Infrastructure\Controllers\Get\GetLinkedItemFields\GetLinkedItemFieldsController;
+use App\LinkedItemFields\Infrastructure\Controllers\Patch\UpdatePartiallyLinkedItemField\UpdatePartiallyLinkedItemFieldController;
+use App\LinkedItemFields\Infrastructure\Controllers\Post\CreateLinkedItemField\CreateLinkedItemFieldController;
+use App\LinkedItemFields\Infrastructure\Controllers\Put\UpdateLinkedItemField\UpdateLinkedItemFieldController;
+use App\LinkedItems\Infrastructure\Controllers\Get\GetLinkedItem\GetLinkedItemController;
+use App\LinkedItems\Infrastructure\Controllers\Get\GetLinkedItems\GetLinkedItemsController;
+use App\LinkedItems\Infrastructure\Controllers\Post\CreateLinkedItem\CreateLinkedItemController;
+use App\Parameters\Infrastructure\Controllers\Get\GetParameter\GetParameterController;
+use App\Parameters\Infrastructure\Controllers\Get\GetParameters\GetParametersController;
+use App\Parameters\Infrastructure\Controllers\Post\CreateParameter\CreateParameterController;
+use App\PlayableItemFields\Infrastructure\Controllers\Get\GetPlayableItemField\GetPlayableItemFieldController;
+use App\PlayableItemFields\Infrastructure\Controllers\Get\GetPlayableItemFields\GetPlayableItemFieldsController;
+use App\PlayableItemFields\Infrastructure\Controllers\Patch\UpdatePartiallyPlayableItemField\UpdatePartiallyPlayableItemFieldController;
+use App\PlayableItemFields\Infrastructure\Controllers\Post\CreatePlayableItemField\CreatePlayableItemFieldController;
+use App\PlayableItemFields\Infrastructure\Controllers\Put\UpdatePlayableItemField\UpdatePlayableItemFieldController;
+use App\PlayableItems\Infrastructure\Controllers\Get\GetPlayableItem\GetPlayableItemController;
+use App\PlayableItems\Infrastructure\Controllers\Get\GetPlayableItems\GetPlayableItemsController;
+use App\PlayableItems\Infrastructure\Controllers\Post\CreatePlayableItem\CreatePlayableItemController;
+use App\Users\Infrastructure\Controllers\Post\Login\LoginController;
+use App\Users\Infrastructure\Controllers\Post\Logout\LogoutController;
+use App\Users\Infrastructure\Controllers\Post\Register\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,11 +67,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::post('/register', [AuthenticationController::class, 'register']);
-Route::post('/login', [AuthenticationController::class, 'login']);
+Route::post('/register', RegisterController::class);
+Route::post('/login', LoginController::class);
 
 Route::middleware('auth:api')->group(function () {
-    Route::post('/logout', [AuthenticationController::class, 'logout']);
+    Route::post('/logout', LogoutController::class);
 
     Route::get('/characters', GetCharactersController::class);
     Route::get('/characters/with_game', GetCharactersWithGameController::class);
@@ -63,14 +80,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/characters/{id}/with_linked_items', GetCharacterWithLinkedItemsController::class);
     Route::post('/characters', CreateCharacterController::class);
 
-    Route::get('/games', [GetGameController::class, 'getGames']);
-    Route::get('/games_all', [GetGameController::class, 'getAllGames']);
-    Route::get('/games_all_without_requested_category', [GetGameController::class, 'getAllGamesWithoutRequestedCategory']);
-    Route::get('/games/{id}', [GetGameController::class, 'getGame']);
-    Route::get('/games/{id}/with_categories_and_playable_items', [GetGameController::class, 'getGameWithCategoriesAndPlayableItems']);
-    Route::post('/games', [CreateGameController::class, 'createGame']);
-    Route::put('/games/{id}', [UpdateGameController::class, 'updateGame']);
-    Route::patch('/games/{id}', [UpdateGameController::class, 'updatePartiallyGame']);
+    Route::get('/games', GetGamesController::class);
+    Route::get('/games_all', GetAllGamesController::class);
+    Route::get('/games_all_without_requested_category', GetAllGamesWithoutRequestedCategoryController::class);
+    Route::get('/games/{id}', GetGameController::class);
+    Route::get('/games/{id}/with_categories_and_playable_items', GetGameWithCategoriesAndPlayableItemsController::class);
+    Route::post('/games', CreateGameController::class);
+    Route::put('/games/{id}', UpdateGameController::class);
+    Route::patch('/games/{id}', UpdatePartiallyGameController::class);
 
     Route::get('/categories', GetCategoriesController::class);
     Route::get('/categories_all', GetAllCategoriesController::class);
@@ -80,9 +97,9 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/category_games', CreateCategoryGameController::class);
 
-    Route::get('/parameters', [GetParameterController::class, 'getParameters']);
-    Route::get('/parameters/{id}', [GetParameterController::class, 'getParameter']);
-    Route::post('/parameters', [CreateParameterController::class, 'createParameter']);
+    Route::get('/parameters', GetParametersController::class);
+    Route::get('/parameters/{id}', GetParameterController::class);
+    Route::post('/parameters', CreateParameterController::class);
 
     // COMPONENTS
     Route::get('/components', GetComponentsController::class);
@@ -96,35 +113,35 @@ Route::middleware('auth:api')->group(function () {
     Route::patch('/component_fields/{id}', UpdatePartiallyComponentFieldController::class);
 
     // ITEMS
-    Route::get('/items', [GetItemController::class, 'getItems']);
-    Route::get('/items/{id}', [GetItemController::class, 'getItem']);
-    Route::post('/items', [CreateItemController::class, 'createItem']);
+    Route::get('/items', GetItemsController::class);
+    Route::get('/items/{id}', GetItemController::class);
+    Route::post('/items', CreateItemController::class);
 
-    Route::get('/item_fields', [GetItemFieldsController::class, 'getItemFields']);
-    Route::get('/item_fields/{id}', [GetItemFieldsController::class, 'getItemField']);
-    Route::post('/item_fields', [CreateItemFieldController::class, 'createItemField']);
-    Route::put('/item_fields/{id}', [UpdateItemFieldController::class, 'updateItemField']);
-    Route::patch('/item_fields/{id}', [UpdateItemFieldController::class, 'updatePartiallyItemField']);
+    Route::get('/item_fields', GetItemFieldsController::class);
+    Route::get('/item_fields/{id}', GetItemFieldController::class);
+    Route::post('/item_fields', CreateItemFieldController::class);
+    Route::put('/item_fields/{id}', UpdateItemFieldController::class);
+    Route::patch('/item_fields/{id}', UpdatePartiallyItemFieldController::class);
 
     // PLAYABLE_ITEMS
-    Route::get('/playable_items', [GetPlayableItemController::class, 'getPlayableItems']);
-    Route::get('/playable_items/{id}', [GetPlayableItemController::class, 'getPlayableItem']);
-    Route::post('/playable_items', [CreatePlayableItemController::class, 'createPlayableItem']);
+    Route::get('/playable_items', GetPlayableItemsController::class);
+    Route::get('/playable_items/{id}', GetPlayableItemController::class);
+    Route::post('/playable_items', CreatePlayableItemController::class);
 
-    Route::get('/playable_item_fields', [GetPlayableItemFieldsController::class, 'getPlayableItemFields']);
-    Route::get('/playable_item_fields/{id}', [GetPlayableItemFieldsController::class, 'getPlayableItemField']);
-    Route::post('/playable_item_fields', [CreatePlayableItemFieldController::class, 'createPlayableItemField']);
-    Route::put('/playable_item_fields/{id}', [UpdatePlayableItemFieldController::class, 'updatePlayableItemField']);
-    Route::patch('/playable_item_fields/{id}', [UpdatePlayableItemFieldController::class, 'updatePartiallyPlayableItemField']);
+    Route::get('/playable_item_fields', GetPlayableItemFieldsController::class);
+    Route::get('/playable_item_fields/{id}', GetPlayableItemFieldController::class);
+    Route::post('/playable_item_fields', CreatePlayableItemFieldController::class);
+    Route::put('/playable_item_fields/{id}', UpdatePlayableItemFieldController::class);
+    Route::patch('/playable_item_fields/{id}', UpdatePartiallyPlayableItemFieldController::class);
 
     // LINKED_ITEMS
-    Route::get('/linked_items', [GetLinkedItemController::class, 'getLinkedItems']);
-    Route::get('/linked_items/{id}', [GetLinkedItemController::class, 'getLinkedItem']);
-    Route::post('/linked_items', [CreateLinkedItemController::class, 'createLinkedItem']);
+    Route::get('/linked_items', GetLinkedItemsController::class);
+    Route::get('/linked_items/{id}', GetLinkedItemController::class);
+    Route::post('/linked_items', CreateLinkedItemController::class);
 
-    Route::get('/linked_item_fields', [GetLinkedItemFieldsController::class, 'getLinkedItemFields']);
-    Route::get('/linked_item_fields/{id}', [GetLinkedItemFieldsController::class, 'getLinkedItemField']);
-    Route::post('/linked_item_fields', [CreateLinkedItemFieldController::class, 'createLinkedItemField']);
-    Route::put('/linked_item_fields/{id}', [UpdateLinkedItemFieldController::class, 'updateLinkedItemField']);
-    Route::patch('/linked_item_fields/{id}', [UpdateLinkedItemFieldController::class, 'updatePartiallyLinkedItemField']);
+    Route::get('/linked_item_fields', GetLinkedItemFieldsController::class);
+    Route::get('/linked_item_fields/{id}', GetLinkedItemFieldController::class);
+    Route::post('/linked_item_fields', CreateLinkedItemFieldController::class);
+    Route::put('/linked_item_fields/{id}', UpdateLinkedItemFieldController::class);
+    Route::patch('/linked_item_fields/{id}', UpdatePartiallyLinkedItemFieldController::class);
 });

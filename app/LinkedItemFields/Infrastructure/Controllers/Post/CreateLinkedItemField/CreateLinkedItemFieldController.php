@@ -37,7 +37,7 @@ final readonly class CreateLinkedItemFieldController
             $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Linked ItemField was not successfully created.',
+                message: 'LinkedItem Field was not successfully created.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -46,6 +46,6 @@ final readonly class CreateLinkedItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendCreated(message: 'Linked ItemField was successfully created.');
+        return $this->apiController->sendCreated(message: 'LinkedItem Field was successfully created.');
     }
 }

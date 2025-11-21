@@ -4,23 +4,33 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
+use App\ComponentFields\Domain\Models\ComponentField;
 use App\Components\Domain\Models\Component;
+use App\Parameters\Domain\Enums\TypeParameterEnum;
+use App\Parameters\Domain\Models\Parameter;
 
-it('get components should return 200 without any games', function () {
-    $response = $this->getJson('/api/components');
+it('get componentFields should return 200 without any componentFields', function () {
+    $response = $this->getJson('/api/component_fields');
     $response->assertStatus(200)
         ->assertJsonStructure(['success', 'message', 'data'])
         ->assertJson([
             'success' => true,
-            'message' => 'Components were successfully retrieved.',
+            'message' => 'ComponentFields were successfully retrieved.',
             'data' => [],
         ]);
 });
 
-it('get components should return 200 with games', function () {
+it('get componentFields should return 200 with componentFields', function () {
     $component = Component::factory()->create(['user_id' => $this->getUserId()]);
+    $parameter = Parameter::factory()->create(['type' => TypeParameterEnum::STRING, 'user_id' => $this->getUserId()]);
+    $componentField = ComponentField::factory()->create([
+        'value' => 'test',
+        'parameter_id' => $parameter->id,
+        'component_id' => $component->id,
+        'user_id' => $this->getUserId(),
+    ]);
 
-    $response = $this->getJson('/api/components');
+    $response = $this->getJson('/api/component_fields');
     $response->assertStatus(200)
         ->assertJsonStructure([
             'success',
@@ -29,6 +39,7 @@ it('get components should return 200 with games', function () {
                 'dtos' => [
                     [
                         'id',
+                        'value',
                     ],
                 ],
                 'paginationDto' => [
@@ -44,11 +55,12 @@ it('get components should return 200 with games', function () {
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Components were successfully retrieved.',
+            'message' => 'ComponentFields were successfully retrieved.',
             'data' => [
                 'dtos' => [
                     [
-                        'id' => $component->id,
+                        'id' => $componentField->id,
+                        'value' => $componentField->value,
                     ],
                 ],
                 'paginationDto' => [
@@ -61,36 +73,5 @@ it('get components should return 200 with games', function () {
                     'lastPage' => null,
                 ],
             ],
-        ]);
-});
-
-it('get component with valid game uuid should return 200 with the game', function () {
-    $component = Component::factory()->create(['user_id' => $this->getUserId()]);
-
-    $response = $this->getJson('/api/components/'.$component->id);
-    $response->assertStatus(200)
-        ->assertJsonStructure([
-            'success',
-            'message',
-            'data' => [
-                'id',
-            ],
-        ])
-        ->assertJson([
-            'success' => true,
-            'message' => 'Component was successfully retrieved.',
-            'data' => [
-                'id' => $component->id,
-            ],
-        ]);
-});
-
-it('get component with invalid game uuid should return 404 with the game not found.', function () {
-    $response = $this->getJson('/api/components/invalid-uuid');
-    $response->assertStatus(404)
-        ->assertJsonStructure(['success', 'message'])
-        ->assertJson([
-            'success' => false,
-            'message' => 'Component not found.',
         ]);
 });

@@ -32,6 +32,6 @@ final readonly class GetLinkedItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Linked ItemField was successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'LinkedItem Field was successfully retrieved.', content: $result);
     }
 }

@@ -37,7 +37,7 @@ final readonly class UpdatePartiallyLinkedItemFieldController
             $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Linked ItemField was not successfully updated partially.',
+                message: 'LinkedItem Field was not successfully updated partially.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -46,6 +46,6 @@ final readonly class UpdatePartiallyLinkedItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Linked ItemField was successfully updated partially.');
+        return $this->apiController->sendSuccess(message: 'LinkedItem Field was successfully updated partially.');
     }
 }

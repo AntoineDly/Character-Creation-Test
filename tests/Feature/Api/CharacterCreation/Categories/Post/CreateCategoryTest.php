@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-it('create game should return 201 with a new game created', function () {
+it('create category should return 201 with a new category created', function () {
     $categoryData = ['name' => 'test'];
     $categoryExpectedResult = [...$categoryData, 'userId' => 'userId'];
     $this->assertDatabaseMissing('categories', $categoryExpectedResult);
@@ -20,7 +20,7 @@ it('create game should return 201 with a new game created', function () {
     $this->assertDatabaseHas('categories', $categoryExpectedResult);
 });
 
-it('create game should return 422 with name parameter not being a string and visibleForAll being required', function () {
+it('create category should return 422 with name parameter not being a string', function () {
     $categoryData = ['name' => 123];
     $categoryExpectedResult = [...$categoryData, 'userId' => 'userId'];
     $this->assertDatabaseMissing('categories', $categoryExpectedResult);

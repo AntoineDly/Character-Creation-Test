@@ -4,23 +4,25 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-use App\Categories\Domain\Models\Category;
+use App\Characters\Domain\Models\Character;
+use App\Games\Domain\Models\Game;
 
-it('get categories should return 200 without any categories', function () {
-    $response = $this->getJson('/api/categories');
+it('get characters should return 200 without any characters', function () {
+    $response = $this->getJson('/api/characters');
     $response->assertStatus(200)
         ->assertJsonStructure(['success', 'message', 'data'])
         ->assertJson([
             'success' => true,
-            'message' => 'Categories were successfully retrieved.',
+            'message' => 'Characters were successfully retrieved.',
             'data' => [],
         ]);
 });
 
-it('get categories should return 200 with categories', function () {
-    $category = Category::factory()->create(['user_id' => $this->getUserId()]);
+it('get characters should return 200 with characters', function () {
+    $game = Game::factory()->create(['user_id' => $this->getUserId()]);
+    $character = Character::factory()->create(['game_id' => $game->id, 'user_id' => $this->getUserId()]);
 
-    $response = $this->getJson('/api/categories');
+    $response = $this->getJson('/api/characters');
     $response->assertStatus(200)
         ->assertJsonStructure([
             'success',
@@ -29,7 +31,6 @@ it('get categories should return 200 with categories', function () {
                 'dtos' => [
                     [
                         'id',
-                        'name',
                     ],
                 ],
                 'paginationDto' => [
@@ -45,12 +46,11 @@ it('get categories should return 200 with categories', function () {
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'Categories were successfully retrieved.',
+            'message' => 'Characters were successfully retrieved.',
             'data' => [
                 'dtos' => [
                     [
-                        'id' => $category->id,
-                        'name' => $category->name,
+                        'id' => $character->id,
                     ],
                 ],
                 'paginationDto' => [

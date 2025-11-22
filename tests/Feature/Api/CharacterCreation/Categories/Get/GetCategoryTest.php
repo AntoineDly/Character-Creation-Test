@@ -6,7 +6,7 @@ namespace Tests\Feature\Users;
 
 use App\Categories\Domain\Models\Category;
 
-it('get category with valid game uuid should return 200 with the game', function () {
+it('get category with valid game uuid should return 200 with the category', function () {
     $category = Category::factory()->create(['user_id' => $this->getUserId()]);
 
     $response = $this->getJson('/api/categories/'.$category->id);
@@ -29,7 +29,7 @@ it('get category with valid game uuid should return 200 with the game', function
         ]);
 });
 
-it('get category with invalid game uuid should return 404 with the game not found.', function () {
+it('get category with invalid category uuid should return 404 with the category not found.', function () {
     $response = $this->getJson('/api/categories/invalid-uuid');
 
     $response->assertStatus(404)

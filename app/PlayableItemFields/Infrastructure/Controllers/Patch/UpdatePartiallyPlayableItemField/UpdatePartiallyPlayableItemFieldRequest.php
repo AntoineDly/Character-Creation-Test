@@ -18,7 +18,7 @@ final class UpdatePartiallyPlayableItemFieldRequest extends BaseRequest
     {
         return [
             'value' => 'nullable|string|min:1',
-            'playableItemId' => 'nullable|exists:playableItems,id',
+            'playableItemId' => 'nullable|exists:playable_items,id',
             'parameterId' => 'nullable|exists:parameters,id',
         ];
     }
@@ -30,7 +30,7 @@ final class UpdatePartiallyPlayableItemFieldRequest extends BaseRequest
             'value.required' => 'The value field is required.',
             'value.string' => 'The value field must be a string.',
             'value.min' => 'The value field must be at least 1 characters.',
-            'playableItemId.exists' => 'No playableItem found for this playableItemId.',
+            'playableItemId.exists' => 'No playable item found for this playableItemId.',
             'parameterId.exists' => 'No parameter found for this parameterId.',
         ];
     }

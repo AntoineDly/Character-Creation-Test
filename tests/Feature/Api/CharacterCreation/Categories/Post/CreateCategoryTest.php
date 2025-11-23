@@ -6,7 +6,7 @@ namespace Tests\Feature\Users;
 
 it('create category should return 201 with a new category created', function () {
     $categoryData = ['name' => 'test'];
-    $categoryExpectedResult = [...$categoryData, 'userId' => 'userId'];
+    $categoryExpectedResult = [...$categoryData, 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('categories', $categoryExpectedResult);
 
     $response = $this->postJson('/api/categories', $categoryData);
@@ -22,7 +22,7 @@ it('create category should return 201 with a new category created', function () 
 
 it('create category should return 422 with name parameter not being a string', function () {
     $categoryData = ['name' => 123];
-    $categoryExpectedResult = [...$categoryData, 'userId' => 'userId'];
+    $categoryExpectedResult = [...$categoryData, 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('categories', $categoryExpectedResult);
 
     $response = $this->postJson('/api/categories', $categoryData);

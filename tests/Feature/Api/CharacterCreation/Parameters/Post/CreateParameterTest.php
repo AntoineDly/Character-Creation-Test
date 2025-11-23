@@ -8,7 +8,7 @@ use App\Parameters\Domain\Enums\TypeParameterEnum;
 
 it('create parameter should return 201 with a new component created', function () {
     $parameterData = ['name' => 'name', 'type' => TypeParameterEnum::STRING];
-    $parameterExpectedResult = [...$parameterData, 'userId' => 'userId'];
+    $parameterExpectedResult = [...$parameterData, 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('parameters', $parameterExpectedResult);
 
     $response = $this->postJson('/api/parameters', $parameterData);
@@ -24,7 +24,7 @@ it('create parameter should return 201 with a new component created', function (
 
 it('create parameter should return 422 with name not being a string and type without correct type', function () {
     $parameterData = ['name' => 123, 'type' => 'invalid-type'];
-    $parameterExpectedResult = [...$parameterData, 'userId' => 'userId'];
+    $parameterExpectedResult = [...$parameterData, 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('parameters', $parameterExpectedResult);
 
     $response = $this->postJson('/api/parameters', $parameterData);

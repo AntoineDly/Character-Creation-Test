@@ -36,7 +36,7 @@ final readonly class CreatePlayableItemController
             $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Playable Item was not successfully created.',
+                message: 'PlayableItem was not successfully created.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -45,6 +45,6 @@ final readonly class CreatePlayableItemController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendCreated(message: 'Playable Item was successfully created.');
+        return $this->apiController->sendCreated(message: 'PlayableItem was successfully created.');
     }
 }

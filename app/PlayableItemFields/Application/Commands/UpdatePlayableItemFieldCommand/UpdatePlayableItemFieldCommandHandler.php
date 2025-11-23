@@ -27,7 +27,7 @@ final readonly class UpdatePlayableItemFieldCommandHandler implements CommandHan
 
         $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);
 
-        $isUpdated = $this->playableItemFieldRepository->updateById(id: $command->id, attributes: ['value' => $value, 'playableItem_id' => $command->playableItemId, 'parameter_id' => $command->parameterId]);
+        $isUpdated = $this->playableItemFieldRepository->updateById(id: $command->id, attributes: ['value' => $value, 'playable_item_id' => $command->playableItemId, 'parameter_id' => $command->parameterId]);
         if (! $isUpdated) {
             throw new PlayableItemFieldNotFoundException(data: ['id' => $command->id]);
         }

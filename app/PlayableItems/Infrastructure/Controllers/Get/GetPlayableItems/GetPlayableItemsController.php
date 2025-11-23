@@ -33,7 +33,7 @@ final readonly class GetPlayableItemsController
             $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Playable Items were not successfully retrieved.',
+                message: 'PlayableItems were not successfully retrieved.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -42,6 +42,6 @@ final readonly class GetPlayableItemsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Playable Items were successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'PlayableItems were successfully retrieved.', content: $result);
     }
 }

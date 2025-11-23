@@ -36,7 +36,7 @@ final readonly class UpdatePlayableItemFieldController
             $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Playable Item was not successfully updated.',
+                message: 'PlayableItem Field was not successfully updated.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -45,6 +45,6 @@ final readonly class UpdatePlayableItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Playable ItemField was successfully updated.');
+        return $this->apiController->sendSuccess(message: 'PlayableItem Field was successfully updated.');
     }
 }

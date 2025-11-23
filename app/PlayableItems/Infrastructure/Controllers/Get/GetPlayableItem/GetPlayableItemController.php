@@ -32,6 +32,6 @@ final readonly class GetPlayableItemController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Playable Item was successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'PlayableItem was successfully retrieved.', content: $result);
     }
 }

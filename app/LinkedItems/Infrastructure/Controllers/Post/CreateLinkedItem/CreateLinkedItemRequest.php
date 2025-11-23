@@ -27,7 +27,7 @@ final class CreateLinkedItemRequest extends BaseRequest
     {
         return [
             'playableItemId.required' => 'The playableItemId field is required.',
-            'playableItemId.exists' => 'No item found for this playableItemId.',
+            'playableItemId.exists' => 'No playable item found for this playableItemId.',
             'characterId.required' => 'The characterId field is required.',
             'characterId.exists' => 'No character found for this characterId.',
         ];

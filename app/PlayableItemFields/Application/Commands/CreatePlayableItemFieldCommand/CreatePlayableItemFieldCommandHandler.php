@@ -26,6 +26,6 @@ final readonly class CreatePlayableItemFieldCommandHandler implements CommandHan
 
         $value = $this->parameterService->validateValueTypeByParameter(parameterId: $command->parameterId, value: $command->value);
 
-        $this->playableItemFieldRepository->create(attributes: ['value' => $value, 'playableItem_id' => $command->playableItemId, 'parameter_id' => $command->parameterId, 'user_id' => $command->userId]);
+        $this->playableItemFieldRepository->create(attributes: ['value' => $value, 'playable_item_id' => $command->playableItemId, 'parameter_id' => $command->parameterId, 'user_id' => $command->userId]);
     }
 }

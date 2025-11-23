@@ -12,7 +12,7 @@ use App\Shared\Application\Queries\IncorrectQueryException;
 use App\Shared\Application\Queries\QueryHandlerInterface;
 use App\Shared\Application\Queries\QueryInterface;
 
-final readonly class GeAllGamesQueryHandler implements QueryHandlerInterface
+final readonly class GetAllGamesQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private GameRepositoryInterface $gameRepository,

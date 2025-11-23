@@ -33,7 +33,7 @@ final readonly class GetLinkedItemsController
             $result = $this->queryBus->dispatch($query);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Linked Items were not successfully retrieved.',
+                message: 'LinkedItems were not successfully retrieved.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -42,6 +42,6 @@ final readonly class GetLinkedItemsController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Linked Items were successfully retrieved.', content: $result);
+        return $this->apiController->sendSuccess(message: 'LinkedItems were successfully retrieved.', content: $result);
     }
 }

@@ -8,7 +8,7 @@ use App\Shared\Infrastructure\Http\Exceptions\Abstract\HttpNotFoundException;
 
 final class PlayableItemFieldNotFoundException extends HttpNotFoundException
 {
-    public function __construct(string $message = 'Playable ItemField not found.', array $data = [])
+    public function __construct(string $message = 'PlayableItem Field not found.', array $data = [])
     {
         parent::__construct(message: $message, data: $data);
     }

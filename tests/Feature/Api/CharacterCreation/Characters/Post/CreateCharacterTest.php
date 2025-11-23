@@ -9,7 +9,7 @@ use App\Games\Domain\Models\Game;
 it('create character should return 201 with a new character created', function () {
     $game = Game::factory()->create(['user_id' => $this->getUserId()]);
     $characterData = ['gameId' => $game->id];
-    $characterExpectedResult = ['gameId' => 'gameId', 'userId' => 'userId'];
+    $characterExpectedResult = ['game_id' => $game->id, 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('characters', $characterExpectedResult);
 
     $response = $this->postJson('/api/characters', $characterData);
@@ -25,7 +25,7 @@ it('create character should return 201 with a new character created', function (
 
 it('create character should return 422 with game not found', function () {
     $characterData = ['gameId' => 'invalid-uuid'];
-    $characterExpectedResult = ['gameId' => 'gameId', 'userId' => 'userId'];
+    $characterExpectedResult = ['game_id' => 'invalid-uuid', 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('characters', $characterExpectedResult);
 
     $response = $this->postJson('/api/characters', $characterData);

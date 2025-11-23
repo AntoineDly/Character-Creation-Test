@@ -6,7 +6,7 @@ namespace Tests\Feature\Users;
 
 use App\Components\Domain\Models\Component;
 
-it('get component with valid game uuid should return 200 with the game', function () {
+it('get component with valid component uuid should return 200 with the component', function () {
     $component = Component::factory()->create(['user_id' => $this->getUserId()]);
 
     $response = $this->getJson('/api/components/'.$component->id);
@@ -27,7 +27,7 @@ it('get component with valid game uuid should return 200 with the game', functio
         ]);
 });
 
-it('get component with invalid game uuid should return 404 with the game not found.', function () {
+it('get component with invalid component uuid should return 404 with the component not found.', function () {
     $response = $this->getJson('/api/components/invalid-uuid');
     $response->assertStatus(404)
         ->assertJsonStructure(['success', 'message'])

@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace Tests\Feature\Users;
 
 use App\Categories\Domain\Models\Category;
-use App\Characters\Domain\Models\Character;
 use App\Components\Domain\Models\Component;
 use App\Games\Domain\Models\Game;
 use App\Items\Domain\Models\Item;
-use App\LinkedItemFields\Domain\Models\LinkedItemField;
-use App\LinkedItems\Domain\Models\LinkedItem;
 use App\Parameters\Domain\Enums\TypeParameterEnum;
 use App\Parameters\Domain\Models\Parameter;
+use App\PlayableItemFields\Domain\Models\PlayableItemField;
 use App\PlayableItems\Domain\Models\PlayableItem;
 
-it('get linked item field with valid field uuid should return 200 with the field', function () {
+it('update partially playable item field should return 201 with fields updated partially', function () {
     $category = Category::factory()->create(['user_id' => $this->getUserId()]);
     $component = Component::factory()->create(['user_id' => $this->getUserId()]);
     $item = Item::factory()->create([
@@ -29,44 +27,35 @@ it('get linked item field with valid field uuid should return 200 with the field
         'game_id' => $game->id,
         'user_id' => $this->getUserId(),
     ]);
-    $character = Character::factory()->create(['game_id' => $game->id, 'user_id' => $this->getUserId()]);
-    $linkedItem = LinkedItem::factory()->create(['character_id' => $character->id, 'playable_item_id' => $playableItem->id, 'user_id' => $this->getUserId()]);
     $parameter = Parameter::factory()->create(['type' => TypeParameterEnum::STRING, 'user_id' => $this->getUserId()]);
     $fieldData = [
         'value' => 'test',
         'parameter_id' => $parameter->id,
-        'linked_item_id' => $linkedItem->id,
+        'playable_item_id' => $playableItem->id,
         'user_id' => $this->getUserId(),
     ];
+    $fieldNewData = [
+        'value' => 'newTest',
+    ];
 
-    $field = LinkedItemField::factory()->create($fieldData);
+    $field = PlayableItemField::factory()->create($fieldData);
 
-    $response = $this->getJson('/api/linked_item_fields/'.$field->id);
+    $this->assertDatabaseHas('playable_item_fields', $fieldData);
+    $fieldExpectedResult = [...$fieldNewData, 'user_id' => $this->getUserId()];
+
+    $response = $this->patchJson(
+        '/api/playable_item_fields/'.$field->id,
+        $fieldNewData
+    );
     $response->assertStatus(200)
         ->assertJsonStructure([
             'success',
             'message',
-            'data' => [
-                'id',
-                'value',
-            ],
         ])
         ->assertJson([
             'success' => true,
-            'message' => 'LinkedItem Field was successfully retrieved.',
-            'data' => [
-                'id' => $field->id,
-                'value' => $field->value,
-            ],
+            'message' => 'PlayableItem Field was successfully updated partially.',
         ]);
-});
 
-it('get linked item field with invalid field uuid should return 404 with the linked itemField not found.', function () {
-    $response = $this->getJson('/api/linked_item_fields/invalid-uuid');
-    $response->assertStatus(404)
-        ->assertJsonStructure(['success', 'message'])
-        ->assertJson([
-            'success' => false,
-            'message' => 'LinkedItemField not found.',
-        ]);
+    $this->assertDatabaseHas('playable_item_fields', $fieldExpectedResult);
 });

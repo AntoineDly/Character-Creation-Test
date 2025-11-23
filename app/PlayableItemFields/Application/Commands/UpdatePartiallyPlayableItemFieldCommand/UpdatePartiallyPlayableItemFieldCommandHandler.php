@@ -57,7 +57,7 @@ final readonly class UpdatePartiallyPlayableItemFieldCommandHandler implements C
         }
 
         if (! is_null($playableItemId)) {
-            $attributes['playableItem_id'] = $playableItemId;
+            $attributes['playable_item_id'] = $playableItemId;
         }
 
         $isUpdated = $this->playableItemFieldRepository->updateById(id: $command->id, attributes: $attributes);

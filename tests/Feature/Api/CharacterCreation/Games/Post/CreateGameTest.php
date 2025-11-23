@@ -6,7 +6,7 @@ namespace Tests\Feature\Users;
 
 it('create game should return 201 with a new game created', function () {
     $gameData = ['name' => 'test', 'visibleForAll' => true];
-    $gameExpectedResult = ['name' => 'test', 'visibleForAll' => 'visibleForAll', 'userId' => 'userId'];
+    $gameExpectedResult = ['name' => 'test', 'visible_for_all' => true, 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('games', $gameExpectedResult);
 
     $response = $this->postJson('/api/games', $gameData);
@@ -22,7 +22,7 @@ it('create game should return 201 with a new game created', function () {
 
 it('create game should return 422 with name parameter not being a string and visibleForAll being required', function () {
     $gameData = ['name' => 123];
-    $gameExpectedResult = ['name' => 123, 'visibleForAll' => 'visibleForAll', 'userId' => 'userId'];
+    $gameExpectedResult = ['name' => 123, 'visible_for_all' => true, 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('games', $gameExpectedResult);
 
     $response = $this->postJson('/api/games', $gameData);

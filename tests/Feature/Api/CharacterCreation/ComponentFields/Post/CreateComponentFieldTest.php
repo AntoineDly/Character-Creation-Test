@@ -13,7 +13,7 @@ it('create componentFields should return 201 with a new component created', func
     $parameter = Parameter::factory()->create(['type' => TypeParameterEnum::STRING, 'user_id' => $this->getUserId()]);
 
     $componentFieldData = ['value' => 'string', 'parameterId' => $parameter->id, 'componentId' => $component->id];
-    $componentFieldExpectedResult = ['value' => 'string', 'parameterId' => 'parameterId', 'componentId' => 'componentId', 'userId' => 'userId'];
+    $componentFieldExpectedResult = ['value' => 'string', 'parameter_id' => $parameter->id, 'component_id' => $component->id, 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('component_fields', $componentFieldExpectedResult);
 
     $response = $this->postJson('/api/component_fields', $componentFieldData);
@@ -29,7 +29,7 @@ it('create componentFields should return 201 with a new component created', func
 
 it('create componentFields should return 422 with value not being a string and parameter and component not being parameter or component', function () {
     $componentFieldData = ['value' => 123, 'parameterId' => 'invalid-parameter-id', 'componentId' => 'invalid-component-id'];
-    $componentFieldExpectedResult = [...$componentFieldData, 'userId' => 'userId'];
+    $componentFieldExpectedResult = [...$componentFieldData, 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('item_fields', $componentFieldExpectedResult);
 
     $response = $this->postJson('/api/component_fields', $componentFieldData);

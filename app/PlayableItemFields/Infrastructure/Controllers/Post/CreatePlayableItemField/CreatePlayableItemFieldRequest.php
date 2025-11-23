@@ -18,7 +18,7 @@ final class CreatePlayableItemFieldRequest extends BaseRequest
     {
         return [
             'value' => 'required|string|min:1',
-            'itemId' => 'required|exists:playableItems,id',
+            'playableItemId' => 'required|exists:playable_items,id',
             'parameterId' => 'required|exists:parameters,id',
         ];
     }
@@ -31,7 +31,7 @@ final class CreatePlayableItemFieldRequest extends BaseRequest
             'value.string' => 'The value field must be a string.',
             'value.min' => 'The value field must be at least 1 characters.',
             'playableItemId.required' => 'The playableItemId field is required.',
-            'playableItemId.exists' => 'No playableItem found for this playableItemId.',
+            'playableItemId.exists' => 'No playable item found for this playableItemId.',
             'parameterId.required' => 'The playableItemId field is required.',
             'parameterId.exists' => 'No parameter found for this parameterId.',
         ];

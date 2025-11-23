@@ -21,7 +21,7 @@ it('create itemField should return 201 with a new itemField created', function (
     $parameter = Parameter::factory()->create(['type' => TypeParameterEnum::STRING, 'user_id' => $this->getUserId()]);
 
     $itemFieldData = ['value' => 'string', 'parameterId' => $parameter->id, 'itemId' => $item->id];
-    $itemFieldExpectedResult = ['value' => 'string', 'parameterId' => 'parameterId', 'itemId' => 'itemId', 'userId' => 'userId'];
+    $itemFieldExpectedResult = ['value' => 'string', 'parameter_id' => $parameter->id, 'itemId' => 'itemId', 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('item_fields', $itemFieldExpectedResult);
 
     $response = $this->postJson('/api/item_fields', $itemFieldData);
@@ -37,7 +37,7 @@ it('create itemField should return 201 with a new itemField created', function (
 
 it('create itemFields should return 422 with value not being a string and parameter and item not being parameter or item', function () {
     $itemFieldData = ['value' => 123, 'parameterId' => 'invalid-parameter-id', 'itemId' => 'invalid-item-id'];
-    $itemFieldExpectedResult = [...$itemFieldData, 'userId' => 'userId'];
+    $itemFieldExpectedResult = ['parameter_id' => 'invalid-parameter-id', 'item_id' => 'invalid-item-id', 'user_id' => $this->getUserId()];
     $this->assertDatabaseMissing('item_fields', $itemFieldExpectedResult);
 
     $response = $this->postJson('/api/item_fields', $itemFieldData);

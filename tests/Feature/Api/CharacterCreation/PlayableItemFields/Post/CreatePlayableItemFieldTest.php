@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace Tests\Feature\Users;
 
 use App\Categories\Domain\Models\Category;
-use App\Characters\Domain\Models\Character;
 use App\Components\Domain\Models\Component;
 use App\Games\Domain\Models\Game;
 use App\Items\Domain\Models\Item;
-use App\LinkedItems\Domain\Models\LinkedItem;
 use App\Parameters\Domain\Enums\TypeParameterEnum;
 use App\Parameters\Domain\Models\Parameter;
 use App\PlayableItems\Domain\Models\PlayableItem;
 
-it('create linked item field should return 201 with a new field created', function () {
+it('create playable item field should return 201 with a new field created', function () {
     $category = Category::factory()->create(['user_id' => $this->getUserId()]);
     $component = Component::factory()->create(['user_id' => $this->getUserId()]);
     $item = Item::factory()->create([
@@ -28,31 +26,29 @@ it('create linked item field should return 201 with a new field created', functi
         'game_id' => $game->id,
         'user_id' => $this->getUserId(),
     ]);
-    $character = Character::factory()->create(['game_id' => $game->id, 'user_id' => $this->getUserId()]);
-    $linkedItem = LinkedItem::factory()->create(['character_id' => $character->id, 'playable_item_id' => $playableItem->id, 'user_id' => $this->getUserId()]);
     $parameter = Parameter::factory()->create(['type' => TypeParameterEnum::STRING, 'user_id' => $this->getUserId()]);
 
-    $fieldData = ['value' => 'string', 'parameterId' => $parameter->id, 'linkedItemId' => $linkedItem->id];
-    $fieldExpectedResult = ['value' => 'string', 'parameter_id' => $parameter->id, 'linked_item_id' => $linkedItem->id, 'user_id' => $this->getUserId()];
-    $this->assertDatabaseMissing('linked_item_fields', $fieldExpectedResult);
+    $fieldData = ['value' => 'string', 'parameterId' => $parameter->id, 'playableItemId' => $playableItem->id];
+    $fieldExpectedResult = ['value' => 'string', 'parameter_id' => $parameter->id, 'playable_item_id' => $playableItem->id, 'user_id' => $this->getUserId()];
+    $this->assertDatabaseMissing('playable_item_fields', $fieldExpectedResult);
 
-    $response = $this->postJson('/api/linked_item_fields', $fieldData);
+    $response = $this->postJson('/api/playable_item_fields', $fieldData);
     $response->assertStatus(201)
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => true,
-            'message' => 'LinkedItem Field was successfully created.',
+            'message' => 'PlayableItem Field was successfully created.',
         ]);
 
-    $this->assertDatabaseHas('linked_item_fields', $fieldExpectedResult);
+    $this->assertDatabaseHas('playable_item_fields', $fieldExpectedResult);
 });
 
 it('create fields should return 422 with value not being a string and parameter and item not being parameter or item', function () {
-    $fieldData = ['value' => 123, 'parameterId' => 'invalid-parameter-id', 'linkedItemId' => 'invalid-linked-item-id'];
-    $fieldExpectedResult = ['value' => 123, 'parameter_id' => 'invalid-parameter-id', 'linked_item_id' => 'invalid-linked-item-id', 'user_id' => $this->getUserId()];
-    $this->assertDatabaseMissing('linked_item_fields', $fieldExpectedResult);
+    $fieldData = ['value' => 123, 'parameterId' => 'invalid-parameter-id', 'playableItemId' => 'invalid-playable-item-id'];
+    $fieldExpectedResult = ['value' => 123, 'parameter_id' => 'invalid-parameter-id', 'playable_item_id' => 'invalid-playable-item-id', 'user_id' => $this->getUserId()];
+    $this->assertDatabaseMissing('playable_item_fields', $fieldExpectedResult);
 
-    $response = $this->postJson('/api/linked_item_fields', $fieldData);
+    $response = $this->postJson('/api/playable_item_fields', $fieldData);
     $response->assertStatus(422)
         ->assertJsonStructure([
             'success',
@@ -60,18 +56,18 @@ it('create fields should return 422 with value not being a string and parameter 
             'data' => [
                 'value',
                 'parameterId',
-                'linkedItemId',
+                'playableItemId',
             ],
         ])
         ->assertJson([
             'success' => false,
-            'message' => 'LinkedItem Field was not successfully created.',
+            'message' => 'PlayableItem Field was not successfully created.',
             'data' => [
                 'value' => [
                     'The value field must be a string.',
                 ],
-                'linkedItemId' => [
-                    'No linked item found for this linkedItemId.',
+                'playableItemId' => [
+                    'No playable item found for this playableItemId.',
                 ],
                 'parameterId' => [
                     'No parameter found for this parameterId.',
@@ -79,5 +75,5 @@ it('create fields should return 422 with value not being a string and parameter 
             ],
         ]);
 
-    $this->assertDatabaseMissing('linked_item_fields', $fieldExpectedResult);
+    $this->assertDatabaseMissing('playable_item_fields', $fieldExpectedResult);
 });

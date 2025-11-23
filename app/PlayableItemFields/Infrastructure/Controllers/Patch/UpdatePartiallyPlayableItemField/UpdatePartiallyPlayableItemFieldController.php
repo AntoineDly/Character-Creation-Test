@@ -37,7 +37,7 @@ final readonly class UpdatePartiallyPlayableItemFieldController
             $this->commandBus->dispatch($command);
         } catch (ValidationException $e) {
             return $this->apiController->sendExceptionFromLaravelValidationException(
-                message: 'Playable Item was not successfully updated partially.',
+                message: 'PlayableItem Field was not successfully updated partially.',
                 e: $e
             );
         } catch (HttpExceptionInterface $e) {
@@ -46,6 +46,6 @@ final readonly class UpdatePartiallyPlayableItemFieldController
             return $this->apiController->sendUncaughtThrowable($e);
         }
 
-        return $this->apiController->sendSuccess(message: 'Playable ItemField was successfully updated partially.');
+        return $this->apiController->sendSuccess(message: 'PlayableItem Field was successfully updated partially.');
     }
 }

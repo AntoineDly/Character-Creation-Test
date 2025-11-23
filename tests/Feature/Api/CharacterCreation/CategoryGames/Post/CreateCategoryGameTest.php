@@ -11,7 +11,7 @@ it('create categoryGame should return 201 with a new association created', funct
     $category = Category::factory()->create(['user_id' => $this->getUserId()]);
     $game = Game::factory()->create(['user_id' => $this->getUserId()]);
     $categoryData = ['gameId' => $game->id, 'categoryId' => $category->id];
-    $categoryExpectedResult = ['gameId' => 'gameId', 'categoryId' => 'categoryId', 'userId' => 'userId'];
+    $categoryExpectedResult = ['game_id' => $game->id, 'category_id' => $category->id];
     $this->assertDatabaseMissing('category_game', $categoryExpectedResult);
 
     $response = $this->postJson('/api/category_games', $categoryData);
@@ -27,7 +27,7 @@ it('create categoryGame should return 201 with a new association created', funct
 
 it('create categoryGame should return 422 with gameId parameter not being an existing game id and categoryId being required', function () {
     $categoryData = ['gameId' => 'test'];
-    $categoryExpectedResult = [...$categoryData, 'userId' => 'userId'];
+    $categoryExpectedResult = [...$categoryData];
     $this->assertDatabaseMissing('category_game', $categoryExpectedResult);
 
     $response = $this->postJson('/api/category_games', $categoryData);

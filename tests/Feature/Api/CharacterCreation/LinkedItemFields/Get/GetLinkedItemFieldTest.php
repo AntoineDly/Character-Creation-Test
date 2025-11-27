@@ -39,24 +39,32 @@ it('get linked item field with valid field uuid should return 200 with the field
         'user_id' => $this->getUserId(),
     ];
 
-    $field = LinkedItemField::factory()->create($fieldData);
+    $linkedItemField = LinkedItemField::factory()->create($fieldData);
 
-    $response = $this->getJson('/api/linked_item_fields/'.$field->id);
+    $response = $this->getJson('/api/linked_item_fields/'.$linkedItemField->id);
     $response->assertStatus(200)
         ->assertJsonStructure([
             'success',
             'message',
             'data' => [
                 'id',
+                'parameterId',
+                'name',
                 'value',
+                'typeParameterEnum',
+                'typeFieldEnum',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'LinkedItem Field was successfully retrieved.',
             'data' => [
-                'id' => $field->id,
-                'value' => $field->value,
+                'id' => $linkedItemField->id,
+                'parameterId' => $parameter->id,
+                'name' => $parameter->name,
+                'value' => $linkedItemField->getValue(),
+                'typeParameterEnum' => $parameter->type->value,
+                'typeFieldEnum' => $linkedItemField->getType()->value,
             ],
         ]);
 });
@@ -67,6 +75,6 @@ it('get linked item field with invalid field uuid should return 404 with the lin
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'LinkedItemField not found.',
+            'message' => 'FieldInterface not found.',
         ]);
 });

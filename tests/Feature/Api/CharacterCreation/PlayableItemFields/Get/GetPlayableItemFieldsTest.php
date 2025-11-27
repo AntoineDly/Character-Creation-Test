@@ -46,7 +46,7 @@ it('get playable item fields should return 200 with fields', function () {
         'user_id' => $this->getUserId(),
     ];
 
-    $field = PlayableItemField::factory()->create($fieldData);
+    $playableItemField = PlayableItemField::factory()->create($fieldData);
 
     $response = $this->getJson('/api/playable_item_fields');
     $response->assertStatus(200)
@@ -55,9 +55,13 @@ it('get playable item fields should return 200 with fields', function () {
             'message',
             'data' => [
                 'dtos' => [
-                    [
+                    $parameter->name => [
                         'id',
+                        'parameterId',
+                        'name',
                         'value',
+                        'typeParameterEnum',
+                        'typeFieldEnum',
                     ],
                 ],
                 'paginationDto' => ['currentPage',
@@ -74,9 +78,13 @@ it('get playable item fields should return 200 with fields', function () {
             'message' => 'PlayableItem Fields were successfully retrieved.',
             'data' => [
                 'dtos' => [
-                    [
-                        'id' => $field->id,
-                        'value' => $field->value,
+                    $parameter->name => [
+                        'id' => $playableItemField->id,
+                        'parameterId' => $parameter->id,
+                        'name' => $parameter->name,
+                        'value' => $playableItemField->getValue(),
+                        'typeParameterEnum' => $parameter->type->value,
+                        'typeFieldEnum' => $playableItemField->getType()->value,
                     ],
                 ],
                 'paginationDto' => ['currentPage' => 1,

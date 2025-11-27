@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\LinkedItemFields\Infrastructure\Repositories;
 
+use App\Fields\Infrastructure\Repositories\FieldRepositoryInterface;
 use App\LinkedItemFields\Domain\Models\LinkedItemField;
-use App\Shared\Infrastructure\Repositories\RepositoryInterface;
 
 /**
- * @extends RepositoryInterface<LinkedItemField>
+ * @extends FieldRepositoryInterface<LinkedItemField>
  */
-interface LinkedItemFieldRepositoryInterface extends RepositoryInterface
+interface LinkedItemFieldRepositoryInterface extends FieldRepositoryInterface
 {
 }

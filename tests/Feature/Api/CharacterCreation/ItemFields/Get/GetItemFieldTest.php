@@ -34,7 +34,11 @@ it('get itemField with valid itemField uuid should return 200 with the itemField
             'message',
             'data' => [
                 'id',
+                'parameterId',
+                'name',
                 'value',
+                'typeParameterEnum',
+                'typeFieldEnum',
             ],
         ])
         ->assertJson([
@@ -42,7 +46,11 @@ it('get itemField with valid itemField uuid should return 200 with the itemField
             'message' => 'ItemField was successfully retrieved.',
             'data' => [
                 'id' => $itemField->id,
-                'value' => $itemField->value,
+                'parameterId' => $parameter->id,
+                'name' => $parameter->name,
+                'value' => $itemField->getValue(),
+                'typeParameterEnum' => $parameter->type->value,
+                'typeFieldEnum' => $itemField->getType()->value,
             ],
         ]);
 });
@@ -53,6 +61,6 @@ it('get itemField with invalid itemField uuid should return 404 with the game no
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'ItemField not found.',
+            'message' => 'FieldInterface not found.',
         ]);
 });

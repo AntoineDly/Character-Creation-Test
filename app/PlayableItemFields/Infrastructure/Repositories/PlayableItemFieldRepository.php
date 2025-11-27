@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\PlayableItemFields\Infrastructure\Repositories;
 
+use App\Fields\Infrastructure\Repositories\FieldRepositoryTrait;
 use App\PlayableItemFields\Domain\Models\PlayableItemField;
-use App\Shared\Infrastructure\Repositories\RepositoryTrait;
 
 final readonly class PlayableItemFieldRepository implements PlayableItemFieldRepositoryInterface
 {
-    /** @use RepositoryTrait<PlayableItemField> */
-    use RepositoryTrait;
+    /** @use FieldRepositoryTrait<PlayableItemField> */
+    use FieldRepositoryTrait;
 
     public function __construct(PlayableItemField $model)
     {

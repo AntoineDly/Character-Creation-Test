@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\ComponentFields\Application\Queries\GetComponentFieldQuery;
 
-use App\ComponentFields\Domain\Dtos\ComponentFieldDto\ComponentFieldDto;
-use App\ComponentFields\Domain\Services\ComponentFieldQueriesService;
 use App\ComponentFields\Infrastructure\Repositories\ComponentFieldRepositoryInterface;
+use App\Fields\Domain\Dtos\FieldDto\FieldDto;
+use App\Fields\Domain\Services\FieldServices;
 use App\Shared\Application\Queries\IncorrectQueryException;
 use App\Shared\Application\Queries\QueryHandlerInterface;
 use App\Shared\Application\Queries\QueryInterface;
@@ -15,17 +15,17 @@ final readonly class GetComponentFieldQueryHandler implements QueryHandlerInterf
 {
     public function __construct(
         private ComponentFieldRepositoryInterface $componentFieldRepository,
-        private ComponentFieldQueriesService $componentFieldQueriesService,
+        private FieldServices $fieldServices,
     ) {
     }
 
-    public function handle(QueryInterface $query): ComponentFieldDto
+    public function handle(QueryInterface $query): FieldDto
     {
         if (! $query instanceof GetComponentFieldQuery) {
             throw new IncorrectQueryException(data: ['handler' => self::class, 'currentQuery' => $query::class, 'expectedQuery' => GetComponentFieldQuery::class]);
         }
-        $componentField = $this->componentFieldRepository->findById($query->componentFieldId);
+        $componentField = $this->componentFieldRepository->findByIdWithParameters($query->componentFieldId);
 
-        return $this->componentFieldQueriesService->getComponentFieldDtoFromModel($componentField);
+        return $this->fieldServices->getFieldDtoFromFieldInterface($componentField);
     }
 }

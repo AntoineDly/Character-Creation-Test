@@ -26,7 +26,11 @@ it('get componentField with valid componentField uuid should return 200 with the
             'message',
             'data' => [
                 'id',
+                'parameterId',
+                'name',
                 'value',
+                'typeParameterEnum',
+                'typeFieldEnum',
             ],
         ])
         ->assertJson([
@@ -34,7 +38,11 @@ it('get componentField with valid componentField uuid should return 200 with the
             'message' => 'ComponentField was successfully retrieved.',
             'data' => [
                 'id' => $componentField->id,
-                'value' => $componentField->value,
+                'parameterId' => $parameter->id,
+                'name' => $parameter->name,
+                'value' => $componentField->getValue(),
+                'typeParameterEnum' => $parameter->type->value,
+                'typeFieldEnum' => $componentField->getType()->value,
             ],
         ]);
 });
@@ -45,6 +53,6 @@ it('get componentField with invalid componentField uuid should return 404 with t
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'ComponentField not found.',
+            'message' => 'FieldInterface not found.',
         ]);
 });

@@ -35,24 +35,32 @@ it('get playable item field with valid field uuid should return 200 with the fie
         'user_id' => $this->getUserId(),
     ];
 
-    $field = PlayableItemField::factory()->create($fieldData);
+    $playableItemField = PlayableItemField::factory()->create($fieldData);
 
-    $response = $this->getJson('/api/playable_item_fields/'.$field->id);
+    $response = $this->getJson('/api/playable_item_fields/'.$playableItemField->id);
     $response->assertStatus(200)
         ->assertJsonStructure([
             'success',
             'message',
             'data' => [
                 'id',
+                'parameterId',
+                'name',
                 'value',
+                'typeParameterEnum',
+                'typeFieldEnum',
             ],
         ])
         ->assertJson([
             'success' => true,
             'message' => 'PlayableItem Field was successfully retrieved.',
             'data' => [
-                'id' => $field->id,
-                'value' => $field->value,
+                'id' => $playableItemField->id,
+                'parameterId' => $parameter->id,
+                'name' => $parameter->name,
+                'value' => $playableItemField->getValue(),
+                'typeParameterEnum' => $parameter->type->value,
+                'typeFieldEnum' => $playableItemField->getType()->value,
             ],
         ]);
 });
@@ -63,6 +71,6 @@ it('get playable item field with invalid field uuid should return 404 with the p
         ->assertJsonStructure(['success', 'message'])
         ->assertJson([
             'success' => false,
-            'message' => 'PlayableItemField not found.',
+            'message' => 'FieldInterface not found.',
         ]);
 });

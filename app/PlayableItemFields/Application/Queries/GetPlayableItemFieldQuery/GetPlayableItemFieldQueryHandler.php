@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\PlayableItemFields\Application\Queries\GetPlayableItemFieldQuery;
 
-use App\PlayableItemFields\Domain\Dtos\PlayableItemFieldDto\PlayableItemFieldDto;
-use App\PlayableItemFields\Domain\Services\PlayableItemFieldQueriesService;
+use App\Fields\Domain\Dtos\FieldDto\FieldDto;
+use App\Fields\Domain\Services\FieldServices;
 use App\PlayableItemFields\Infrastructure\Repositories\PlayableItemFieldRepositoryInterface;
 use App\Shared\Application\Queries\IncorrectQueryException;
 use App\Shared\Application\Queries\QueryHandlerInterface;
@@ -15,17 +15,17 @@ final readonly class GetPlayableItemFieldQueryHandler implements QueryHandlerInt
 {
     public function __construct(
         private PlayableItemFieldRepositoryInterface $playableItemFieldRepository,
-        private PlayableItemFieldQueriesService $playableItemFieldQueriesService,
+        private FieldServices $fieldServices,
     ) {
     }
 
-    public function handle(QueryInterface $query): PlayableItemFieldDto
+    public function handle(QueryInterface $query): FieldDto
     {
         if (! $query instanceof GetPlayableItemFieldQuery) {
             throw new IncorrectQueryException(data: ['handler' => self::class, 'currentQuery' => $query::class, 'expectedQuery' => GetPlayableItemFieldQuery::class]);
         }
         $playableItemField = $this->playableItemFieldRepository->findById(id: $query->playableItemFieldId);
 
-        return $this->playableItemFieldQueriesService->getPlayableItemFieldDtoFromModel(playableItemField: $playableItemField);
+        return $this->fieldServices->getFieldDtoFromFieldInterface($playableItemField);
     }
 }

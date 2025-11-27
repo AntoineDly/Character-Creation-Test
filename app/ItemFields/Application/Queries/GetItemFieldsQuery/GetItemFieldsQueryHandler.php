@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\ItemFields\Application\Queries\GetItemFieldsQuery;
 
-use App\ItemFields\Domain\Dtos\ItemFieldDto\ItemFieldDto;
-use App\ItemFields\Domain\Dtos\ItemFieldDto\ItemFieldDtoCollection;
+use App\Fields\Domain\Dtos\FieldDto\FieldDto;
+use App\Fields\Domain\Services\FieldServices;
 use App\ItemFields\Domain\Models\ItemField;
-use App\ItemFields\Domain\Services\ItemFieldQueriesService;
 use App\ItemFields\Infrastructure\Repositories\ItemFieldRepositoryInterface;
 use App\Shared\Application\Queries\IncorrectQueryException;
 use App\Shared\Application\Queries\QueryHandlerInterface;
@@ -17,16 +16,16 @@ use App\Shared\Domain\SortAndPagination\Dtos\DtosWithPaginationDto\DtosWithPagin
 
 final readonly class GetItemFieldsQueryHandler implements QueryHandlerInterface
 {
-    /** @use DtosWithPaginationBuilderHelper<ItemField, ItemFieldDto> */
+    /** @use DtosWithPaginationBuilderHelper<ItemField, FieldDto> */
     use DtosWithPaginationBuilderHelper;
 
     public function __construct(
         private ItemFieldRepositoryInterface $itemFieldRepository,
-        private ItemFieldQueriesService $itemFieldQueriesService,
+        private FieldServices $fieldServices,
     ) {
     }
 
-    /** @return DtosWithPaginationDto<ItemFieldDto> */
+    /** @return DtosWithPaginationDto<FieldDto> */
     public function handle(QueryInterface $query): DtosWithPaginationDto
     {
         if (! $query instanceof GetItemFieldsQuery) {
@@ -34,7 +33,7 @@ final readonly class GetItemFieldsQueryHandler implements QueryHandlerInterface
         }
         $itemFields = $this->itemFieldRepository->index($query->sortedAndPaginatedDto);
 
-        $dtoCollection = ItemFieldDtoCollection::fromMap(fn (?ItemField $itemField) => $this->itemFieldQueriesService->getItemFieldDtoFromModel(itemField: $itemField), $itemFields->items());
+        $dtoCollection = $this->fieldServices->getFieldDtoCollectionFromFieldInterfaces($itemFields->items());
 
         return $this->getDtosWithPaginationDtoFromDtosAndLengthAwarePaginator($dtoCollection->getReadonlyCollection(), $itemFields);
     }

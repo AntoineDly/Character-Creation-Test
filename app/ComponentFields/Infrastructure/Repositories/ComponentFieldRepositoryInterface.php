@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\ComponentFields\Infrastructure\Repositories;
 
 use App\ComponentFields\Domain\Models\ComponentField;
-use App\Shared\Infrastructure\Repositories\RepositoryInterface;
+use App\Fields\Infrastructure\Repositories\FieldRepositoryInterface;
 
 /**
- * @extends RepositoryInterface<ComponentField>
+ * @extends FieldRepositoryInterface<ComponentField>
  */
-interface ComponentFieldRepositoryInterface extends RepositoryInterface
+interface ComponentFieldRepositoryInterface extends FieldRepositoryInterface
 {
 }

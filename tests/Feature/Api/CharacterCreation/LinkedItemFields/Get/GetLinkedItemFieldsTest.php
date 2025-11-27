@@ -50,7 +50,7 @@ it('get linked item fields should return 200 with fields', function () {
         'user_id' => $this->getUserId(),
     ];
 
-    $field = LinkedItemField::factory()->create($fieldData);
+    $linkedItemField = LinkedItemField::factory()->create($fieldData);
 
     $response = $this->getJson('/api/linked_item_fields');
     $response->assertStatus(200)
@@ -59,9 +59,13 @@ it('get linked item fields should return 200 with fields', function () {
             'message',
             'data' => [
                 'dtos' => [
-                    [
+                    $parameter->name => [
                         'id',
+                        'parameterId',
+                        'name',
                         'value',
+                        'typeParameterEnum',
+                        'typeFieldEnum',
                     ],
                 ],
                 'paginationDto' => ['currentPage',
@@ -70,7 +74,8 @@ it('get linked item fields should return 200 with fields', function () {
                     'firstPage',
                     'previousPage',
                     'nextPage',
-                    'lastPage', ],
+                    'lastPage',
+                ],
             ],
         ])
         ->assertJson([
@@ -78,9 +83,13 @@ it('get linked item fields should return 200 with fields', function () {
             'message' => 'LinkedItem Fields were successfully retrieved.',
             'data' => [
                 'dtos' => [
-                    [
-                        'id' => $field->id,
-                        'value' => $field->value,
+                    $parameter->name => [
+                        'id' => $linkedItemField->id,
+                        'parameterId' => $parameter->id,
+                        'name' => $parameter->name,
+                        'value' => $linkedItemField->getValue(),
+                        'typeParameterEnum' => $parameter->type->value,
+                        'typeFieldEnum' => $linkedItemField->getType()->value,
                     ],
                 ],
                 'paginationDto' => ['currentPage' => 1,

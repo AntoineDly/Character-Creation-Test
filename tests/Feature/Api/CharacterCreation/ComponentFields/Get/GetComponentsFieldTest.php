@@ -37,9 +37,13 @@ it('get componentFields should return 200 with componentFields', function () {
             'message',
             'data' => [
                 'dtos' => [
-                    [
+                    $parameter->name => [
                         'id',
+                        'parameterId',
+                        'name',
                         'value',
+                        'typeParameterEnum',
+                        'typeFieldEnum',
                     ],
                 ],
                 'paginationDto' => [
@@ -58,9 +62,13 @@ it('get componentFields should return 200 with componentFields', function () {
             'message' => 'ComponentFields were successfully retrieved.',
             'data' => [
                 'dtos' => [
-                    [
+                    $parameter->name => [
                         'id' => $componentField->id,
-                        'value' => $componentField->value,
+                        'parameterId' => $parameter->id,
+                        'name' => $parameter->name,
+                        'value' => $componentField->getValue(),
+                        'typeParameterEnum' => $parameter->type->value,
+                        'typeFieldEnum' => $componentField->getType()->value,
                     ],
                 ],
                 'paginationDto' => [

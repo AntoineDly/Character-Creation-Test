@@ -45,9 +45,13 @@ it('get itemFields should return 200 with itemFields', function () {
             'message',
             'data' => [
                 'dtos' => [
-                    [
+                    $parameter->name => [
                         'id',
+                        'parameterId',
+                        'name',
                         'value',
+                        'typeParameterEnum',
+                        'typeFieldEnum',
                     ],
                 ],
                 'paginationDto' => ['currentPage',
@@ -56,7 +60,8 @@ it('get itemFields should return 200 with itemFields', function () {
                     'firstPage',
                     'previousPage',
                     'nextPage',
-                    'lastPage', ],
+                    'lastPage',
+                ],
             ],
         ])
         ->assertJson([
@@ -64,9 +69,13 @@ it('get itemFields should return 200 with itemFields', function () {
             'message' => 'ItemFields were successfully retrieved.',
             'data' => [
                 'dtos' => [
-                    [
+                    $parameter->name => [
                         'id' => $itemField->id,
-                        'value' => $itemField->value,
+                        'parameterId' => $parameter->id,
+                        'name' => $parameter->name,
+                        'value' => $itemField->getValue(),
+                        'typeParameterEnum' => $parameter->type->value,
+                        'typeFieldEnum' => $itemField->getType()->value,
                     ],
                 ],
                 'paginationDto' => ['currentPage' => 1,

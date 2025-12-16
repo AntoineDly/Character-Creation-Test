@@ -40,7 +40,7 @@ final readonly class GetUserQueryHandler implements QueryHandlerInterface
         }
 
         try {
-            $token = $user->createToken('Laravel Personal Access Client')->accessToken;
+            $token = $user->createToken('CharacterCreationAPI Personal Access Client')->accessToken;
         } catch (Throwable $e) {
             throw new CantCreateTokenException(message: 'The token could not be created => '.$e->getMessage());
         }

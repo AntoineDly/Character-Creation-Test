@@ -35,7 +35,8 @@ RUN apk update && apk add --no-cache \
     php${PHP_VERSION}-json \
     php${PHP_VERSION}-openssl \
     php${PHP_VERSION}-pdo \
-    php${PHP_VERSION}-pdo_mysql \
+    php${PHP_VERSION}-pdo_pgsql \
+    php${PHP_VERSION}-pgsql \
     php${PHP_VERSION}-dom \
     php${PHP_VERSION}-session
 
@@ -53,7 +54,20 @@ FROM base AS dev
 
 WORKDIR /var/www/html
 
-COPY . .
+COPY app app
+COPY bootstrap bootstrap
+COPY routes routes
+COPY resources resources
+COPY database database
+COPY config config
+COPY storage storage
+COPY .env .env
+COPY .env.example .env.example
+COPY artisan artisan
+COPY phpstan.neon phpstan.neon
+COPY phpunit.xml phpunit.xml
+COPY pint.json pint.json
+COPY entrypoint.sh entrypoint.sh
 COPY --from=not_production_vendor_builder /app/vendor vendor/
 
 EXPOSE 8000

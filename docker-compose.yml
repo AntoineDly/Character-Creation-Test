@@ -1,11 +1,52 @@
 services:
     api:
+        container_name: api
+        command: sh
+        tty: true
+        stdin_open: true
         build:
             context: .
             dockerfile: Dockerfile
         ports:
             - "8000:8000"
         volumes:
-            - .:/var/www/html
-            - /var/www/html/vendor
+            - ./app:/var/www/html/app
+            - ./bootstrap:/var/www/html/bootstrap
+            - ./routes:/var/www/html/routes
+            - ./resources:/var/www/html/resources
+            - ./database:/var/www/html/database
+            - ./config:/var/www/html/config
+            - ./storage:/var/www/html/storage
+            - ./.env:/var/www/html/.env
+            - ./.env.example:/var/www/html/.env.example
+            - ./artisan:/var/www/html/artisan
+            - ./phpstan.neon:/var/www/html/phpstan.neon
+            - ./phpunit.xml:/var/www/html/phpunit.xml
+            - ./pint.json:/var/www/html/pint.json
+            - ./entrypoint.sh:/var/www/html/entrypoint.sh
+        depends_on:
+            db:
+                condition: service_healthy
+                restart: true
+
+    db:
+        container_name: db
+        image: postgres:18-alpine3.22
+        environment:
+            - POSTGRES_DB=${DB_DATABASE}
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+        ports:
+            - "${DB_PORT}:5432"
+        volumes:
+            - db_data:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+
+volumes:
+    db_data:
 

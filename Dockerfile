@@ -1,14 +1,5 @@
 # COMPOSER
 
-## COMPOSER WITH DEV DEPENDENCIIES FOR DEV OR CI
-FROM composer:2.8.0 AS not_production_vendor_builder
-
-WORKDIR /app
-
-COPY composer.json composer.lock ./
-
-RUN composer install --no-ansi --no-interaction --no-scripts
-
 ## COMPOSER WITHOUT DEV DEPENDENCIIES FOR PROD
 FROM composer:2.8.0 AS production_vendor_builder
 
@@ -16,7 +7,7 @@ WORKDIR /app
 
 COPY composer.json composer.lock ./
 
-RUN composer install --no-ansi --no-interaction --no-scripts --no-dev --optimize-autoloader
+RUN --mount=type=cache,target=/tmp/cache  composer install --no-ansi --no-interaction --no-scripts --no-dev --optimize-autoloader --prefer-dist
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------- #
 
@@ -47,28 +38,24 @@ WORKDIR /app
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------- #
 
+# INTERMEDIARY BUILD IMAGES
+
+FROM base as build-ci-dev
+
+RUN apk add --no-cache composer
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------- #
+
 # FINAL BUILD IMAGES
 
 ## DEV IMAGE
-FROM base AS dev
+FROM build-ci-dev AS dev
 
 WORKDIR /var/www/html
 
-COPY app app
-COPY bootstrap bootstrap
-COPY routes routes
-COPY resources resources
-COPY database database
-COPY config config
-COPY storage storage
-COPY .env .env
-COPY .env.example .env.example
-COPY artisan artisan
-COPY phpstan.neon phpstan.neon
-COPY phpunit.xml phpunit.xml
-COPY pint.json pint.json
-COPY entrypoint.sh entrypoint.sh
-COPY --from=not_production_vendor_builder /app/vendor vendor/
+COPY . .
+
+RUN composer install
 
 EXPOSE 8000
 

@@ -10,20 +10,9 @@ services:
         ports:
             - "8000:8000"
         volumes:
-            - ./app:/var/www/html/app
-            - ./bootstrap:/var/www/html/bootstrap
-            - ./routes:/var/www/html/routes
-            - ./resources:/var/www/html/resources
-            - ./database:/var/www/html/database
-            - ./config:/var/www/html/config
-            - ./storage:/var/www/html/storage
-            - ./.env:/var/www/html/.env
-            - ./.env.example:/var/www/html/.env.example
-            - ./artisan:/var/www/html/artisan
-            - ./phpstan.neon:/var/www/html/phpstan.neon
-            - ./phpunit.xml:/var/www/html/phpunit.xml
-            - ./pint.json:/var/www/html/pint.json
-            - ./entrypoint.sh:/var/www/html/entrypoint.sh
+            - .:/var/www/html
+            # To exclude the binding of the vendor, I recreate a volume without binding of them, replacing the previous binding
+            - /var/www/html/vendor
         depends_on:
             db:
                 condition: service_healthy
